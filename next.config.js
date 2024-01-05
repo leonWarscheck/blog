@@ -1,10 +1,10 @@
-// const withMDX = require('@next/mdx')();
+const withMDX = require('@next/mdx')();
 
 
-// /** @type {import('next').NextConfig} */
-// const nextConfig = {
-//   reactStrictMode: true,
-//   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
-//   },
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
+  }
 
-// module.exports = withMDX(nextConfig);
+module.exports = withMDX(nextConfig);
