@@ -1,4 +1,5 @@
 import { getAllPostIds, getPostData } from '../../utils/postsData';
+import SubscribeFormOnPage from '../../components/SubscribeFormOnPage';
 import Head from 'next/head';
 import Date from '../../components/date';
 
@@ -36,6 +37,7 @@ export default function Post({ postData }) {
        <Date dateString={postData.date} />
       <br />
       <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+      <SubscribeFormOnPage/>
   </>
 
   );
