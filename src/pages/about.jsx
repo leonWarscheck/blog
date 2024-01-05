@@ -9,7 +9,7 @@ export default function aboutPage(){
         <p>Leon is a Fullstack Senior Developer at MonkeyType. 
         After studying music production he exploredWebdevelopment and became a programmer.He is specialized in React and Node and has a strong passion for communication protocols.
 </p>
-<p>Other Interests/ Skills:- The Art of Learning, - Systems Thinking, - Sales/ Entrepreneurship/ Economy, 
+<p>Other Interests/ Skills:- The Art of Learning, - Systems Thinking, - Sales/ Entrepreneurship, 
 - Trauma/ Psychology,- and Media Design.</p>
         </>
     )
