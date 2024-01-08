@@ -1,0 +1,16 @@
+
+  ::-webkit-scrollbar {
+    /* visibility: hidden; */
+    width: 0.5rem;
+    height: 50px;
+  }
+
+  ::-webkit-scrollbar-track {
+    /* visibility: hidden;  */
+     background: #404040;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    /* visibility: hidden; */
+    background: #262626;
+  } 

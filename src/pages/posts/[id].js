@@ -26,17 +26,17 @@ export async function getStaticProps({ params }) {
 
 export default function Post({ postData }) {
   return (
-  <>
+  <main className='max-w-2xl mx-auto pt-28'>
    <Head>
-        <title>{postData.title}</title>
+        <title>{postData.headtitle}</title>
       </Head>
-      {postData.title}
-      <br />
+      <h1 className='font-bold text-3xl'>{postData.title}</h1>
+      <br /> 
        <Date dateString={postData.date} />
       <br />
       <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
       <SubscribeFormOnPage/>
-  </>
+  </main>
 
   );
 }

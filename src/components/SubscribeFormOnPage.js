@@ -24,9 +24,9 @@ const handleSubscribe = async (event) => {
   };
 
   return (
-    <div className="">
+    <div className=" bg-neutral-800">
       <h2>Let’s stay connected. High-Signal-Only Email Updates.</h2>
-      <form className="bg-white p-4 shadow-lg rounded-md" onSubmit={handleSubscribe}>
+      <form className="bg-neutral-800 p-4 shadow-lg rounded-md" onSubmit={handleSubscribe}>
         <input
           type="email"
           name="email"

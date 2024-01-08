@@ -22,22 +22,21 @@ export async function getStaticProps() {
 
 export default function Home({allPostsData2 }) {
   return (
-    <main className='bg-gray-500'>
-
-    <section>
+    <main className='max-w-2xl mx-auto pt-24'>
         <ul className=''>
           {allPostsData2.map(({ id, date, title, preview }) => ( // why map? why not just .id .date etc?
             <Link href={`/posts/${id}`} key={id}>
-            <li className='mb-4 p-4 border rounded bg-purple-500' >
-              <h2>{title}</h2>
+            <li className='pb-12' >
+              <h2 className='font-bold text-2xl'>{title}</h2>
+         <h2 className='italic'>
               <Date dateString={date} />
-         <p>{preview}
+         </h2>
+         <p className=''>{preview}
             </p> 
           </li>
             </Link>
           ))}
         </ul>
-      </section> 
     </main>
   )
 }

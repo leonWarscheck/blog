@@ -12,11 +12,11 @@ const Footer = () => {
     setShowSubscription(false);
   };
   return (
-    <footer>
+    <footer className="bg-neutral-800 bottom-0 w-full">
    <Link href="/imprint">Imprint</Link> 
-       <button className="text-red-500" onClick={handleSubscribeClick}>
+       {/* <button className="text-red-500" onClick={handleSubscribeClick}>
         Subscribe
-      </button>
+      </button> */}
 
       {showSubscription && <SubscribeForm onCancel={handleCancel} onSubscribe={handleCancel} />}
     </footer>
