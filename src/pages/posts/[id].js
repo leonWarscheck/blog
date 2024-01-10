@@ -2,6 +2,10 @@ import { getAllPostIds, getPostData } from '../../utils/postsData';
 import SubscribeFormOnPage from '../../components/SubscribeFormOnPage';
 import Head from 'next/head';
 import Date from '../../components/date';
+import { MDXProvider } from '@mdx-js/react';
+import { components } from '../../utils/mdx-components';
+
+
 
 export async function getStaticPaths() {
   const paths = getAllPostIds();
@@ -34,7 +38,9 @@ export default function Post({ postData }) {
       <br /> 
        <Date dateString={postData.date} />
       <br />
+      <MDXProvider components={ components }>
       <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+      </MDXProvider>
       <SubscribeFormOnPage/>
   </main>
 
