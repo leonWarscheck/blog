@@ -16,8 +16,8 @@ const Navbar = () => {
   };
 
   return (
-    <header className="fixed w-full">
-      <nav className="flex h-16 items-center justify-between bg-neutral-800 relative p-3 w-full ">
+    <header className="">
+      <nav className="h-16 bg-neutral-800">
           <Link
             className="font-semibold text-3xl text-violet-500 hover:text-neutral-400"
             href="/"
