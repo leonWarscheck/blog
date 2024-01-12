@@ -22,8 +22,8 @@ export async function getStaticProps() {
 
 export default function Home({allPostsData2 }) {
   return (
-    <main className=' mx-auto pt-24'>
-        <ul className=''>
+    <main className='flex flex-col h-full '>
+        <ul className='pt-24'>
           {allPostsData2.map(({ id, date, title, preview }) => ( 
             <Link href={`/posts/${id}`} key={id}>
             <li className='mb-12' >

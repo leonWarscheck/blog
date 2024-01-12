@@ -30,7 +30,7 @@ export async function getStaticProps({ params }) {
 
 export default function Post({ postData }) {
   return (
-  <main className='max-w-2xl mx-auto pt-28'>
+  <main className=' pt-28 flex flex-col '>
    <Head>
         <title>{postData.headtitle}</title>
       </Head>
