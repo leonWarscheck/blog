@@ -2,6 +2,15 @@ import { getAllPostIds, getPostData } from '../../utils/postsData';
 import SubscribeFormOnPage from '../../components/SubscribeFormOnPage';
 import Head from 'next/head';
 import Date from '../../components/date';
+import { MDXProvider } from '@mdx-js/react';
+// import { components } from '../../utils/mdx-components';
+
+/** @type {import('mdx/types.js').MDXComponents} */
+const components = {
+  h2(props) {
+    return <h2 {...props} className='text-3xl' />
+  }
+}
 
 export async function getStaticPaths() {
   const paths = getAllPostIds();
@@ -25,18 +34,21 @@ export async function getStaticProps({ params }) {
 }
 
 export default function Post({ postData }) {
+  console.log("components", components)
   return (
-  <>
+  <main className=' pt-28 grow'>
    <Head>
-        <title>{postData.title}</title>
+        <title>{postData.headtitle}</title>
       </Head>
-      {postData.title}
-      <br />
+      <h1 className='font-bold text-3xl'>{postData.title}</h1>
+      <br /> 
        <Date dateString={postData.date} />
       <br />
+      <MDXProvider components={ components }>
       <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+      </MDXProvider>
       <SubscribeFormOnPage/>
-  </>
+  </main>
 
   );
 }

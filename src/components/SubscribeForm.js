@@ -24,25 +24,23 @@ const handleSubscribe = async (event) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <form className="bg-white p-4 shadow-lg rounded-md" onSubmit={handleSubscribe}>
+      <form className="absolute bg-neutral-800   h-full top-0 flex mx-auto max-w-2xl" onSubmit={handleSubscribe}>
         <input
           type="email"
           name="email"
           placeholder="Email"
-          className="p-2 border border-gray-300 rounded-md"
+          className=" text-2xl  pl-4 w-80 focus:outline-none bg-neutral-600 text-neutral-300  "
           required
           autoCapitalize="off"
           autoCorrect="off"
         />
-        <button className="ml-2 px-4 py-2 bg-red-500 text-white rounded-md" type="submit">
+        <button className="text-2xl text-red-500 pl-4" type="submit">
           Subscribe
         </button>
-        <button className="ml-2 px-4 py-2 bg-gray-500 text-white rounded-md" onClick={onCancel}>
+        <button className="mx-8 text-2xl    text-neutral-600 " onClick={onCancel}>
           Cancel
         </button>
       </form>
-    </div>
   );
 };
 
