@@ -22,7 +22,7 @@ export async function getStaticProps() {
 
 export default function Home({allPostsData2 }) {
   return (
-    <main className=''>
+    <main className='grow'>
         <ul className='pt-24'>
           {allPostsData2.map(({ id, date, title, preview }) => ( 
             <Link href={`/posts/${id}`} key={id}>

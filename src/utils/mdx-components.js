@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
-import NativeLink from 'next/link';
+import NativeLink from "next/link";
 // import Highlight, { defaultProps } from 'prism-react-renderer';
 // import nightOwl from 'prism-react-renderer/themes/nightOwl';
 // import nightOwlLight from 'prism-react-renderer/themes/nightOwlLight';
 // import { mergeDeepRight } from 'ramda';
-import React from 'react';
+import React from "react";
 
-export const GenericLink = props => {
-  if (props.href.startsWith('/') && !props.href.startsWith('/docs')) {
+export const GenericLink = (props) => {
+  if (props.href.startsWith("/") && !props.href.startsWith("/docs")) {
     return <InternalLink {...props} />;
   }
 
@@ -36,12 +36,12 @@ const BlockQuote = ({ children }) => (
 );
 
 const Code = ({ children, className }) => {
-  const language = className?.replace(/language-/, '');
+  const language = className?.replace(/language-/, "");
   const isDarkModeActive = true;
 
   const theme = isDarkModeActive
-    ? mergeDeepRight(nightOwl, { plain: { backgroundColor: '#141414' } })
-    : mergeDeepRight(nightOwlLight, { plain: { backgroundColor: '#ffffff' } });
+    ? mergeDeepRight(nightOwl, { plain: { backgroundColor: "#141414" } })
+    : mergeDeepRight(nightOwlLight, { plain: { backgroundColor: "#ffffff" } });
 
   return (
     <Highlight
@@ -66,12 +66,12 @@ const Code = ({ children, className }) => {
 };
 
 const H2 = ({ children }) => (
-  <h2 className="mdx-component--heading-two">{children}</h2>
+  <h2 className="mdx-component--heading-two text-3xl">{children}</h2>
 );
 
 const Img = ({ className, ...props }) => (
   // eslint-disable-next-line jsx-a11y/alt-text
-  <img className={`${className || ''} mdx-component--img`} {...props} />
+  <img className={`${className || ""} mdx-component--img`} {...props} />
 );
 
 const InlineCode = ({ children }) => (
