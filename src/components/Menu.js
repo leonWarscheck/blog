@@ -9,7 +9,7 @@ export default function Menu() {
   };
   return (
     <>
-      <button className="group flex gap-1 sm:hidden " onClick={handleMenuOpen}>
+      <button className="group flex ml-auto gap-1 sm:hidden pr-2" onClick={handleMenuOpen}>
         <div
           className={`size-7 rounded-full ${
             menuOpen ? "bg-neutral-500" : "bg-orange-500"

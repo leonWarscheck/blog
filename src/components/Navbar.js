@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import SubscribeForm from "./SubscribeForm";
+import SubscribeForm from "./SubscribeFormNavbar";
 import { useState } from "react";
 import Menu from "./Menu";
 
@@ -16,15 +16,16 @@ const Navbar = () => {
   };
 
   return (
-    <header className="">
-      <nav className="h-16 bg-neutral-800">
+    <header className="relative">
+      <nav className="h-16 bg-neutral-800 items-center flex fixed w-full">
+        <div className=" max-w-2xl  mx-auto flex flex-grow items-center px-4">
           <Link
-            className="font-semibold text-3xl text-violet-500 hover:text-neutral-400"
+            className=" font-semibold text-3xl text-violet-500 hover:text-neutral-400"
             href="/"
           >
             <h1>LeonAndersen</h1>
           </Link>
-          <ul className="hidden sm:flex items-center space-x-4 ml-auto  ">
+          <ul className="hidden sm:flex space-x-4 ml-auto pr-0">
             <li>
               <Link
                 className="text-2xl text-orange-la hover:text-neutral-400"
@@ -49,6 +50,7 @@ const Navbar = () => {
             </li>
           </ul>
           <Menu />
+        </div>
       </nav>
     </header>
   );

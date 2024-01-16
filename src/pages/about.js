@@ -2,7 +2,7 @@ import Head from "next/head";
 
 export default function aboutPage() {
   return (
-    <main className="max-w-2xl mx-auto pt-28 grow">
+    <main className="max-w-2xl mx-auto pt-28 pb-20 px-4 grow">
       <Head>
         <title>About Leon Andersen</title>
       </Head>

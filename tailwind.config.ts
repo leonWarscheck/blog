@@ -8,6 +8,23 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      // fontFamily: {
+      //   sans: ['Open Sans', 'sans-serif'],
+      //   serif: ['Open Sans', 'serif'],
+      //   mono: ['Open Sans', 'monospace'],
+      // },
+      fontFamily: {
+        // roboto: ['Roboto', 'sans-serif'],
+        // lato: ['Lato', 'sans-serif'],
+        // inter: ['Inter', 'sans-serif'],
+        // nunito: ['Nunito', 'sans-serif'],
+        sans: ['var(--font-nunito)'],
+
+      },
+      fontSize: {
+        'xxs': '6.5px',
+      'la1': ['26.2px', '32px'],
+      },
       colors: {
         orange: {
           'la': '#ff8632',

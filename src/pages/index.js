@@ -22,16 +22,16 @@ export async function getStaticProps() {
 
 export default function Home({allPostsData2 }) {
   return (
-    <main className='grow'>
+    <main className='grow max-w-2xl mx-auto px-4'>
         <ul className='pt-24'>
           {allPostsData2.map(({ id, date, title, preview }) => ( 
             <Link href={`/posts/${id}`} key={id}>
             <li className='mb-12' >
-              <h2 className='font-bold text-2xl hover:text-neutral-400 '>{title}</h2>
-         <h2 className=' text-sm pb-3'>
+              <h2 className='font-semibold text-2xl hover:text-neutral-400 '>{title}</h2>
+         <h2 className=' text-sm pb-4'>
               <Date dateString={date} />
          </h2>
-          <p className=''>{preview}
+          <p className='text-justify'>{preview}
             </p> 
           </li>
             </Link>
