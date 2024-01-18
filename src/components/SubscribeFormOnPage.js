@@ -24,20 +24,20 @@ const handleSubscribe = async (event) => {
   };
 
   return (
-    <div className=" bg-neutral-800">
-      <h2>Let’s stay connected. High-Signal-Only Email Updates.</h2>
-      <form className="bg-neutral-800 p-4 shadow-lg rounded-md" onSubmit={handleSubscribe}>
+    <div className="bg-neutral-800">
+      <h2 className="text-2xl text-justify text-neutral-400 hover:text-violet-500"><span className="">Let’s stay connected.</span><br/> <span className="">High-Signal-Only Email Updates.</span></h2>
+      <form className="" onSubmit={handleSubscribe}>
         <input
           type="email"
           name="email"
           placeholder="Email"
-          className="p-2 border border-gray-300 rounded-md"
+          className=" placeholder:text-neutral-800 font-semibold placeholder:hover:text-orange-la text-2xl focus:outline-none bg-neutral-600 text-neutral-100 "
           required
           autoCapitalize="off"
           autoCorrect="off"
         />
-        <button className="ml-2 px-4 py-2 bg-red-500 text-white rounded-md" type="submit">
-          Subscribe
+        <button className="text-2xl font- text-red-500 px-2 hover:text-neutral-300" type="submit">
+          Subscribe.
         </button>
       </form>
     </div>

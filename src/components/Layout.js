@@ -9,7 +9,7 @@ const nunito = Open_Sans({
 
 const Layout = ({ children }) => {
   return (
-    <div className={`${nunito.variable} font-sans flex flex-col min-h-screen`}>
+    <div className={`${nunito.variable} font-sans selection:bg-neutral-800 flex flex-col min-h-screen`}>
       <Navbar />
       {children}
       <Footer />

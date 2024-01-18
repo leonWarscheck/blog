@@ -2,7 +2,7 @@ export default function page404() {
   return (
     <main className="grow flex flex-col mx-auto max-w-2xl pt-20 ">
       {/* prettier-ignore */}
-      <pre className="mx-auto pt-16 text-xs sm:text-la1  xl:text-la1 font-bold bg-gradient-to-b from-violet-500 to-emerald-500 bg-clip-text text-transparent">
+      <pre className="mx-auto pt-16 text-xs sm:text-la1  xl:text-la1 font-bold bg-gradient-to-b from-violet-500 to-emerald-la bg-clip-text text-transparent">
 NOT FOUND ERROR 404/ NOT FOUND ERROR 404<br/>
 ----------------------------------------<br/>
 #          :::      :::::::      :::   #<br/>

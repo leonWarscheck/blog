@@ -19,19 +19,38 @@ const config: Config = {
         // inter: ['Inter', 'sans-serif'],
         // nunito: ['Nunito', 'sans-serif'],
         sans: ['var(--font-nunito)'],
-
+      },
+      screens: {
+        'c1': '854px',
+      },
+      spacing: {
+        'c1': '114px',
       },
       fontSize: {
         'xxs': '6.5px',
-      'la1': ['26.2px', '32px'],
+      'la1': ['26.5px', '31px'],
       },
       colors: {
         orange: {
           'la': '#ff8632',
+          // 'la': '#ff6446',
         },
         emerald: {
           'la': '#25ffa8',
         },
+        yellow: {
+          'la': '#ffe34a'
+        },
+        blue: {
+          'la': '#5a8dff'
+        },
+        red: {
+          'la': '#ff3636'
+        },
+        violet: {
+          'la': '#9372ff'
+        }
+
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

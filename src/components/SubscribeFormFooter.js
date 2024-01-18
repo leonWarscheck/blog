@@ -24,12 +24,12 @@ const handleSubscribe = async (event) => {
   };
 
   return (
-      <form className=" bg-neutral-800 flex grow absolute bottom-0  " onSubmit={handleSubscribe}>
+      <form className="h-full text-sm bg-neutral-800 flex grow absolute bottom-0 items-center justify-center  -right-14 " onSubmit={handleSubscribe}>
         <input
           type="email"
           name="email"
           placeholder="Email"
-          className=" pl-3 focus:outline-none bg-neutral-600 text-neutral-300  "
+          className=" pl-3  focus:outline-none bg-neutral-600 text-neutral-300  "
           required
           autoCapitalize="off"
           autoCorrect="off"

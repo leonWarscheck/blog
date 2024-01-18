@@ -24,12 +24,12 @@ const handleSubscribe = async (event) => {
   };
 
   return (
-      <form className="absolute bg-neutral-800   h-full top-0 flex mx-auto max-w-2xl" onSubmit={handleSubscribe}>
+      <form className="absolute bg-neutral-800 -right-c1 flex grow  " onSubmit={handleSubscribe}>
         <input
           type="email"
           name="email"
           placeholder="Email"
-          className=" text-2xl  pl-4 w-80 focus:outline-none bg-neutral-600 text-neutral-300  "
+          className=" text-2xl pl-4 w-64 h-16 focus:outline-none bg-neutral-600 text-neutral-300  "
           required
           autoCapitalize="off"
           autoCorrect="off"
@@ -37,7 +37,7 @@ const handleSubscribe = async (event) => {
         <button className="text-2xl text-red-500 pl-4" type="submit">
           Subscribe
         </button>
-        <button className="mx-8 text-2xl    text-neutral-600 " onClick={onCancel}>
+        <button className="mx-5 text-2xl    text-neutral-700 " onClick={onCancel}>
           Cancel
         </button>
       </form>

@@ -36,7 +36,7 @@ export async function getStaticProps({ params }) {
 export default function Post({ postData }) {
   console.log("components", components)
   return (
-  <main className=' pt-28 grow max-w-4xl'>
+  <main className=' pt-28 grow max-w-4xl '>
    <Head>
         <title>{postData.headtitle}</title>
       </Head>
