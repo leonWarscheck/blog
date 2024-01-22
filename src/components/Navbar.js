@@ -46,7 +46,7 @@ const Navbar = () => {
               <button
                 className="text-2xl text-red-500 hover:text-neutral-400"
                 onClick={handleSubscribeClick}
-              >
+            >
                 Subscribe
               </button>
               {showSubscription && (

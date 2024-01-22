@@ -18,13 +18,14 @@ const config: Config = {
         // lato: ['Lato', 'sans-serif'],
         // inter: ['Inter', 'sans-serif'],
         // nunito: ['Nunito', 'sans-serif'],
-        sans: ['var(--font-nunito)'],
+        opensans: ['var(--font-opensans)'],
       },
       screens: {
         'c1': '854px',
       },
       spacing: {
         'c1': '114px',
+        'c2': '55.5px',
       },
       fontSize: {
         'xxs': '6.5px',

@@ -24,7 +24,7 @@ const handleSubscribe = async (event) => {
   };
 
   return (
-      <form className="h-full text-sm bg-neutral-800 flex grow absolute bottom-0 items-center justify-center  -right-14 " onSubmit={handleSubscribe}>
+      <form className="h-full text-sm bg-neutral-800 flex grow absolute bottom-0 items-center justify-center  -right-c2 " onSubmit={handleSubscribe}>
         <input
           type="email"
           name="email"
