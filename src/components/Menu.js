@@ -36,21 +36,21 @@ export default function Menu() {
         onClick={handleMenuOpen}
       >
         <div
-          className={`size-7 rounded-full ${
+          className={`size-6 rounded-full ${
             menuOpen ? "bg-neutral-500" : "bg-orange-500"
           }`}
         />
         <div
-          className={`size-7 rounded-full ${
+          className={`size-6 rounded-full ${
             menuOpen ? "bg-neutral-500" : "bg-red-500"
           }`}
         />
       </button>
 
       {menuOpen && (
-        <div className="bg-neutral-800 flex flex-col  c1:hidden text-2xl  font- absolute left-0 right-0 top-16 min-h-[calc(100vh-4rem)]    ">
+        <div className="bg-neutral-800 flex flex-col  c1:hidden text-2xl  font- absolute left-0 right-0 top-12 min-h-[calc(100vh-3rem)]    ">
           <ul className=" w-full px-4 max-w-2xl mx-auto flex flex-col grow justify-evenly ">
-            <li className=" ">
+            {/* <li className=" ">
               <Link
                 onClick={handleMenuOpen}
                 className=" text-amber-400 w-full py-11 border-r-4 border-amber-400 flex hover:text-neutral-400"
@@ -58,7 +58,7 @@ export default function Menu() {
               >
                 Tools
               </Link>
-            </li>
+            </li> */}
             <li className=" ">
               <Link
                 onClick={handleMenuOpen}
@@ -74,7 +74,7 @@ export default function Menu() {
                   type="email"
                   name="email"
                   placeholder="Email"
-                  className=" border-r-4  border-red-500 placeholder:text-neutral-800 placeholder:text- absolute  top-0 w-full    focus:outline-none bg-neutral-600 text-neutral-400 "
+                  className=" border-r-4  border-red-500 placeholder:text-neutral-800 pl-1 placeholder:hover:text-neutral-400 absolute  top-0 w-full    focus:outline-none bg-neutral-600 text-neutral-400 "
                   required
                   autoCapitalize="off"
                   autoCorrect="off"

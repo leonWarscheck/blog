@@ -12,7 +12,7 @@ const Footer = () => {
     setShowSubscription(false);
   };
   return (
-    <footer className="  bg-neutral-800 text-neutral-700 w-full">
+    <footer className=" bg-neutral-800 text-neutral-700 w-full">
       <div className="flex max-w-2xl mx-auto px-4">
         <div className=" hidden c1:flex grow  items-center ">
           <Link className="text-sm  hover:text-neutral-500" href="/">
