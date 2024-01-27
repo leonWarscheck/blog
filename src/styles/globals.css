@@ -13,3 +13,18 @@ color-scheme: dark;
     height: 100%;
 }
 
+pre {
+    overflow-x: auto;
+    padding: 1rem 0;
+    grid: false;
+    width: 100%;
+/* flex-grow: 1;
+flex-shrink: 1; */
+/* flex-basis: 0; */
+    
+
+  }
+   
+  pre [data-line] {
+    padding: 0 1rem;
+  }

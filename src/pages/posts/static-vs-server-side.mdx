@@ -1,9 +1,15 @@
 ---
 title: 'When to Use Static Generation v.s. Server-side Rendering'
+headtitle: 'Static vs. Server-Side'
 date: '2020-01-02'
-preview: 'We recommend using **Static Generation** (with and without data) whenever possible because your page can be built once and served by CDN, 
-which makes it much faster than having a server render the page on every request.'
+preview: 'We recommend using **Static Generation** (with and without data) whenever possible because your page can be built once and served by CDN, which makes it much faster than having a server render the page on every request.'
 ---
+
+import MdxLayout from "../../components/mdx-layout";
+
+export default function MDXPage({ children }) {
+  return <MdxLayout>{children}</MdxLayout>;
+}
 
 We recommend using **Static Generation** (with and without data) whenever possible because your page can be built once and served by CDN, which makes it much faster than having a server render the page on every request.
 

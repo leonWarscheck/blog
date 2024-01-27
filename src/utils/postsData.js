@@ -1,21 +1,43 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
-import { remark } from 'remark';
-import html from 'remark-html';
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import { remark } from "remark";
+import html from "remark-html";
 
-const postsDirectory = path.join(process.cwd(), '/src/posts');
+const postsDirectory = path.join(process.cwd(), "/src/pages/posts");
 
-export function getSortedPostsData() {
+export async function feedMetaDataArray2() {
+  const importAllPosts = (webpackContext) =>
+    webpackContext.keys().map(webpackContext);
+
+  const webpackContext = require.context("/src/pages/posts", false, /\.mdx?$/);
+
+  const imported = importAllPosts(webpackContext);
+  const allMeta = [];
+  for (const post of imported) {
+    const result = await post;
+    allMeta.push(result.meta);
+  }
+
+  return allMeta.sort((a, b) => {
+    if (a.date < b.date) {
+      return 1;
+    } else {
+      return -1;
+    }
+  });
+}
+
+export function feedMetaDataArray() {
   // Get file names under /posts
   const fileNames = fs.readdirSync(postsDirectory);
-  const allPostsData = fileNames.map((fileName) => {
+  const allPostsMetaData = fileNames.map((fileName) => {
     // Remove ".md" from file name to get id
-    const id = fileName.replace(/\.mdx$/, '');
+    const id = fileName.replace(/\.mdx$/, "");
 
     // Read markdown file as string
     const fullPath = path.join(postsDirectory, fileName);
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const fileContents = fs.readFileSync(fullPath, "utf8");
 
     // Use gray-matter to parse the post metadata section
     const matterResult = matter(fileContents);
@@ -27,7 +49,7 @@ export function getSortedPostsData() {
     };
   });
   // Sort posts by date
-  return allPostsData.sort((a, b) => {
+  return allPostsMetaData.sort((a, b) => {
     if (a.date < b.date) {
       return 1;
     } else {
@@ -41,7 +63,7 @@ export function getAllPostIds() {
   return fileNames.map((fileName) => {
     return {
       params: {
-        id: fileName.replace(/\.mdx$/, ''),
+        id: fileName.replace(/\.mdx$/, ""),
       },
     };
   });
@@ -49,7 +71,7 @@ export function getAllPostIds() {
 
 export async function getPostData(id) {
   const fullPath = path.join(postsDirectory, `${id}.mdx`);
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
+  const fileContents = fs.readFileSync(fullPath, "utf8");
 
   // Use gray-matter to parse the post metadata section
   const matterResult = matter(fileContents);

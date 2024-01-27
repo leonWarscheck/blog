@@ -20,13 +20,10 @@
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",
+    "rehype-pretty-code": "^0.12.6",
     "remark": "^15.0.1",
-    "remark-html": "^16.0.1",
-    "typeface-inter": "^3.18.1",
-    "typeface-lato": "^1.1.13",
-    "typeface-nunito": "^1.1.13",
-    "typeface-open-sans": "^1.1.13",
-    "typeface-roboto": "^1.1.13"
+    "remark-frontmatter": "^5.0.0",
+    "remark-html": "^16.0.1"
   },
   "devDependencies": {
     "@types/node": "^20",

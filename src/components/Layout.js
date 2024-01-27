@@ -9,7 +9,8 @@ subsets: ["latin"],
 
 const Layout = ({ children }) => {
   return (
-    <div className={`${opensans.variable} font-opensans selection:bg-neutral-800 flex flex-col min-h-screen`}>
+    // <div className={`${opensans.variable} font-opensans selection:bg-neutral-800 flex flex-col min-h-screen`}>
+    <div className={`${opensans.variable} font-opensans selection:bg-neutral-800 min-h-screen flex flex-col`}>
       <Navbar />
       {children}
       <Footer />

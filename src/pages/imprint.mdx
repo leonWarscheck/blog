@@ -1,3 +1,12 @@
+import MdxLayout from "../components/mdx-layout";
+import SubscribeFormOnPage from "../components/SubscribeFormOnPage"
+
+export default function MDXPage({ children }) {
+  return <MdxLayout>{children}</MdxLayout>;
+}
+
+<div className="text-justify">
+
 Angaben gemäß § 5 TMG
 
 
@@ -74,3 +83,5 @@ Sie haben jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeichert
 Um unsere Inhalte browserübergreifend korrekt und grafisch ansprechend darzustellen verwenden wir auf dieser Website Scriptbibliotheken und Schriftbibliotheken wie z. B. Google Webfonts (https://www.google.com/webfonts/). Google Webfonts werden zur Vermeidung mehrfachen Ladens in den Cache Ihres Browsers übertragen. Falls der Browser die Google Webfonts nicht unterstützt oder den Zugriff unterbindet, werden Inhalte in einer Standardschrift angezeigt. Der Aufruf von Scriptbibliotheken oder Schriftbibliotheken löst automatisch eine Verbindung zum Betreiber der Bibliothek aus. Dabei ist es theoretisch möglich – aktuell allerdings auch unklar ob und ggf. zu welchen Zwecken – dass Betreiber entsprechender Bibliotheken Daten erheben. Die Datenschutzrichtlinie des Bibliothekbetreibers Google finden Sie hier: https://www.google.com/policies/privacy/
 
 Quelle: https://www.e-recht24.de/musterdatenschutzerklaerung.html# Head
+
+</div>

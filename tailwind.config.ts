@@ -24,8 +24,9 @@ const config: Config = {
         'c1': '854px',
       },
       spacing: {
-        'c1': '114px',
+        'c1': '102px',
         'c2': '55.5px',
+        'c3': '9px',
       },
       fontSize: {
         'xxs': '6.5px',
