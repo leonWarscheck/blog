@@ -3,8 +3,9 @@ import SubscribeForm from "./SubscribeFormNavbar";
 import { useState } from "react";
 import Menu from "./Menu";
 
-const Navbar = () => {
+const Navbar = ({  }) => {
   const [showSubscription, setShowSubscription] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleSubscribeClick = () => {
     setShowSubscription(true);
@@ -14,13 +15,26 @@ const Navbar = () => {
     setShowSubscription(false);
   };
 
+  const handleMenuClose = () => {
+    console.log('handleMenuClose called');
+    setTimeout(()=>{
+    setMenuOpen(false);
+    },42);
+  };
+
+  const handleMenuToggle = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+
   return (
     <header className="relative ">
       <nav className="h-12 bg-neutral-800 items-center flex fixed w-full ">
         <div className=" max-w-2xl  mx-auto flex flex-grow items-center px-4">
           <Link
             className=" absolute bottom-c3 font-semibold text-2xl text-violet-500 hover:text-neutral-400"
-            href="/"
+            href="/" 
+            onClick={handleMenuClose}
           >
             <h1 className="">LeonAndersen</h1>
           </Link>
@@ -56,7 +70,7 @@ const Navbar = () => {
               )}
             </li>
           </ul>
-          <Menu />
+          <Menu handleMenuToggle={handleMenuToggle} menuOpen={menuOpen} handleMenuClose={handleMenuClose} />
         </div>
       </nav>
     </header>

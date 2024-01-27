@@ -2,14 +2,14 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
-export default function page404() {
+export default function Page404() {
   const router = useRouter();
 
   useEffect(() => {
     setTimeout(() => {
       router.push("/");
     }, 6969);
-  }, []);
+  }, [router]);
 
   return (
     <main className="grow flex flex-col mx-auto max-w-2xl pt-20 ">

@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-export default function aboutPage() {
+export default function AboutPage() {
   return (
     <main className="max-w-2xl mx-auto pt-28 pb-16 px-4 grow ">
       <Head>

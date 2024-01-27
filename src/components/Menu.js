@@ -1,14 +1,7 @@
-import { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 
-export default function Menu() {
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  const handleMenuOpen = () => {
-    setMenuOpen(!menuOpen);
-  };
-
+export default function Menu({ handleMenuToggle, menuOpen, handleMenuClose }) {
   const handleSubscribe = async (event) => {
     event.preventDefault(); // Prevent the default form submission behavior
 
@@ -19,7 +12,7 @@ export default function Menu() {
 
       // Make a POST request to your subscribeApi route
       const response = await axios.post("/api/subscribeApi", { email });
-      
+
       // Handle the response from your API route
       console.log(response.data);
       onSubscribe();
@@ -33,7 +26,7 @@ export default function Menu() {
     <>
       <button
         className="group flex ml-auto gap-1 c1:hidden pr-2"
-        onClick={handleMenuOpen}
+        onClick={handleMenuToggle}
       >
         <div
           className={`size-6 rounded-full ${
@@ -52,7 +45,7 @@ export default function Menu() {
           <ul className=" w-full px-4 max-w-2xl mx-auto flex flex-col grow justify-evenly ">
             {/* <li className=" ">
               <Link
-                onClick={handleMenuOpen}
+                onClick={handleMenuClose}
                 className=" text-amber-400 w-full py-11 border-r-4 border-amber-400 flex hover:text-neutral-400"
                 href="/tools"
               >
@@ -61,7 +54,7 @@ export default function Menu() {
             </li> */}
             <li className=" ">
               <Link
-                onClick={handleMenuOpen}
+                onClick={handleMenuClose}
                 className=" text-orange-la w-full py-11 border-r-4 border-orange-la flex hover:text-neutral-400"
                 href="/about"
               >
