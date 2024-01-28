@@ -6,10 +6,19 @@ preview: 'Next.js has two forms of pre-rendering: **Static Generation** and **Se
 ---
 
 import MdxLayout from "../../components/mdx-layout";
+import Head from 'next/head'
 
 export default function MDXPage({ children }) {
-  return <MdxLayout>{children}
-  </MdxLayout>;
+  const headtitle= "Pre-Rendering"
+  return (<>
+    <MdxLayout>
+        <Head><title>{headtitle}</title></Head>
+    <div className="text-justify">
+      {children}
+    </div> 
+    </MdxLayout>
+    </>
+  );
 }
 
 Next.js has two forms of pre-rendering: **Static Generation** and **Server-side Rendering**. The difference is in **when** it generates the HTML for a page.

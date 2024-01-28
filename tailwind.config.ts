@@ -8,20 +8,17 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      // fontFamily: {
-      //   sans: ['Open Sans', 'sans-serif'],
-      //   serif: ['Open Sans', 'serif'],
-      //   mono: ['Open Sans', 'monospace'],
-      // },
+  fontWeight:{
+    'c1': '650'
+  }, 
       fontFamily: {
-        // roboto: ['Roboto', 'sans-serif'],
-        // lato: ['Lato', 'sans-serif'],
-        // inter: ['Inter', 'sans-serif'],
-        // nunito: ['Nunito', 'sans-serif'],
+    
         opensans: ['var(--font-opensans)'],
       },
       screens: {
         'c1': '854px',
+        'c2': '671px',
+
       },
       spacing: {
         'c1': '102px',
@@ -61,6 +58,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('tailwind-scrollbar-hide'),],
 }
 export default config

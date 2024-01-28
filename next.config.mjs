@@ -6,7 +6,7 @@ const withMDX = nextMDX({
   extension: /\.mdx?$/,
   options: {
     remarkPlugins: [remarkFrontmatter],
-    rehypePlugins: [[rehypePrettyCode,{grid: false}]],
+    rehypePlugins: [[rehypePrettyCode,{grid: false, keepBackground: false,}]],
     // rehypePlugins: [[rehypePrettyCode,{theme: 'synthwave-84'}]],
     providerImportSource: '@mdx-js/react'
   }

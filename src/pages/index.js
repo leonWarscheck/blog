@@ -22,7 +22,7 @@ export async function getStaticProps() {
 
 export default function Home({ feedData }) {
   return (
-    <main className="grow max-w-2xl mx-auto px-4">
+    <main className="grow max-w-2xl  mx-auto px-4">
       <ul className="pt-24">
         {feedData.map(({ id, date, title, preview }) => (
           <Link href={`/posts/${id}`} key={id}>
@@ -33,7 +33,7 @@ export default function Home({ feedData }) {
               <h2 className=" text-sm pb-2">
                 <Date dateString={date} />
               </h2>
-              <p className="text-justify">{preview}</p>
+              <p className="hyphens-auto">{preview}</p>
             </li>
           </Link>
         ))}

@@ -3,18 +3,18 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 export default function Page404() {
-  const router = useRouter();
+  // const router = useRouter();
 
-  useEffect(() => {
-    setTimeout(() => {
-      router.push("/");
-    }, 6969);
-  }, [router]);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     router.push("/");
+  //   }, 2100);
+  // }, [router]);
 
   return (
     <main className="grow flex flex-col mx-auto max-w-2xl pt-20 ">
       {/* prettier-ignore */}
-      <pre className="mx-auto pt-16 text-xs sm:text-la1  xl:text-la1 font-bold bg-gradient-to-b from-violet-500 to-emerald-la bg-clip-text text-transparent">
+      <pre className=" pt-16 text-xs c2:text-la1 px-4  xl:text-la1 w-full font-bold bg-gradient-to-b from-violet-500 to-emerald-la bg-clip-text text-transparent">
 NOT FOUND ERROR 404/ NOT FOUND ERROR 404<br/>
 ----------------------------------------<br/>
 #          :::      :::::::      :::   #<br/>
@@ -25,15 +25,14 @@ NOT FOUND ERROR 404/ NOT FOUND ERROR 404<br/>
 #       #+#   #+#   #+#       #+#      #<br/>
 #      ###    #######        ###       #<br/>
 ----------------------------------------<br/>
-REDIRECTING..REDIRECTING..REDIRECTING...<br/>
+NOT FOUND ERROR 404/ NOT FOUND ERROR 404<br/>
   </pre>
 
-      <h2 className="text-pink-500 text-justify font-semibold sm:text-2xl mx-auto sm:max-w-2xl px-4 max-w-xs pt-20">
-        The page you requested cannot be found. You will be redirected to the{" "}
+      <h2 className="text-pink-500 text-justify px-4 font-semibold c2:text-2xl  c2:max-w-2xl max-w-xs pt-20">
+        PAGE NOT FOUND. Please check the URL in the address bar and try again.{" "}
         <Link className=" underline underline-offset-2 " href="/">
-          homepage
+          BACK TO HOMEPAGE
         </Link>{" "}
-        in a moment...
       </h2>
     </main>
   );

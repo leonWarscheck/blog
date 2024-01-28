@@ -1,11 +1,27 @@
 import Link from "next/link";
 import SubscribeForm from "./SubscribeFormNavbar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 import Menu from "./Menu";
 
 const Navbar = ({  }) => {
   const [showSubscription, setShowSubscription] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  
+  useEffect(
+    ()=>{
+      
+      const bodyElement = document.querySelector('body');
+
+      if(menuOpen){
+        bodyElement.classList.add("scrollbar-hide")
+      }else{
+
+        bodyElement.classList.remove("scrollbar-hide")
+      }
+    }
+    ,[menuOpen]
+  )
 
   const handleSubscribeClick = () => {
     setShowSubscription(true);
@@ -19,7 +35,7 @@ const Navbar = ({  }) => {
     console.log('handleMenuClose called');
     setTimeout(()=>{
     setMenuOpen(false);
-    },42);
+    },0);
   };
 
   const handleMenuToggle = () => {
@@ -28,7 +44,7 @@ const Navbar = ({  }) => {
 
 
   return (
-    <header className="relative ">
+    <header className="relative">
       <nav className="h-12 bg-neutral-800 items-center flex fixed w-full ">
         <div className=" max-w-2xl  mx-auto flex flex-grow items-center px-4">
           <Link
@@ -70,7 +86,7 @@ const Navbar = ({  }) => {
               )}
             </li>
           </ul>
-          <Menu handleMenuToggle={handleMenuToggle} menuOpen={menuOpen} handleMenuClose={handleMenuClose} />
+          <Menu handleMenuToggle2={handleMenuToggle} menuOpen={menuOpen} handleMenuClose={handleMenuClose} />
         </div>
       </nav>
     </header>

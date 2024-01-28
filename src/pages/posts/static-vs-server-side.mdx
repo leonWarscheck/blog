@@ -6,9 +6,19 @@ preview: 'We recommend using **Static Generation** (with and without data) whene
 ---
 
 import MdxLayout from "../../components/mdx-layout";
+import Head from 'next/head'
 
 export default function MDXPage({ children }) {
-  return <MdxLayout>{children}</MdxLayout>;
+  const headtitle= "Static vs. Server-Side Rendering"
+  return (<>
+    <MdxLayout>
+        <Head><title>{headtitle}</title></Head>
+    <div className="text-justify">
+      {children}
+    </div> 
+    </MdxLayout>
+    </>
+  );
 }
 
 We recommend using **Static Generation** (with and without data) whenever possible because your page can be built once and served by CDN, which makes it much faster than having a server render the page on every request.

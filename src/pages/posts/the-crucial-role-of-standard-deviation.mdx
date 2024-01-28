@@ -7,35 +7,46 @@ preview: "Delve deep into the world of performance testing with a focus on the o
 
 
 import MdxLayout from "../../components/mdx-layout";
+import Head from 'next/head'
 
 export default function MDXPage({ children }) {
-  return (
+  const headtitle= "Standard Deviation"
+  return (<>
     <MdxLayout>
-    <div className="text-justify">
+        <Head><title>{headtitle}</title></Head>
+    <div className="">
       {children}
     </div> 
     </MdxLayout>
+    </>
   );
 }
 
-# The Crucial Role of Standard Deviation
+## The Crucial Role of Standard Deviation
 
 
 In the intricate tapestry of software development, where every line of code weaves into user experience, performance testing emerges as the sentinel guarding against subpar application behavior. 
 
 While metrics like response time averages dominate discussions, an unsung hero quietly shapes our understanding of system consistency: standard deviation.
 
-Unraveling the Standard Deviation Thread
+### Unraveling the Standard Deviation Thread
 
-At its core, standard deviation is a statistical metric measuring the amount of dispersion or spread within a dataset. Its application in performance testing provides a nuanced perspective on the reliability and uniformity of response times, offering insights beyond the traditional focus on averages.
+At its core, standard deviation is a statistical metric measuring the amount of dispersion or spread within a dataset. 
+
+Its application in performance testing provides a nuanced perspective on the reliability and uniformity of response times, offering insights beyond the traditional focus on averages.
 
 ---
 
-## The Fundamental Role of Standard Deviation
 
-### 1. **Deciphering Variability**
+### The Fundamental Role of Standard Deviation
 
-Picture standard deviation as the cartographer mapping the terrain of data variability. A low standard deviation signifies a landscape where response times cluster closely around the average, painting a picture of a stable and predictable system in the context of performance tests. Conversely, a high standard deviation hints at undulating terrain, demanding our attention to investigate potential performance issues.
+### 1. Deciphering Variability
+
+Picture standard deviation as the cartographer mapping the terrain of data variability.
+
+A low standard deviation signifies a landscape where response times cluster closely around the average, painting a picture of a stable and predictable system in the context of performance tests.
+
+Conversely, a high standard deviation hints at undulating terrain, demanding our attention to investigate potential performance issues.
 
 ```javascript
 // Empower your performance testing arsenal with this JavaScript 
@@ -49,11 +60,15 @@ const calculateStandardDeviation = (data) => {
 };
 ```
 
----
+***
 
 ### 2. Spotting Anomalies on the Horizon
 
-Anomalies, those elusive disruptions to the harmony of response times, can wreak havoc on user experience. Here, the synergy of standard deviation with the average response time takes center stage. By scrutinizing outliers, often indicative of bottlenecks or irregularities, we gain a precise map to navigate the performance landscape.
+Anomalies, those elusive disruptions to the harmony of response times, can wreak havoc on user experience.
+
+Here, the synergy of standard deviation with the average response time takes center stage.
+
+By scrutinizing outliers, often indicative of bottlenecks or irregularities, we gain a precise map to navigate the performance landscape.
 
 
 
@@ -80,7 +95,9 @@ const PerformanceChart = ({ responseTimes }) => {
 
 ### In Conclusion: Elevating Your Performance Symphony
 
-Integrating standard deviation into your performance testing symphony elevates your understanding to a level beyond the commonplace. It's not merely about the speed of response but about the unwavering reliability that defines a truly high-performing application.
+Integrating standard deviation into your performance testing symphony elevates your understanding to a level beyond the commonplace.
+
+It's not merely about the speed of response but about the unwavering reliability that defines a truly high-performing application.
 
 As you embark on your next performance testing odyssey, let the compass of standard deviation guide you through the intricacies of system behavior.
 

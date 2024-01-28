@@ -1,7 +1,7 @@
 import Link from "next/link";
 import axios from "axios";
 
-export default function Menu({ handleMenuToggle, menuOpen, handleMenuClose }) {
+export default function Menu({ handleMenuToggle2, menuOpen, handleMenuClose }) {
   const handleSubscribe = async (event) => {
     event.preventDefault(); // Prevent the default form submission behavior
 
@@ -21,12 +21,12 @@ export default function Menu({ handleMenuToggle, menuOpen, handleMenuClose }) {
       console.error(error);
     }
   };
-
+  // className={` ${menuOpen ? 'scrollbar-hide' : ''}`}
   return (
-    <>
+        <>
       <button
         className="group flex ml-auto gap-1 c1:hidden pr-2"
-        onClick={handleMenuToggle}
+        onClick={handleMenuToggle2}
       >
         <div
           className={`size-6 rounded-full ${
