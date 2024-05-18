@@ -2,9 +2,11 @@
 title: "Mastering Software Performance: The Crucial Role of Standard Deviation"
 headtitle: "Standard Deviation"
 date: "2023-10-10"
-preview: "Delve deep into the world of performance testing with a focus on the often-overlooked but critical standard deviation."
----
+readingTime: '2min'
+preview: 'The step-by-step process of how you can build a blog-website just like this.
+Using ReactJS, Tailwind, NextJS, MDX and MailChimp.'
 
+---
 
 import MdxLayout from "../../components/mdx-layout";
 import Head from 'next/head'
@@ -60,8 +62,6 @@ const calculateStandardDeviation = (data) => {
 };
 ```
 
-***
-
 ### 2. Spotting Anomalies on the Horizon
 
 Anomalies, those elusive disruptions to the harmony of response times, can wreak havoc on user experience.
@@ -70,10 +70,7 @@ Here, the synergy of standard deviation with the average response time takes cen
 
 By scrutinizing outliers, often indicative of bottlenecks or irregularities, we gain a precise map to navigate the performance landscape.
 
-
-
-
-```jsx
+```jsx  
 // Embark on the journey of anomaly detection with this React component
 const PerformanceChart = ({ responseTimes }) => {
   const averageTime = calculateAverage(responseTimes);
@@ -84,8 +81,8 @@ const PerformanceChart = ({ responseTimes }) => {
       <LineChart data={responseTimes} />
       {deviation > threshold && (
         <p>
-          High standard deviation detected! Investigate potential performance
-          issues.
+          High standard deviation detected! 
+          Investigate potential performance issues.
         </p>
       )}
     </div>
@@ -101,6 +98,6 @@ It's not merely about the speed of response but about the unwavering reliability
 
 As you embark on your next performance testing odyssey, let the compass of standard deviation guide you through the intricacies of system behavior.
 
----
+***
 
 If this exploration has ignited your curiosity and you crave more insights into the world of software development and testing, share your thoughts, and let's chart a course for future explorations!

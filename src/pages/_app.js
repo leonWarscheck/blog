@@ -8,11 +8,11 @@ import { mdxComponents } from "../utils/mdx-components";
 export default function MyApp({ Component, pageProps }) {
   return (
     <>
-      <Layout>
+      <Layout >
         <Head>
           <title>LeonAndersen</title>
         </Head>
-        <MDXProvider components={mdxComponents}>
+        <MDXProvider  components={mdxComponents}>
           <Component {...pageProps} />
         </MDXProvider>
       </Layout>

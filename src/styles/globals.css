@@ -19,7 +19,15 @@ pre {
     width: 100%; */
   background-color: #262626;
   background-color: #404040;
+  /* background-color: #212121; */
+  /* .comments {
+    color: white ;
+  } */
 }
+
+/* html {
+  scroll-padding-top: 70px;
+}  */
 
 pre [data-line] {
   padding: 0 1rem;
