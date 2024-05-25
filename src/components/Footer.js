@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import SubscribeForm from "./SubscribeFormFooter";
-const Footer = () => {
+
+export default function Footer (){
   const [showSubscription, setShowSubscription] = useState(false);
 
   const handleSubscribeClick = () => {
@@ -13,7 +14,7 @@ const Footer = () => {
   };
   return (
     <footer className=" bg-neutral-800 text-neutral-700 w-full">
-      <div className="flex max-w-2xl mx-auto px-4">
+      <nav className="flex max-w-2xl mx-auto px-4">
         <div className=" hidden c1:flex grow  items-center ">
           <Link className="text-sm  hover:text-neutral-500" href="/">
             <h1>LeonAndersen</h1>
@@ -51,9 +52,8 @@ const Footer = () => {
           
           </ul>
         </div>
-      </div>
+      </nav>
     </footer>
   );
 };
 
-export default Footer;

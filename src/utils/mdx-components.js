@@ -19,6 +19,8 @@ export const mdxComponents = {
   // ),
   hr: ()=> <><hr style={{height: "1.7px", backgroundColor: "white",}}/></>,
   pre: ({children})=> <><pre>{children}</pre></>,
+  blockquote: ({children})=> <><blockquote>{children}</blockquote></>,
+  // a: ({children})=> <><a className="no-underline">{children}</a></>,
   // img: children => <Image alt={children.alt} layout="fill" {...children} />
   // ul: ({ children}) => (
   //   <ul className={"list-disc"}>{ children }</ul> 

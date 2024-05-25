@@ -4,23 +4,32 @@ headtitle: 'Static vs. Server-Side'
 date: '2024-01-02'
 readingTime: '21min'
 preview: 'The step-by-step process of how you can build a blog-website just like this.
-Using ReactJS, Tailwind, NextJS, MDX and MailChimp.'
-
+Using React, Tailwind, NextJS, MDX and MailChimp.'
 ---
 import Collapsible from '../../components/collapsible';
 import MdxLayout from "../../components/mdx-layout";
 import Head from 'next/head'
 import Image from 'next/image'
 import homepagedraft from '../../../public/homepagedraft.png'
+import bettermf from '../../../public/bettermf.png'
+import naval from '../../../public/naval.png'
+import overreacted from '../../../public/overreacted.png'
+import ableton from '../../../public/ableton.png'
+import anakin from '../../../public/anakin.png'
+import juggle from '../../../public/juggle.png'
+import design404 from '../../../public/404design.png'
+import Link from 'next/link'
 
 export default function MDXPage({ children }) {
-  const headtitle= "2024 Blog Code Guide"
+  const headtitle= "2024 NextJS Pages Blog Tutorial"
   return (<>
     <MdxLayout>
-        <Head><title>{headtitle}</title></Head>
-    <div className="text-justify">
-      {children}
-    </div> 
+      <Head><title>{headtitle}</title></Head>
+      <main className="text-justify">
+        <article>
+          {children}
+        </article>
+      </main> 
     </MdxLayout>
     </>
   );
@@ -39,17 +48,16 @@ January 2, 2024 - 21min - #tutorial #blog #webdevelopment #docs
 </div>
 
 Welcome to the step-by-step guide of how you can build a blog-website just
-like this - using ReactJS, Tailwind, NextJS, MDX and MailChimp.
+like this - using React, Tailwind, NextJS, MDX and MailChimp.
 
-**Why use pages routing in 2024/ Next14?** Eventhough NextJS is trying to
-force everyone to use App-Routing, you will likely encounter older projects at
-work, that still use pages routing. It's a valuable skill to know the legacy ways. 
+**Why use pages routing in 2024/ Next14?** Eventhough NextJS is nudging everyone
+to use App-Routing, at work you will likely encounter older projects that still
+use pages routing. It's a valuable skill to know the legacy ways. 
 
-**Why MDX with pages routing?** Besides the capability to use react components
-to make your article more interactive: In pages routing you can route with your
-blog-post-title.mdx files, and render them as pages directly without needing to
-parse them through the usual [slug/id].js file. This way you also don't need
-getStaticRoutes.
+**Why MDX with pages routing?** Besides interactive React components in your
+articles: In pages routing you can route with your blog-post-title.mdx files,
+and render them as pages directly without needing to parse them through the
+usual [slug/id].js file. This way you also don't need getStaticRoutes.
 
 To build this setup, I had to pick pieces from many different tutorials. 
 In this guide I bring it all together.
@@ -58,8 +66,8 @@ In this guide I bring it all together.
 ### Table of Contents
 
 0. [Prerequisites](#prerequisites) 
-1. [Process Overview](#process-overview)
-2. [Detailed Steps](#detailed-steps)
+1. [Preparation & Setup](#prep-and-setup)
+2. [Main Building](#main-building)
 3. [Insights](#insights)
 
 _Disclaimer: The instructions of this guide are just my personal recommendations. Feel free to customize to your own taste._
@@ -68,53 +76,58 @@ _Disclaimer: The instructions of this guide are just my personal recommendations
 <a id="prerequisites"></a>
 ### [Prerequisites](#toc)
 
-If you are a complete beginner at coding, first work through something like the Webdeveloper Bootcamp by Colt Steele. That's what gave me the foundations for this blog project.
+If you are a complete beginner at coding, first work through something like the Webdeveloper Bootcamp by Colt Steele. That's what gave me the foundations for this blog project *(HTML, CSS, JavaScript, React)*.
 
-For learning **Tailwind**, scan through [this](https://www.youtube.com) short tutorial on 1.5-2x speed. 
+For learning *Tailwind*, scan through [this](https://www.youtube.com) short tutorial on 1.5-2x speed. 
 Then learn to actually use it by building your own blog with it. 
 With Tailwind-Docs-Search and ChatGPT, this is fun and easy. 
 Except for some basic CSS overview, I had almost zero experience with it before this blog.
-For the harder part of styling - positioning and responsive design - I also wrote intructions in this article.
 
-If you are new to to Github/ version control: Work through [this]() Git Crash Course. And read through [conventional commits]().
+For the harder part of styling - positioning and responsive design - I also
+wrote intructions later in this article. Additionally you can find all
+_tailwind-classes_ that I used in my [source code]() on Github.
 
-IMPORTANT: Before starting your blog project, finish reading this article, bookmark it and then watch [this]() little NextJS course on 1.5-2x speed. 
-This will give you a workable overview of how pages routing and the NextJS basics work.
+If you are new to to *Github/* version control: Work through [this]() Git Crash Course. And make sure to read through *[conventional commits]()*.
+
+_Accessibility_ is not my strength yet, so I only adress a few of its aspects in this guide. If you want to go deeper on it, my mentor recommends [this resource.]() 
+
+IMPORTANT: Before starting your blog project, I can also recommend to watch
+[this]() little _NextJS_ course on 1.5-2x speed (no need to code along there imo). This
+will give you a workable overview of the NextJS basics.
 
 </div>
-## <a id="process-overview" href="#toc">PROCESS OVERVIEW</a>
+## <a id="prep-and-setup" href="#toc">Preparation and Setup</a>
 
 Working along this structure made the process smooth and straight-forward:
 
-- [vision/ scope](#vision-scope)
+- [preparation](#preparation)
   - [modeling](#modeling) (reference ui/ux)
-  - [drafting](#drafting) (visual and written)
-- [setup](#setup)
+  - [drafting](#drafting) (visual and written)  
   - [mockup content](#mockup-content)
   - [component plan](#component-plan)
-  - [basic structure & routing](#basic-structure-and-routing)
-- [main building](#main-building)
-  - [logic](#main-building)
-  - [styling](#main-building)
+- [setup](#setup)
+  - [installation](#installation)
+  - [pages-routing](#routing)
 
-## <a id="vision-scope" href="#process-overview"> Vision/ Scope </a>
 
-### <a id="modeling" href="#process-overview">Modeling</a>
+## <a id="vision-scope" href="#prep-and-setup"> Vision/ Scope </a>
+
+### <a id="modeling" href="#prep-and-setup">Modeling</a>
 If you want to build websites as cool as your idols - steal from them. 
 Seriously, everything is a remix. Pick whatever sparks your fire, even outside the box of websites.
 
 I stole from:
 
 - bettermotherfuckingwebsite.com (main content width and breath)
-  - img](https://youtube.com)](https://youtube.com)
-- nav.al (subscribeform in navbar)
-  - img
-- overreacted.io (navbar content centered and colorfulness)
-  - img
+  - <Image src={bettermf}  alt=""/>
+- nav.al (subscribeform in header)
+  - <Image src={naval}  alt=""/>
+- overreacted.io (header content centered and colorfulness)
+  - <Image src={overreacted}  alt=""/>
 - AbletonLive Music Production Suite (tag colors I used in my producer days)
-  - img
+  - <Image src={ableton}  alt=""/>
 
-### <a id="drafting" href="#process-overview">Drafting</a>
+### <a id="drafting" href="#prep-and-setup">Drafting</a>
 #### Visual
 Draft out the design first. At least roughly. Positioning, proportions,
 colortheme, font vibe, most important elements and pages. I used Photoshop, but Gimp or
@@ -127,11 +140,9 @@ It is also a good measurement of how closely you can create what you (or your de
 Of course you can keep happy accidents, but don't take them as an excuse to not create and learn what you wanted to in the first place.
 
 I am pretty proud of how close I got:
-
 	
-{/* ![my draft for the homepage](../../../public/homepagedraft.png "homepage draft") */}
 <Image src={homepagedraft}  alt="my draft for the homepage"/>
-
+*(my first Photoshop draft of the homepage)*
 
 #### Written
 
@@ -142,9 +153,8 @@ Sort and trim later.
 
 Use these notes and this article as the source for your to do lists.
 
-## <a id="setup" href="#process-overview">Setup</a>
 
-### <a id="mockup-content" href="#process-overview">Mock Up content</a>
+### <a id="mockup-content" href="#prep-and-setup">Mock Up content</a>
 
 Create placeholder articles and other page content using the LLM of your choice. 
 
@@ -157,120 +167,492 @@ Here are the prompts I used:
 - write out the first one as a full article including code examples
 - write me a short about page
 
-### <a id="component-plan" href="#process-overview">Component Plan</a> 
+### <a id="component-plan" href="#prep-and-setup">Component Plan</a> 
 
 Brainstorm a list of all the major (react-) components and pages you will likely need to build, like this:
 
-- BlogFeedPage (index/ home) 
-- Menu
-- Navbar
+- HomeFeed (index/ home) 
+- Header
 - Footer
+- Menu
 - Layout (main template)
-- SubcribeForm (navbar, footer, menu, onpage)
+- SubcribeForm (header, footer, menu, onpage)
 - About
-- Imprint
 - 404
 
 
+## <a id="setup" href="#prep-and-setup">Setup</a>
 
-### <a id="basic-structure-and-routing" href="#process-overview">Basic Structure and Routing</a>
+### <a id="installation" href="#prep-and-setup">Installation</a>
 
-- Create all of the components, including their basic HTML elements (e.g. put links in a ul in the navbar). 
-- Place them in their rough component structure (e.g. navbar and footer inside of the layout component).
-- Insert the mockup content.
+- install and run the NextJS project as described in the [NextJS docs](https://nextjs.org/docs/getting-started/installation):
+  
+  0. install Node.js and npm
+  1. `npx create-next-app@latest` 
+  2. Initial Settings:
+    - What is your project named? **blog**
+    - Would you like to use TypeScript? **No** / Yes
+    - Would you like to use ESLint? **No** / Yes
+    - Would you like to use Tailwind CSS? No / **Yes**
+    - Would you like to use `src/` directory? No / **Yes**
+    - Would you like to use App Router? (recommended) **No** / Yes
+    - Would you like to customize the default import alias (@/*)? **No** / Yes
+  3. `cd blog`
+  4. `npm run dev`
+  5. open http://localhost:3000/ in the browser (chrome/ brave)
+- delete all unneccessary components of the NextJS default template
+  - `git branch empty-template` to save this as a canvas for css experiments later in the process
 
-For all of this, use the file naming and folder structure of the NextJS pages
-routing as explained in the [video](https://youtube.com) I mentioned in the
-prerequisites. (no need for getStaticProps yet)
+### <a id="routing" href="#prep-and-setup">Routing</a>
 
-Here is my basic routing explained:
+NextJS pages-routing in a nutshell:
 
 <div className="prose-pre:leading-4 prose-pre:bg-neutral-800">
 ```
+prettier-ignore
+
 src/
 ├── components
 ├── pages/
 │   ├── api
 │   ├── posts/ 
-│   │   └── blog-titles.mdx   // auto-routed to .com/posts/filename (+ collected for postsData.js)
+│   │   └── blog-titles.mdx   // auto-routed to .com/posts/filename (+ collected for feedData.js utility)
 │   ├── _app.js
 │   ├── _document.js
-│   ├── 404.js                // auto-recognized by reserved filename and implemented as 404 
-│   ├── about.js              // .js and .mdx get auto-routed to .com/filename
-│   ├── imprint.mdx           
-│   └── index.js              // auto-routed as leonandersen.com/ via reserved filename 
+│   ├── 404.js                // auto-routed and hooked up as 404 via reserved filename 
+│   ├── about.js              // .js (and .mdx!) in pages/ get auto-routed to .com/filename
+│   └── index.js              // auto-routed as .com/ via reserved filename 
 ├── styles
 ├── utils/
-│   ├── postsData.js          // (getStaticProps: fetches blogfeed preview data from ./pages/posts to index.js)
+│   ├── feedData.js           // (getStaticProps: fetches blogfeed preview data from ./pages/posts to index.js)
 │   └── ...
 └── ...
 ```
 </div>
 
-#### Bonus: Structuring HTML
+NextJS PR determines the URL path of your different pages by their position in the folders and a set of special purpose filenames.
+Make sure to use this exact folder structure and the rules described in the comments.
 
-One of the bigger learnings for me, was how to properly structure the HTML Tags in a real project. 
-To many this might be obvious, but the bootcamp I worked through, did not point out HTML Tag Structure explicitly enough.
-So here is my recap, sorted by functionality:
+Action Steps:
+- create all of the component and page files from the component list
+- place them in their routing as described above
+  - no need for feedData.js and getStaticProps yet
+  - components like Footer.js belong into the component folder
+- the files can be empty but should have the rightjj filenames and folderpositions
+  - you can already paste your mockup article texts into your .mdx files though
+- test if the routes exist, by typing them in the URL bar of the browser
+  - congrats, you now understand the pages-routing basics, let's learn how to build on top of that in the main building section
 
-1. Accessibility
-- navbar h1 ul li a li a li a
+<br/>
+## <a id="main-building" href="#toc">Main Building</a>
 
-2. CSS
-- for css to work properly(grouping, relatives, general order for positioning) the nesting must be purposeful and clear 
-body
-main main
-divs
-
-3. Next.JS/ React Functionality
-- layout, dom access
-
-Note: This whole step of the basic structure (incl. html) just needs to be a starting point.
-You will likely adjust it a lot in the rest of the process.
-
-## <a id="main-building" href="#process-overview"> Main Building</a>
-
-Now that you have the most important building blocks, you are ready for the main work: styling and logic.
-
-I tried to separate styling-commits from logic-commits, but that is not always possible.
-I would say the most natural way is a constant cycling between them. (img: unrealistic vs realistic)
-
-## <a id="detailed-steps" href="#toc"> Detailed Steps</a>
-
-In this section I explain most of the smaller steps.
+In this section I explain most of the smaller steps of the main building process.
 
 To keep it organized, I wrote the bigger challenges into seperate, detailed articles.
 You can find them here:
-- <a href="some.link" className="underline text-violet-500"> MDX in Next 14 pages routing (incl. Syntax Highlighting)</a>
-- <a href="some.link" className="underline text-orange-400"> Mailchimp in NextJS | Understand API / Server</a>
-- <a href="some.link" className="underline text-red-500"> Blogpage Building Struggles: CSS height is cursed... until now!</a>
+- <Link href="some.link" className="underline"> MDX & Tailwind in Next 14 PAGES-routing (incl. Syntax Highlighting)</Link>
+- <Link href="some.link" className="underline"> Mailchimp in NextJS | Understand API / Server</Link>
+- <Link href="some.link" className="underline"> Blogpage Building Struggles: CSS positioning is cursed... until now!</Link>
 
-BlogFeedPage logic
-Just like in [the NextJS original tutorial], you need the index page to act as a feed with previews of your posts. For this you need a blogfeed component and a metadata utility component in a separate file:
+Components and aspects covered in this section:
+- [HTML Overview](#html-overview)
+- [Header & Footer](#header-and-footer)
+- [Layout](#layout)
+- [HomeFeed](#homefeed)
+- [Responsive Design](#responsive-design)
+- Menu
+- SubscribeForms
+- [404](#404)
+- font & textwrap
+- colors
+- favicon
+- headtitles
+- colorTheme
+- what I left out
 
-'''code with detailed comments'''
+
+<br/>
+### <a id="html-overview" href="#main-building">HTML Overview</a>
+
+Before we go into the components, there are a few HTML concepts you should keep in mind for the project:
+
+1. **overview**
+
+You can see that there are 3 layers of nesting in a NextJS PR project:
+- the "HTML base layer" (document)
+- the "layout and settings layer" (app)
+- and finally the individual pages
+
+<div className="prose-pre:leading-4">
+```js caption="note: this is pseudo code, the tags are spread over different files, and the <Main/> and <Component/> tags are not two-parted"
+
+<Html>                             // _document.js
+<body>
+<Main>
+        <Layout>                   // _app.js
+        <MDXProvider>
+        <Component>
+                    (<MDXLayout>)  // page files (.js = without MDXLayout)
+                     <main>    
+
+                     </main>    
+                    (</MDXLayout>)
+        </Component>
+        </MDXProvider>  
+        </Layout>
+</Main>
+</body>
+</Html>
+
+```
+</div>
 
 
+Having this overview helps to structure your (Tailwind-)CSS stylings in the
+correct order of nesting, and detect conflicting classes. This is crucial for
+the usually cumbersome CSS positioning, which I go into later.
 
-In Tailwind the Breaking Points are css mediaqueries pointing in one direction: from smaller to bigger screen sizes. 
-Because of this, it makes sense to start the positioning part of the styling from the smallest screens (via chrome devtools f12) and work your way upwards from there.
-I made the mistake to just draft the desktop screen design beforehand, so I also started with desktop styling. After I was done with that, I realized I had to redo much of the work and start over from mobile screen size. So you better draft out the mobile design beforehand aswell, so you can start from there. 
+2. `<main>`
 
-Tipp: Check how the websites you chose to model behave in mobile screens, to get a feel for the styling. 
+Notice the `<Main/>`tag in the base and the `<main></main>` in the page layer.
+The first is the Main of the whole app and the second represents the mains of
+the individual pages. 
 
-Wax on Wax off: Each time you make styling changes, check for any wierd misalignments in all of the dev tools screen sizes over and over again.
-I often stumbled upon meaningful styling problems, by testing the edgecases this way. The sooner you find them the better. 
+No tutorial stressed out the role of the `<main></main>` tag to me - or let alone
+that every page needs one. Well, it turns out, besides CSS clarity, it is
+essential for accessibility and search engine optimization (SEO).
 
-Positioning is one of the major parts of responsive design, so if you are having problems with that, also make sure to check out my article on positioning in general.
+I only knew that you should often use descriptive tags like `<section>` instead of `<div>`, but I
+wasn't aware of the best practice `<main>`-structure, until my mentor pointed it
+out to me... and now you know it too: 
 
-Custom Breaking Points: Don't be afraid to create custom breaking points in Tailwind. At first I tried to force myself to only use the default breaking points, but sometimes there are misalignments, that can only be fixed this way. Make use of the tools at your fingertips. (How to customize breaking points in Tailwind: )
+**main tag rules**
+
+- every page needs a `<main>` as its highest parent
+- `<article>` tags are important (eg. for RSS), but they don't replace the role of the `<main>` and should be nested inside of it
+- only have one `<main>` per page/ DOM-tree
+  - make sure to check for "doubles" through all layers via the devtools elements section
+    - don't worry, the NextJS `<Main/>` tag does not appear in the client-side
+      DOM-tree, so the "only one `<main>` per DOM-tree"-rule can be fulfilled 
+  - as there is no `<layout>` html-tag, I falsly used `<main>` tags for that, as it seemed more descriptive than `<div>`
+    - instead, to make layout layers more descriptive you can use accessibility attributes
+    like `<div role="region" aria-label="Main/MDX Layout">`
+
+
+3. **menues and navbars are lists**
+
+Here is another accessibility (and code organization) structure I was ignorant
+of:
+
+Navbars usually contain `<a>` tags to different sub pages of your website.
+Instead of just stacking them as siblings one after another inside a `<div>`,
+place them in `<li>` tags in a `<ul>`. This way it is clear to the screen reader
+that
+- they are basically a
+navigation menu sitting at the same layer, 
+- belonging together, 
+- and having a clear start and endpoint,
+- even when they have more complex menu nestings.
+
+Ok, you are ready for the first components, let's go!
+
+
+---
+
+### <a id="header-and-footer" href="#main-building">Header & Footer</a>
+
+The header component on its own is simple. Just follow the structure and comments.
+
+```javascript title="/src/components/Header.js"
+import Link from "next/link"; // make sure to import and use NextJS-specific tags like <Link>
+
+export default function Header({}){
+return (
+    <header className="..."> // reminder: you can find all tailwind-classes in my source code on github
+      <nav> // "navbar" often gets used synonymously with "header", but it's just one of headers possible childs. wrap it.
+        <div> // this div exists for tailwindcss purposes only 
+          <Link href="/"> // common practice: distinguish the main logo from the rest of the navigation links           
+            <h1>LeonAndersen</h1>
+          </Link>
+          <ul> // wrap the other navigation items into a ul
+            <li>
+              <Link href="/about"> // you can set internal links already
+                About
+              </Link> // this is a link to another page
+            </li>
+            <li>
+              <button> // this is a button that opens a form
+                Subscribe
+              </button>
+              <SubscribeForm/> // SubscribeForm logic is explained later
+            </li>
+          </ul>
+          <Menu/> // this component only appears on smaller screen sizes and is explained later
+        </div>
+      </nav>
+    </header>
+  );
+};
+```
+The Footer component is almost the same.
+
+```javascript title="/src/components/Footer.js"
+import Link from "next/link";
+
+export default function Footer (){
+  return (
+    <footer>
+      <nav> // eventhough navbar is mostly associated with the header, navigation links in the footer are also usually a navbar
+        <div>
+          <Link href="/">
+            <h1>LeonAndersen</h1>
+          </Link>
+          <ul>
+            <li> // instead of "About", I link to the Imprint page (obligation in germany)
+              <Link href="/imprint">
+                Imprint
+              </Link>
+            </li>
+            <li>
+              <button>
+                Subscribe
+              </button>
+                <SubscribeForm/>
+            </li>
+          </ul>
+        </div>
+        <div> // on smaller screensizes this ul replaces the upper one 
+          <ul>
+            <li>
+              <Link href="/imprint">
+                Imprint
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </footer>
+  );
+};
+
+
+```
+
+---
+
+### <a id="layout" href="#main-building">Layout</a>
+Now that you have `Header` and `Footer`, you can build the NextJS `Layout` component.
+It is also pretty simple and self explanatory:
+
+```javascript title="/src/components/Layout.js"
+import Footer from "./Footer";
+import Header from "./Header";
+
+export default function Layout ({ children }){
+  return (
+    <div role="region" aria-label="Main Layout"> // css purpose, otherwise use react fragment
+      <Header /> // insert Header and Footer
+      {children} // explanation below
+      <Footer />
+    </div>
+  );
+};
+
+```
+What might get a little tricky to understand is the`{ children }` prop. It is
+built into React and represents all the content that you wrap inside of a
+components tag. Component-wrapped children props get auto-passed upwards and are
+accessible as soon as you type `children` into the parents props-destructuring `({ })`.
+
+As you can see below, inside of a NextJS project, the `Layout` component is
+wrapped around some other essential layers within the `MyApp` component.
+
+
+```javascript  title="/src/pages/_app.js"
+import Layout from "../components/Layout";
+import Head from "next/head";
+import "../styles/globals.css"; // NextJS parallel to attaching a stylesheet to a vanilla JS HTML head
+
+export default function MyApp({ Component, pageProps }) {
+  return (
+    <> // react fragment
+      <Layout>
+        <Head> // set the default browsertab title for all pages that you don't give another specific head title
+          <title>LeonAndersen</title>
+        </Head>
+        <MDXProvider  components={mdxComponents}> // covered in the MDX focused article I mentioned earlier, just know this exists
+          <Component {...pageProps} /> // this is where the individual pages and their props "dock into" the app
+        </MDXProvider>
+      </Layout>
+    </>
+  );
+}
+```
+Congrats, now you also understand `_app.js`.
+
+---
+
+### <a id="homefeed" href="#main-building">HomeFeed</a>
+
+Just like in [the NextJS docs tutorial](), you want the index page to act as
+a feed with previews of your articles. For this you need a `HomeFeed` component and a
+metadata utility component in a separate file.
+
+First, make sure you write metadata in frontmatter format at the very top of your articles,
+like this:
+
+```mdx title="/src/pages/posts/nextjs-blog-tutorial-2024.mdx" caption=""
+---
+title: 'How to Code a Blog in 2024 (with MDX in Next 14 Pages-Routing)'
+headtitle: '2024 NextJS Pages Blog Tutorial'
+date: '2024-01-02'
+readingTime: '22min'
+preview: 'The step-by-step process of how you can build a blog-website just like this.
+Using React, Tailwind, NextJS, MDX and MailChimp.'
+---
+```
+
+Next, parse this metadata into a `getFeedData` component in your utility file.
+This component returns an array `[{},{},{},...]` from all the posts, sorted by
+date, with one object per post. Each object contains key-value pairs of the slug
+and the frontmatter metadata out of the .mdx files.
+
+```javascript title="/src/utils/getFeedData.js" 
+import fs from "fs"; // needed for fetching filenames from the filesystem
+import path from "path"; // needed for defining postsDirectory
+import matter from "gray-matter";
+
+// ensures the path is always correct relative to the root of your project
+const postsDirectory = path.join(process.cwd(), "src/pages/posts");
+
+export function getFeedData() {
+  // get all .mdx file names from /posts
+  const fileNames = fs.readdirSync(postsDirectory);
+  const allPostsData = fileNames.map((fileName) => {
+    // remove ".mdx" from file name to get slug
+    const slug = fileName.replace(/\.mdx$/, "");
+
+    // converts .mdx filecontent as string for gray-matter processing
+    const fullPath = path.join(postsDirectory, fileName);
+    const fileContents = fs.readFileSync(fullPath, "utf8");
+
+    // use gray-matter to parse the post metadata section
+    const matterResult = matter(fileContents);
+
+    // return the data combined with the slug
+    return {
+      slug,
+      ...matterResult.data,
+    };
+  });
+  // sort posts by date
+  return allPostsData.sort((a, b) => {
+    if (a.date < b.date) {
+      return 1;
+    } else {
+      return -1;
+    }
+  });
+}
+
+```
+
+Then finally you import `getFeedData` into your Homepage and populate the feed. 
+
+```js title="/src/pages/index.js"
+import Link from "next/link";
+import Date from "../components/date"; // needed for date formatting
+import { getFeedData } from "../utils/getFeedData.js";
+
+export async function getStaticProps() { // why here, not in getFeedData? and check the rest
+  const feedData = await getFeedData();
+  return {
+    props: {
+      feedData,
+    },
+  };
+}
+
+
+export default function Home({ feedData }) {
+  return (
+    <main>
+      <ul> // a feed is a list. Each .map iteration step creates a new li aka a new post preview
+        {feedData.map(({ slug, date, readingTime, title, preview }) => (
+          <li key={slug}> // in React, dynamically created lis need unique identifiers, to be managed properly in case of state changes
+            <Link href={`/posts/${slug}`} >
+              <h2>
+                {title} // use jsx to pass the data directly to its target destination
+              </h2>
+              <h3>
+                <Date dateString={date} /> &nbsp;- &nbsp;{readingTime}
+              </h3>
+              <p>{preview}</p>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </main>
+  );
+}
+```
+
+Remember: We are using .mdx files directly as pages in this setup, so we don't
+need the usual `[id].js` file with `getStaticRoutes` for parsing vanilla markdown files as
+pages. That's why the `getFeedData.js` file is also a lot simpler than in most NextJS
+tutorials.
+
+---
+
+### <a id="responsive-design" href="#main-building">Responsive Design</a>
+
+In Tailwind, the breaking points are css mediaqueries pointing in one direction:
+from smaller to bigger screen sizes. This means unprefixed classes like `flex`
+apply to all sizes, but prefixed classes `sm:flex` apply to the specified
+breakpoint *and above*.
+
+Because of this, it makes sense to start the positioning part of the styling
+from the smallest screens (simulate via chrome devtools F12) and work your way
+upward from there. 
+
+>This way you set the similarities for all sizes first and then only add the differences via breakpoints.
+
+I made the mistake to just draft the desktop screen design in Photoshop
+beforehand, so I also started with desktop styling. After I was done with that,
+I realized I had to redo much of the work and start over from mobile screen
+size.
+
+<Image src={anakin}  width="20%" alt="a meme of anakin skywalker realizing he forgot to start mobile first"/>
+
+So you better draft out the mobile design beforehand aswell, so you can start
+from there. Tipp: Check how the websites you chose to model behave in mobile
+screens, to get a feel for the styling. 
+
+**Wax on Wax off:** Each time you make styling changes, check for any wierd
+misalignments in all of the dev tools screen sizes over and over again. I often
+stumbled upon meaningful styling problems, by testing the edgecases this way.
+The sooner you find them the better. 
+
+Positioning is one of the major parts of responsive design, so if you are having
+problems with that, also make sure to check out [my article]() on positioning in
+general.
+
+**Custom Breaking Points:** Don't be afraid to create custom breaking points in
+Tailwind. At first I tried to force myself to only use the default breaking
+points, but sometimes there are misalignments, that can only be fixed this way.
+Make use of the tools at your fingertips.
  
  
 
+---
 
--- Menu Component 
+
+### <a id="" href="#main-building"></a>
+**Menu Component**
+
 Instead of using a premade menu component from a library like shadzcn, I built my own custom menu component.
 '''code with detailed comments'''
+
 You can get creative with what kind of icon you use for the opening the burger menu. For custom icons, you should use svg format as it scales with size. Svg gets inserted into your component as a long random string (similar to opening an mp3 file in the text editor), wrapped inside an html tag. Make sure to include "blablabla" in the html tag, to signal to screen readers, that they dont have to read out the random string of the svg.
 Luckily I could skip that part and use divs with radius as my circles, because my icon was so simple I could directly create it in CSS.
 
@@ -285,22 +667,40 @@ I encountered the problem, that the menu closed faster, than the newly requested
 The last issue left with the menu, was that when open, the scrollbar of the underlying page was still showing. (which just takes up space and confuses, because the menu itself is not scrollable) Here is how I fixed that, using access to the dom, which I haven't done sinde the beginning of my bootcamp:
 
 
+---
 
+### <a id="" href="#main-building"></a>
 
 -- Subscribe Components logic and Styling
-Growing an email list is one of the main objectives of a blog. So I found an everpresent subscribe form in the fixed navbar to be a cool idea. 
+Growing an email list is one of the main objectives of a blog. So I found an everpresent subscribe form in the fixed header to be a cool idea. 
 To keep it a bit less in your face I only want it to be fully expanded, once clicked. Here is the logic for that:
 
 As mentioned above, [here] you can find my guide how I set up the NextJS API to connected to MailChimp (a Newsletter Management Service).
 
--- 404 styling
-To mix in some fun, I designed a fancy [404 page]. I've always wanted to use ASCII art and go ham with synth wave colors and gradients. This could be your chance for experiments too! 
+
+---
+
+### <a id="404" href="#main-building">404 Page Design</a>
+
+To mix in some fun, I designed a fancy 404 page. I've always wanted to use ASCII
+art and go ham with synth wave colors and gradients. This could be your chance
+for experiments too! 
+
+<Image src={design404} alt="a screenshot of my 404 page"/>
+
 The ASCII art needed some extra formatting to get rendered properly:
 - disable prettier
 - linebreaks after each line
 - a character at the start of each line (to keep the whitespaces before the first ascii characters)
--- To make it look good with these extra charachters, I added characters all around the ascii content, which now serves as a border/ frame.
+- To make it look good with these extra charachters, I added characters all around the ascii content, which now serves as a border/ frame.
+
 Tipp: Check out the 404 pages of your reference websites, to get a feel for a good 404.
+
+
+
+---
+
+### <a id="" href="#main-building"></a>
 
 -- font, textwrap and color etc. finetuning
 Setting the font, sizes, textwrap and colors properly can take some time.
@@ -321,85 +721,196 @@ it only really works with walls of text that are not as important, just as the i
 -- i also took it for the feed page, because here the line endings are especially fuzzy, because there is not that much text
 - medium and substack have none of these wraps for their articles so I figured it is fine to keep the posts all natural
 
-I had the main colors set from the beginning. I use a mix of Tailwinds amazing default classes, but also created a few custom colors.
-For details like the Subscribe form below or my 404 page, I experimented alot with different color variations until I was happy. The main lesson for me is to not use too many different colors at once. I would say the only reason I can have 3!!! different main brand colors plus 2 more for details, is because everything else is gray.
+---
+### <a id="" href="#main-building"></a>
+I had the main colors set from the beginning. I use a mix of Tailwinds amazing
+default classes, but also created a few custom colors. For details like the
+Subscribe form below or my 404 page, I experimented alot with different color
+variations until I was happy. The main lesson for me is to not use too many
+different colors at once. I would say the only reason I can have 3!!! different
+main brand colors plus 2 more for details, is because everything else is gray.
+
+
+---
+
+### <a id="" href="#main-building"></a>
 
 -- headtitles staticpages 
 Head titles become the title shown in the browser tab. You could keep it minimalistic and only show "Your Website Name" at each different subpage. But it is way more professional and a better user experience, to render the individual title of each subpage that you are on ("Blog Post About Special Topic", "About", "Contact" etc.) You can just write them into the head tags of your mdx pages like this:
 
 I have not found a way to automate putting the title into the headtag yet. But it might not even make sense anyways, because the title is often too long, in which case you need an even shorter version of it.
 
--- favicon
-A small but important detail is to set your favicon -- the icon of your blog that gets shown in the browser tab and in searchengine results. If you don't set it, you let the browser show a default icon. This looks like your website is broken, offline, or out of date. You don't need much to look professional. INSERT FAVICON EASY PROCESS  
+### <a id="favicon" href="#main-building">Favicon</a>
 
-BONUS:
-What I left out
---- ID page
-I started learning NextJS by following [this] and [this] tutorial. They don't use mdx as pages, so I first also built an ID page. It acts as a template that fetches all your blog posts as different pages and sets their slug as their path (slug = id = blog-post-title-dashed). For this we use NextJS's GetStaticPaths feature. I can recommend to check out how it roughly works, but it is easier to leave it out to properly render your custom MDX formatting.
+A small but important detail is to set your favicon - the icon of
+your blog that gets shown in the browser tab and in searchengine results. 
 
---- colortheme
----- I built a beautiful colortheme matching the blog-colors myself using THIS tool. But unfortunately after tons of hours spent and an annoying Microsoft Azure publishing process, it was not compatible with the current version of VS Codium. So I left my baby behind to keep moving with the stuff that matters.
+If you don't set it, you let the browser show a default icon. This looks like
+your website is broken, offline, or out of date. You don't need much to look
+professional. 
 
---- re-Setup nextjs linux vs macbook m1 incl. git sorting
-Sidestory about workload management and Linux:
-At some point I lost track of my different git branches and trimmed everything away except for my main branch with the latest merges. I then swiped my local repository, so I could download and re-install only my main branch. Unfortunately, NextJS did not properly run after that. I thought I'd had to manually copy file by file from github to find where I messed up. So I thought, in that case I could use that restart to setup linux and rebuild the project there. I definitely learned some things, but honestly it was a waste of 2-3 days. There were so many obstacles on the way to get it running, that I decided to postpone my linux journey to sometime else, once I can afford a personal Linux Mentor. 
-Luckily one of my best friends offered to lend his M1 chipped MacBook to me. After setting up VS Codium and pulling my repository from github, it immediately worked. The reason for NextJS crashes can be old hardware.
-However, the bigger moral of this: Don't learn coding + typing + vim + linux(lol) at the same time.
+INSERT FAVICON EASY PROCESS  
 
---- 404 redirect
-In the Webninjas NextJS tutorial, they build an automatic redirect from the 404 back to home. I tried that aswell, but it comes with problems: 1. If you click towards another page in the meantime, you will get redirected to home shortly afterwards. 2. You might confuse the user, about what happened, if he did not notice the 404 sign in between the redirect. 3. The user will not have the chance to sufficiently marvel at your beautiful 404 page.
-Just do it like google: Present a link that the user can manually click for redirection. Done.
 
---- scrollbar dark, header/footer-passend
-I love the brave browser, but on windows it has a bright scrollbar even in darkmode. Let's say it politely: It interferes with the design. I tried a few different ways to make it dark, but nothing looked that great. I might catch up on that later, but for now there are more important things. At least the mac scrollbar looks great with the blog.
+---
 
---- some styling details (variations, gradients, multifont, too many colors, too many hover and change effects)
-I tried some crazy hover effects and multifont, but that was just too much, let's keep it minimalistic.
+### <a id="left-out" href="#main-building">What I Left Out</a>
 
-From here on most is just documentation/ journaling insight for myself. I want to share these notes here though to keep everything at one place, and maybe you get some things out of this aswell.
+**ID page:** I started learning NextJS by following [this]
+and [this] tutorial. They don't use mdx as pages, so I first also built an ID
+page. It acts as a template that fetches all your blog posts as different pages
+and sets their slug as their path (slug = id = blog-post-title-dashed). For this
+we use NextJSs `getStaticPaths` feature. I can recommend to check out how it
+roughly works, but it is easier to leave it out to properly render your custom
+MDX formatting.
 
+
+colorttheme I built a beautiful colortheme matching the blog-colors
+myself using THIS tool. But unfortunately after tons of hours spent and an
+annoying Microsoft Azure publishing process, it was not compatible with the
+current version of VS Codium. So I left my baby behind to keep moving with the
+stuff that matters.
+
+--- re-Setup nextjs linux vs macbook m1 incl. git sorting Sidestory about
+workload management and Linux: At some point I lost track of my different git
+branches and trimmed everything away except for my main branch with the latest
+merges. I then swiped my local repository, so I could download and re-install
+only my main branch. Unfortunately, NextJS did not properly run after that. I
+thought I'd had to manually copy file by file from github to find where I messed
+up. So I thought, in that case I could use that restart to setup linux and
+rebuild the project there. I definitely learned some things, but honestly it was
+a waste of 2-3 days. There were so many obstacles on the way to get it running,
+that I decided to postpone my linux journey to sometime else, once I can afford
+a personal Linux Mentor. Luckily one of my best friends offered to lend his M1
+chipped MacBook to me. After setting up VS Codium and pulling my repository from
+github, it immediately worked. The reason for NextJS crashes can be old
+hardware. However, the bigger moral of this: Don't learn coding + typing + vim +
+linux(lol) at the same time.
+
+--- 404 redirect In the Webninjas NextJS tutorial, they build an automatic
+redirect from the 404 back to home. I tried that aswell, but it comes with
+problems: 1. If you click towards another page in the meantime, you will get
+redirected to home shortly afterwards. 2. You might confuse the user, about what
+happened, if he did not notice the 404 sign in between the redirect. 3. The user
+will not have the chance to sufficiently marvel at your beautiful 404 page. Just
+do it like google: Present a link that the user can manually click for
+redirection. Done.
+
+--- scrollbar dark, header/footer-passend I love the brave browser, but on
+windows it has a bright scrollbar even in darkmode. Let's say it politely: It
+interferes with the design. I tried a few different ways to make it dark, but
+nothing looked that great. I might catch up on that later, but for now there are
+more important things. At least the mac scrollbar looks great with the blog.
+
+--- some styling details (variations, gradients, multifont, too many colors, too
+many hover and change effects) I tried some crazy hover effects and multifont,
+but that was just too much, let's keep it minimalistic.
+
+_From here on most is just documentation/ journaling insight for myself. I want
+to share these notes here though to keep everything at one place, and maybe you
+get some things out of this aswell._
+
+<br/>
 ## <a id="insights" href="#toc"> Learning Process Insights</a>
--- not all tuts are perfect
-Not all tutorials are perfect. I had a few times, where I was super confused because the tutorial said something that was contrary to what I already know. For some moments I doubted myself, but luckily I found some ways to test and verify that actually I was right. Not always of course. Be aware, be relaxed. 
+**Not all tutorials are perfect:** I had a few times,
+where I was super confused because a tutorial said something that was contrary
+to what I already know. For some moments I doubted myself, but luckily I found
+some ways to test and verify that actually I was right. Not always of course. Be
+aware, be relaxed. 
 
--- balance of reading details and filtering fast
-One challenge I had was to balance filtering fast through tons of content, with also not missing important details. Once you found some resources with seeming high quality, take your time to understand the details. I had to learn NextJS twice, because I skipped all details the first round. However, sometimes this can be the right approach aswell.
+**Balance of reading details vs filtering fast:** One challenge I had was to
+balance filtering fast through tons of content, with also not missing important
+details. - Once you found some resources with seeming high quality, take your time
+to understand the details. I had to learn NextJS twice, because I skipped all
+details the first round. However, sometimes this can be the right approach
+aswell.
 
--- having a mentor helps a lot
-I am just incredibly grateful for my mentor Alyph Nill from ten-x-dev. Having personal support for complicated questions helped me so much. I don't know where I would be with out him. And yes, there were a lot of moments where ChatGPT was not enough or even misleading.
+**Having the right mentor is a gamechanger:** I am incredibly grateful for my
+mentor Alyph Nill from ten-x-dev. Having personal support for complicated
+questions is helping me so much. Through him, I also have access to knowledge
+about the industry I haven't found via search engines, and there were a lot of
+moments where ChatGPT etc was not enough or even misleading. I don't know where
+I would be with out him. Make sure to subscribe to my newsletter, so you can get
+my report about how I found a job in the industry.
 
--- scoping drafting helped a lot
-At first I was insecure, if I might be wasting time with all the scoping and drafting, but I will do that 100% again for the next project. I am pretty sure I would have wasted way more time fooling around with CSS than with an easy tool such as Photoshop first.
+**Preparation is worth the time:** At first I was insecure, if I might be
+wasting time with the few hours of scoping, modeling and drafting, but I will do
+that 100% again for the next project. I am pretty sure I would have wasted way
+more time fooling around with CSS than with an easy tool such as Photoshop
+first.
 
--- time with design pros and cons
-I was also insecure about maybe wasting time with design experiments that went beyond my initial draft.
-However, there were a few things that I just wasn't able to predict from the drafting stage. I am happy I took my time with them. Except for a little fun with the 404 page, everything was in an appropriate range.
+**Time spent with styling:** I was also insecure about maybe wasting time with design
+experiments that went beyond my initial draft. However, there were a few things
+that I just wasn't able to predict from the drafting stage. I am happy I took my
+time with them, feeling confident with (Tailwind)CSS by now. Except for a little fun with the 404 page, everything was in an
+appropriate range.
 
--- chat gpt is better AND worse than google
--- learning vim and git and typing and nextjs and css and linux etc. at once can make you slower than you wish
--- installing vs programming
-One thing that annoyed me was how much time I had to spent just with the basic setup of elements such as mdx and syntax highlighting. I definitely prefer the part of actually coding as opposed to installing. However I might not get around installing any time soon, so I set the intention of enjoying those processes and maybe even finding ways to make them faster. We will see.
 
--- QuestionStorming technique for some challenges, not for others(?)
-For challenges like finding a way to use mdx in a different way than described on the NextJS docs, I used a written rubberducking method I usually use for personal decisions. I was excited that it works with coding too, so I will probably write an article about that method in the future.
--- cycling between style and logic
--- make it work. make it clean. make it fast.
--- technical insights from main challenges
--- days of stuckness are preparation for wins
--- JS insecurity, random abstract learning, ok if yt blocker
 
-- Future Features
+**Installing vs programming:** One thing that annoyed me was how much time I had
+to spent just with the basic setup of elements such as mdx and syntax
+highlighting. I definitely prefer the part of actually coding as opposed to
+installing. However I might not get around installing any time soon, so I set
+the intention of enjoying those processes and maybe even finding ways to make
+them faster. We will see.
+
+**QuestionStorming technique:** For challenges like finding a way to use MDX in
+a different way than described on the NextJS docs, I used a written
+rubberducking method I usually use for personal decisions. I was excited that it
+works with coding too, so I will probably write an article about that method in
+the future.
+
+**Don't stress to learn too many things at once:** At one point I was learning
+Vim and Git and touch-typing (+ a new keyboard-layout) and NextJS and CSS and
+Linux trying to implement everything at once. That slowed me down, and I felt
+like an idiot 90% of the time, so I took some dedicated time just for typing and
+Vim and I also gave up on Linux until I can afford a Linux mentor. I once read
+that humans learn best when they feel like idiots 15% of the time, feels right
+haha.
+
+**Cycling between style and logic:** I tried to separate styling-commits from
+logic-commits, but that is not always possible. I would say the most natural way
+is a constant cycling between them. 
+
+- commit expectations
+  - <span className='text-red-500'>logic, logic, logic, logic, </span><span className='text-violet-500'>styling, styling, styling, styling, </span> etc
+- commit reality 
+  - <span className='text-orange-500'>multiple styling and logic fixes mixed,</span> <span className='text-red-500'>logic,</span> <span className='text-violet-500'>styling,</span> <span className='text-orange-500'>mixed,</span> etc
+
+
+**A few self explanatory oneliners:**
+
+- Make it work. Make it clean. Make it fast.
+- Use a Youtube blocker to limit your time in the dev-fluencer echochamber.
+- Days of stuckness are preparation for wins.
+
+
+**Write docs to boost your confidence:** I was annoyed when my mentor gave me
+the task to write blog posts about the building process. That sounded so boring,
+I just wanted to jump to the next project (I still want to). But going through
+all of the code once again and explaining it my own words, solidified the skills
+and knowledge more than I expected. It shines the light on your blindspots,
+forces you to go a level deeper, to clarify and also connect the knowledge to a
+bigger picture. It's a bit painful, but I feel way more confident about my
+skills by now. For the next docs I will probably talk less about preparation and
+philosophy though, which will make the whole process faster and more focused on the raw
+code.
+
+
+
+
+
+---
+### all links and resources
+### Future Features
 --\ speedreader
 -- new sub page "tools" with projects i built incl. wordmaster?
 -- filter by tags
-- Future Patches
+### Future Patches
 -- scrollbar => progressbar
--- reading time
 -- headtitle autoparsing
 -- color theme
--- curious but unneccessary = solution for 404 ascii font size rigidity
 -- syntax copy button
 -- vim scrolling 
--- font fix maybe one day?
 
 
