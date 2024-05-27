@@ -1,0 +1,25 @@
+---
+title: 'Insights from my First Blog'
+headtitle: 'Static vs. Server-Side'
+date: '2020-01-02'
+readingTime: '14min'
+preview: 'We recommend using **Static Generation** (with and without data) whenever possible because your page can be built once and served by CDN, which makes it much faster than having a server render the page on every request.'
+
+---
+
+
+import MdxLayout from "../../components/mdx-layout";
+import Head from 'next/head'
+
+export default function MDXPage({ children }) {
+  const headtitle= "Static vs. Server-Side Rendering"
+  return (<>
+    <MdxLayout>
+        <Head><title>{headtitle}</title></Head>
+    <div className="text-justify">
+      {children}
+    </div> 
+    </MdxLayout>
+    </>
+  );
+}

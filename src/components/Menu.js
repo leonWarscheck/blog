@@ -21,7 +21,7 @@ export default function Menu({ handleMenuToggle2, menuOpen, handleMenuClose }) {
       console.error(error);
     }
   };
-  // className={` ${menuOpen ? 'scrollbar-hide' : ''}`}
+  // className={`${menuOpen ? 'scrollbar-hide' : ''}`}
   return (
         <>
       <button

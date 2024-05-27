@@ -17,6 +17,7 @@ import overreacted from '../../../public/overreacted.png'
 import ableton from '../../../public/ableton.png'
 import anakin from '../../../public/anakin.png'
 import juggle from '../../../public/juggle.png'
+import menu from '../../../public/menu.png'
 import design404 from '../../../public/404design.png'
 import Link from 'next/link'
 
@@ -259,16 +260,13 @@ Components and aspects covered in this section:
 - [Header & Footer](#header-and-footer)
 - [Layout](#layout)
 - [HomeFeed](#homefeed)
-- [Responsive Design](#responsive-design)
-- Menu
-- SubscribeForms
+- [Menu](#menu)
+- [Subscribe Forms](#subscribe-forms)
 - [404](#404)
-- font & textwrap
-- colors
-- favicon
-- headtitles
-- colorTheme
-- what I left out
+- [Responsive Design](#responsive-design)
+- [Font](#font)
+- [Favicon](#favicon)
+- [Colortheme](#colortheme)
 
 
 <br/>
@@ -434,8 +432,6 @@ export default function Footer (){
     </footer>
   );
 };
-
-
 ```
 
 ---
@@ -450,7 +446,7 @@ import Header from "./Header";
 
 export default function Layout ({ children }){
   return (
-    <div role="region" aria-label="Main Layout"> // css purpose, otherwise use react fragment
+    <div role="region" aria-label="Main Layout"> // div for css purpose, otherwise use react fragments
       <Header /> // insert Header and Footer
       {children} // explanation below
       <Footer />
@@ -617,19 +613,19 @@ upward from there.
 
 >This way you set the similarities for all sizes first and then only add the differences via breakpoints.
 
-I made the mistake to just draft the desktop screen design in Photoshop
+I made the mistake to only draft the desktop screen design in Photoshop
 beforehand, so I also started with desktop styling. After I was done with that,
 I realized I had to redo much of the work and start over from mobile screen
 size.
 
-<Image src={anakin}  width="20%" alt="a meme of anakin skywalker realizing he forgot to start mobile first"/>
+{/* <Image src={anakin}  className="mx-auto w-1/2" alt="a meme of anakin skywalker realizing he forgot to start mobile first"/> */}
 
 So you better draft out the mobile design beforehand aswell, so you can start
 from there. Tipp: Check how the websites you chose to model behave in mobile
 screens, to get a feel for the styling. 
 
 **Wax on Wax off:** Each time you make styling changes, check for any wierd
-misalignments in all of the dev tools screen sizes over and over again. I often
+misalignments *in all of the dev tools screen sizes* over and over again. I often
 stumbled upon meaningful styling problems, by testing the edgecases this way.
 The sooner you find them the better. 
 
@@ -647,25 +643,155 @@ Make use of the tools at your fingertips.
 ---
 
 
-### <a id="" href="#main-building"></a>
-**Menu Component**
+### <a id="menu" href="#main-building">Menu Component</a>
 
-Instead of using a premade menu component from a library like shadzcn, I built my own custom menu component.
-'''code with detailed comments'''
+Instead of using a premade menu component from a library like shadzcn, you can
+build your my own custom one. 
 
-You can get creative with what kind of icon you use for the opening the burger menu. For custom icons, you should use svg format as it scales with size. Svg gets inserted into your component as a long random string (similar to opening an mp3 file in the text editor), wrapped inside an html tag. Make sure to include "blablabla" in the html tag, to signal to screen readers, that they dont have to read out the random string of the svg.
-Luckily I could skip that part and use divs with radius as my circles, because my icon was so simple I could directly create it in CSS.
+<Image src={menu}  alt="a screenshot of my menu component"/>
 
--- menu close timing and logic
-At this point I could open the menu and request pages, but the menu stayed open, so I added this logic:
 
-The menu also needed to be closeable by clicking the menu icon again. For this, I had to implement a both way toggle closing logic:
 
-I encountered the problem, that the menu closed faster, than the newly requested page loaded. This way, for a few milliseconds you always saw the page you were on before opening the menu. Eventhough requested pages load way faster in build mode, it still looked a bit glitchy. To counter that, I just added a timeout of 21 milliseconds on the eventlistener. Now the menu closes a bit slower and you land directly on the new page.
+The `Menu` component itself is pretty simple, as most of the logic is sitting in
+the `Header` component where the `Menu` is nested and lifting its state to. The main
+"trick" here, is the conditional rendering and passing the right props to the
+right places:
 
--- Scrollbar Menu
-The last issue left with the menu, was that when open, the scrollbar of the underlying page was still showing. (which just takes up space and confuses, because the menu itself is not scrollable) Here is how I fixed that, using access to the dom, which I haven't done sinde the beginning of my bootcamp:
 
+```js title="/src/components/Menu.js"
+import Link from "next/link";
+
+export default function Menu({ recievedHandleMenuToggle, menuOpen, handleMenuClose }) {
+  return (
+        <>
+      <button onClick={recievedHandleMenuToggle}> // Menu show/hide handler prop from header, explained a bit lower.
+        <div // I used 2 small rounded divs as the menu icon.
+          className={`size-6 rounded-full ${
+            menuOpen ? "bg-neutral-500" : "bg-orange-500" // menuOpen is a state prop from the header.
+          }`}
+        />
+        <div
+          className={`size-6 rounded-full ${
+            menuOpen ? "bg-neutral-500" : "bg-red-500" // Greyed out while open.
+          }`}
+        />
+      </button>
+
+      {menuOpen && ( // Conditional rendering.
+        <div>
+          <ul>
+           <li>
+              <Link
+                onClick={handleMenuClose} // The menu closes so you can see the About page.
+                href="/about"
+              >
+                About
+              </Link>
+            </li>{" "}
+            <li className="relative ">
+              <form onSubmit={handleSubscribe}> // Subscribe mailchimp api logic explained in article mentioned earlier.
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  required
+                  autoCapitalize="off"
+                  autoCorrect="off"
+                />
+                <button type="submit">
+                  Subscribe
+                </button>
+              </form>
+            </li>
+          </ul>
+        </div>
+      )}
+    </>
+  );
+}
+```
+Now take a look at the `Header` component again. In the "Header and Footer" section earlier I left out the `Menu` logic to keep it focused.
+Here you can see all of it included and explained:
+
+
+```js title="/src/components/Header.js"
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import Menu from "./Menu";
+
+export default function Header({}){
+  const [menuOpen, setMenuOpen] = useState(false); // The Header main logo button needs to close the menu, but state can only travel downwards. Solution: Menu state is lifted to its parent. 
+
+  useEffect(() => { // The scrollbar of the underlying page shows above the menu, if you don't implement this useEffect to hide it.
+    const bodyElement = document.querySelector("body");
+
+    if (menuOpen) {
+      bodyElement.classList.add("scrollbar-hide"); // "scrollbar-hide" is a Tailwind plugin you have to install via npm.
+    } else {
+      bodyElement.classList.remove("scrollbar-hide");
+    }
+  }, [menuOpen]);
+
+  const handleMenuClose = () => { // One-directional(false only) state handler.
+    setTimeout(() => { // The menu closes faster than the underlying new page loads, so you can experiment with delaying the close.
+      setMenuOpen(false);
+    }, 0); // In build mode the effect is almost invisible so you can bring it to 0 or leave it out completely.
+  };
+
+  const handleMenuToggle = () => { // Bi-directional(boolean toggle) state handler. Its used by the main button in the menu component, and needs to be lifted because it is useState-dependent.
+    setMenuOpen(!menuOpen);
+  };
+
+  return (
+    <header>
+      <nav>
+        <div>
+          <Link
+            href="/"
+            onClick={handleMenuClose} // Main logo button closing the menu to reveal the homepage.
+          >
+            <h1>LeonAndersen</h1>
+          </Link>
+          <ul> // Does not show on smaller screens, Menu component main button shows instead.
+            <li> 
+              <Link href="/about">
+                About
+              </Link>
+            </li>
+            <li>
+              <button>
+                Subscribe
+              </button>
+                <SubscribeForm/> // Explained in next section.
+            </li>
+          </ul>
+          <Menu
+            recievedHandleMenuToggle={handleMenuToggle} // *
+            menuOpen={menuOpen} // Passing state downward.
+            handleMenuClose={handleMenuClose} // Passing the shared handler downward.
+          />
+        </div>
+      </nav>
+    </header>
+  );
+};
+```
+
+You could also build a `Menu` component that has main logo `h1` at the same spot
+as the `Header` and just overlays it. This way the `Header`(parent) does not
+need to know about the `Menu`(child) state at all, so you could move all of the
+logic down into the child. 
+
+In bigger projects this might makes sense because
+every state change creates a re-render of both the parent and the child. In this
+case it is ok though, because the state only changes when interaction
+with the menu is happening and both components are lightweight anyway.
+
+
+*I called the prop-attribute "recieved" to emphasize that the attribute name can be chosen
+freely. *Props are passed through the value assigned to the attribute, not
+through the attribute name itself.* Metaphor: The attribute name is like a child
+holding out a named bucket to the parent saying "You can put the prop in here."
 
 ---
 
@@ -696,122 +822,143 @@ The ASCII art needed some extra formatting to get rendered properly:
 
 Tipp: Check out the 404 pages of your reference websites, to get a feel for a good 404.
 
+**404 redirect:** Some tutorials build an automatic redirect from the 404 back
+to home. I tried that aswell, but it comes with problems: 
 
+1. If you click to another page in the meantime, you will get redirected to
+home shortly afterwards. 
+2. You might confuse the user, about what happened, if he did not notice the 404
+sign in between the redirect. 
+3. The user will not have the chance to sufficiently marvel at your beautiful
+404 page. 
 
----
-
-### <a id="" href="#main-building"></a>
-
--- font, textwrap and color etc. finetuning
-Setting the font, sizes, textwrap and colors properly can take some time.
-
-I had struggles with the font, because the current NextJS Font setup (font@next???) for some reason displays a different font than the actual OpenSans.
-I would not recommend this for websites with vulnerable data, but: For now I left it in the deprecated legacy setup (legacy font setup), because differences in font completely changed the vibe, and also destroyed some alignments. For example the *expanded* subscribe form needs pixelperfect positioning to stay aligned with the *closed* "Subscribe" button.
-
-If you read this on desktop, you can test right now, how well the "subscribe" text is staying in place, both in open and closed state. If it is well aligned, you've got another reason to type in your best email and subscribe.
-
-Size matters! For most of the process, I had all text one or two (Tailwind-) sizes bigger. After a while I noticed a feeling as if I was working on a device for elders or toddlers. You know these phones with giant buttons? I compared fontsizes with my reference websites, and I realized, that I had taken readability one step too far. So I sized down. It made a GIANT difference: Finally, I feel sleek as Apple. 
-
-All of the page content lives in the middle 1/3 within a frame that is set by the elements in the header and footer. The clearer the page content fills up to this frame, the cleaner the overall vibe. (img vs fuzzy line endings: imprint vs feed vs post)
-I tried different ways to do that and learned the following:
-
-- bindestrich can come too many lines and is too hard to read, so i cannot take that for post content, nor even for the article previews on the feed page. I would not know where to actually use that.
-- text balance creates way too much random space in between, unfortunately it cannot be finetuned so it looked wierd even on bigger text chunks
-it only really works with walls of text that are not as important, just as the imprint page (sorry lawyers)
--- i also took it for the feed page, because here the line endings are especially fuzzy, because there is not that much text
-- medium and substack have none of these wraps for their articles so I figured it is fine to keep the posts all natural
-
----
-### <a id="" href="#main-building"></a>
-I had the main colors set from the beginning. I use a mix of Tailwinds amazing
-default classes, but also created a few custom colors. For details like the
-Subscribe form below or my 404 page, I experimented alot with different color
-variations until I was happy. The main lesson for me is to not use too many
-different colors at once. I would say the only reason I can have 3!!! different
-main brand colors plus 2 more for details, is because everything else is gray.
-
+Just do it like google: Present a link that the user can manually click for
+redirection.
 
 ---
 
-### <a id="" href="#main-building"></a>
+### <a id="font" href="#main-building">Font</a>
 
--- headtitles staticpages 
-Head titles become the title shown in the browser tab. You could keep it minimalistic and only show "Your Website Name" at each different subpage. But it is way more professional and a better user experience, to render the individual title of each subpage that you are on ("Blog Post About Special Topic", "About", "Contact" etc.) You can just write them into the head tags of your mdx pages like this:
+If you always have internet in your dev environment, you can use the non-local
+`import` (commented out). If you sometimes code where there is no wifi, I
+recommend using `localFont`: 
 
-I have not found a way to automate putting the title into the headtag yet. But it might not even make sense anyways, because the title is often too long, in which case you need an even shorter version of it.
+Sometimes, if your browser temporarily uses the fallback font, it can
+significantly change the positioning of some elements and the overall vibe of
+the design. LocalFont keeps your design stable at all times. Make sure to pick
+your font and install it before starting with the CSS styling part of your
+project.
+
+To use `localFont`, download the fontfile (preferrably a variable font) and save
+it into `/src/styles/fonts`. Then just copy the structure from below and use
+`${myFont.className}` to insert the font into the CSS of the `Main Layout <div>`.
+
+`_document.js` and `_app.js` have some NextJS specific rules, that prohibit
+importing `next/font`, so the highest parent file possible is `Layout.js`.
+
+```js title="/src/components/Layout.js"
+import Footer from "./Footer";
+import Header from "./Header";
+import localFont from "next/font/local";
+
+const myFont = localFont({
+  src: [
+    {
+      path: "../styles/fonts/OpenSans-VariableFont.ttf",
+      style: "normal",
+    },
+    {
+      path: "../styles/fonts/OpenSans-Italic-VariableFont.ttf",
+      style: "italic",
+    },
+  ],
+});
+
+// non-local:
+//
+// import { Open_Sans } from 'next/font/google'
+// const myFont = Open_Sans({ subsets: ['latin'] })
+//
+// (use myFont.classname the same way as below)
+
+export default function Layout ({ children }){
+  return (
+    <div
+      // write other css as tailwind-utilities inside of the string template literal (backticks)
+      className={`${myFont.className} example-utility`}
+      role="region"
+      aria-label="Main Layout"
+    >
+      <Header />
+      {children}
+      <Footer />
+    </div>
+  );
+};
+```
+**Size matters!** For most of the process, I had all text one or two (Tailwind-)
+sizes bigger. After a while I noticed a feeling as if I was working on a device
+for elders or toddlers. You know these phones with giant buttons? 
+
+I compared fontsizes with my reference websites, and I realized, that I had
+taken readability one step too far. So I sized down. It made a GIANT difference:
+Finally, I feel sleek as Apple. 
+
+
+
+---
 
 ### <a id="favicon" href="#main-building">Favicon</a>
 
 A small but important detail is to set your favicon - the icon of
-your blog that gets shown in the browser tab and in searchengine results. 
+your blog that gets shown in the browser tab and in search engine results. 
 
 If you don't set it, you let the browser show a default icon. This looks like
 your website is broken, offline, or out of date. You don't need much to look
-professional. 
+professional.
 
-INSERT FAVICON EASY PROCESS  
+Store the favicon in `/public` and insert is like this:
 
+```js title="/src/pages/_document.js"
+import { Html, Head, Main, NextScript } from "next/document";
+
+export default function Document() {
+  return (
+    <Html lang="en">
+      <Head>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <body>
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  );
+}
+```
+---
+**Congratulations,** you now know how to build the basic components. Make
+sure to check out the articles about the rest of this project:
+- <Link href="some.link" className="underline"> MDX & Tailwind in Next 14 PAGES-routing (incl. Syntax Highlighting)</Link>
+- <Link href="some.link" className="underline"> Mailchimp in NextJS | Understand API / Server</Link>
+- <Link href="some.link" className="underline"> Blogpage Building Struggles: CSS positioning is cursed... until now!</Link>
 
 ---
 
-### <a id="left-out" href="#main-building">What I Left Out</a>
+## <a id="references" href="#toc">References</a>
 
-**ID page:** I started learning NextJS by following [this]
-and [this] tutorial. They don't use mdx as pages, so I first also built an ID
-page. It acts as a template that fetches all your blog posts as different pages
-and sets their slug as their path (slug = id = blog-post-title-dashed). For this
-we use NextJSs `getStaticPaths` feature. I can recommend to check out how it
-roughly works, but it is easier to leave it out to properly render your custom
-MDX formatting.
+Here is a list of all the references mentioned throughout the article:
 
 
-colorttheme I built a beautiful colortheme matching the blog-colors
-myself using THIS tool. But unfortunately after tons of hours spent and an
-annoying Microsoft Azure publishing process, it was not compatible with the
-current version of VS Codium. So I left my baby behind to keep moving with the
-stuff that matters.
+<br/>
+---
 
---- re-Setup nextjs linux vs macbook m1 incl. git sorting Sidestory about
-workload management and Linux: At some point I lost track of my different git
-branches and trimmed everything away except for my main branch with the latest
-merges. I then swiped my local repository, so I could download and re-install
-only my main branch. Unfortunately, NextJS did not properly run after that. I
-thought I'd had to manually copy file by file from github to find where I messed
-up. So I thought, in that case I could use that restart to setup linux and
-rebuild the project there. I definitely learned some things, but honestly it was
-a waste of 2-3 days. There were so many obstacles on the way to get it running,
-that I decided to postpone my linux journey to sometime else, once I can afford
-a personal Linux Mentor. Luckily one of my best friends offered to lend his M1
-chipped MacBook to me. After setting up VS Codium and pulling my repository from
-github, it immediately worked. The reason for NextJS crashes can be old
-hardware. However, the bigger moral of this: Don't learn coding + typing + vim +
-linux(lol) at the same time.
+## <a id="insights" href="#toc"> Bonus: Learning Process Insights</a>
 
---- 404 redirect In the Webninjas NextJS tutorial, they build an automatic
-redirect from the 404 back to home. I tried that aswell, but it comes with
-problems: 1. If you click towards another page in the meantime, you will get
-redirected to home shortly afterwards. 2. You might confuse the user, about what
-happened, if he did not notice the 404 sign in between the redirect. 3. The user
-will not have the chance to sufficiently marvel at your beautiful 404 page. Just
-do it like google: Present a link that the user can manually click for
-redirection. Done.
-
---- scrollbar dark, header/footer-passend I love the brave browser, but on
-windows it has a bright scrollbar even in darkmode. Let's say it politely: It
-interferes with the design. I tried a few different ways to make it dark, but
-nothing looked that great. I might catch up on that later, but for now there are
-more important things. At least the mac scrollbar looks great with the blog.
-
---- some styling details (variations, gradients, multifont, too many colors, too
-many hover and change effects) I tried some crazy hover effects and multifont,
-but that was just too much, let's keep it minimalistic.
-
-_From here on most is just documentation/ journaling insight for myself. I want
+_From here on it's just documentation/ journaling insights for myself. I want
 to share these notes here though to keep everything at one place, and maybe you
 get some things out of this aswell._
 
-<br/>
-## <a id="insights" href="#toc"> Learning Process Insights</a>
 **Not all tutorials are perfect:** I had a few times,
 where I was super confused because a tutorial said something that was contrary
 to what I already know. For some moments I doubted myself, but luckily I found
@@ -839,13 +986,11 @@ that 100% again for the next project. I am pretty sure I would have wasted way
 more time fooling around with CSS than with an easy tool such as Photoshop
 first.
 
-**Time spent with styling:** I was also insecure about maybe wasting time with design
-experiments that went beyond my initial draft. However, there were a few things
-that I just wasn't able to predict from the drafting stage. I am happy I took my
-time with them, feeling confident with (Tailwind)CSS by now. Except for a little fun with the 404 page, everything was in an
-appropriate range.
-
-
+**Time spent with styling:** I was also insecure about maybe wasting time with
+design experiments that went beyond my initial draft. However, there were a few
+things that I just wasn't able to predict from the drafting stage. I am happy I
+took my time with them, feeling confident with (Tailwind)CSS by now. Except for
+a little fun with the 404 page, everything was in an appropriate range.
 
 **Installing vs programming:** One thing that annoyed me was how much time I had
 to spent just with the basic setup of elements such as mdx and syntax
@@ -891,26 +1036,11 @@ I just wanted to jump to the next project (I still want to). But going through
 all of the code once again and explaining it my own words, solidified the skills
 and knowledge more than I expected. It shines the light on your blindspots,
 forces you to go a level deeper, to clarify and also connect the knowledge to a
-bigger picture. It's a bit painful, but I feel way more confident about my
+bigger picture. It's been a bit painful, but I feel way more confident about my
 skills by now. For the next docs I will probably talk less about preparation and
 philosophy though, which will make the whole process faster and more focused on the raw
 code.
 
-
-
-
-
----
-### all links and resources
-### Future Features
---\ speedreader
--- new sub page "tools" with projects i built incl. wordmaster?
--- filter by tags
-### Future Patches
--- scrollbar => progressbar
--- headtitle autoparsing
--- color theme
--- syntax copy button
--- vim scrolling 
-
-
+<br/>
+Finally, here is an important message to you - by Yoda:
+> If this far you read, subscribe you shall.

@@ -26,7 +26,7 @@ export default function Header({}){
   };
 
   const handleMenuClose = () => {
-    console.log("handleMenuClose called");
+    // console.log("handleMenuClose called");
     setTimeout(() => {
       setMenuOpen(false);
     }, 0);
@@ -80,8 +80,8 @@ export default function Header({}){
               )}
             </li>
           </ul>
-          <Menu
-            handleMenuToggle2={handleMenuToggle}
+          <Menu  // only appears on smaller screens via breakpoints
+            handleMenuToggle2={handleMenuToggle} 
             menuOpen={menuOpen}
             handleMenuClose={handleMenuClose}
           />
