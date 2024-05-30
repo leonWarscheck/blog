@@ -8,8 +8,7 @@ preview: "A sticky footer never goes higher than the viewport bottom, but it can
 import MdxLayout from "../../components/MdxLayout";
 import Head from "next/head";
 import Image from "next/image";
-import cssOverview from "../../../public/cssoverview.png"
-
+import cssOverview from "../../../public/cssoverview.png";
 
 export default function MDXPage({ children }) {
   const headtitle = "CSS Positioning NextJS";
@@ -56,15 +55,17 @@ Ok, first of all, let's assume your situation is similar to this basic html stru
   </body>
 </Html>
 ```
+
 #### What does not work (Common Attempts):
 
 - `<main className="h-screen">` (height: 100vh)
   - `<main>` is now as high, as the screen which means it pushes the footer out of the viewport
 - `<main className="h-full">` (height: 100%)
   - nothing happens: the parent elements limit `main` (child) to the size of its contents, via their default `h-auto` (height: auto)
-  - if you set *all* parents to `h-full`, you get the same "push-out" problem as with `h-screen`
+  - if you set _all_ parents to `h-full`, you get the same "push-out" problem as with `h-screen`
 
 #### What does work (Solution):
+
 ```js
 <Html>
   <body>
@@ -79,8 +80,7 @@ Ok, first of all, let's assume your situation is similar to this basic html stru
 </Html>
 ```
 
-
-`min-h-dvh` sets the minimum height of the container (parent of main). 
+`min-h-dvh` sets the minimum height of the container (parent of main).
 
 Instead of using `min-h-screen` (min-height: 100vh) we use "dvh - dynamic
 viewport height" to ensure mobile-screens substract the browserbar from the
@@ -91,8 +91,6 @@ want header, main, footer to be stacked ontop of, not besides each other.)
 
 And `grow` sets `<main>` to fill out as much of the free space in the parent
 flexbox container as possible. `<header>` and `<footer>` should not have `grow` in this case, or they compete for the space.
-
-
 
 ---
 
@@ -111,29 +109,50 @@ The fastest way I found is to:
 - open dev tools element view as wide as possible,
 - open just enough parents to reveal only the tags that are relevant to your situation,
 - screenshot that overview,
-- and cross out all left over distractions with your screenshot/ image tool. 
+- and cross out all left over distractions with your screenshot/ image tool.
   - for example leave only classes related to height and positioning
 
 This takes 2 minutes and helps you to get clear of the css relationships even
 after long sessions of confusing trial and error:
 
-
-<Image src={cssOverview} alt="the previously described crossed out screenshot"/>
+<Image
+  src={cssOverview}
+  alt="the previously described crossed out screenshot"
+/>
 
 Of course you can type that out instead or just cross out in your mind
-while looking at the devtools. 
+while looking at the devtools.
 
 If you have a big enough screen, also make sure to open all component files
 besides each other (multiple split editors), in parent to child order.
 
 #### The Blank Slate
 
-Another great way for clarity is to just build everything from scratch...almost.
-Of course you can keep everything that you've built. Just `git add .` `git
-commit` `git checkout -b blank-slate` and delete everything except for 
+Another great way for clarity is to just build everything from scratch... almost.
+Of course you can keep everything that you've built. It is just about
+experimenting on a clean slate in a different branch. 
 
+Just `git add .` `git commit` your current branch and then`git checkout -b
+blank-slate`. Then delete everything except for the basic html structure from
+above including all css-classes. 
 
+Of course you don't have to spend all that time deleting all classes of all
+components: (In NextJS,) it is enough to delete the Layout component tags in
+`_app.js`, any classes in `_document.js`, and then make a copy of `index.js`
+that returns:
 
+```js title="/src/pages/index.js"
+export default function Home({}) {
+  return (
+    <div aria-label="Main Layout" className="">
+      <header className=""></header>
+      <main className=""></main>
+      <footer className=""></footer>
+    </div>
+  );
+}
+```
+This way you can edit 4 components in a single file for quick prototyping.
 
 
 ---
