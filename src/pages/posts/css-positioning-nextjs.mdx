@@ -128,11 +128,12 @@ besides each other (multiple split editors), in parent to child order.
 
 #### The Blank Slate
 
-Another great way for clarity is to just build everything from scratch... almost.
-Of course you can keep everything that you've built. It is just about
-experimenting on a clean slate in a different branch. 
+Another great way for clarity is to just build everything from scratch...
+almost. Of course you can keep everything that you've built. It's just about
+experimenting on a clean slate in a different branch, where no overlooked CSS
+can interfere. 
 
-Just `git add .` `git commit` your current branch and then`git checkout -b
+Just `git add .` `git commit` your current branch and `git checkout -b
 blank-slate`. Then delete everything except for the basic html structure from
 above including all css-classes. 
 
@@ -152,7 +153,9 @@ export default function Home({}) {
   );
 }
 ```
-This way you can edit 4 components in a single file for quick prototyping.
+This way you can edit 4 components in a single file for quick prototyping and
+land quickly at insights that you can then transfer to your actual branch. It
+might just look like this:
 
 
 ---
