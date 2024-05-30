@@ -13,8 +13,8 @@ export async function getStaticProps() {
 
 export default function HomeFeed({ feedData }) {
   return (
-    <main className="grow max-w-2xl pt-24 mx-auto flex px-4">
-      <ul className="">
+    <main className=" grow max-w-2xl pt-24 mx-auto px-4"> 
+      <ul>
         {feedData.map(({ slug, date, readingTime, title, preview }) => (
           <li className="mb-14" key={slug}>
             <Link href={`/posts/${slug}`} >

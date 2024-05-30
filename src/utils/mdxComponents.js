@@ -25,5 +25,5 @@ export const mdxComponents = {
   // ul: ({ children}) => (
   //   <ul className={"list-disc"}>{ children }</ul> 
   // ),
-  };
+};
 // style={{height: "1.5px", backgroundColor: "white" ,}}

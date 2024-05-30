@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useRef } from "react";
 
-export default function SubscribeFormOnPage({ onCancel, onSubscribe }) {
+export default function SubscribeFormOnPage({ onSubscribe }) {
   let formRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -31,10 +31,15 @@ export default function SubscribeFormOnPage({ onCancel, onSubscribe }) {
   };
 
   return (
-      <form ref={formRef} className=" c1:flex   px-4 bg-neutral-800 text-wrap py-5 mt-10 mb-7" onSubmit={handleSubscribe}>
-        <h2 className="text-xl mr-auto  text-neutral-100 pb-5">
-          Let’s stay connected. <br /> High-Signal-Only Email Updates.
-        </h2>
+    <form
+      ref={formRef}
+      className="px-4 bg-neutral-800 text-wrap py-5 mt-10 mb-7"
+      onSubmit={handleSubscribe}
+    >
+      <h2 className="text-xl mr-auto  text-neutral-100 pb-5">
+        Let’s stay connected. <br /> High-Signal-Only Email Updates.
+      </h2>
+      <div className="c1:flex">
         <input
           type="email"
           name="email"
@@ -52,6 +57,7 @@ export default function SubscribeFormOnPage({ onCancel, onSubscribe }) {
         >
           Subscribe
         </button>
-      </form>
+      </div>
+    </form>
   );
 }

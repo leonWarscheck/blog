@@ -37,8 +37,9 @@ export default function Header({}){
   };
 
   return (
-    <header className=" h-12 bg-neutral-800 items-center flex fixed w-full ">
-      <nav className="max-w-2xl  mx-auto flex flex-grow items-center px-4">
+    <header className="relative">
+      <nav className="h-12 bg-neutral-800 items-center flex fixed w-full ">
+        <div className=" max-w-2xl  mx-auto flex flex-grow items-center px-4">
           <Link
             className=" absolute bottom-c3 font-semibold text-2xl text-violet-500 hover:text-neutral-400"
             href="/"
@@ -83,6 +84,7 @@ export default function Header({}){
             menuOpen={menuOpen}
             handleMenuClose={handleMenuClose}
           />
+        </div>
       </nav>
     </header>
   );

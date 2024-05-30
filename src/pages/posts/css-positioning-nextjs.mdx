@@ -1,0 +1,148 @@
+---
+title: "How to 'sticky footer' for your WebApp | CSS Height & Positioning"
+date: "2024-06-10"
+readingTime: "10min"
+preview: "A sticky footer never goes higher than the viewport bottom, but it can go lower if the main content is bigger. CSS 'height' throws some wierd quirks in the building process. Here is how you can slay that demon."
+---
+
+import MdxLayout from "../../components/MdxLayout";
+import Head from "next/head";
+import Image from "next/image";
+import cssOverview from "../../../public/cssoverview.png"
+
+
+export default function MDXPage({ children }) {
+  const headtitle = "CSS Positioning NextJS";
+  return (
+    <MdxLayout>
+      <Head>
+        <title>{headtitle}</title>
+      </Head>
+      <article className="text-justify">{children}</article>
+    </MdxLayout>
+  );
+}
+
+## How to build a "sticky footer" for your WebApp | CSS Height & Positioning
+
+<div className="text-neutral-400 text-sm">
+  June 22, 2024 - 9min - #css #height #positioning #stickyfooter #webdev
+</div>
+
+Do you want to build a footer that stays at the bottom of your screen or lower -
+depending on the main content size? Well, CSS height might confuse your deepest
+beliefs about reality in the process! It's a common webdeveloper joke, that CSS
+height is the hardest part of programming. But fear not, you will likely find
+your solution in this article.
+
+### Table of Contents
+
+1. Common Attempts & Solution
+2. CSS Debugging Strategies
+3. Alternative: Use Grid
+
+### 1. Common Attempts & Solution
+
+Ok, first of all, let's assume your situation is similar to this basic html structure:
+
+```js
+<Html>
+  <body>
+    <div aria-label="Main Layout">
+      <header></header>
+      <main></main>
+      <footer></footer>
+    </div>
+  </body>
+</Html>
+```
+#### What does not work (Common Attempts):
+
+- `<main className="h-screen">` (height: 100vh)
+  - `<main>` is now as high, as the screen which means it pushes the footer out of the viewport
+- `<main className="h-full">` (height: 100%)
+  - nothing happens: the parent elements limit `main` (child) to the size of its contents, via their default `h-auto` (height: auto)
+  - if you set *all* parents to `h-full`, you get the same "push-out" problem as with `h-screen`
+
+#### What does work (Solution):
+```js
+<Html>
+  <body>
+    // min-height: 100dvh; display: flex; flex-direction: column;
+    <div className="min-h-dvh flex flex-col">
+      <header></header>
+      // flex-grow: 1;
+      <main className="grow"></main>
+      <footer></footer>
+    </div>
+  </body>
+</Html>
+```
+
+
+`min-h-dvh` sets the minimum height of the container (parent of main). 
+
+Instead of using `min-h-screen` (min-height: 100vh) we use "dvh - dynamic
+viewport height" to ensure mobile-screens substract the browserbar from the
+screen-height, which would otherwise push out the footer aswell.
+
+`flex` `flex-col` sets the container to be a flexbox in column direction. (You
+want header, main, footer to be stacked ontop of, not besides each other.)
+
+And `grow` sets `<main>` to fill out as much of the free space in the parent
+flexbox container as possible. `<header>` and `<footer>` should not have `grow` in this case, or they compete for the space.
+
+
+
+---
+
+### CSS Debugging Strategies
+
+If the above solution did not fit your situtation, or if you are curious on how
+to faster find solutions by yourself, I'll show you 2 approaches that helped me
+a lot: The Multifile Overview and the Blank Slate.
+
+#### The Multifile Overview
+
+This might be basic to many, but sometimes all you need is a focused overview
+about all hmtl tags and classes involved, which are spread over different files.
+The fastest way I found is to:
+
+- open dev tools element view as wide as possible,
+- open just enough parents to reveal only the tags that are relevant to your situation,
+- screenshot that overview,
+- and cross out all left over distractions with your screenshot/ image tool. 
+  - for example leave only classes related to height and positioning
+
+This takes 2 minutes and helps you to get clear of the css relationships even
+after long sessions of confusing trial and error:
+
+
+<Image src={cssOverview} alt="the previously described crossed out screenshot"/>
+
+Of course you can type that out instead or just cross out in your mind
+while looking at the devtools. 
+
+If you have a big enough screen, also make sure to open all component files
+besides each other (multiple split editors), in parent to child order.
+
+#### The Blank Slate
+
+Another great way for clarity is to just build everything from scratch...almost. Of course you can keep everything that you've built. Just `git add .` `git commit` `git branch blank-slate` and delete everything except for 
+
+
+
+
+
+---
+
+- x understand this https://www.youtube.com/watch?v=-sF5KsEo6gM + summary here?
+- understand overview
+  - order first, later get internet to check unneccessary
+  - y makes sense to explain functionality of different classes in overview?
+  - compare similar levels ? eg header, footer; index.js, MdxLayout.js
+- re-build from scratch
+  - minimize amount of tags afterwards
+- otherwise try grid link https://css-tricks.com/how-to-use-css-grid-for-sticky-headers-and-footers/
+
+---

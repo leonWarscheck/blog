@@ -1,0 +1,312 @@
+---
+title: 'MDX, Tailwind & Syntax Highlighting in NextJS Pages-Routing'
+date: '2024-02-02'
+readingTime: '14min'
+preview: 'Setting up MDX in NextJS can be a struggle. Especially when you mix it with
+Tailwind and Rehype, which at times interfere. Here is how you can set
+them up together in near harmony. (+ Custom Colortheme)'
+
+---
+
+
+import MdxLayout from "../components/MdxLayout";
+import Head from 'next/head'
+
+export default function MDXPage({ children }) {
+  const headtitle= "MDX, Tailwind & Rehype in NextJS"
+  return (<>
+    <MdxLayout>
+        <Head><title>{headtitle}</title></Head>
+      <article className="text-justify">{children}</article>
+    </MdxLayout>
+    </>
+  );
+}
+
+## MDX, Tailwind & Syntax Highlighting in NextJS Pages-Routing
+<div className="text-neutral-400 text-sm">
+June 2, 2024 - 11min - #mdx #tailwindprose #rehype #webdev #tutorial
+</div>
+
+Setting up MDX in NextJS Pages-Routing can be tricky. And once you get your .mdx
+files to show up as pages, you realize most markdown features are missing.
+That's because Tailwind overrides them all and you need another plugin "Tailwind
+Prose" to revive and then customize them. 
+
+But not all of them: mdxComponents.js needs configurations for _some_ markdown
+features aswell. You also want syntax highlighting (styling for your codeblocks)
+aswell, right? Well, some of the settings in Rehype will be in conflict with
+Tailwind Prose!
+
+It's a bit of a mess, but it's worth it: MDX offers an abundance of features
+that you would be missing with vanilla markdown. A blog without MDX is not going
+to survive.
+
+### Table of Contents
+
+0. Prerequisites
+1. MDX Setup
+2. Tailwind Prose
+3. Rehype Setup
+4. Custom Colortheme
+5. References
+
+### 0. Prerequisites
+
+You must have already either followed the steps of this guide:
+
+[How to Code a Blog in 2024 (with MDX in Next 14 Pages-Routing)](/posts/nextjs-pages-blog-tutorial-2024)
+
+Or have scanned through it to make sure the state of your project lines up with it:
+
+- The [NextJS installation settings,](/posts/nextjs-pages-blog-tutorial-2024#installation)
+- the [pages-routing setup,](/posts/nextjs-pages-blog-tutorial-2024#routing)
+- and the [HomeFeed component](/posts/nextjs-pages-blog-tutorial-2024#homefeed) should be exactly the same.
+
+### 1. MDX Setup
+
+
+
+
+---
+
+to do:
+
+mdx
+- mdx install
+- understand mdx provider
+- understand mdx components ... at least a bit...i can admit gaps
+- scan mdx tut that was my source
+- youtube stream check for overflow solution and other memories
+  - css class gamechanger w-full + x ?
+- mdx layout structure, mdx page, incl. main
+
+tw
+- tailwind prose install
+- tailwind prose docs...screenshots? / most important ones I used
+
+rehype
+- rehype install
+- rehype customization
+- rehype title and caption
+- rehype mdx setting? or split by lang?
+
+theme
+- screenshot and link colortheme tool
+
+add
+- imprt and use jsx elements ...is one enough? (collapsible)
+  - check other useful jsx just to know and mention... no demo needed?
+- check for checkboxes in mdx
+- preview component
+
+---
+
+
+
+
+
+
+
+
+
+```js title="/src/components/MdxLayout.js"
+import SubscribeFormOnPage from "./SubscribeFormOnPage";
+
+export default function MdxLayout({ children }) {
+  // Create any shared layout or styles here
+  return (
+    <div
+      className=" text-neutral-200 max-w-2xl pt-12 grow w-full mx-auto px-4 prose prose-neutral prose-invert  prose-pre:bg-neutral-700  prose-a:no-underline hover:prose-a:underline  prose-h4:font-bold prose-blockquote:bg-neutral-500 "
+      role="region"
+      aria-label="MDX Article Layout"
+    >
+      {children}
+      <section className="not-prose"
+      aria-label="Subscribe Form Section"
+      >
+        <SubscribeFormOnPage />
+      </section>
+    </div>
+  );
+}
+```
+
+
+
+```js title="/src/pages/_app.js"
+import { MDXProvider } from "@mdx-js/react";
+import Layout from "../components/Layout";
+import "../styles/globals.css";
+import Head from "next/head";
+import { mdxComponents } from "../utils/mdxComponents";
+
+export default function MyApp({ Component, pageProps }) {
+  return (
+    // <>
+      <Layout>
+        <Head>
+          <title>LeonAndersen</title>
+        </Head>
+        <MDXProvider  components={mdxComponents}>
+          <Component {...pageProps} />
+        </MDXProvider>
+      </Layout>
+    // </>
+  );
+}
+```
+
+
+<div className="prose-pre:">
+```mdx title="/src/pages/posts/nextjs-pages-blog-tutorial-2024.mdx"
+---
+title: 'How to Code a Blog in 2024 (with MDX in Next 14 Pages-Routing)'
+headtitle: 'Static vs. Server-Side'
+date: '2024-01-02'
+readingTime: '21min'
+preview: 'The step-by-step process of how you can build a blog-website just like this.
+Using React, Tailwind, NextJS, MDX and MailChimp.'
+---
+import Head from 'next/head'
+import Image from 'next/image'
+import Link from 'next/link'
+import MdxLayout from "../../components/MdxLayout";
+
+import homepagedraft from '../../../public/homepagedraft.png'
+import bettermf from '../../../public/bettermf.png'
+import naval from '../../../public/naval.png'
+import overreacted from '../../../public/overreacted.png'
+import ableton from '../../../public/ableton.png'
+import menu from '../../../public/menu.png'
+import design404 from '../../../public/404design.png'
+
+export default function MDXPage({ children }) {
+  const headtitle= "2024 NextJS Pages Blog Tutorial"
+  return (<>
+    <MdxLayout>
+      <Head><title>{headtitle}</title></Head>
+      <main className="text-justify">
+        <article>
+          {children}
+        </article>
+      </main> 
+    </MdxLayout>
+    </>
+  );
+}
+
+
+## How to Code a Blog in 2024 <br/>(with MDX and Next14 Pages-Routing)
+
+```
+</div>
+
+
+```js title="/src/utils/mdxComponents.js"
+
+export const mdxComponents = {
+  // h2: ({ children }) => (
+  //   <>
+  //     <h2 className="text-xl font-semibold">{children}</h2>
+  //     <br />
+  //   </>
+  // ),
+  // h3: ({ children }) => (
+  //   <>
+  //     <h3 className="font-semibold text-">{children}</h3>
+  //     <br />
+  //   </>
+  // ),
+  // p: ({ children }) => (
+  //   <>
+  //     <p className="font-normal ">{children}</p> <br />
+  //   </>
+  // ),
+  hr: ()=> <><hr style={{height: "1.7px", backgroundColor: "white",}}/></>,
+  pre: ({children})=> <><pre>{children}</pre></>,
+  blockquote: ({children})=> <><blockquote>{children}</blockquote></>,
+  // a: ({children})=> <><a className="no-underline">{children}</a></>,
+  // img: children => <Image alt={children.alt} layout="fill" {...children} />
+  // ul: ({ children}) => (
+  //   <ul className={"list-disc"}>{ children }</ul> 
+  // ),
+  };
+// style={{height: "1.5px", backgroundColor: "white" ,}}
+```
+
+
+```js title="/src/next.config.mjs"
+import nextMDX from '@next/mdx'
+import rehypePrettyCode from 'rehype-pretty-code'
+import remarkFrontmatter from 'remark-frontmatter'
+import fs from 'fs';
+
+ 
+const withMDX = nextMDX({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [remarkFrontmatter],
+    rehypePlugins: [[rehypePrettyCode,{grid: false, keepBackground: false,}]],
+      rehypePlugins: [[rehypePrettyCode,{theme: JSON.parse(fs.readFileSync("./public/lsd-classics-color-theme (1).json", "utf-8")),}]],
+      // rehypePlugins: [[rehypePrettyCode,{theme:'one-dark-pro'}]],
+    providerImportSource: '@mdx-js/react'
+  }
+})
+ 
+export default withMDX({
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx']
+})
+```
+
+
+```js title="/src/styles/globals.css"
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+}
+
+#__next {
+  height: 100%;
+}
+
+pre {
+  overflow-x: auto;
+  padding: 1rem 0;
+  /* grid: false;
+    width: 100%; */
+  background-color: #262626;
+  background-color: #404040;
+  /* background-color: #212121; */
+  /* .comments {
+    color: white ;
+  } */
+}
+
+/* html {
+  scroll-padding-top: 70px;
+}  */
+
+pre [data-line] {
+  padding: 0 1rem;
+}
+
+
+```
+
+
+```js title=""
+
+```
+
+
+```js title=""
+
+```
+
+
