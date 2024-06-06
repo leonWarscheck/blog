@@ -1,7 +1,7 @@
 ---
-title: "How to 'sticky footer' for your WebApp | CSS Height & Positioning"
-date: "2024-06-10"
-readingTime: "10min"
+title: "How to build a 'sticky footer' for your WebApp | CSS Height & Positioning"
+date: "2024-06-07"
+readingTime: "5min"
 preview: "A sticky footer never goes higher than the viewport bottom, but it can go lower if the main content is bigger. CSS 'height' throws some wierd quirks in the building process. Here is how you can slay that demon."
 ---
 
@@ -9,6 +9,7 @@ import MdxLayout from "../../components/MdxLayout";
 import Head from "next/head";
 import Image from "next/image";
 import cssOverview from "../../../public/cssoverview.png";
+import blankSlate from "../../../public/blank-slate.png";
 
 export default function MDXPage({ children }) {
   const headtitle = "CSS Positioning NextJS";
@@ -25,26 +26,28 @@ export default function MDXPage({ children }) {
 ## How to build a "sticky footer" for your WebApp | CSS Height & Positioning
 
 <div className="text-neutral-400 text-sm">
-  June 22, 2024 - 9min - #css #height #positioning #stickyfooter #webdev
+  June 7, 2024 - 5min - #css #height #positioning #stickyfooter #webdev
 </div>
 
-Do you want to build a footer that stays at the bottom of your screen or lower -
-depending on the main content size? Well, CSS height might confuse your deepest
-beliefs about reality in the process! It's a common webdeveloper joke, that CSS
-height is the hardest part of programming. But fear not, you will likely find
-your solution in this article.
+So, you want to build a footer that stays at the bottom of your screen or lower,
+depending on the main content size? Well, in the process, CSS height might
+confuse your deepest beliefs about reality! It's a common webdeveloper joke,
+that CSS height is the hardest part of programming. But fear not, you will
+likely find your solution in this article.
 
+<a id="toc"></a>
 ### Table of Contents
 
-1. Common Attempts & Solution
-2. CSS Debugging Strategies
-3. Alternative: Use Grid
+1. [Common Attempts & Solution](#attempts-and-solution)
+2. [CSS Debugging Strategies](#css-debugging-strategies)
+3. [Alternative: Use Grid](#alternative-grid)
 
-### 1. Common Attempts & Solution
+<br/>
+### 1. <a id="attempts-and-solution" href="#toc">Common Attempts & Solution</a>
+
 
 Ok, first of all, let's assume your situation is similar to this basic html structure:
-
-```js
+```js title=""
 <Html>
   <body>
     <div aria-label="Main Layout">
@@ -92,9 +95,10 @@ want header, main, footer to be stacked ontop of, not besides each other.)
 And `grow` sets `<main>` to fill out as much of the free space in the parent
 flexbox container as possible. `<header>` and `<footer>` should not have `grow` in this case, or they compete for the space.
 
----
 
-### CSS Debugging Strategies
+<br/>
+### 2. <a id="css-debugging-strategies" href="#toc">CSS Debugging Strategies</a>
+
 
 If the above solution did not fit your situtation, or if you are curious on how
 to faster find solutions by yourself, I'll show you 2 approaches that helped me
@@ -153,20 +157,28 @@ export default function Home({}) {
   );
 }
 ```
-This way you can edit 4 components in a single file for quick prototyping and
-land quickly at insights that you can then transfer to your actual branch. It
-might just look like this:
+This way you can edit 4 components in a single file for fast prototyping and
+land quickly at insights that you can then transfer to your actual branch. After
+a few steps from scratch it might just look like this:
+
+<Image
+  src={blankSlate}
+  alt="rudimentary header, main, footer"
+/>
 
 
----
+<br/>
+### 3. <a id="alternative-grid" href="#toc">Alternative: Try Grid</a>
 
-- x understand this https://www.youtube.com/watch?v=-sF5KsEo6gM + summary here?
-- understand overview
-  - order first, later get internet to check unneccessary
-  - y makes sense to explain functionality of different classes in overview?
-  - compare similar levels ? eg header, footer; index.js, MdxLayout.js
-- re-build from scratch
-  - minimize amount of tags afterwards
-- otherwise try grid link https://css-tricks.com/how-to-use-css-grid-for-sticky-headers-and-footers/
 
----
+If all the previous assistance still wasn't enough, you can also use CSS-Grid.
+It is a bit unconventional though, because to make it sticky, you would have to
+*nest your footer inside of your main*, which could be confusing for screenreaders
+and SEO. 
+
+On the other hand, grid seems to be fun working with! Just see for yourself in
+this article by css-tricks.com:
+
+[**css-tricks.com: How To Use Css Grid For Sticky Headers And Footers**](https://css-tricks.com/how-to-use-css-grid-for-sticky-headers-and-footers/)
+
+But before you go... subscribe below:)

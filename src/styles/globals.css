@@ -8,28 +8,27 @@
   }
 }
 
-#__next {
+/* #__next {
   height: 100%;
-}
+} */
 
-pre {
+/* pre {
   overflow-x: auto;
   padding: 1rem 0;
-  /* grid: false;
-    width: 100%; */
+ 
   background-color: #262626;
   background-color: #404040;
-  /* background-color: #212121; */
-  /* .comments {
-    color: white ;
-  } */
-}
 
-/* html {
-  scroll-padding-top: 70px;
-}  */
+} */
 
-pre [data-line] {
-  padding: 0 1rem;
-}
+/* pre {
+margin: 0 -1rem;
+
+} */
+
+
+/* pre [data-line] {
+  margin: 0 0rem;
+  padding: 0 0rem;
+} */
 

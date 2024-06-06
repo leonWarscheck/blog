@@ -41,7 +41,7 @@ export default function Menu({ handleMenuToggle2, menuOpen, handleMenuClose }) {
       </button>
 
       {menuOpen && (
-        <div className="bg-neutral-800 flex flex-col  c1:hidden text-2xl  font- absolute left-0 right-0 top-12 min-h-[calc(100vh-3rem)]    ">
+        <div className="bg-neutral-800 flex flex-col  c1:hidden text-2xl  font- absolute left-0 right-0 top-12 min-h-[calc(100vh-3rem)]" aria-label="Mobile Menu">
           <ul className=" w-full px-4 max-w-2xl mx-auto flex flex-col grow justify-evenly ">
             {/* <li className=" ">
               <Link

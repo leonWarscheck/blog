@@ -1,10 +1,10 @@
 ---
 title: 'How to Code a Blog in 2024 (with MDX in Next 14 Pages-Routing)'
 headtitle: 'Static vs. Server-Side'
-date: '2024-01-02'
-readingTime: '21min'
-preview: 'The step-by-step process of how you can build a blog-website just like this.
-Using React, Tailwind, NextJS, MDX and MailChimp.'
+date: '2024-06-07'
+readingTime: '34min'
+preview: 'The step-by-step guide to how you can build a blog-website just like this
+- using React, Tailwind, NextJS, MDX and MailChimp.'
 ---
 import Head from 'next/head'
 import Image from 'next/image'
@@ -34,7 +34,7 @@ export default function MDXPage({ children }) {
 ## How to Code a Blog in 2024 <br/>(with MDX and Next14 Pages-Routing)
 
 <div className="text-neutral-400 text-sm">
-January 2, 2024 - 21min - #tutorial #blog #webdevelopment #docs
+June 7, 2024 - 34min - #tutorial #blog #webdevelopment #docs
 </div>
 
 Welcome to the step-by-step guide of how you can build a blog-website just
@@ -64,29 +64,33 @@ In this guide I bring it all together.
 _Disclaimer: The instructions of this guide are just my personal recommendations. Feel free to customize to your own taste._
 <div className="text-neutral-300">
 
-<a id="prerequisites"></a>
-### [0. Prerequisites](#toc)
 
-If you are a complete beginner at coding, first work through something like the Webdeveloper Bootcamp by Colt Steele. That's what gave me the foundations for this blog project *(HTML, CSS, JavaScript, React)*.
+<br/>
+### <a id="prerequisites" href="#toc">0. Prerequisites</a>
 
-For learning *Tailwind*, scan through [this](https://www.youtube.com) short tutorial on 1.5-2x speed. 
+If you are a complete beginner at coding, first work through something like the
+Webdeveloper Bootcamp by Colt Steele. That's what gave me the foundations for
+this blog project *(HTML, CSS, JavaScript, React)*.
+
+For learning *Tailwind*, scan through [this](https://youtu.be/ft30zcMlFao?si=U1WJGAnrofYRtGtk) tutorial on 1.5-2x speed. 
 Then learn to actually use it by building your own blog with it. 
 With Tailwind-Docs-Search and ChatGPT, this is fun and easy. 
 Except for some basic CSS overview, I had almost zero experience with it before this blog.
 
 For the harder part of styling - positioning and responsive design - I also
 wrote intructions later in this article. Additionally you can find all
-_tailwind-classes_ that I used in my [source code]() on Github.
+_tailwind-classes_ that I used in my [source code](https://github.com/leonAndersen/blog) on Github.
 
-If you are new to to *Github/* version control: Work through [this]() Git Crash Course. And make sure to read through *[conventional commits]()*.
+If you are new to to *Github/* version control: Work through [this](https://youtu.be/ulQA5tjJark?si=ZhyJQfluX-rneEbr) Git Crash Course. And make sure to read through *[conventional commits](https://www.conventionalcommits.org/en/v1.0.0/)*.
 
-_Accessibility_ is not my strength yet, so I only adress a few of its aspects in this guide. If you want to go deeper on it, my mentor recommends [this resource.]() 
+_Accessibility_ is not my strength yet, so I only adress a few of its aspects in this guide. If you want to go deeper on it, my mentor recommends [this resource.](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks/React_accessibility) 
 
 IMPORTANT: Before starting your blog project, I can also recommend to watch
-[this]() little _NextJS_ course on 1.5-2x speed (no need to code along there imo). This
+[this](https://youtube.com/playlist?list=PL4cUxeGkcC9g9gP2onazU5-2M-AzA8eBw&si=twXEDUCdzgd17ovh) little _NextJS_ course on 1.5-2x speed (no need to code along there imo). This
 will give you a workable overview of the NextJS basics.
 
 </div>
+<br/>
 ## <a id="prep-and-setup" href="#toc">1. Preparation and Setup</a>
 
 Working along this structure made the process smooth and straight-forward:
@@ -101,6 +105,7 @@ Working along this structure made the process smooth and straight-forward:
   - [pages-routing](#routing)
 
 
+<br/>
 ## <a id="vision-scope" href="#prep-and-setup"> Vision/ Scope </a>
 
 ### <a id="modeling" href="#prep-and-setup">Modeling</a>
@@ -172,6 +177,7 @@ Brainstorm a list of all the major (react-) components and pages you will likely
 - 404
 
 
+<br/>
 ## <a id="setup" href="#prep-and-setup">Setup</a>
 
 ### <a id="installation" href="#prep-and-setup">Installation</a>
@@ -198,7 +204,7 @@ Brainstorm a list of all the major (react-) components and pages you will likely
 
 NextJS pages-routing in a nutshell:
 
-<div className="prose-pre:leading-4 prose-pre:bg-neutral-800">
+<div className="prose-pre:leading-4 prose-pre:bg-neutral-80 prose-pre:mx">
 ```md
 prettier-ignore
 
@@ -224,7 +230,7 @@ src/
 NextJS PR determines the URL path of your different pages by their position in the folders and a set of special purpose filenames.
 Make sure to use this exact folder structure and the rules described in the comments.
 
-Action Steps:
+**Action Steps:**
 - create all of the component and page files from the component list
 - place them in their routing as described above
   - no need for feedData.js and getStaticProps yet
@@ -241,9 +247,10 @@ In this section I explain most of the smaller steps of the main building process
 
 To keep it organized, I wrote the bigger challenges into seperate, detailed articles.
 You can find them here:
-- <Link href="some.link" className="underline"> MDX & Tailwind in Next 14 PAGES-routing (incl. Syntax Highlighting)</Link>
-- <Link href="some.link" className="underline"> Mailchimp in NextJS | Understand API / Server</Link>
-- <Link href="some.link" className="underline"> Blogpage Building Struggles: CSS positioning is cursed... until now!</Link>
+- <Link href="/posts/mdx-tailwind-rehype-nextjs" className="underline"> MDX & Tailwind in Next 14 PAGES-routing (incl. Syntax Highlighting)</Link>
+- <Link href="/posts/mailchimp-nextjs-api" className="underline">Mailchimp Newsletter Management in NextJS | Next API</Link>
+- <Link href="/posts/css-height-sticky-footer" className="underline">How to build a "sticky footer" for your WebApp | CSS Height & Positioning</Link>
+
 
 Components and aspects covered in this section:
 - [HTML Overview](#html-overview)
@@ -261,13 +268,13 @@ Components and aspects covered in this section:
 <br/>
 ### <a id="html-overview" href="#main-building">HTML Overview</a>
 
-Before we go into the components, there are a few HTML concepts you should keep in mind for the project:
+Before we go into the components, there are a few HTML concepts that are helpful to keep in mind for the project:
 
 1. **overview**
 
 You can see that there are 3 layers of nesting in a NextJS PR project:
-- the "HTML base layer" (document)
-- the "layout and settings layer" (app)
+- the "HTML base layer" (_document.js)
+- the "layout and settings layer" (_app.js)
 - and finally the individual pages
 
 <div className="prose-pre:leading-4">
@@ -277,7 +284,6 @@ You can see that there are 3 layers of nesting in a NextJS PR project:
 <body>
 <Main>
         <Layout>                   // _app.js
-        <MDXProvider>
         <Component>
                     (<MDXLayout>)  // page files (.js = without MDXLayout)
                      <main>    
@@ -285,7 +291,6 @@ You can see that there are 3 layers of nesting in a NextJS PR project:
                      </main>    
                     (</MDXLayout>)
         </Component>
-        </MDXProvider>  
         </Layout>
 </Main>
 </body>
@@ -297,16 +302,16 @@ You can see that there are 3 layers of nesting in a NextJS PR project:
 
 Having this overview helps to structure your (Tailwind-)CSS stylings in the
 correct order of nesting, and detect conflicting classes. This is crucial for
-the usually cumbersome CSS positioning, which I go into later.
+the usually cumbersome CSS positioning, which I go into in [this dedicated article](/posts/css-height-sticky-footer).
 
 2. `<main>`
 
 Notice the `<Main/>`tag in the base and the `<main></main>` in the page layer.
-The first is the Main of the whole app and the second represents the mains of
-the individual pages. 
+The first is a NextJS specific Main that does not actually exists in the dom
+tree and the second represents the mains of the individual pages. 
 
 No tutorial stressed out the role of the `<main></main>` tag to me - or let alone
-that every page needs one. Well, it turns out, besides CSS clarity, it is
+that every page needs one. It turns out, besides CSS clarity, it is
 essential for accessibility and search engine optimization (SEO).
 
 I only knew that you should often use descriptive tags like `<section>` instead of `<div>`, but I
@@ -357,25 +362,23 @@ export default function Header({}){
 return (
     <header className="..."> // reminder: you can find all tailwind-classes in my source code on github. I leave them out of all code examples for focus.
       <nav> // "navbar" often gets used synonymously with "header", but it's just one of headers possible childs. wrap it.
-        <div> // this div exists for tailwindcss purposes only 
-          <Link href="/"> // common practice: distinguish the main logo from the rest of the navigation links           
-            <h1>LeonAndersen</h1>
-          </Link>
-          <ul> // wrap the other navigation items into a ul
-            <li>
-              <Link href="/about"> // you can set internal links already
-                About
-              </Link> // this is a link to another page
-            </li>
-            <li>
-              <button> // this is a button that opens a form
-                Subscribe
-              </button>
-              <SubscribeForm/> // SubscribeForm logic is explained later
-            </li>
-          </ul>
-          <Menu/> // this component only appears on smaller screen sizes and is explained later
-        </div>
+        <Link href="/"> // common practice: distinguish the main logo from the rest of the navigation links           
+          <h1>LeonAndersen</h1>
+        </Link>
+        <ul> // wrap the other navigation items into a ul
+          <li>
+            <Link href="/about"> // you can set internal links already
+              About
+            </Link> // this is a link to another page
+          </li>
+          <li>
+            <button> // this is a button that opens a form
+              Subscribe
+            </button>
+            <SubscribeForm/> // SubscribeForm logic is explained later
+          </li>
+        </ul>
+        <Menu/> // this component only appears on smaller screen sizes and is explained later
       </nav>
     </header>
   );
@@ -389,8 +392,7 @@ import Link from "next/link";
 export default function Footer (){
   return (
     <footer>
-      <nav> // eventhough navbar is mostly associated with the header, navigation links in the footer are also usually a navbar
-        <div>
+        <nav> // eventhough navbar is mostly associated with the header, navigation links in the footer are also usually a navbar
           <Link href="/">
             <h1>LeonAndersen</h1>
           </Link>
@@ -407,8 +409,8 @@ export default function Footer (){
                 <SubscribeForm/>
             </li>
           </ul>
-        </div>
-        <div> // on smaller screensizes this div replaces the previous sibling div
+        </nav>
+        <nav> // on smaller screensizes this nav replaces the previous sibling nav, otherwise it is hidden
           <ul>
             <li>
               <Link href="/imprint">
@@ -416,8 +418,7 @@ export default function Footer (){
               </Link>
             </li>
           </ul>
-        </div>
-      </nav>
+        </nav>
     </footer>
   );
 };
@@ -464,9 +465,7 @@ export default function MyApp({ Component, pageProps }) {
       <Head> // set the default browsertab title
         <title>LeonAndersen</title>
       </Head>
-      <MDXProvider components={mdxComponents}> // covered in the MDX focused article I mentioned earlier, just know this exists
         <Component {...pageProps} /> // this is where the individual pages and their props "dock into" the app
-      </MDXProvider>
     </Layout>
   );
 }
@@ -477,7 +476,7 @@ Congrats, now you also understand `_app.js`.
 
 ### <a id="homefeed" href="#main-building">HomeFeed</a>
 
-Just like in [the NextJS docs tutorial](), you want the index page to act as
+Just like in [this NextJS docs tutorial](https://nextjs.org/learn-pages-router/basics/create-nextjs-app), you want the index page to act as
 a feed with previews of your articles. For this you need a `HomeFeed` component and a
 metadata utility component in a separate file.
 
@@ -628,7 +627,7 @@ export default function Menu({ recievedHandleMenuToggle, menuOpen, handleMenuClo
       </button>
 
       {menuOpen && ( // Conditional rendering.
-        <div>
+        <div aria-label="Mobile Menu">
           <ul>
            <li>
               <Link
@@ -688,7 +687,6 @@ export default function Header({}){
   return (
     <header>
       <nav>
-        <div>
           <Link
             href="/"
             onClick={handleMenuClose} // Main logo button closing the menu to reveal the homepage.
@@ -713,7 +711,6 @@ export default function Header({}){
             menuOpen={menuOpen} // Passing state downward.
             handleMenuClose={handleMenuClose} // Passing the shared handler downward.
           />
-        </div>
       </nav>
     </header>
   );
@@ -764,7 +761,6 @@ export default function Header({}){
   return (
     <header>
       <nav>
-        <div>
           <Link>
             <h1>LeonAndersen</h1>
           </Link>
@@ -789,7 +785,6 @@ export default function Header({}){
             </li>
           </ul>
           <Menu/>
-        </div>
       </nav>
     </header>
   );
@@ -838,13 +833,8 @@ export default function SubscribeForm({ onCancel, onSubscribe }) { // getting pr
   );
 }
 ```
-
-
-
-
-
-[Here]() you can find my guide on how you can set up the NextJS API to
-connected to MailChimp (a Newsletter Management Service).
+[Here](/posts/mailchimp-nextjs-api) you can find my guide on how you can set up the NextJS API to
+connect to MailChimp (a Newsletter Management Service).
 
 
 ---
@@ -1009,7 +999,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.ico" /> // Insert inside of Head tag.
       </Head>
       <body>
         <Main />
@@ -1022,45 +1012,42 @@ export default function Document() {
 ---
 **Congratulations,** you now know how to build all the foundational components. Make
 sure to check out the articles about the rest of this project:
-- <Link href="some.link" className="underline"> MDX & Tailwind in Next 14 PAGES-routing (incl. Syntax Highlighting)</Link>
-- <Link href="some.link" className="underline"> Mailchimp in NextJS | Understand API / Server</Link>
-- <Link href="some.link" className="underline"> Blogpage Building Struggles: CSS positioning has been cursed... until now!</Link>
+- <Link href="/posts/mdx-tailwind-rehype-nextjs" className="underline"> MDX & Tailwind in Next 14 PAGES-routing (incl. Syntax Highlighting)</Link>
+- <Link href="/posts/mailchimp-nextjs-api" className="underline">Mailchimp Newsletter Management in NextJS | Next API</Link>
+- <Link href="/posts/css-height-sticky-footer" className="underline">How to build a "sticky footer" for your WebApp | CSS Height & Positioning</Link>
 
----
 
+<br/>
 ## <a id="references" href="#toc">3. References</a>
 
 Here is a list of all the references mentioned throughout the article:
 
-- Webdeveloper Bootcamp by Colt Steele
-- TailwindCSS Crash Course by Code with Guillaume 
-- TailwindCSS Docs
-- LeonAndersen.com Source Code on Github
-- Github Crashcourse by 
-- Conventional Commits
-- Accessibility MDN Article
-- NextJS Pages Routing Crash Course by WebNinja
-- Gimp for drafting your Blog design
-- NextJS Docs: Installation
-- NextJS Docs: Pages Routing Tutorial 
-- NextJS Docs: Font
+- [Webdeveloper Bootcamp by Colt Steele](https://www.udemy.com/course/the-web-developer-bootcamp/)
+- [TailwindCSS Crash Course by Code with Guillaume](https://youtu.be/ft30zcMlFao?si=U1WJGAnrofYRtGtk)
+- [TailwindCSS Docs](https://www.tailwindcss.com)
+- [LeonAndersen.com Source Code on Github](https://github.com/leonAndersen/blog)
+- [Github Crashcourse by Academind](https://youtu.be/ulQA5tjJark?si=ZhyJQfluX-rneEbr) 
+- [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+- [Accessibility in React - MDN Article](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks/React_accessibility)
+- [Gimp for drafting your Blog design](https://www.gimp.org)
+- [NextJS Pages Routing Crash Course by NetNinja](https://youtube.com/playlist?list=PL4cUxeGkcC9g9gP2onazU5-2M-AzA8eBw&si=twXEDUCdzgd17ovh)
+- [NextJS Docs: Installation (make sure to select Pages Routing Mode)](https://nextjs.org/docs/getting-started/installation)
+- [NextJS Docs: Pages Routing Tutorial](https://nextjs.org/learn-pages-router/basics/create-nextjs-app)
+- [NextJS Docs: Font (make sure to select Pages Routing Mode)](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts)
 
 
 
 
 
 And once again my additional articles about this blog project:
-- <Link href="some.link" className="underline"> MDX & Tailwind in Next 14 PAGES-routing (incl. Syntax Highlighting)</Link>
-- <Link href="some.link" className="underline"> Mailchimp in NextJS | Understand API / Server</Link>
-- <Link href="some.link" className="underline"> Blogpage Building Struggles: CSS positioning has been cursed... until now!</Link>
-
-
+- <Link href="/posts/mdx-tailwind-rehype-nextjs" className="underline"> MDX & Tailwind in Next 14 PAGES-routing (incl. Syntax Highlighting)</Link>
+- <Link href="/posts/mailchimp-nextjs-api" className="underline">Mailchimp Newsletter Management in NextJS | Next API</Link>
+- <Link href="/posts/css-height-sticky-footer" className="underline">How to build a "sticky footer" for your WebApp | CSS Height & Positioning</Link>
 
 
 
 
 <br/>
----
 
 ## <a id="insights" href="#toc">4. Bonus: Learning Process Insights</a>
 
@@ -1150,5 +1137,6 @@ skills by now. For the next docs I will probably talk less about preparation and
 philosophy though, which will make the whole process faster and more focused on the raw
 code.
 
+---
 Finally, here is an important message to you - by Yoda:
 > If this far you read, subscribe you shall.

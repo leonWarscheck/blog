@@ -1,7 +1,7 @@
 ---
 title: "Mailchimp Newsletter Management with NextJS | Next API"
-date: "2024-06-02"
-readingTime: "10min"
+date: "2024-06-07"
+readingTime: "7min"
 preview: "Every Website needs an Email Newsletter. MailChimp is a popular service for that. Here is how you can connect it to NextJS (via Axios) - and learn the Next-API and Server in the process!"
 ---
 
@@ -14,7 +14,7 @@ import chimp6 from "/public/chimp6.png";
 import chimp7 from "/public/chimp7.png";
 
 import Image from "next/image";
-import MdxLayout from "../components/MdxLayout";
+import MdxLayout from "../../components/MdxLayout";
 import Head from "next/head";
 
 export default function MDXPage({ children }) {
@@ -32,7 +32,7 @@ export default function MDXPage({ children }) {
 ## Mailchimp with NextJS | Understand Next API
 
 <div className="text-neutral-400 text-sm">
-  June 2, 2024 - 7min - #mailchimp #email #axios #api #tutorial #webdev
+  June 7, 2024 - 7min - #mailchimp #email #axios #api #tutorial #webdev
 </div>
 
 Every Website needs an Email Newsletter. MailChimp is a popular service for
@@ -47,7 +47,7 @@ Next-API in the process!
 2. [.env.local Setup](#2-envlocal-setup)
 3. [Get Auth Data from Mailchimp](#3-get-mailchimp-auth-data)
 4. [Next API Setup](#4-next-api-setup)
-
+<br/>
 ### <a id="0-requirements" href="#toc">0. Requirements</a>
 
 To get it rolling as smooth as possible, you need to have a NextJS project with
@@ -61,8 +61,8 @@ It will still work in many other cases, but you would need to make adjustments i
 Also make sure to install the HTTP request client [Axios](https://www.npmjs.com/package/axios):
 `$ npm install axios`
 
----
 
+<br/>
 ### <a id="1-subscribeform-handler-setup" href="#toc">1. SubscribeForm Handler Setup</a>
 
 Your SubscribeForm needs to trigger an eventhandler "handleSubscribe" on its submit event.
@@ -111,8 +111,7 @@ export default function SubscribeForm({}) {
 }
 ```
 
----
-
+<br/>
 ### <a id="2-envlocal-setup" href="#toc">2. .env.local Setup</a>
 
 Create a `.env.local` file in your root directory and insert the following
@@ -140,8 +139,8 @@ Later, when you deploy your next-app, you will leave both files as they are to
 stay able to develop locally, but very likely copy the values directly into the
 deployment service API gui (e.g. Vercel).
 
----
 
+<br/>
 ### <a id="3-get-mailchimp-auth-data" href="#toc">3. Get MailChimp Auth Data</a>
 
 Now sign up to mailchimp and follow this screenshot journey to copy the auth data
@@ -163,8 +162,8 @@ Now find and copy-paste the MAILCHIMP_AUDIENCE_ID like this:
 
 You now have all neccessary auth data set up in your local environment variables.
 
----
 
+<br/>
 ### <a id="4-next-api-setup" href="#toc">4. Next API Setup</a>
 
 In section 1, your submithandler in `SubscribeForm.js` has sent a post request
@@ -228,7 +227,6 @@ export default async function postHandler(req, res) {
   }
 }
 ```
-
+---
 And that's all you need for setting up Mailchimp via Next API! If you like my
-style of explanation, feel free to subscribe to my breaking-updates-only
-newsletter below:)
+style of explanation, feel free to subscribe to my newsletter below:)

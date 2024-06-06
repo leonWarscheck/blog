@@ -36,7 +36,7 @@ export default function SubscribeFormOnPage({ onSubscribe }) {
       className="px-4 bg-neutral-800 text-wrap py-5 mt-10 mb-7"
       onSubmit={handleSubscribe}
     >
-      <h2 className="text-xl mr-auto  text-neutral-100 pb-5">
+      <h2 className="text-xl mr-auto  text-neutral-200 pb-5">
         Let’s stay connected. <br /> High-Signal-Only Email Updates.
       </h2>
       <div className="c1:flex">

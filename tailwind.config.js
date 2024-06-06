@@ -1,5 +1,5 @@
 
-const config = {
+const tailwindConfig = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -21,6 +21,8 @@ const config = {
         c1: "102px",
         c2: "55.5px",
         c3: "9px",
+        c4: "89.5px",
+        c5: "9.5px",
       },
       fontSize: {
         xxs: "6.5px",
@@ -59,4 +61,4 @@ const config = {
     require("@tailwindcss/typography"),
   ],
 };
-export default config;
+export default tailwindConfig;
