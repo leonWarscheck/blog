@@ -1,11 +1,9 @@
-// import fs from 'fs';
 import Link from "next/link";
 import Date from "../components/date";
-
-import { feedMetaDataArray } from "../utils/postsData";
+import { getFeedData } from "../utils/getFeedData";
 
 export async function getStaticProps() {
-  const feedData = await feedMetaDataArray();
+  const feedData = await getFeedData();
   return {
     props: {
       feedData,
@@ -13,29 +11,22 @@ export async function getStaticProps() {
   };
 }
 
-// better Descriptive Names:
-// getSortedPostsData = feedMetaDataArray
-// allPostsData = allPostsMetaData
-// allPostsData2 = feedData
-// ?
-// how can notice faster, if samenamed varables are different ?
-
-export default function Home({ feedData }) {
+export default function HomeFeed({ feedData }) {
   return (
-    <main className="grow max-w-2xl  mx-auto px-4">
-      <ul className="pt-24">
-        {feedData.map(({ id, date, title, preview }) => (
-          <Link href={`/posts/${id}`} key={id}>
-            <li className="mb-14">
+    <main className=" grow max-w-2xl pt-24 mx-auto px-4"> 
+      <ul>
+        {feedData.map(({ slug, date, readingTime, title, preview }) => (
+          <li className="mb-14" key={slug}>
+            <Link href={`/posts/${slug}`} >
               <h2 className="font-semibold text-xl hover:text-neutral-400 ">
                 {title}
               </h2>
-              <h2 className=" text-sm pb-2">
-                <Date dateString={date} />
-              </h2>
+              <h3 className=" text-sm pb-2">
+                <Date dateString={date} /> &nbsp;- &nbsp;{readingTime}
+              </h3>
               <p className="hyphens-auto">{preview}</p>
-            </li>
-          </Link>
+            </Link>
+          </li>
         ))}
       </ul>
     </main>

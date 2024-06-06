@@ -1,7 +1,17 @@
 import axios from "axios";
+import { useEffect, useRef } from "react";
+
+
 
 export default function SubscribeForm ({ onCancel, onSubscribe }){
+let inputRef = useRef(null);
 
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+      // console.log("inputRef:", inputRef.current)
+    }
+  }, []);
 
 const handleSubscribe = async (event) => {
     event.preventDefault(); // Prevent the default form submission behavior
@@ -28,11 +38,13 @@ const handleSubscribe = async (event) => {
         <input
           type="email"
           name="email"
+          id="footSubInput"
           placeholder="Email"
           className=" pl-3  focus:outline-none bg-neutral-600 text-neutral-300  "
           required
           autoCapitalize="off"
           autoCorrect="off"
+          ref={inputRef}
         />
         <button className="px-3 text-red-500 " type="submit">
           Subscribe

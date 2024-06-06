@@ -1,27 +1,21 @@
 import Link from "next/link";
-import SubscribeForm from "./SubscribeFormNavbar";
+import SubscribeForm from "./SubscribeFormHeader";
 import { useState, useEffect } from "react";
-
 import Menu from "./Menu";
 
-const Navbar = ({  }) => {
+export default function Header({}){
   const [showSubscription, setShowSubscription] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  
-  useEffect(
-    ()=>{
-      
-      const bodyElement = document.querySelector('body');
 
-      if(menuOpen){
-        bodyElement.classList.add("scrollbar-hide")
-      }else{
+  useEffect(() => {
+    const bodyElement = document.querySelector("body");
 
-        bodyElement.classList.remove("scrollbar-hide")
-      }
+    if (menuOpen) {
+      bodyElement.classList.add("scrollbar-hide");
+    } else {
+      bodyElement.classList.remove("scrollbar-hide");
     }
-    ,[menuOpen]
-  )
+  }, [menuOpen]);
 
   const handleSubscribeClick = () => {
     setShowSubscription(true);
@@ -32,24 +26,22 @@ const Navbar = ({  }) => {
   };
 
   const handleMenuClose = () => {
-    console.log('handleMenuClose called');
-    setTimeout(()=>{
-    setMenuOpen(false);
-    },0);
+    // console.log("handleMenuClose called");
+    setTimeout(() => {
+      setMenuOpen(false);
+    }, 0);
   };
 
   const handleMenuToggle = () => {
     setMenuOpen(!menuOpen);
   };
 
-
   return (
-    <header className="relative">
-      <nav className="h-12 bg-neutral-800 items-center flex fixed w-full ">
-        <div className=" max-w-2xl  mx-auto flex flex-grow items-center px-4">
+    <header className=" h-12 bg-neutral-800 items-center flex fixed w-full ">
+      <nav className="max-w-2xl  mx-auto flex flex-grow items-center px-4">
           <Link
             className=" absolute bottom-c3 font-semibold text-2xl text-violet-500 hover:text-neutral-400"
-            href="/" 
+            href="/"
             onClick={handleMenuClose}
           >
             <h1 className="">LeonAndersen</h1>
@@ -75,7 +67,7 @@ const Navbar = ({  }) => {
               <button
                 className="text-xl text-red-500 hover:text-neutral-400"
                 onClick={handleSubscribeClick}
-            >
+              >
                 Subscribe
               </button>
               {showSubscription && (
@@ -86,11 +78,13 @@ const Navbar = ({  }) => {
               )}
             </li>
           </ul>
-          <Menu handleMenuToggle2={handleMenuToggle} menuOpen={menuOpen} handleMenuClose={handleMenuClose} />
-        </div>
+          <Menu  // only appears on smaller screens via breakpoints
+            handleMenuToggle2={handleMenuToggle} 
+            menuOpen={menuOpen}
+            handleMenuClose={handleMenuClose}
+          />
       </nav>
     </header>
   );
 };
 
-export default Navbar;

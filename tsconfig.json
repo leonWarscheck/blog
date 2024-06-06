@@ -24,7 +24,7 @@
     "src/pages/_app.js",
     "src/pages/_document.js",
     "src/pages/index.js",
-    "src/utils/[id].js"
-  ],
+    "../_notes/[id].js"
+, "tailwind.config.js"  ],
   "exclude": ["node_modules"]
 }

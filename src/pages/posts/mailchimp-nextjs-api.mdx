@@ -1,0 +1,232 @@
+---
+title: "Mailchimp Newsletter Management with NextJS | Next API"
+date: "2024-06-07"
+readingTime: "7min"
+preview: "Every Website needs an Email Newsletter. MailChimp is a popular service for that. Here is how you can connect it to NextJS (via Axios) - and learn the Next-API and Server in the process!"
+---
+
+import chimp1 from "/public/chimp1.png";
+import chimp2 from "/public/chimp2.png";
+import chimp3 from "/public/chimp3.png";
+import chimp4 from "/public/chimp4.png";
+import chimp5 from "/public/chimp5.png";
+import chimp6 from "/public/chimp6.png";
+import chimp7 from "/public/chimp7.png";
+
+import Image from "next/image";
+import MdxLayout from "../../components/MdxLayout";
+import Head from "next/head";
+
+export default function MDXPage({ children }) {
+  const headtitle = "Mailchimp NextJS API";
+  return (
+    <MdxLayout>
+      <Head>
+        <title>{headtitle}</title>
+      </Head>
+    <article className="text-justify">{children}</article>
+    </MdxLayout>
+  );
+}
+
+## Mailchimp with NextJS | Understand Next API
+
+<div className="text-neutral-400 text-sm">
+  June 7, 2024 - 7min - #mailchimp #email #axios #api #tutorial #webdev
+</div>
+
+Every Website needs an Email Newsletter. MailChimp is a popular service for
+that. Here is how you can connect it to NextJS (via Axios) - and learn the
+Next-API in the process!
+
+<a id="toc"></a>
+### Table of Contents
+
+0. [Requirements](#0-requirements)
+1. [SubcribeForm Handler Setup](#1-subscribeform-handler-setup)
+2. [.env.local Setup](#2-envlocal-setup)
+3. [Get Auth Data from Mailchimp](#3-get-mailchimp-auth-data)
+4. [Next API Setup](#4-next-api-setup)
+<br/>
+### <a id="0-requirements" href="#toc">0. Requirements</a>
+
+To get it rolling as smooth as possible, you need to have a NextJS project with
+
+- these [NextJS Installation settings,](/posts/nextjs-pages-blog-tutorial-2024#installation)
+- this [pages routing structure,](/posts/nextjs-pages-blog-tutorial-2024#routing)
+- and a [SubscribeForm Component.](/posts/nextjs-pages-blog-tutorial-2024#subscribe-forms)
+
+It will still work in many other cases, but you would need to make adjustments in filepaths etc.
+
+Also make sure to install the HTTP request client [Axios](https://www.npmjs.com/package/axios):
+`$ npm install axios`
+
+
+<br/>
+### <a id="1-subscribeform-handler-setup" href="#toc">1. SubscribeForm Handler Setup</a>
+
+Your SubscribeForm needs to trigger an eventhandler "handleSubscribe" on its submit event.
+You can find all the detailed explanations in the comments:
+
+```js title="/src/components/SubscribeForm.js"
+import axios from "axios"; // Import axios for HTTP requesthandling inside of the subscribehandler.
+
+export default function SubscribeForm({}) {
+  const handleSubscribe = async (event) => {
+    // Recieve onSubmit event-object.
+    event.preventDefault(); // Prevent the default form submission behavior.
+
+    try {
+      // Get formData from the event.target (the email-form).
+      const formData = new FormData(event.target);
+      // Get the email value from formData. Make sure to use input name="email".
+      const email = formData.get("email");
+
+      // Make a POST request to your subscribeApi route.
+      const response = await axios.post("/api/subscribeApi", { email });
+
+      // Handle the response from your API route.
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubscribe}>
+      {" "}
+      // Insert eventhandler function as jsx.
+      <input // Use these attributes, especially name="email".
+        type="email"
+        name="email"
+        placeholder="Email"
+        required
+        autoCapitalize="off"
+        autoCorrect="off"
+      />
+      // SubForm details are covered in the article "How to Code a Blog in 2024 (with
+      MDX and Next14 Pages-Routing)".
+    </form>
+  );
+}
+```
+
+<br/>
+### <a id="2-envlocal-setup" href="#toc">2. .env.local Setup</a>
+
+Create a `.env.local` file in your root directory and insert the following
+variable names just like this:
+
+```js title="/.env.local" caption=""
+MAILCHIMP_API_KEY = xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxyyyy;
+MAILCHIMP_API_SERVER = yyyy;
+MAILCHIMP_AUDIENCE_ID = zzzzzzzzzz;
+```
+
+I left the xyz to give you a reference point for the length of their values.
+Replace them with the real values in the next section (no "string"-quotes needed
+around the values).
+
+But before that, add this into your `.gitignore` file to ensure no one except
+you has access to the environment variables:
+
+```js title="/.gitignore"
+# local env files
+.env*.local
+```
+
+Later, when you deploy your next-app, you will leave both files as they are to
+stay able to develop locally, but very likely copy the values directly into the
+deployment service API gui (e.g. Vercel).
+
+
+<br/>
+### <a id="3-get-mailchimp-auth-data" href="#toc">3. Get MailChimp Auth Data</a>
+
+Now sign up to mailchimp and follow this screenshot journey to copy the auth data
+into the x-placeholders in `.env.local`:
+
+<Image src={chimp1} alt="screenshot of mailchimp ui" />
+<Image src={chimp2} alt="screenshot of mailchimp ui" />
+<Image src={chimp3} alt="screenshot of mailchimp ui" />
+
+Create a new API key and paste it into your .env.local. The last 4 characters
+are _also_ your MAILCHIMP_API_SERVER value.
+
+Now find and copy-paste the MAILCHIMP_AUDIENCE_ID like this:
+
+<Image src={chimp4} alt="screenshot of mailchimp ui" />
+<Image src={chimp5} alt="screenshot of mailchimp ui" />
+<Image src={chimp6} alt="screenshot of mailchimp ui" />
+<Image src={chimp7} alt="screenshot of mailchimp ui" />
+
+You now have all neccessary auth data set up in your local environment variables.
+
+
+<br/>
+### <a id="4-next-api-setup" href="#toc">4. Next API Setup</a>
+
+In section 1, your submithandler in `SubscribeForm.js` has sent a post request
+to your Next API. Now your `postHandler` in `subscribeApi.js` structures the
+email- and auth-data from .env.local in a mailchimp-specific format and sends the
+final HTTP package via `axios.post`.
+
+Next API is the backend middleman between the client and the mailchimp api. This
+makes sure that the private authorization data can not get accessed by the
+browser.
+
+```js title="/src/pages/api/subscribeApi.js"
+import axios from "axios"; // Import axios for HTTP requesthandling.
+
+export default async function postHandler(req, res) {
+  // Recieve requests (from SubscribeForm.js).
+
+  if (req.method === "POST") {
+    // Only allow post requests.
+    try {
+      // Get authorization data from .env as variables.
+      const API_KEY = process.env.MAILCHIMP_API_KEY;
+      const AUDIENCE_ID = process.env.MAILCHIMP_AUDIENCE_ID;
+      const DATACENTER = process.env.MAILCHIMP_API_SERVER;
+      // Dynamically place auth data into the mailchimp request route (datacenter and audienceID are comparable to user-email for logging into a service).
+      const mailchimpEndpoint = `https://${DATACENTER}.api.mailchimp.com/3.0/lists/${AUDIENCE_ID}/members`;
+      // Get email value from axios request.
+      const email = req.body.email;
+
+      // Sending the post request triggers a response by mailchimp, which gets captured by the variable.
+      const response = await axios.post(
+        // Insert request route.
+        mailchimpEndpoint,
+        {
+          // Mailchimp specific data structure to send email data.
+          email_address: email,
+          status: "subscribed",
+        },
+        {
+          // Send api key (aka password) via the request header in mailchimp specific format.
+          headers: {
+            Authorization: `Basic ${Buffer.from(
+              `anystring:${API_KEY}`
+            ).toString("base64")}`,
+          },
+        }
+      );
+
+      // Log mailchimp response that we just captured in the response variable.
+      console.log(response.data);
+
+      // Respond to client.
+      res.status(200).json({ success: true });
+    } catch (error) {
+      console.error(error); // Handle errors.
+      res.status(500).json({ success: false, error: "Internal Server Error" });
+    }
+  } else {
+    // Handle unsupported request methods.
+    res.status(405).json({ success: false, error: "Method Not Allowed" });
+  }
+}
+```
+---
+And that's all you need for setting up Mailchimp via Next API! If you like my
+style of explanation, feel free to subscribe to my newsletter below:)
