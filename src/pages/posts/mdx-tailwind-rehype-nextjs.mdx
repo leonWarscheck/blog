@@ -16,14 +16,12 @@ import themeGenerator from "../../../public/themeGenerator.png";
 export default function MDXPage({ children }) {
   const headtitle = "MDX, Tailwind & Rehype in NextJS";
   return (
-    <>
-      <MdxLayout>
-        <Head>
-          <title>{headtitle}</title>
-        </Head>
-        <article className="text-justify">{children}</article>
-      </MdxLayout>
-    </>
+    <MdxLayout>
+      <Head>
+        <title>{headtitle}</title>
+      </Head>
+      <article className="text-justify">{children}</article>
+    </MdxLayout>
   );
 }
 

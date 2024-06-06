@@ -7,7 +7,7 @@ import "../utils/vimScroll";
 
 import localFont from "next/font/local";
 
-const myFont = localFont({ 
+const myFont = localFont({
   src: [
     {
       path: "../styles/fonts/OpenSans-VariableFont.ttf",
@@ -20,7 +20,7 @@ const myFont = localFont({
   ],
 });
 
-export default function Layout ({ children }){
+export default function Layout({ children }) {
   return (
     <div
       className={`${myFont.className} selection:bg-neutral-800 min-h-dvh flex flex-col`}
@@ -32,5 +32,4 @@ export default function Layout ({ children }){
       <Footer />
     </div>
   );
-};
-
+}

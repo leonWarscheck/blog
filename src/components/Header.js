@@ -3,7 +3,7 @@ import SubscribeForm from "./SubscribeFormHeader";
 import { useState, useEffect } from "react";
 import Menu from "./Menu";
 
-export default function Header({}){
+export default function Header({}) {
   const [showSubscription, setShowSubscription] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -26,7 +26,6 @@ export default function Header({}){
   };
 
   const handleMenuClose = () => {
-    // console.log("handleMenuClose called");
     setTimeout(() => {
       setMenuOpen(false);
     }, 0);
@@ -39,15 +38,15 @@ export default function Header({}){
   return (
     <header className=" h-12 bg-neutral-800 items-center flex fixed w-full ">
       <nav className="max-w-2xl  mx-auto flex flex-grow items-center px-4">
-          <Link
-            className=" absolute bottom-c3 font-semibold text-2xl text-violet-500 hover:text-neutral-400"
-            href="/"
-            onClick={handleMenuClose}
-          >
-            <h1 className="">LeonAndersen</h1>
-          </Link>
-          <ul className="hidden  c1:flex space-x-4 ml-auto ">
-            {/* <li>
+        <Link
+          className=" absolute bottom-c3 font-semibold text-2xl text-violet-500 hover:text-neutral-400"
+          href="/"
+          onClick={handleMenuClose}
+        >
+          <h1 className="">LeonAndersen</h1>
+        </Link>
+        <ul className="hidden  c1:flex space-x-4 ml-auto ">
+          {/* <li>
               <Link
                 className="text-xl text-amber-400 hover:text-neutral-400"
                 href="/tools"
@@ -55,36 +54,35 @@ export default function Header({}){
                 Tools
               </Link>
             </li> */}
-            <li>
-              <Link
-                className="text-xl text-orange-500 hover:text-neutral-400"
-                href="/about"
-              >
-                About
-              </Link>
-            </li>
-            <li className=" flex items-center relative">
-              <button
-                className="text-xl text-red-500 hover:text-neutral-400"
-                onClick={handleSubscribeClick}
-              >
-                Subscribe
-              </button>
-              {showSubscription && (
-                <SubscribeForm
-                  onCancel={handleCancel}
-                  onSubscribe={handleCancel}
-                />
-              )}
-            </li>
-          </ul>
-          <Menu  // only appears on smaller screens via breakpoints
-            handleMenuToggle2={handleMenuToggle} 
-            menuOpen={menuOpen}
-            handleMenuClose={handleMenuClose}
-          />
+          <li>
+            <Link
+              className="text-xl text-orange-500 hover:text-neutral-400"
+              href="/about"
+            >
+              About
+            </Link>
+          </li>
+          <li className=" flex items-center relative">
+            <button
+              className="text-xl text-red-500 hover:text-neutral-400"
+              onClick={handleSubscribeClick}
+            >
+              Subscribe
+            </button>
+            {showSubscription && (
+              <SubscribeForm
+                onCancel={handleCancel}
+                onSubscribe={handleCancel}
+              />
+            )}
+          </li>
+        </ul>
+        <Menu
+          handleMenuToggle2={handleMenuToggle}
+          menuOpen={menuOpen}
+          handleMenuClose={handleMenuClose}
+        />
       </nav>
     </header>
   );
-};
-
+}
