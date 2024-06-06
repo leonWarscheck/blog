@@ -11,20 +11,16 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
   }, []);
 
   const handleSubscribe = async (event) => {
-    event.preventDefault(); // Prevent the default form submission behavior
+    event.preventDefault();
 
     try {
-      // Assuming you have an input field with the name "email" in your form
       const formData = new FormData(event.target);
       const email = formData.get("email");
 
-      // Make a POST request to your subscribeApi route
       const response = await axios.post("/api/subscribeApi", { email });
 
-      // Handle the response from your API route
       console.log(response.data);
       onSubscribe();
-      // Add any additional logic here
     } catch (error) {
       console.error(error);
     }
@@ -38,7 +34,7 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
       <input
         type="email"
         name="email"
-        id="navSubInput" 
+        id="navSubInput"
         placeholder="Email"
         className=" text-xl pl-4 w-64 h-12 focus:outline-none bg-neutral-600 text-neutral-300  "
         required

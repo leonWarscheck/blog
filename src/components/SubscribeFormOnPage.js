@@ -11,20 +11,16 @@ export default function SubscribeFormOnPage({ onSubscribe }) {
   }, []);
 
   const handleSubscribe = async (event) => {
-    event.preventDefault(); // Prevent the default form submission behavior
+    event.preventDefault();
 
     try {
-      // Assuming you have an input field with the name "email" in your form
       const formData = new FormData(event.target);
       const email = formData.get("email");
 
-      // Make a POST request to your subscribeApi route
       const response = await axios.post("/api/subscribeApi", { email });
 
-      // Handle the response from your API route
       console.log(response.data);
       onSubscribe();
-      // Add any additional logic here
     } catch (error) {
       console.error(error);
     }

@@ -206,8 +206,6 @@ NextJS pages-routing in a nutshell:
 
 <div className="prose-pre:leading-4 prose-pre:bg-neutral-80 prose-pre:mx">
 ```md
-prettier-ignore
-
 src/
 ├── components
 ├── pages/
@@ -542,7 +540,7 @@ Then finally you import `getFeedData` into your Homepage, fetch the feedData via
 
 ```js title="/src/pages/index.js"
 import Link from "next/link";
-import Date from "../components/date"; // needed for date formatting
+import Date from "../components/date"; // needed for date formatting, component shown right below
 import { getFeedData } from "../utils/getFeedData.js";
 
 export async function getStaticProps() { // getStaticProps lets NextJS include the data in the pre-render 
@@ -577,6 +575,16 @@ export default function Home({ feedData }) {
   );
 }
 ```
+Create this file for the date formatting needed above:
+```js title="/src/components/date.js"
+import { parseISO, format } from 'date-fns';
+
+export default function Date({ dateString }) {
+  const date = parseISO(dateString);
+  return <time dateTime={dateString}>{format(date, 'LLLL d, yyyy')}</time>;
+}
+```
+
 Fetching via getStaticProps helps NextJS to pre-render the data so it can send
 only the final dom-tree to the browser. You have to do this in the same
 component file, where you want it to be rendered. Otherwise you would have to

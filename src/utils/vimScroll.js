@@ -46,36 +46,3 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
  }); 
 }
-  
-
-
-
-
-// if (typeof window !== "undefined") {
-//   const inputIds = ["navSubInput", "pageSubInput", "footSubInput"];
-    
-//  document.addEventListener("keydown", function (event) {
-//   const focusedElement = document.activeElement;
-
-//   if (!inputIds.includes(focusedElement.id)) {
-//       if (event.key === "j") {
-//         window.scrollBy(0, 50); // Scroll down by 50 pixels
-//       } else if (event.key === "k") {
-//         window.scrollBy(0, -50); // Scroll up by 50 pixels
-//       } else if (event.key === "l" || event.key === "h") {
-//         const preElements = document.querySelectorAll("pre"); // Get all <pre> elements
-//         if (preElements.length > 0) {
-//           const scrollStep = 50; // Adjust the scroll amount as needed
-//           preElements.forEach((pre) => {
-//             if (event.key === "l") {
-//               pre.scrollLeft += scrollStep; // Scroll right
-//             } else if (event.key === "h") {
-//               pre.scrollLeft -= scrollStep; // Scroll left
-//             }
-//           });
-//         }
-//       }
-//   }
-//     });
-// }
-

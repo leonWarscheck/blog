@@ -3,27 +3,22 @@ import axios from "axios";
 
 export default function Menu({ handleMenuToggle2, menuOpen, handleMenuClose }) {
   const handleSubscribe = async (event) => {
-    event.preventDefault(); // Prevent the default form submission behavior
+    event.preventDefault();
 
     try {
-      // Assuming you have an input field with the name "email" in your form
       const formData = new FormData(event.target);
       const email = formData.get("email");
 
-      // Make a POST request to your subscribeApi route
       const response = await axios.post("/api/subscribeApi", { email });
 
-      // Handle the response from your API route
       console.log(response.data);
       onSubscribe();
-      // Add any additional logic here
     } catch (error) {
       console.error(error);
     }
   };
-  // className={`${menuOpen ? 'scrollbar-hide' : ''}`}
   return (
-        <>
+    <>
       <button
         className="group flex ml-auto gap-1 c1:hidden pr-2"
         onClick={handleMenuToggle2}
@@ -41,7 +36,10 @@ export default function Menu({ handleMenuToggle2, menuOpen, handleMenuClose }) {
       </button>
 
       {menuOpen && (
-        <div className="bg-neutral-800 flex flex-col  c1:hidden text-2xl  font- absolute left-0 right-0 top-12 min-h-[calc(100vh-3rem)]" aria-label="Mobile Menu">
+        <div
+          className="bg-neutral-800 flex flex-col  c1:hidden text-2xl  font- absolute left-0 right-0 top-12 min-h-[calc(100vh-3rem)]"
+          aria-label="Mobile Menu"
+        >
           <ul className=" w-full px-4 max-w-2xl mx-auto flex flex-col grow justify-evenly ">
             {/* <li className=" ">
               <Link

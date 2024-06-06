@@ -24,10 +24,8 @@ export default async function postHandler(req, res) {
         }
       );
 
-      // Handle Mailchimp response
       console.log(response.data);
 
-      // Respond to the client
       res.status(200).json({ success: true });
           } catch (error) {
       console.error(error);
