@@ -28,11 +28,13 @@ export default function Header({}) {
   const handleMenuClose = () => {
     setTimeout(() => {
       setMenuOpen(false);
-    }, 0);
+    }, 42);
   };
 
   const handleMenuToggle = () => {
+    // setTimeout(() => {
     setMenuOpen(!menuOpen);
+    // }, 42);
   };
 
   return (
