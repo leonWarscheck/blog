@@ -29,14 +29,14 @@ export default function MDXPage({ children }) {
   );
 }
 
-## Mailchimp with NextJS | Understand Next API
+## Mailchimp & Custom SubscribeForm with NextJS | Understand Next API
 
 <div className="text-neutral-400 text-sm">
   June 7, 2024 - 10min - #mailchimp #email #axios #api #tutorial #webdev
 </div>
 
 Every Website needs an Email Newsletter. MailChimp is a popular service for
-that. Here is how you can connect it to NextJS (via Axios) - and learn the
+that. Here is how you can connect it to NextJS with a custom SubscribeForm - and learn the
 Next-API in the process!
 
 <a id="toc"></a>
@@ -55,13 +55,13 @@ Next-API in the process!
 To get it rolling as smooth as possible, you need to have a NextJS project with
 
 - these [NextJS Installation settings,](/posts/nextjs-pages-blog-tutorial-2024#installation)
-- this [pages routing structure,](/posts/nextjs-pages-blog-tutorial-2024#routing)
-- and a [SubscribeForm Component.](/posts/nextjs-pages-blog-tutorial-2024#subscribe-forms)
+- and this [pages routing structure.](/posts/nextjs-pages-blog-tutorial-2024#routing)
 
-It will still work in many other cases, but you would need to make adjustments in filepaths etc.
+
+It will still work in many other cases (including with premade components), but you would need to make adjustments in filepaths etc.
 
 Also make sure to install the HTTP request client [Axios](https://www.npmjs.com/package/axios):
-`$ npm install axios`
+`npm install axios`
 
 <br/>
 ### <a id="custom-subscribeform" href="#toc">1. Custom SubscribeForm</a>
@@ -404,8 +404,9 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
       </button>
     </form>
       )}
+      // In this example you would render the messages overlaying the header buttons.
       {feedbackState === "success" && ( // Condition 2.
-          <p>Success.&nbsp;<span>Thank&nbsp;you.</span></p>
+          <p>Success.&nbsp;<span>Thank&nbsp;you.</span></p> // You can get creative. I used a span to render 2 colors to match my header button design with the messages.
       )}
       {feedbackState === "failure" && ( // Condition 3.
         <p>Failure.&nbsp;<span>Please&nbsp;try&nbsp;again.</span></p>
@@ -416,4 +417,5 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
 ```
 ---
 And that's all you need for setting up Mailchimp via Next API! If you like my
-style of explanation, feel free to subscribe to my newsletter below:)
+style of explanation, feel free to subscribe to my newsletter - in the
+header - to experience the component you just studied:)
