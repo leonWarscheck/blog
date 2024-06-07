@@ -1,7 +1,9 @@
 import axios from "axios";
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
-export default function SubscribeFormOnPage({ onSubscribe }) {
+export default function SubscribeFormOnPage({}) {
+  const [feedbackState, setFeedbackState] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false); // New state
   let formRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -13,16 +15,24 @@ export default function SubscribeFormOnPage({ onSubscribe }) {
   const handleSubscribe = async (event) => {
     event.preventDefault();
 
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+
     try {
       const formData = new FormData(event.target);
       const email = formData.get("email");
 
       const response = await axios.post("/api/subscribeApi", { email });
 
-      console.log(response.data);
-      onSubscribe();
+      console.log("axios response:", response.data);
+      setFeedbackState("success");
     } catch (error) {
-      console.error(error);
+      console.error("axios error:", error);
+      setFeedbackState("failure");
+    } finally {
+      setIsSubmitting(false);
+      setTimeout(() => setFeedbackState(""), 3500);
     }
   };
 
@@ -32,9 +42,25 @@ export default function SubscribeFormOnPage({ onSubscribe }) {
       className="px-4 bg-neutral-800 text-wrap py-5 mt-10 mb-7"
       onSubmit={handleSubscribe}
     >
-      <h2 className="text-xl mr-auto  text-neutral-200 pb-5">
-        Let’s stay connected. <br /> High-Signal-Only Email Updates.
-      </h2>
+      {feedbackState === "" && (
+        <h2 className="text-xl mr-auto  text-neutral-200 pb-5">
+          Let’s stay connected. <br /> High-Signal-Only Email Updates.
+        </h2>
+      )}
+      {feedbackState === "success" && (
+        <p className="text-xl mr-auto  text-neutral-200 pb-5">
+          Success.
+          <br />
+          Thank you for subscribing.
+        </p>
+      )}
+      {feedbackState === "failure" && (
+        <p className="text-xl mr-auto  text-neutral-200 pb-5">
+          Something went wrong.
+          <br />
+          Please try again or try a different email.
+        </p>
+      )}
       <div className="c1:flex">
         <input
           type="email"
@@ -50,6 +76,7 @@ export default function SubscribeFormOnPage({ onSubscribe }) {
         <button
           className="text-xl font- text-emerald-la pt-3 c1:pt-0 c1:pl-3 hover:text-neutral-400"
           type="submit"
+          disabled={isSubmitting}
         >
           Subscribe
         </button>

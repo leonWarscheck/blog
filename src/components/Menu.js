@@ -1,9 +1,18 @@
 import Link from "next/link";
 import axios from "axios";
+import { useState } from "react";
 
 export default function Menu({ handleMenuToggle2, menuOpen, handleMenuClose }) {
+  const [feedbackState, setFeedbackState] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false); // New state
+
   const handleSubscribe = async (event) => {
     event.preventDefault();
+
+    // Check if already submitting
+    if (isSubmitting) return;
+
+    setIsSubmitting(true); // Disable the button
 
     try {
       const formData = new FormData(event.target);
@@ -12,11 +21,16 @@ export default function Menu({ handleMenuToggle2, menuOpen, handleMenuClose }) {
       const response = await axios.post("/api/subscribeApi", { email });
 
       console.log(response.data);
-      onSubscribe();
+      setFeedbackState("success");
     } catch (error) {
       console.error(error);
+      setFeedbackState("failure");
+    } finally {
+      setIsSubmitting(false); // Re-enable the button
+      setTimeout(() => setFeedbackState(""), 2500);
     }
   };
+
   return (
     <>
       <button
@@ -41,15 +55,6 @@ export default function Menu({ handleMenuToggle2, menuOpen, handleMenuClose }) {
           aria-label="Mobile Menu"
         >
           <ul className=" w-full px-4 max-w-2xl mx-auto flex flex-col grow justify-evenly ">
-            {/* <li className=" ">
-              <Link
-                onClick={handleMenuClose}
-                className=" text-amber-400 w-full py-11 border-r-4 border-amber-400 flex hover:text-neutral-400"
-                href="/tools"
-              >
-                Tools
-              </Link>
-            </li> */}
             <li className=" ">
               <Link
                 onClick={handleMenuClose}
@@ -58,25 +63,44 @@ export default function Menu({ handleMenuToggle2, menuOpen, handleMenuClose }) {
               >
                 About
               </Link>
-            </li>{" "}
-            <li className="relative ">
-              <form className="" onSubmit={handleSubscribe}>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  className=" border-r-4  border-red-500 placeholder:text-neutral-800 pl-1 placeholder:hover:text-neutral-400 absolute  top-0 w-full    focus:outline-none bg-neutral-600 text-neutral-400 "
-                  required
-                  autoCapitalize="off"
-                  autoCorrect="off"
-                />
+            </li>
 
-                <button
-                  className="text-red-500 w-full   py-11 border-r-4  border-red-500 flex hover:text-neutral-400"
-                  type="submit"
-                >
-                  Subscribe
-                </button>
+            <li className="relative border-r-4  border-red-500">
+              <form className="" onSubmit={handleSubscribe}>
+                {feedbackState === "" && (
+                  <>
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Email"
+                      className=" placeholder:text-neutral-800 pl-1 placeholder:hover:text-neutral-400 absolute  top-0 w-full    focus:outline-none bg-neutral-600 text-neutral-400 "
+                      required
+                      autoCapitalize="off"
+                      autoCorrect="off"
+                    />
+                    <button
+                      className="text-red-500 w-full   py-11  flex hover:text-neutral-400"
+                      type="submit"
+                      disabled={isSubmitting} // Disable the button while submitting
+                    >
+                      Subscribe
+                    </button>
+                  </>
+                )}
+                {feedbackState === "success" && (
+                  <p className="text-2xl mr-auto pt-7 text-red-500 pb-7">
+                    Success.
+                    <br />
+                    Thank you for subscribing.
+                  </p>
+                )}
+                {feedbackState === "failure" && (
+                  <p className="text-2xl mr-auto pt-7 text-red-500 pb-7">
+                    Something went wrong.
+                    <br />
+                    Please try again or try a different email.
+                  </p>
+                )}
               </form>
             </li>
           </ul>
