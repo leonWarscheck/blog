@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 
 export default function SubscribeFormOnPage({}) {
   const [feedbackState, setFeedbackState] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false); // New state
+  const [isSubmitting, setIsSubmitting] = useState(false);
   let formRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -11,6 +11,13 @@ export default function SubscribeFormOnPage({}) {
     formRef.current.addEventListener("click", () => inputRef.current.focus());
     return () => (inputRef.current = null);
   }, []);
+  
+useEffect(() => {
+    if (feedbackState === 'success' || feedbackState === 'failure') {
+      formRef.current.reset();
+      inputRef.current.blur()          
+    }
+  }, [feedbackState]);
 
   const handleSubscribe = async (event) => {
     event.preventDefault();

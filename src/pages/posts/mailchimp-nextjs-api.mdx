@@ -171,9 +171,9 @@ to your Next API. Now your `postHandler` in `subscribeApi.js` structures the
 email- and auth-data from .env.local in a mailchimp-specific format and sends the
 final HTTP package via `axios.post`.
 
-Next API is the backend middleman between the client and the mailchimp api. This
-makes sure that the private authorization data can not get accessed by the
-browser.
+Next API is the "backend middleman" between the client and the mailchimp api
+like this: `Client <=> NextAPI <=> MailChimpAPI`. This makes sure that the
+private authorization data can not get accessed by the browser. 
 
 ```js title="/src/pages/api/subscribeApi.js"
 import axios from "axios"; // Import axios for HTTP requesthandling.
