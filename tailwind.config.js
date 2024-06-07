@@ -23,6 +23,7 @@ const tailwindConfig = {
         c3: "9px",
         c4: "89.5px",
         c5: "9.5px",
+        c6: "48.75px",
       },
       fontSize: {
         xxs: "6.5px",
