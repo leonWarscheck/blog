@@ -245,7 +245,7 @@ In this section I explain most of the smaller steps of the main building process
 To keep it organized, I wrote the bigger challenges into seperate, detailed articles.
 You can find them here:
 - <Link href="/posts/mdx-tailwind-rehype-nextjs" className="underline"> MDX & Tailwind in Next 14 PAGES-routing (incl. Syntax Highlighting)</Link>
-- <Link href="/posts/mailchimp-nextjs-api" className="underline">Mailchimp Newsletter Management in NextJS | Next API</Link>
+- <Link href="/posts/mailchimp-nextjs-api" className="underline">Mailchimp Newsletter Management & Custom SubscribeForm | Next API</Link>
 - <Link href="/posts/css-height-sticky-footer" className="underline">How to build a "sticky footer" for your WebApp | CSS Height & Positioning</Link>
 
 
@@ -255,7 +255,6 @@ Components and aspects covered in this section:
 - [Layout](#layout)
 - [HomeFeed](#homefeed)
 - [Menu](#menu)
-- [Subscribe Forms](#subscribe-forms)
 - [Responsive Design](#responsive-design)
 - [Font](#font)
 - [404](#404)
@@ -742,110 +741,6 @@ holding out a named bucket to the parent saying "You can put the prop in here."
 
 ---
 
-### <a id="subscribe-forms" href="#main-building">Subscribe Forms</a>
-
-Growing an email list can be one of the main objectives of a blog. So I found an
-everpresent subscribe form in the fixed header to be a cool idea. To keep it a
-bit less in your face I only want it to be fully expanded, once clicked. Here is
-the logic for that:
-
-```js title="/src/components/Header.js"
-// without anything unrelated to SubscribeFormHeader.js
-import SubscribeForm from "./SubscribeFormHeader";
-import { useState, useEffect } from "react";
-
-export default function Header({}){
-  const [showSubscription, setShowSubscription] = useState(false);
-
- const handleSubscribeClick = () => {
-    setShowSubscription(true); // statechange that opens the form
-  };
-
-  const handleCancel = () => {
-    setShowSubscription(false); // statechange that closes the form
-  };
-
-  return (
-    <header>
-      <nav>
-          <Link>
-            <h1>LeonAndersen</h1>
-          </Link>
-          <ul>
-            <li>
-              <Link>
-                About
-              </Link>
-            </li>
-            <li>
-              <button
-                onClick={handleSubscribeClick} // triggers the conditional rendering via statechange 
-              >
-                Subscribe
-              </button>
-              {showSubscription && ( // conditional rendering
-                <SubscribeForm
-                  onCancel={handleCancel}
-                  onSubscribe={handleCancel} // both props are doing the same, just at different places in the interaction with the form
-                />
-              )}
-            </li>
-          </ul>
-          <Menu/>
-      </nav>
-    </header>
-  );
-};
-```
-
-And here is whats going on in the Form component, including how to jump the
-cursor into the email-input, once the form opens:
-
-```js title="/src/components/SubscribeFormHeader.js"
-import axios from "axios";
-import { useEffect, useRef } from "react";
-
-export default function SubscribeForm({ onCancel, onSubscribe }) { // getting props from Header.js
-  const inputRef = useRef(null); // useRef directly accesses the input dom-element
-
-  useEffect(() => {
-    if (inputRef.current) { // .current is built into useRef and parses the referenced dom-element, once it mounts into the dom-tree
-      inputRef.current.focus(); // .focus() places the cursor into the input
-    }
-  }, []);
-
-  const handleSubscribe = async (event) => {
-    // subscribe api logic sitting here gets explained in separate article as mentioned
-    onSubscribe(); // triggers closing of form in Header.js after successful subscription (same as onCancel)
-  };
-
-  return (
-    <form onSubmit={handleSubscribe}> 
-      <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        required
-        autoCapitalize="off"
-        autoCorrect="off"
-        ref={inputRef} // useRef api
-      />
-      <button type="submit">
-        Subscribe
-      </button>
-      <button onClick={onCancel}> // triggers conditional (un-)rendering of subForm component in Header.js
-        Cancel
-      </button>
-    </form>
-  );
-}
-```
-[Here](/posts/mailchimp-nextjs-api) you can find my guide on how you can set up the NextJS API to
-connect to MailChimp (a Newsletter Management Service).
-
-
----
-
 ### <a id="responsive-design" href="#main-building">Responsive Design</a>
 
 In Tailwind, the breaking points are css mediaqueries pointing in one direction:
@@ -1020,7 +915,7 @@ export default function Document() {
 **Congratulations,** you now know how to build all the foundational components. Make
 sure to check out the articles about the rest of this project:
 - <Link href="/posts/mdx-tailwind-rehype-nextjs" className="underline"> MDX & Tailwind in Next 14 PAGES-routing (incl. Syntax Highlighting)</Link>
-- <Link href="/posts/mailchimp-nextjs-api" className="underline">Mailchimp Newsletter Management in NextJS | Next API</Link>
+- <Link href="/posts/mailchimp-nextjs-api" className="underline">Mailchimp Newsletter Management & Custom SubscribeForm | Next API</Link>
 - <Link href="/posts/css-height-sticky-footer" className="underline">How to build a "sticky footer" for your WebApp | CSS Height & Positioning</Link>
 
 
@@ -1048,7 +943,7 @@ Here is a list of all the references mentioned throughout the article:
 
 And once again my additional articles about this blog project:
 - <Link href="/posts/mdx-tailwind-rehype-nextjs" className="underline"> MDX & Tailwind in Next 14 PAGES-routing (incl. Syntax Highlighting)</Link>
-- <Link href="/posts/mailchimp-nextjs-api" className="underline">Mailchimp Newsletter Management in NextJS | Next API</Link>
+- <Link href="/posts/mailchimp-nextjs-api" className="underline">Mailchimp Newsletter Management & Custom SubscribeForm | Next API</Link>
 - <Link href="/posts/css-height-sticky-footer" className="underline">How to build a "sticky footer" for your WebApp | CSS Height & Positioning</Link>
 
 

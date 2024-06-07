@@ -1,8 +1,8 @@
 ---
-title: "Mailchimp Newsletter Management with NextJS | Next API"
+title: "Mailchimp Newsletter Management & Custom SubscribeForm with NextJS | Next API"
 date: "2024-06-07"
-readingTime: "7min"
-preview: "Every Website needs an Email Newsletter. MailChimp is a popular service for that. Here is how you can connect it to NextJS (via Axios) - and learn Next-API in the process!"
+readingTime: "10min"
+preview: "Every Website needs an Email Newsletter. MailChimp is a popular service for that. Here is how you can connect it to NextJS with a custom SubscribeForm - and learn Next-API in the process!"
 ---
 
 import chimp1 from "/public/chimp1.png";
@@ -32,7 +32,7 @@ export default function MDXPage({ children }) {
 ## Mailchimp with NextJS | Understand Next API
 
 <div className="text-neutral-400 text-sm">
-  June 7, 2024 - 7min - #mailchimp #email #axios #api #tutorial #webdev
+  June 7, 2024 - 10min - #mailchimp #email #axios #api #tutorial #webdev
 </div>
 
 Every Website needs an Email Newsletter. MailChimp is a popular service for
@@ -42,13 +42,15 @@ Next-API in the process!
 <a id="toc"></a>
 ### Table of Contents
 
-0. [Requirements](#0-requirements)
-1. [SubcribeForm Handler Setup](#1-subscribeform-handler-setup)
-2. [.env.local Setup](#2-envlocal-setup)
-3. [Get Auth Data from Mailchimp](#3-get-mailchimp-auth-data)
-4. [Next API Setup](#4-next-api-setup)
+0. [Requirements](#requirements)
+1. [Custom SubscribeForm](#custom-subscribeform)
+2. [SubcribeForm Handler Setup](#subscribeform-handler-setup)
+3. [.env.local Setup](#envlocal-setup)
+4. [Get Auth Data from Mailchimp](#get-mailchimp-auth-data)
+5. [Next API Setup](#next-api-setup)
+6. [SubcribeForm User-Feedback](#subscribeform-user-feedback)
 ---
-### <a id="0-requirements" href="#toc">0. Requirements</a>
+### <a id="requirements" href="#toc">0. Requirements</a>
 
 To get it rolling as smooth as possible, you need to have a NextJS project with
 
@@ -61,12 +63,112 @@ It will still work in many other cases, but you would need to make adjustments i
 Also make sure to install the HTTP request client [Axios](https://www.npmjs.com/package/axios):
 `$ npm install axios`
 
+<br/>
+### <a id="custom-subscribeform" href="#toc">1. Custom SubscribeForm</a>
+
+Growing an email list can be one of the main objectives of a blog. So I found an
+everpresent subscribe form in the fixed header to be a cool idea. To keep it a
+bit less in your face I only want it to be fully expanded, once clicked. Here is
+the logic for that:
+
+```js title="/src/components/Header.js"
+// without anything unrelated to SubscribeFormHeader.js
+import SubscribeForm from "./SubscribeFormHeader";
+import { useState, useEffect } from "react";
+
+export default function Header({}){
+  const [showSubscription, setShowSubscription] = useState(false);
+
+ const handleSubscribeClick = () => {
+    setShowSubscription(true); // statechange that opens the form
+  };
+
+  const handleCancel = () => {
+    setShowSubscription(false); // statechange that closes the form
+  };
+
+  return (
+    <header>
+      <nav>
+          <Link>
+            <h1>LeonAndersen</h1>
+          </Link>
+          <ul>
+            <li>
+              <Link>
+                About
+              </Link>
+            </li>
+            <li>
+              <button
+                onClick={handleSubscribeClick} // triggers the conditional rendering via statechange 
+              >
+                Subscribe
+              </button>
+              {showSubscription && ( // conditional rendering
+                <SubscribeForm
+                  onCancel={handleCancel}
+                  onSubscribe={handleCancel} // both props are doing the same, just at different places in the interaction with the form
+                />
+              )}
+            </li>
+          </ul>
+          <Menu/>
+      </nav>
+    </header>
+  );
+};
+```
+
+And here is whats going on in the Form component, including how to jump the
+cursor into the email-input, once the form opens:
+
+```js title="/src/components/SubscribeFormHeader.js"
+import axios from "axios";
+import { useEffect, useRef } from "react";
+
+export default function SubscribeForm({ onCancel, onSubscribe }) { // getting props from Header.js
+  const inputRef = useRef(null); // useRef directly accesses the input dom-element
+
+  useEffect(() => {
+    if (inputRef.current) { // .current is built into useRef and parses the referenced dom-element, once it mounts into the dom-tree
+      inputRef.current.focus(); // .focus() places the cursor into the input
+    }
+  }, []);
+
+  const handleSubscribe = async (event) => {
+    // subscribe api logic sitting here gets explained in separate article as mentioned
+    onSubscribe(); // triggers closing of form in Header.js after successful subscription (same as onCancel)
+  };
+
+  return (
+    <form onSubmit={handleSubscribe}> // see next section
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        required
+        autoCapitalize="off"
+        autoCorrect="off"
+        ref={inputRef} // useRef api
+      />
+      <button type="submit">
+        Subscribe
+      </button>
+      <button onClick={onCancel}> // triggers conditional (un-)rendering of subForm component in Header.js
+        Cancel
+      </button>
+    </form>
+  );
+}
+```
+
 
 <br/>
-### <a id="1-subscribeform-handler-setup" href="#toc">1. SubscribeForm Handler Setup</a>
+### <a id="subscribeform-handler-setup" href="#toc">2. SubscribeForm Handler Setup</a>
 
-Your SubscribeForm needs to trigger an eventhandler "handleSubscribe" on its submit event.
-You can find all the detailed explanations in the comments:
+Now let's look at the "handleSubscribe" component. You can find all the detailed
+explanations in the comments:
 
 ```js title="/src/components/SubscribeForm.js"
 import axios from "axios"; // Import axios for HTTP requesthandling inside of the subscribehandler.
@@ -94,7 +196,6 @@ export default function SubscribeForm({}) {
 
   return (
     <form onSubmit={handleSubscribe}>
-      {" "}
       // Insert eventhandler function as jsx.
       <input // Use these attributes, especially name="email".
         type="email"
@@ -104,15 +205,14 @@ export default function SubscribeForm({}) {
         autoCapitalize="off"
         autoCorrect="off"
       />
-      // SubForm details are covered in the article "How to Code a Blog in 2024 (with
-      MDX and Next14 Pages-Routing)".
+      // subform details left out for focus. more in section 6. SubscribeForm User-Feedback
     </form>
   );
 }
 ```
 
 <br/>
-### <a id="2-envlocal-setup" href="#toc">2. .env.local Setup</a>
+### <a id="envlocal-setup" href="#toc">3. .env.local Setup</a>
 
 Create a `.env.local` file in your root directory and insert the following
 variable names just like this:
@@ -141,7 +241,7 @@ deployment service API gui (e.g. Vercel).
 
 
 <br/>
-### <a id="3-get-mailchimp-auth-data" href="#toc">3. Get MailChimp Auth Data</a>
+### <a id="get-mailchimp-auth-data" href="#toc">4. Get MailChimp Auth Data</a>
 
 Now sign up to mailchimp and follow this screenshot journey to copy the auth data
 into the x-placeholders in `.env.local`:
@@ -164,7 +264,7 @@ You now have all neccessary auth data set up in your local environment variables
 
 
 <br/>
-### <a id="4-next-api-setup" href="#toc">4. Next API Setup</a>
+### <a id="next-api-setup" href="#toc">5. Next API Setup</a>
 
 In section 1, your submithandler in `SubscribeForm.js` has sent a post request
 to your Next API. Now your `postHandler` in `subscribeApi.js` structures the
@@ -225,6 +325,93 @@ export default async function postHandler(req, res) {
     // Handle unsupported request methods.
     res.status(405).json({ success: false, error: "Method Not Allowed" });
   }
+}
+```
+<br/>
+
+### <a id="subscribeform-user-feedback" href="#toc">6. SubcribeForm User-Feedback</a>
+
+Now, that you have the `postHandler` API running, the final step is to make sure,
+that the user gets some visual feedback about the state of his submission (in
+progress, success, failure).
+
+```js title="/src/components/SubscribeFormHeader.js"
+import axios from "axios";
+import { useState, useEffect, useRef } from "react"; // Import useState.
+
+export default function SubscribeForm({ onCancel, onSubscribe }) {
+  const [feedbackState, setFeedbackState] = useState(""); // Capture the different API responses to use them for conditional rendering below.
+  const [isSubmitting, setIsSubmitting] = useState(false); // Capture boolean, if a submission is already in process. 
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
+  const handleSubscribe = async (event) => {
+    event.preventDefault();
+
+    if (isSubmitting) return; // Abort functioncall, if another submission is already in progress to avoid double requests.
+
+    setIsSubmitting(true); // Set submission state on first call of function. Has to be after the abortion mechanism. 
+
+    inputRef.current.blur(); // Give user a first visual feedback (blur = remove cursor focus), while waiting for the response.
+
+    try {
+      const formData = new FormData(event.target);
+      const email = formData.get("email");
+
+      const response = await axios.post("/api/subscribeApi", { email });
+
+      console.log(response.data);
+      setFeedbackState("success"); // FeedbackState to trigger success-message.
+    } catch (error) {
+      console.error(error);
+      setFeedbackState("failure"); // FeedbackState to trigger failure-message (ignorant of specific Error).
+    } finally {
+      setIsSubmitting(false); // Set submission cycle to be finished, re-enabling sumbit button for new submission attempts.
+      setTimeout(() => onSubscribe(), 2500); // Trigger closing of SubscribeForm in Header.js (see section 1.). Set duration of message being displayed.
+      setTimeout(() => setFeedbackState(""), 3000); // Hides message. Make sure to trigger after closing of form, as it is part of the form.
+      
+    }
+  };
+
+  return (
+    <> 
+      // Conditional rendering via strict equality with state-string. 
+      // Enables infinite state conditions vs boolean.
+      {feedbackState === "" && ( // Condition 1. (Default, pre submit)
+        <form
+      onSubmit={handleSubscribe}
+    ><input
+        type="email"
+        name="email"
+        placeholder="Email"
+        required
+        autoCapitalize="off"
+        autoCorrect="off"
+        ref={inputRef}
+      /><button
+        type="submit"
+        disabled={isSubmitting} // Multi submission prevented by disabling submit button via isSubmitting state in handleSubscribe.
+      >
+        Subscribe
+      </button>
+      <button onClick={onCancel}>
+        Cancel
+      </button>
+    </form>
+      )}
+      {feedbackState === "success" && ( // Condition 2.
+          <p>Success.&nbsp;<span>Thank&nbsp;you.</span></p>
+      )}
+      {feedbackState === "failure" && ( // Condition 3.
+        <p>Failure.&nbsp;<span>Please&nbsp;try&nbsp;again.</span></p>
+      )}
+      </>
+  );
 }
 ```
 ---

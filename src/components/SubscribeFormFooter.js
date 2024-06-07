@@ -19,6 +19,8 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
 
     setIsSubmitting(true);
 
+    inputRef.current.blur();
+
     try {
       const formData = new FormData(event.target);
       const email = formData.get("email");

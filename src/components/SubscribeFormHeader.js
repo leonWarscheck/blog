@@ -19,6 +19,8 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
 
     setIsSubmitting(true);
 
+    inputRef.current.blur();
+
     try {
       const formData = new FormData(event.target);
       const email = formData.get("email");
@@ -27,15 +29,13 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
 
       console.log(response.data);
       setFeedbackState("success");
-      setTimeout(() => onSubscribe(), 3000);
     } catch (error) {
       console.error(error);
       setFeedbackState("failure");
-      setTimeout(() => setFeedbackState(""), 2000);
     } finally {
       setIsSubmitting(false);
-      setTimeout(() => onSubscribe(), 2000);
-      setTimeout(() => setFeedbackState(""), 2500);
+      setTimeout(() => onSubscribe(), 2500);
+      setTimeout(() => setFeedbackState(""), 3000);
       
     }
   };

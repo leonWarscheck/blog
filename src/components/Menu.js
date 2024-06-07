@@ -4,15 +4,16 @@ import { useState } from "react";
 
 export default function Menu({ handleMenuToggle2, menuOpen, handleMenuClose }) {
   const [feedbackState, setFeedbackState] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false); // New state
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubscribe = async (event) => {
     event.preventDefault();
 
-    // Check if already submitting
     if (isSubmitting) return;
 
-    setIsSubmitting(true); // Disable the button
+    setIsSubmitting(true);
+
+    inputRef.current.blur();
 
     try {
       const formData = new FormData(event.target);
@@ -26,7 +27,7 @@ export default function Menu({ handleMenuToggle2, menuOpen, handleMenuClose }) {
       console.error(error);
       setFeedbackState("failure");
     } finally {
-      setIsSubmitting(false); // Re-enable the button
+      setIsSubmitting(false);
       setTimeout(() => setFeedbackState(""), 2500);
     }
   };
@@ -81,7 +82,7 @@ export default function Menu({ handleMenuToggle2, menuOpen, handleMenuClose }) {
                     <button
                       className="text-red-500 w-full   py-11  flex hover:text-neutral-400"
                       type="submit"
-                      disabled={isSubmitting} // Disable the button while submitting
+                      disabled={isSubmitting}
                     >
                       Subscribe
                     </button>
