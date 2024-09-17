@@ -36,7 +36,6 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
       setIsSubmitting(false);
       setTimeout(() => onSubscribe(), 2500);
       setTimeout(() => setFeedbackState(""), 3000);
-      
     }
   };
 
@@ -44,41 +43,50 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
     <>
       {feedbackState === "" && (
         <form
-      className="absolute bg-neutral-800 -right-c1 flex "
-      onSubmit={handleSubscribe}
-    ><input
-        type="email"
-        name="email"
-        id="navSubInput"
-        placeholder="Email"
-        className=" text-xl pl-4 w-64 h-12 focus:outline-none bg-neutral-600 text-neutral-300  "
-        required
-        autoCapitalize="off"
-        autoCorrect="off"
-        ref={inputRef}
-      /><button
-        className="text-xl text-red-500 pl-4"
-        type="submit"
-        disabled={isSubmitting}
-      >
-        Subscribe
-      </button>
-      <button className="mx-5 text-xl    text-neutral-700 " onClick={onCancel}>
-        Cancel
-      </button>
-    </form>
+          className="absolute bg-neutral-800 -right-[89.9px] flex font- [450]"
+          onSubmit={handleSubscribe}
+        >
+          <input
+            type="email"
+            name="email"
+            id="navSubInput"
+            placeholder="Email"
+            className=" text- xl pl-4 w-64 h-12 -mt-1 focus:outline-none bg-neutral-600 text-neutral-300  "
+            required
+            autoCapitalize="off"
+            autoCorrect="off"
+            ref={inputRef}
+          />
+          <button
+            className="text- xl text-red-500 pl-4"
+            type="submit"
+            disabled={isSubmitting}
+          >
+            Subscribe
+          </button>
+          <button
+            className="mx-5 text- xl    text-neutral-700 "
+            onClick={onCancel}
+          >
+            Cancel
+          </button>
+        </form>
       )}
       {feedbackState === "success" && (
-        <div className=" absolute flex pl-32 right-0 bg-neutral-800">
-          <p className="text-orange-500 text-xl ">Success.&nbsp;<span className="text-red-500">Thank&nbsp;you.</span></p>
+        <div className=" absolute flex pl-28 right-0 bg-neutral-800">
+          <p className="text-orange-500 text- xl ">
+            Success.&nbsp;<span className="text-red-500">Thank&nbsp;you.</span>
+          </p>
         </div>
       )}
       {feedbackState === "failure" && (
         <div className=" absolute flex pl-32 right-0 bg-neutral-800">
-        <p className="text-orange-500 text-xl ">Failure.&nbsp;<span className="text-red-500">Please&nbsp;try&nbsp;again.</span></p>
-      </div>
+          <p className="text-orange-500 text- xl ">
+            Failure.&nbsp;
+            <span className="text-red-500">Please&nbsp;try&nbsp;again.</span>
+          </p>
+        </div>
       )}
-      </>
-      
+    </>
   );
 }

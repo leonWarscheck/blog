@@ -46,7 +46,7 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
     <>
       {feedbackState === "" && (
         <form
-      className="absolute bg-neutral-800 -right-c1 flex "
+      className="absolute bg-neutral-800 -right-[83.5px] flex "
       onSubmit={handleSubscribe}
     ><input
         type="email"

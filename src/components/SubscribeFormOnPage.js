@@ -4,12 +4,24 @@ import { useState, useEffect, useRef } from "react";
 export default function SubscribeFormOnPage({}) {
   const [feedbackState, setFeedbackState] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  let formRef = useRef(null);
+  const formRef = useRef(null);
   const inputRef = useRef(null);
 
   useEffect(() => {
-    formRef.current.addEventListener("click", () => inputRef.current.focus());
-    return () => (inputRef.current = null);
+    const handleClick = () => {
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+      
+    };
+  
+    formRef.current.addEventListener("click", handleClick);
+    
+    return () => {
+      formRef.current.removeEventListener("click", handleClick);
+      // formRef.current = null
+      inputRef.current = null;
+    };
   }, []);
 
   useEffect(() => {
@@ -26,6 +38,7 @@ export default function SubscribeFormOnPage({}) {
     setIsSubmitting(true);
 
     inputRef.current.blur();
+
 
     try {
       const formData = new FormData(event.target);
@@ -47,7 +60,7 @@ export default function SubscribeFormOnPage({}) {
   return (
     <form
       ref={formRef}
-      className="px-4 bg-neutral-800 text-wrap py-5 mt-10 mb-7"
+      className="px-4 bg-neutral-800 text-wrap py-5 mt-10 mb-7 h- full c1:h-40"
       onSubmit={handleSubscribe}
     >
       {feedbackState === "" && (
@@ -68,7 +81,7 @@ export default function SubscribeFormOnPage({}) {
               ref={inputRef}
             />
             <button
-              className="text-xl font- text-emerald-la pt-3 c1:pt-0 c1:pl-3 hover:text-neutral-400"
+              className="text-xl font-medium text-emerald-la pt-3 c1:pt-0 c1:pl-3 hover:text-neutral-400"
               type="submit"
               disabled={isSubmitting}
             >
@@ -78,14 +91,14 @@ export default function SubscribeFormOnPage({}) {
         </>
       )}
       {feedbackState === "success" && (
-        <p className="text-xl mr-auto py-c6 text-neutral-200 ">
+        <p className="text-xl  text-neutral-200">
           Success.
           <br />
           Thank you for subscribing.
         </p>
       )}
       {feedbackState === "failure" && (
-        <p className="text-xl mr-auto py-c6 text-neutral-200">
+        <p className="text-xl  text-neutral-200">
           Something went wrong.
           <br />
           Please try again or try a different email.

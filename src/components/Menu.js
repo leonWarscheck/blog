@@ -1,10 +1,16 @@
 import Link from "next/link";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function Menu({ handleMenuToggle2, menuOpen, handleMenuClose }) {
   const [feedbackState, setFeedbackState] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const inputRef = useRef(null)
+
+  useEffect(()=>{if(inputRef.current){
+    inputRef.current.focus();
+  }
+}, []);
 
   const handleSubscribe = async (event) => {
     event.preventDefault();
@@ -78,6 +84,7 @@ export default function Menu({ handleMenuToggle2, menuOpen, handleMenuClose }) {
                       required
                       autoCapitalize="off"
                       autoCorrect="off"
+                      ref={inputRef}
                     />
                     <button
                       className="text-red-500 w-full   py-11  flex hover:text-neutral-400"

@@ -41,13 +41,14 @@ export default function Header({}) {
     <header className=" h-12 bg-neutral-800 items-center flex fixed w-full ">
       <nav className="max-w-2xl  mx-auto flex flex-grow items-center px-4">
         <Link
-          className=" absolute bottom-c3 font-semibold text-2xl text-violet-500 hover:text-neutral-400"
+          className=" absolute bottom- c3 font-semibold text-2xl text-violet-500 hover:text-neutral-400"
           href="/"
           onClick={handleMenuClose}
         >
           <h1 className="">LeonAndersen</h1>
+          {/* <h1 className="">Leon<span className="text-amber-500">Andersen</span><span className="text-red-500">.dev</span></h1> */}
         </Link>
-        <ul className="hidden  c1:flex space-x-4 ml-auto ">
+        <ul className="hidden -mb-1 c1:flex space-x-4 ml-auto text-neutral- 400 font-[450]">
           {/* <li>
               <Link
                 className="text-xl text-amber-400 hover:text-neutral-400"
@@ -58,7 +59,7 @@ export default function Header({}) {
             </li> */}
           <li>
             <Link
-              className="text-xl text-orange-500 hover:text-neutral-400"
+              className="text- sm xl text-orange-500  hover:text-neutral-400"
               href="/about"
             >
               About
@@ -66,7 +67,7 @@ export default function Header({}) {
           </li>
           <li className=" flex items-center relative">
             <button
-              className="text-xl text-red-500 hover:text-neutral-400"
+              className="text- sm xl text-red-500 hover:text-neutral-400"
               onClick={handleSubscribeClick}
             >
               Subscribe
