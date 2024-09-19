@@ -16,12 +16,6 @@ export default function SubscribeFormOnPage({}) {
     };
   
     formRef.current.addEventListener("click", handleClick);
-    
-    return () => {
-      formRef.current.removeEventListener("click", handleClick);
-      // formRef.current = null
-      inputRef.current = null;
-    };
   }, []);
 
   useEffect(() => {

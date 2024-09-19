@@ -27,7 +27,7 @@ export default function Footer() {
         <Link className="text-sm  hover:text-neutral-500" href="/">
           <h1>LeonAndersen</h1>
         </Link>
-        <ul className="hidden c1:flex space-x-4  ml-auto">
+        <ul className="hidden c1:flex space-x-4  ml-auto ">
           <li className="flex items-center">
             <Link className=" text-sm hover:text-neutral-500" href="/imprint">
               Imprint
