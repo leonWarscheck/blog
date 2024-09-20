@@ -54,7 +54,7 @@ export default function SubscribeFormOnPage({}) {
   return (
     <form
       ref={formRef}
-      className="px-4 bg-neutral-800 text-wrap py-5 mt-10 mb-7 h- full c1:h-40"
+      className="px- 4 bg-neutral-700 text-wrap py-5 mt-10 mb-7 h- full c1:h-40"
       onSubmit={handleSubscribe}
     >
       {feedbackState === "" && (
@@ -75,7 +75,7 @@ export default function SubscribeFormOnPage({}) {
               ref={inputRef}
             />
             <button
-              className="text-xl font-medium text-emerald-la pt-3 c1:pt-0 c1:pl-3 hover:text-neutral-400"
+              className="text-xl font-medium hover: text-red-500 pt-3 c1:pt-0 c1:pl-3 hover:text-neutral-300"
               type="submit"
               disabled={isSubmitting}
             >

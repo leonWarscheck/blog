@@ -1,9 +1,11 @@
 import Link from "next/link";
 import SubscribeForm from "./SubscribeFormHeader";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Menu from "./Menu";
 
 export default function Header({}) {
+  const route = useRouter()
   const [showSubscription, setShowSubscription] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -38,17 +40,17 @@ export default function Header({}) {
   };
 
   return (
-    <header className=" h-12 bg-neutral-800 items-center flex fixed w-full ">
+    <header className=" h-12 bg-neutral-700 items-center flex fixed w-full ">
       <nav className="max-w-2xl  mx-auto flex flex-grow items-center px-4">
         <Link
-          className=" absolute bottom-[8.5px] c3 font-semibold text-2xl text-violet-500 hover:text-neutral-400"
+          className=" absolute bottom-[8.5px] c3 font-semibold text-2xl text-neutral-200 hover:text-neutral-400 "
           href="/"
           onClick={handleMenuClose}
         >
           <h1 className="">LeonAndersen</h1>
           {/* <h1 className="">Leon<span className="text-amber-500">Andersen</span><span className="text-red-500">.dev</span></h1> */}
         </Link>
-        <ul className="hidden -mb-1 c1:flex gap-x-4 ml-auto  text-neutral- 400  font-medium [470]">
+        <ul className="hidden -mb-1 c1:flex gap-x-4 ml-auto  text-neutral-200  font-medium [470]">
           {/* <li>
               <Link
                 className="text-xl text-amber-400 hover:text-neutral-400"
@@ -59,7 +61,7 @@ export default function Header({}) {
             </li> */}
           <li>
             <Link
-              className="text- base sm xl text-orange-500  hover:text-neutral-400"
+              className="text- base sm xl text-orange- 500  hover:text-neutral-400"
               href="/about"
             >
               About
@@ -67,7 +69,7 @@ export default function Header({}) {
           </li>
           <li className=" flex items-center relative">
             <button
-              className="text- sm xl text-red-500 hover:text-neutral-400"
+              className="text- sm xl text-red- 500 hover:text-neutral-400"
               onClick={handleSubscribeClick}
             >
               Subscribe

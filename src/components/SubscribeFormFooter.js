@@ -46,7 +46,7 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
     <>
       {feedbackState === "" && (
         <form
-      className="absolute bg-neutral-800 -right-[83.5px] flex "
+      className="absolute bg-neutral-700 -right-[83.5px] flex "
       onSubmit={handleSubscribe}
     ><input
         type="email"
@@ -65,19 +65,19 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
       >
         Subscribe
       </button>
-      <button className="mx-5 text-sm    text-neutral-700 " onClick={onCancel}>
+      <button className="mx-5 text-sm    text-neutral-500 " onClick={onCancel}>
         Cancel
       </button>
     </form>
       )}
       {feedbackState === "success" && (
-        <div className=" absolute flex pl-32 right-0 bg-neutral-800">
-          <p className="text-neutral-500 text-sm ">Success.&nbsp;<span className="text-neutral-500">Thank&nbsp;you.</span></p>
+        <div className=" absolute flex pl-32 right-0 bg-neutral-700">
+          <p className="text-neutral-200 text-sm ">Success.&nbsp;<span className="text-neutral-200">Thank&nbsp;you.</span></p>
         </div>
       )}
       {feedbackState === "failure" && (
-        <div className=" absolute flex pl-32 right-0 bg-neutral-800">
-        <p className="text-neutral-500 text-sm ">Failure.&nbsp;<span className="text-neutral-500">Please&nbsp;try&nbsp;again.</span></p>
+        <div className=" absolute flex pl-32 right-0 bg-neutral-700">
+        <p className="text-neutral-200 text-sm ">Failure.&nbsp;<span className="text-neutral-200">Please&nbsp;try&nbsp;again.</span></p>
       </div>
       )}
       </>

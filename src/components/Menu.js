@@ -41,38 +41,45 @@ export default function Menu({ handleMenuToggle2, menuOpen, handleMenuClose }) {
   return (
     <>
       <button
-        className="group flex ml-auto gap-1 c1:hidden pr-2"
+        className="group flex ml-auto  mt-0.5 1 gap-1 c1:hidden pr-2"
         onClick={handleMenuToggle2}
       >
         <div
-          className={`size-6 rounded-full ${
-            menuOpen ? "bg-neutral-500" : "bg-orange-500"
+          className={`size-5 rounded-full ${
+            menuOpen ? "bg-neutral-500" : "bg-neutral-200"
           }`}
         />
         <div
-          className={`size-6 rounded-full ${
-            menuOpen ? "bg-neutral-500" : "bg-red-500"
+          className={`size-5 rounded-full ${
+            menuOpen ? "bg-neutral-500" : "bg-neutral-200"
           }`}
         />
       </button>
 
       {menuOpen && (
         <div
-          className="bg-neutral-800 flex flex-col  c1:hidden text-2xl  font- absolute left-0 right-0 top-12 min-h-[calc(100vh-3rem)]"
+          className="bg-neutral-700 flex flex-col  c1:hidden text-2xl  font- absolute left-0 right-0 top-12 min-h-[calc(100vh-3rem)]"
           aria-label="Mobile Menu"
         >
           <ul className=" w-full px-4 max-w-2xl mx-auto flex flex-col grow justify-evenly ">
             <li className=" ">
               <Link
                 onClick={handleMenuClose}
-                className=" text-orange-la w-full py-11 border-r-4 border-orange-la flex hover:text-neutral-400"
+                className=" text-emerald-la w-full py-11 border-r-4 border-yellow-la flex hover:text-neutral-400"
                 href="/about"
               >
                 About
               </Link>
+              {/* <Link
+                onClick={handleMenuClose}
+                className=" text-yellow-400 w-full py-11 border-r-4 border-yellow-400 flex hover:text-neutral-400"
+                href="/about"
+              >
+                About
+              </Link> */}
             </li>
 
-            <li className="relative border-r-4  border-red-500">
+            <li className="relative border-r-4  border-violet-500">
               <form className="" onSubmit={handleSubscribe}>
                 {feedbackState === "" && (
                   <>
@@ -80,7 +87,7 @@ export default function Menu({ handleMenuToggle2, menuOpen, handleMenuClose }) {
                       type="email"
                       name="email"
                       placeholder="Email"
-                      className=" placeholder:text-neutral-800 pl-1 placeholder:hover:text-neutral-400 absolute  top-0 w-full    focus:outline-none bg-neutral-600 text-neutral-400 "
+                      className=" placeholder:text-neutral-500 pl-1 placeholder:hover:text-neutral-400 absolute  top-0 w-full    focus:outline-none bg-neutral-600 text-neutral-400 "
                       required
                       autoCapitalize="off"
                       autoCorrect="off"

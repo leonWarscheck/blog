@@ -11,21 +11,23 @@ export default function AboutPage() {
         {/* <h1 className="font-semibold text-2xl mb-1 ">Leon Andersen</h1> */}
 
         
-        <p className="text- lg mb-2 text- balance c1:textjustify pb-4">
-          <span className="font-bold">Leon Andersen</span> is a Fullstack JavaScript Developer at EarlyNode.{" "}
+        <p className="text- lg mb- text- balance c1:textjustify pb-">
+          <span className="font- semibold">Leon Andersen</span> is a Fullstack JavaScript Developer at EarlyNode.{" "}
           <br />
           <br />
           After studying audio engineering he discovered his passion for
           programming and became a webdeveloper. <br />
           <br />
           He is specialized in React and Node and is currently exploring Remix.
+          <br/>
+          <br/>
         </p>
         <ul
-        className="text-orange -la text-neutral-400 mb-10 flex pb-1 font-medium  underline underline-offset-2 mx-auto "
+        className="text-orange -la text-neutral-200 mb-14 flex pb-1 font- medium  underline underline-offset-2 mx-auto "
         aria-label="Contact Links"
       >
         <li className="ml- auto">
-          <h2 className="mr-2 grou  underline-offset-2 hover:text-neutral-400 ">
+          <h2 className="mr-2 group   hover:text-neutral-400 ">
             <a href="https://github.com/leonAndersen">Github</a>
           </h2>
         </li>
