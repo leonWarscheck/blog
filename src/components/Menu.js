@@ -58,7 +58,7 @@ export default function Menu({ handleMenuToggle2, menuOpen, handleMenuClose }) {
 
       {menuOpen && (
         <div
-          className="bg-neutral-700 flex flex-col  c1:hidden text-2xl  font- absolute left-0 right-0 top-12 min-h-[calc(100vh-3rem)]"
+          className="bg-neutral-700 flex flex-col  c1:hidden text-2xl  font- absolute left-0 right-0 top-16 min-h-[calc(100vh-4rem)]"
           aria-label="Mobile Menu"
         >
           <ul className=" w-full px-4 max-w-2xl mx-auto flex flex-col grow justify-evenly ">
@@ -87,7 +87,7 @@ export default function Menu({ handleMenuToggle2, menuOpen, handleMenuClose }) {
                       type="email"
                       name="email"
                       placeholder="Email"
-                      className=" placeholder:text-neutral-500 pl-1 placeholder:hover:text-neutral-400 absolute  top-0 w-full    focus:outline-none bg-neutral-600 text-neutral-400 "
+                      className=" placeholder:text-neutral-400 pl-1 placeholder:hover:text-neutral-400 absolute  top-0 w-full    focus:outline-none bg-neutral-600 text-neutral-400 "
                       required
                       autoCapitalize="off"
                       autoCorrect="off"

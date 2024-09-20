@@ -51,7 +51,7 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
             name="email"
             id="navSubInput"
             placeholder="Email"
-            className=" text- xl pl-4 w-64 h- 12 -mt -1  focus:outline-none bg-neutral-600 text-neutral-300  "
+            className=" text- xl pl-4 w-64 h-6 8 12 mt- pt- 1  focus:outline-none bg-neutral-600 text-neutral-200 placeholder-neutral-400 "
             required
             autoCapitalize="off"
             autoCorrect="off"

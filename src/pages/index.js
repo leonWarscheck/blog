@@ -27,7 +27,7 @@ export default function HomeFeed({ feedData }) {
   ];
 
   return (
-    <main className="grow max-w-2xl pt-24 mx-auto px-4">
+    <main className="grow max-w-2xl pt-[7.5rem] mx-auto px-4 min-h-dvh">
       <ul>
         {feedData.map(({ slug, date, readingTime, title, preview }, index) => (
           <li className="mb-16 group" key={slug}>

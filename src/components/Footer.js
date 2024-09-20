@@ -13,8 +13,8 @@ export default function Footer() {
     setShowSubscription(false);
   };
   return (
-    <footer className=" bg-neutral-700 text-neutral-300 ">
-      <nav className="c1:hidden max-w-2xl mx-auto px-4 flex grow items-center">
+    <footer className=" bg-neutral-700 text-neutral-300 h-8 ">
+      <nav className="c1:hidden max-w-2xl mx-auto px-4 flex grow items-center h-full">
         <ul className="flex">
           <li className="flex items-center">
             <Link className=" text-sm hover:text-neutral-400" href="/imprint">
@@ -23,7 +23,7 @@ export default function Footer() {
           </li>
         </ul>
       </nav>
-      <nav className="hidden c1:flex grow max-w-2xl mx-auto px-4  items-center">
+      <nav className="hidden c1:flex grow max-w-2xl mx-auto px-4  items-center h-full ">
         <Link className="text-sm  hover:text-neutral-400" href="/">
           <h1>LeonAndersen</h1>
         </Link>
