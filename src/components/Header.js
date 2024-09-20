@@ -11,13 +11,21 @@ export default function Header({}) {
 
   useEffect(() => {
     const bodyElement = document.querySelector("body");
-
+  
     if (menuOpen) {
       bodyElement.classList.add("scrollbar-hide");
+      bodyElement.style.overflow = "hidden"; // Block scrolling
     } else {
       bodyElement.classList.remove("scrollbar-hide");
+      bodyElement.style.overflow = ""; // Reset to default
     }
+  
+    return () => {
+      // Clean up to avoid affecting other parts of the app
+      bodyElement.style.overflow = ""; 
+    };
   }, [menuOpen]);
+  
 
   const handleSubscribeClick = () => {
     setShowSubscription(true);

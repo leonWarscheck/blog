@@ -4,7 +4,7 @@ export default function Document() {
   return (
     <Html className="scroll-pt-32" lang="en">
       <Head>
-        <link rel="icon" href="/favicon.ico" />
+      <link rel="icon" type="image/svg+xml" href="favicon (2).svg" />
       </Head>
       <body className="bg-neutral-700 overscroll-none text-neutral-100">
         <Main />

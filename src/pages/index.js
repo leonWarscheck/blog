@@ -14,16 +14,16 @@ export async function getStaticProps() {
 export default function HomeFeed({ feedData }) {
   // Define an array of color classes
   const colorClasses = [
-    "c1:text-neutral-200 c1:group-hover:text-red-500",
-    "c1:text-neutral-200 c1:group-hover:text-violet-500",
-    "c1:text-neutral-200 c1:group-hover:text-yellow-la",
-    "c1:text-neutral-200 c1:group-hover:text-emerald-la",
+    "c1: text-neutral-200 c1: group-hover:text-red-500",
+    "c1: text-neutral-200 c1: group-hover:text-violet-500",
+    "c1: text-neutral-200 c1: group-hover:text-yellow-la",
+    "c1: text-neutral-200 c1: group-hover:text-emerald-la",
   ];
   const colorClassesMobile = [
-    "text-red-500",
-    "text-violet-500",
-    "text-yellow-la",
-    "text-emerald-la",
+    // "text-red-500",
+    // "text-violet-500",
+    // "text-yellow-la",
+    // "text-emerald-la",
   ];
 
   return (
