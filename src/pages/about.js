@@ -21,7 +21,7 @@ export default function AboutPage() {
   }, []);
 
   return (
-    <main className="max-w-2xl mx-auto pt-32 pb-12 px-4 grow ">
+    <main className="max-w-2xl mx-auto pt-32 mt-0.5 pb-12 px-4 grow ">
       <Head>
         <title>About Leon Andersen</title>
       </Head>
