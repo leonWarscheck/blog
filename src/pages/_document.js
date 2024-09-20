@@ -2,7 +2,7 @@ import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
   return (
-    <Html className="scroll-pt-16" lang="en">
+    <Html className="scroll-pt-32" lang="en">
       <Head>
         <link rel="icon" href="/favicon.ico" />
       </Head>

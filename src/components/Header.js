@@ -41,9 +41,9 @@ export default function Header({}) {
 
   return (
     <header className=" h-20 bg-neutral-700 items-center flex fixed w-full ">
-      <nav className="max-w-2xl  mx-auto flex flex-grow items-center px-4">
+      <nav className="max-w-2xl pt-6 mx-auto flex flex-grow items-center px-4">
         <Link
-          className=" absolute bottom-[25px] c3 font-semibold text-2xl text-neutral-200 hover:text-neutral-400 "
+          className=" absolute bottom- [25px] c3 font-semibold text-2xl text-neutral-200 hover:text-neutral-400 "
           href="/"
           onClick={handleMenuClose}
         >
