@@ -49,7 +49,7 @@ export default function Header({}) {
   };
 
   return (
-    <header className={`h-20 bg-neutral-700 items-center flex fixed w-full ${router.route.startsWith('/posts') ?"text-neutral-200": "text-neutral-100"}  `} >
+    <header className={`h-20 bg-neutral-700 items-center flex fixed w-full ${router.route.startsWith('/posts') ?"text-neutral-200": "text-neutral-200"}  `} >
       <nav className="max-w-2xl pt-6 mx-auto flex flex-grow items-center px-4">
         <Link
           className=" absolute bottom- [25px] c3 font-semibold text-2xl hover: "
