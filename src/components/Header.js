@@ -9,6 +9,7 @@ export default function Header({}) {
   const [showSubscription, setShowSubscription] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   console.log("route: ", router)
+  
 
   useEffect(() => {
     const bodyElement = document.querySelector("body");
@@ -49,10 +50,10 @@ export default function Header({}) {
   };
 
   return (
-    <header className={`h-20 bg-neutral-700 items-center flex fixed w-full ${router.route.startsWith('/posts') ?"text-neutral-200": "text-neutral-200"}  `} >
+    <header className={`h-20 bg-neutral-700 items-center flex fixed w-full ${router.route.startsWith('/posts') ?"text-neutral-200": "text-neutral-200"} ${router.asPath === "/type-symbols" && "text-neutral-500"} `} >
       <nav className="max-w-2xl pt-6 mx-auto flex flex-grow items-center px-4">
         <Link
-          className=" absolute bottom- [25px] c3 font-semibold text-2xl hover: "
+          className=" absolute bottom- [25px] c3 font-semibold text-2xl hover:text-neutral-200  "
           href="/"
           onClick={handleMenuClose}
         >
@@ -62,7 +63,7 @@ export default function Header({}) {
         <ul className="hidden -mb-1 c1:flex gap-x-4 ml-auto    font-medium [470]">
           {/* <li>
               <Link
-                className="text-xl text-amber-400 hover:text-neutral-400"
+                className="text-xl text-amber-400 hover:text-neutral-200 text-neutral-400"
                 href="/tools"
               >
                 Tools
@@ -70,7 +71,7 @@ export default function Header({}) {
             </li> */}
           <li>
             <Link
-              className="text- base sm xl text-orange- 500  hover:"
+              className="text- base sm xl text-orange- 500  hover:text-neutral-200 "
               href="/about"
             >
               About
@@ -78,7 +79,7 @@ export default function Header({}) {
           </li>
           <li className=" flex items-center relative">
             <button
-              className="text- sm xl text-red- 500 hover:"
+              className="text- sm xl text-red- 500 hover:text-neutral-200 "
               onClick={handleSubscribeClick}
             >
               Subscribe

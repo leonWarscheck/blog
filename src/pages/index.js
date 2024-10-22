@@ -33,7 +33,7 @@ export default function HomeFeed({ feedData }) {
           <li className="mb-16 group" key={slug}>
             <Link href={`/posts/${slug}`}>
               <h2
-                className={`font-semibold text-xl ${
+                className={`font-semibold  text-xl ${
                   colorClasses[index % colorClasses.length]
                 }  ${colorClassesMobile[index % colorClassesMobile.length]}`}
               >
@@ -42,7 +42,7 @@ export default function HomeFeed({ feedData }) {
               <h3 className="text-sm pb-2">
                 <Date dateString={date} /> &nbsp;- &nbsp;{readingTime}
               </h3>
-              <p className="hyphens-auto">{preview}</p>
+              <p className="hyphens-auto text-justif">{preview}</p>
             </Link>
           </li>
         ))}
