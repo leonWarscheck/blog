@@ -8,7 +8,6 @@ export default function Header({}) {
   const router = useRouter()
   const [showSubscription, setShowSubscription] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  console.log("route: ", router)
   
 
   useEffect(() => {
@@ -50,7 +49,7 @@ export default function Header({}) {
   };
 
   return (
-    <header className={`h-20 bg-neutral-700 items-center flex fixed w-full ${router.route.startsWith('/posts') ?"text-neutral-200": "text-neutral-200"} ${router.asPath === "/type-symbols" && "text-neutral-500"} `} >
+    <header className={`h-20 bg-neutral-700 items-center flex fixed w-full ${router.route.startsWith('/posts') ?"text-neutral-200": "text-neutral-200"} ${router.asPath === "/symbol-trainer" && "text-neutral-500"} `} >
       <nav className="max-w-2xl pt-6 mx-auto flex flex-grow items-center px-4">
         <Link
           className=" absolute bottom- [25px] c3 font-semibold text-2xl hover:text-neutral-200  "
@@ -58,7 +57,6 @@ export default function Header({}) {
           onClick={handleMenuClose}
         >
           <h1 className="">LeonAndersen</h1>
-          {/* <h1 className="">Leon<span className="text-amber-500">Andersen</span><span className="text-red-500">.dev</span></h1> */}
         </Link>
         <ul className="hidden -mb-1 c1:flex gap-x-4 ml-auto    font-medium [470]">
           {/* <li>

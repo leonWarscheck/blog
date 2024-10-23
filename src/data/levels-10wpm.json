@@ -1,0 +1,338 @@
+[
+  {
+    "id": 1,
+    "reverse": false,
+    "length": "7",
+    "case": "lowerCase",
+    "string": "38[/;=,"
+  },
+  {
+    "id": 2,
+    "reverse": true,
+    "length": "7",
+    "case": "lowerCase",
+    "string": ",=;/[83"
+  },
+  {
+    "id": 3,
+    "reverse": false,
+    "length": "7",
+    "case": "lowerCase",
+    "string": ";`]78.'"
+  },
+  {
+    "id": 4,
+    "reverse": true,
+    "length": "7",
+    "case": "lowerCase",
+    "string": "'.87]`;"
+  },
+  {
+    "id": 5,
+    "reverse": false,
+    "length": "7",
+    "case": "upperCase",
+    "string": "?{#:)?@"
+  },
+  {
+    "id": 6,
+    "reverse": true,
+    "length": "7",
+    "case": "upperCase",
+    "string": "@?):#{?"
+  },
+  {
+    "id": 7,
+    "reverse": false,
+    "length": "7",
+    "case": "upperCase",
+    "string": "^~&?)@&"
+  },
+  {
+    "id": 8,
+    "reverse": true,
+    "length": "7",
+    "case": "upperCase",
+    "string": "&@)?&~^"
+  },
+  {
+    "id": 9,
+    "reverse": false,
+    "length": "7",
+    "case": "mixedCase",
+    "string": "%^:?75^"
+  },
+  {
+    "id": 10,
+    "reverse": true,
+    "length": "7",
+    "case": "mixedCase",
+    "string": "^57?:^%"
+  },
+  {
+    "id": 11,
+    "reverse": false,
+    "length": "7",
+    "case": "mixedCase",
+    "string": "`[)1+1'"
+  },
+  {
+    "id": 12,
+    "reverse": true,
+    "length": "7",
+    "case": "mixedCase",
+    "string": "'1+1)[`"
+  },
+  {
+    "id": 13,
+    "reverse": false,
+    "length": "7",
+    "case": "allChars",
+    "string": "J_w#].-"
+  },
+  {
+    "id": 14,
+    "reverse": true,
+    "length": "7",
+    "case": "allChars",
+    "string": "-.]#w_J"
+  },
+  {
+    "id": 15,
+    "reverse": false,
+    "length": "7",
+    "case": "allChars",
+    "string": "tu,%:{+"
+  },
+  {
+    "id": 16,
+    "reverse": true,
+    "length": "7",
+    "case": "allChars",
+    "string": "+{:%,ut"
+  },
+  {
+    "id": 17,
+    "reverse": false,
+    "length": "14",
+    "case": "lowerCase",
+    "string": "65-;[42]`;]'-."
+  },
+  {
+    "id": 18,
+    "reverse": true,
+    "length": "14",
+    "case": "lowerCase",
+    "string": ".-'];`]24[;-56"
+  },
+  {
+    "id": 19,
+    "reverse": false,
+    "length": "14",
+    "case": "lowerCase",
+    "string": "]/`;-6/1;2`0']"
+  },
+  {
+    "id": 20,
+    "reverse": true,
+    "length": "14",
+    "case": "lowerCase",
+    "string": "]'0`2;1/6-;`/]"
+  },
+  {
+    "id": 21,
+    "reverse": false,
+    "length": "14",
+    "case": "upperCase",
+    "string": "%|{_%+#~*}@!})"
+  },
+  {
+    "id": 22,
+    "reverse": true,
+    "length": "14",
+    "case": "upperCase",
+    "string": ")}!@}*~#+%_{|%"
+  },
+  {
+    "id": 23,
+    "reverse": false,
+    "length": "14",
+    "case": "upperCase",
+    "string": "|_@<*:>@(?>$&|"
+  },
+  {
+    "id": 24,
+    "reverse": true,
+    "length": "14",
+    "case": "upperCase",
+    "string": "|&$>?(@>:*<@_|"
+  },
+  {
+    "id": 25,
+    "reverse": false,
+    "length": "14",
+    "case": "mixedCase",
+    "string": "<-[]%94+%$2&>0"
+  },
+  {
+    "id": 26,
+    "reverse": true,
+    "length": "14",
+    "case": "mixedCase",
+    "string": "0>&2$%+49%][-<"
+  },
+  {
+    "id": 27,
+    "reverse": false,
+    "length": "14",
+    "case": "mixedCase",
+    "string": "^?34[|>73^';(>"
+  },
+  {
+    "id": 28,
+    "reverse": true,
+    "length": "14",
+    "case": "mixedCase",
+    "string": ">(;'^37>|[43?^"
+  },
+  {
+    "id": 29,
+    "reverse": false,
+    "length": "14",
+    "case": "allChars",
+    "string": ":qELE|{@]}@#~`"
+  },
+  {
+    "id": 30,
+    "reverse": true,
+    "length": "14",
+    "case": "allChars",
+    "string": "`~#@}]@{|ELEq:"
+  },
+  {
+    "id": 31,
+    "reverse": false,
+    "length": "14",
+    "case": "allChars",
+    "string": "%~x-X4J[@(*.`="
+  },
+  {
+    "id": 32,
+    "reverse": true,
+    "length": "14",
+    "case": "allChars",
+    "string": "=`.*(@[J4X-x~%"
+  },
+  {
+    "id": 33,
+    "reverse": false,
+    "length": "21",
+    "case": "lowerCase",
+    "string": "187.45;,[0.,]/['-';`/"
+  },
+  {
+    "id": 34,
+    "reverse": true,
+    "length": "21",
+    "case": "lowerCase",
+    "string": "/`;'-'[/],.0[,;54.781"
+  },
+  {
+    "id": 35,
+    "reverse": false,
+    "length": "21",
+    "case": "lowerCase",
+    "string": "6][3[.'83`;05-.-`/;=,"
+  },
+  {
+    "id": 36,
+    "reverse": true,
+    "length": "21",
+    "case": "lowerCase",
+    "string": ",=;/`-.-50;`38'.[3[]6"
+  },
+  {
+    "id": 37,
+    "reverse": false,
+    "length": "21",
+    "case": "upperCase",
+    "string": "}:%:)^~_@$|{\"<>{^(#*?"
+  },
+  {
+    "id": 38,
+    "reverse": true,
+    "length": "21",
+    "case": "upperCase",
+    "string": "?*#(^{><\"{|$@_~^):%:}"
+  },
+  {
+    "id": 39,
+    "reverse": false,
+    "length": "21",
+    "case": "upperCase",
+    "string": ":}*~{<~+$\"#%&*|&%{_$#"
+  },
+  {
+    "id": 40,
+    "reverse": true,
+    "length": "21",
+    "case": "upperCase",
+    "string": "#$_{%&|*&%#\"$+~<{~*}:"
+  },
+  {
+    "id": 41,
+    "reverse": false,
+    "length": "21",
+    "case": "mixedCase",
+    "string": "^?%)}2-~=2^:)_>0,<=73"
+  },
+  {
+    "id": 42,
+    "reverse": true,
+    "length": "21",
+    "case": "mixedCase",
+    "string": "37=<,0>_):^2=~-2})%?^"
+  },
+  {
+    "id": 43,
+    "reverse": false,
+    "length": "21",
+    "case": "mixedCase",
+    "string": ")'58[~]=1-[05:~0$@{')"
+  },
+  {
+    "id": 44,
+    "reverse": true,
+    "length": "21",
+    "case": "mixedCase",
+    "string": ")'{@$0~:50[-1=]~[85')"
+  },
+  {
+    "id": 45,
+    "reverse": false,
+    "length": "21",
+    "case": "allChars",
+    "string": "RtfoH_4']~}&*'&=#[![{"
+  },
+  {
+    "id": 46,
+    "reverse": true,
+    "length": "21",
+    "case": "allChars",
+    "string": "{[![#=&'*&}~]'4_HoftR"
+  },
+  {
+    "id": 47,
+    "reverse": false,
+    "length": "21",
+    "case": "allChars",
+    "string": "],a97YNW+^]=%:>^){,|~"
+  },
+  {
+    "id": 48,
+    "reverse": true,
+    "length": "21",
+    "case": "allChars",
+    "string": "~|,{)^>:%=]^+WNY79a,]"
+  }
+]

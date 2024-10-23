@@ -15,7 +15,7 @@ export default function Footer() {
     setShowSubscription(false);
   };
   return (
-    <footer className={` bg-neutral-700 text-neutral-300 h-8 ${router.asPath === "/type-symbols" && "hidden"} `}>
+    <footer className={` bg-neutral-700 text-neutral-300 h-8 ${router.asPath === "/symbol-trainer" && "hidden"} `}>
       <nav className="c1:hidden max-w-2xl mx-auto px-4 flex grow items-center h-full">
         <ul className="flex">
           <li className="flex items-center">
