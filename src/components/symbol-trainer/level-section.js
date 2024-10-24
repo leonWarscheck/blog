@@ -2,7 +2,7 @@ import React from "react";
 import levels from "../../data/levels.json";
 import scores from "../../data/scores.json"
 
-export default function LevelSection({ section, setSection }) {
+export default function LevelSection({ section, setSection, setLevel }) {
   const colorClasses = [
     "c1: text-neutral-200 c1: group- hover:text-red-500",
     "c1: text-neutral-200 c1: group- hover:text-violet-500",
@@ -22,13 +22,14 @@ export default function LevelSection({ section, setSection }) {
             return (
               <li className="flex w-full ">
                 <button className={`flex w-full py-2  hover: text-neutral-500 group
-                ${(score.wpm >= 80) ? "hover:text-neutral-700" 
-                : (score.wpm >= 60) ?  "hover:text-emerald-la" 
+                ${(score.wpm >= 60) ? "hover:text-neutral-700" 
+                : (score.wpm >= 55) ?  "hover:text-neutral-600" 
+                : (score.wpm >= 50) ?  "hover:text-emerald-la" 
                 : (score.wpm >= 40) ? "hover:text-yellow-la"
-                : (score.wpm >= 20) ?  "hover:text-violet-500"
-                : (score.wpm >= 10) ? "hover:text-red-500" 
+                : (score.wpm >= 30) ?  "hover:text-violet-500"
+                : (score.wpm >= 20) ? "hover:text-red-500" 
                 : "hover:text-neutral-400"}`}
-                onClick={()=>setSection("trainerSection")}
+                onClick={()=>{setSection("trainerSection"); setLevel(level.id);}}
                 >
                   <h3 className=" font-bold">
                     <span>Level {level.id} </span>
@@ -39,7 +40,7 @@ export default function LevelSection({ section, setSection }) {
                       {level.length}
                       {level.reverse && ", r"} ) 
                     </span>
-                    <span className="ml-auto"> {level.string}</span>{" "}
+                    <span className="ml-auto tracking-wide"> {level.string}</span>{" "}
                     <span className="ml-8 ">WPM</span>
                     <span className="ml-4 font-semibold">{score.wpm}</span>
                   </h4>

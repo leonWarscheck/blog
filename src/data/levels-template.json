@@ -4,335 +4,335 @@
     "reverse": false,
     "length": "7",
     "case": "lowerCase",
-    "string": ";-0-6,/"
+    "string": "38[/;=,"
   },
   {
     "id": 2,
     "reverse": true,
     "length": "7",
     "case": "lowerCase",
-    "string": "/,6-0-;"
+    "string": ",=;/[83"
   },
   {
     "id": 3,
     "reverse": false,
     "length": "7",
     "case": "lowerCase",
-    "string": "5.1.[]'"
+    "string": ";`]78.'"
   },
   {
     "id": 4,
     "reverse": true,
     "length": "7",
     "case": "lowerCase",
-    "string": "'][.1.5"
+    "string": "'.87]`;"
   },
   {
     "id": 5,
     "reverse": false,
     "length": "7",
     "case": "upperCase",
-    "string": "!|\"!#_$"
+    "string": "?{#:)?@"
   },
   {
     "id": 6,
     "reverse": true,
     "length": "7",
     "case": "upperCase",
-    "string": "$_#!\"|!"
+    "string": "@?):#{?"
   },
   {
     "id": 7,
     "reverse": false,
     "length": "7",
     "case": "upperCase",
-    "string": "{+(^+@%"
+    "string": "^~&?)@&"
   },
   {
     "id": 8,
     "reverse": true,
     "length": "7",
     "case": "upperCase",
-    "string": "%@+^(+{"
+    "string": "&@)?&~^"
   },
   {
     "id": 9,
     "reverse": false,
     "length": "7",
     "case": "mixedCase",
-    "string": "28}=->|"
+    "string": "%^:?75^"
   },
   {
     "id": 10,
     "reverse": true,
     "length": "7",
     "case": "mixedCase",
-    "string": "|>-=}82"
+    "string": "^57?:^%"
   },
   {
     "id": 11,
     "reverse": false,
     "length": "7",
     "case": "mixedCase",
-    "string": "0#{5,&{"
+    "string": "`[)1+1'"
   },
   {
     "id": 12,
     "reverse": true,
     "length": "7",
     "case": "mixedCase",
-    "string": "{&,5{#0"
+    "string": "'1+1)[`"
   },
   {
     "id": 13,
     "reverse": false,
     "length": "7",
     "case": "allChars",
-    "string": "~JD`*$^"
+    "string": "J_w#].-"
   },
   {
     "id": 14,
     "reverse": true,
     "length": "7",
     "case": "allChars",
-    "string": "^$*`DJ~"
+    "string": "-.]#w_J"
   },
   {
     "id": 15,
     "reverse": false,
     "length": "7",
     "case": "allChars",
-    "string": "wn/'}{:"
+    "string": "tu,%:{+"
   },
   {
     "id": 16,
     "reverse": true,
     "length": "7",
     "case": "allChars",
-    "string": ":{}'/nw"
+    "string": "+{:%,ut"
   },
   {
     "id": 17,
     "reverse": false,
     "length": "14",
     "case": "lowerCase",
-    "string": "0250=.,-/-',]="
+    "string": "65-;[42]`;]'-."
   },
   {
     "id": 18,
     "reverse": true,
     "length": "14",
     "case": "lowerCase",
-    "string": "=],'-/-,.=0520"
+    "string": ".-'];`]24[;-56"
   },
   {
     "id": 19,
     "reverse": false,
     "length": "14",
     "case": "lowerCase",
-    "string": ";/[5'[]',1,6/8"
+    "string": "]/`;-6/1;2`0']"
   },
   {
     "id": 20,
     "reverse": true,
     "length": "14",
     "case": "lowerCase",
-    "string": "8/6,1,']['5[/;"
+    "string": "]'0`2;1/6-;`/]"
   },
   {
     "id": 21,
     "reverse": false,
     "length": "14",
     "case": "upperCase",
-    "string": "{?^%&^\"!{:@|_("
+    "string": "%|{_%+#~*}@!})"
   },
   {
     "id": 22,
     "reverse": true,
     "length": "14",
     "case": "upperCase",
-    "string": "(_|@:{!\"^&%^?{"
+    "string": ")}!@}*~#+%_{|%"
   },
   {
     "id": 23,
     "reverse": false,
     "length": "14",
     "case": "upperCase",
-    "string": "&(!*?}+}):(*#$"
+    "string": "|_@<*:>@(?>$&|"
   },
   {
     "id": 24,
     "reverse": true,
     "length": "14",
     "case": "upperCase",
-    "string": "$#*(:)}+}?*!(&"
+    "string": "|&$>?(@>:*<@_|"
   },
   {
     "id": 25,
     "reverse": false,
     "length": "14",
     "case": "mixedCase",
-    "string": "=;-1/<}*7;1}{#"
+    "string": "<-[]%94+%$2&>0"
   },
   {
     "id": 26,
     "reverse": true,
     "length": "14",
     "case": "mixedCase",
-    "string": "#{}1;7*}</1-;="
+    "string": "0>&2$%+49%][-<"
   },
   {
     "id": 27,
     "reverse": false,
     "length": "14",
     "case": "mixedCase",
-    "string": "&%?!?87[^8'2*;"
+    "string": "^?34[|>73^';(>"
   },
   {
     "id": 28,
     "reverse": true,
     "length": "14",
     "case": "mixedCase",
-    "string": ";*2'8^[78?!?%&"
+    "string": ">(;'^37>|[43?^"
   },
   {
     "id": 29,
     "reverse": false,
     "length": "14",
     "case": "allChars",
-    "string": "/>t1zo`[!)[>!}"
+    "string": ":qELE|{@]}@#~`"
   },
   {
     "id": 30,
     "reverse": true,
     "length": "14",
     "case": "allChars",
-    "string": "}!>[)![`oz1t>/"
+    "string": "`~#@}]@{|ELEq:"
   },
   {
     "id": 31,
     "reverse": false,
     "length": "14",
     "case": "allChars",
-    "string": "|9zO*/9_|:/~^~"
+    "string": "%~x-X4J[@(*.`="
   },
   {
     "id": 32,
     "reverse": true,
     "length": "14",
     "case": "allChars",
-    "string": "~^~/:|_9/*Oz9|"
+    "string": "=`.*(@[J4X-x~%"
   },
   {
     "id": 33,
     "reverse": false,
     "length": "21",
     "case": "lowerCase",
-    "string": "/]591/']1[43`'-,.;,.`"
+    "string": "187.45;,[0.,]/['-';`/"
   },
   {
     "id": 34,
     "reverse": true,
     "length": "21",
     "case": "lowerCase",
-    "string": "`.,;.,-'`34[1]'/195]/"
+    "string": "/`;'-'[/],.0[,;54.781"
   },
   {
     "id": 35,
     "reverse": false,
     "length": "21",
     "case": "lowerCase",
-    "string": ";='30.`8=06/-2-/`.,']"
+    "string": "6][3[.'83`;05-.-`/;=,"
   },
   {
     "id": 36,
     "reverse": true,
     "length": "21",
     "case": "lowerCase",
-    "string": "]',.`/-2-/60=8`.03'=;"
+    "string": ",=;/`-.-50;`38'.[3[]6"
   },
   {
     "id": 37,
     "reverse": false,
     "length": "21",
     "case": "upperCase",
-    "string": "^#)^$%}()#+:&_&{_<{<("
+    "string": "}:%:)^~_@$|{\"<>{^(#*?"
   },
   {
     "id": 38,
     "reverse": true,
     "length": "21",
     "case": "upperCase",
-    "string": "(<{<_{&_&:+#)(}%$^)#^"
+    "string": "?*#(^{><\"{|$@_~^):%:}"
   },
   {
     "id": 39,
     "reverse": false,
     "length": "21",
     "case": "upperCase",
-    "string": "#(\"_:{|:$>!%$+)^#*?^>"
+    "string": ":}*~{<~+$\"#%&*|&%{_$#"
   },
   {
     "id": 40,
     "reverse": true,
     "length": "21",
     "case": "upperCase",
-    "string": ">^?*#^)+$%!>$:|{:_\"(#"
+    "string": "#$_{%&|*&%#\"$+~<{~*}:"
   },
   {
     "id": 41,
     "reverse": false,
     "length": "21",
     "case": "mixedCase",
-    "string": "07[?{4<9`-|0>7~?:@_$;"
+    "string": "^?%)}2-~=2^:)_>0,<=73"
   },
   {
     "id": 42,
     "reverse": true,
     "length": "21",
     "case": "mixedCase",
-    "string": ";$_@:?~7>0|-`9<4{?[70"
+    "string": "37=<,0>_):^2=~-2})%?^"
   },
   {
     "id": 43,
     "reverse": false,
     "length": "21",
     "case": "mixedCase",
-    "string": "2!5$;^!8-*,6`5?2;@'{/"
+    "string": ")'58[~]=1-[05:~0$@{')"
   },
   {
     "id": 44,
     "reverse": true,
     "length": "21",
     "case": "mixedCase",
-    "string": "/{'@;2?5`6,*-8!^;$5!2"
+    "string": ")'{@$0~:50[-1=]~[85')"
   },
   {
     "id": 45,
     "reverse": false,
     "length": "21",
     "case": "allChars",
-    "string": "n5M69},:w,';>+#.%'/-%"
+    "string": "RtfoH_4']~}&*'&=#[![{"
   },
   {
     "id": 46,
     "reverse": true,
     "length": "21",
     "case": "allChars",
-    "string": "%-/'%.#+>;',w:,}96M5n"
+    "string": "{[![#=&'*&}~]'4_HoftR"
   },
   {
     "id": 47,
     "reverse": false,
     "length": "21",
     "case": "allChars",
-    "string": "Mnk2JT(?#=,(`!]&_{^.?"
+    "string": "],a97YNW+^]=%:>^){,|~"
   },
   {
     "id": 48,
     "reverse": true,
     "length": "21",
     "case": "allChars",
-    "string": "?.^{_&]!`(,=#?(TJ2knM"
+    "string": "~|,{)^>:%=]^+WNY79a,]"
   }
 ]

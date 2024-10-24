@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 
 
 function getRandomWpm() {
-  return Math.floor(Math.random() * 30);
+  return Math.floor(Math.random() * 65)+5;
 }
 
 
@@ -14,7 +14,7 @@ function transformData(data) {
  return data.map((level) => {
     return ({
         id: level.id,
-        wpm: "00",
+        wpm: getRandomWpm(),
       });
 
     }

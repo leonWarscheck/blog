@@ -7,15 +7,16 @@ import MenuTrainer from "../components/symbol-trainer/menu-trainer";
 import ResponsiveNote from "../components/symbol-trainer/responsive-note";
 
 export default function TypeSymbols() {
-  const [section, setSection] = useState("levelSection");
+  const [section, setSection] = useState("trainerSection");
+  const [level, setLevel] = useState("8")
   return (
     <main className=" min-h-dv grow flex flex-col bg-neutral-700">
-      <TrainerSection {...{ section }} />
-      <LevelSection {...{ section, setSection }} />
+      { section === "trainerSection" && <TrainerSection {...{ level }} />}
+      <LevelSection {...{ section, setSection, setLevel }} />
       <InfoSection {...{ section }} />
       <SaveSection {...{ section }} />
 
-      <MenuTrainer {...{ setSection }} />
+      <MenuTrainer {...{ setSection, level }} />
       <ResponsiveNote/>
     </main>
   );
