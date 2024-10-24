@@ -31,7 +31,7 @@ export default function AboutPage() {
 
         <p className="text- lg mb- text- balance c1:textjustify pb-">
           <span className="font- semibold">Leon Andersen</span> is a Fullstack
-          JavaScript Developer at EarlyNode. <br />
+          JavaScript Developer at ReactSquad. <br />
           <br />
           After studying audio engineering he discovered his passion for
           programming and became a webdeveloper. <br />

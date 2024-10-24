@@ -3,7 +3,9 @@ import path from "path";
 import { v4 as uuidv4 } from "uuid";
 
 
-
+function getRandomWpm() {
+  return Math.floor(Math.random() * 30);
+}
 
 
 function transformData(data) {
@@ -12,15 +14,15 @@ function transformData(data) {
  return data.map((level) => {
     return ({
         id: level.id,
-        latestWpm: "984",
+        wpm: "00",
       });
 
     }
     );
 }
 
-const filePath = path.resolve("../data/levels-10wpm.json");
-const transformedFilePath = path.resolve("../data/session-object.json");
+const filePath = path.resolve("../data/levels.json");
+const transformedFilePath = path.resolve("../data/scores.json");
 
 const processData = async () => {
   try {
