@@ -39,7 +39,7 @@ export function checkWin(
     setTimeout(() => {
       setInputString("");
       setTrainerState("ready");
-    }, 4200);
+    }, 2222);
   }
 
   for (let i = 0; i < inputString.length; i++) {
@@ -54,12 +54,12 @@ export function checkWin(
   }
 }
 
-export function saveScore(wpm, levelId, scores) {
-  const latestScore = scores[levelId - 1].wpm;
-  if (wpm > latestScore) {
-    scores[levelId - 1].wpm = wpm; // ! how do I best write into the file? setup browser store directly?
-  }
-}
+// export function saveScore(wpm, levelId, scores) {
+//   const latestScore = scores[levelId - 1].wpm;
+//   if (wpm > latestScore) {
+//     scores[levelId - 1].wpm = wpm; // ! how do I best write into the file? setup browser store directly?
+//   }
+// }
 
 export function saveLastLevel(levelId){
 

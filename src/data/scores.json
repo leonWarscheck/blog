@@ -192,8 +192,10 @@
     "wpm": 12
   },
   {
-    
-    "lastLevel": 4
+    "id": 49,
+    "wpm": 0,
+    "info": "config purpose object",
+    "lastLevel": 42,
+    "lastBackup": ""
   }
-  
 ]

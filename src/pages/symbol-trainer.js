@@ -6,7 +6,7 @@ import SaveSection from "../components/symbol-trainer/save-section";
 import MenuTrainer from "../components/symbol-trainer/menu-trainer";
 import ResponsiveNote from "../components/symbol-trainer/responsive-note";
 // import scores from "../data/scores.json";
-import scoresTemplate from "../data/scores-template.json";
+import scoresTemplate from "../data/scores.json";
 
 export default function TypeSymbols() {
   const [section, setSection] = useState("trainerSection");
@@ -42,7 +42,7 @@ export default function TypeSymbols() {
 
   return (
     <main className="min-h-dv grow flex flex-col bg-neutral-700">
-      {section === "trainerSection" && <TrainerSection {...{ levelId }} />}
+      {section === "trainerSection" && <TrainerSection {...{ levelId , scores}} />}
       {section === "levelSection" && (
         <LevelSection {...{ setSection, setLevelId }} />
       )}

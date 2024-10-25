@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import levels from "../../data/levels.json";
-import scores from "../../data/scores.json";
+// import scores from "../../data/scores.json";
 import { checkWin, checkSpeed, saveScore } from "../../utils/trainer-logic";
 
-export default function TrainerSection({ levelId }) {
+export default function TrainerSection({ levelId, scores }) {
   console.log("_________trainer________component cycle start");
   const [inputString, setInputString] = useState("");
   const [levelString, setLevelString] = useState("");
@@ -45,11 +45,13 @@ export default function TrainerSection({ levelId }) {
     );
   }, [inputString]);
 
-  useEffect(() => {
-    saveScore(wpm, levelId, scores);
-  });
+  // useEffect(() => {
+  //   saveScore(wpm, levelId, scores);
+  // });
 
   useEffect(() => {
+    console.log("scores in trainer:", scores)
+    console.log("scores[levelId-1].wpm", scores?? scores[levelId-1].wpm)
     console.log("trainerState:", trainerState);
   }, [trainerState]);
 
@@ -64,11 +66,20 @@ export default function TrainerSection({ levelId }) {
             ref={inputRef}
             className={`absolute whitespace-pre  ${
               trainerState === "fail" ? "text-neutral-400" : "text-neutral-200"
-            }   z-10 caret-emerald-la caret-transparen tracking-widerer my-auto focus:outline-none bg-transparent w-full`}
+            } 
+            
+                ${ (scores[levelId-1]?.wpm >= 60) ? "caret-neutral-700" 
+                : (scores[levelId-1]?.wpm >= 55) ?  "*:caret-neutral-600" 
+                : (scores[levelId-1]?.wpm >= 50) ?  "caret-emerald-la" 
+                : (scores[levelId-1]?.wpm >= 40) ? "caret-yellow-la"
+                : (scores[levelId-1]?.wpm >= 30) ?  "caret-violet-500"
+                : (scores[levelId-1]?.wpm >= 20) ? "caret-red-500" 
+                : "caret-neutral-200"}
+            z-10  caret-transparen tracking-widerer my-auto focus:outline-none bg-transparent w-full`}
             type="text"
             value={inputString}
             onChange={(e) => setInputString(e.target.value)}
-            onBlur={handleBlur}
+            // onBlur={handleBlur}
           />
           <p
             id="bg curtain between"
