@@ -334,5 +334,13 @@
     "length": "21",
     "case": "allChars",
     "string": "?.^{_&]!`(,=#?(TJ2knM"
+  },
+  {
+    "info": "default config purpose, hidden",
+    "id": 49,
+    "reverse": false,
+    "length": "",
+    "case": "",
+    "string": ""
   }
 ]

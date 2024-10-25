@@ -41,16 +41,16 @@ export default function Menu({ handleMenuToggle2, menuOpen, handleMenuClose }) {
   return (
     <>
       <button
-        className="group flex ml-auto  mt-0.5 1 gap-1 c1:hidden pr-2"
+        className="group flex flex-col ml-auto  mt-1.5 1 gap-[4.5px] c1:hidden pr-2"
         onClick={handleMenuToggle2}
       >
         <div
-          className={`size-5 rounded-full ${
+          className={`size- h-[3px] w-8 rounded-f ${
             menuOpen ? "bg-neutral-500" : "bg-neutral-200"
           }`}
         />
         <div
-          className={`size-5 rounded-full ${
+          className={`size- h-[3px] w-8 rounded-f ${
             menuOpen ? "bg-neutral-500" : "bg-neutral-200"
           }`}
         />
@@ -58,7 +58,7 @@ export default function Menu({ handleMenuToggle2, menuOpen, handleMenuClose }) {
 
       {menuOpen && (
         <div
-          className="bg-neutral-700 flex flex-col  c1:hidden text-2xl  font- absolute left-0 right-0 top-16 min-h-[calc(100vh-4rem)]"
+          className="bg-neutral-700  flex flex-col  c1:hidden text-2xl  font- absolute left-0 right-0 top-16 min-h-[calc(100vh-4rem)] z-50 "
           aria-label="Mobile Menu"
         >
           <ul className=" w-full px-4 max-w-2xl mx-auto flex flex-col grow justify-evenly ">

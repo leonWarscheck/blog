@@ -1,10 +1,10 @@
 import React from "react";
 
-export default function SaveSection({section}) {
+export default function SaveSection({}) {
   return (
     <section
       id="save"
-      className={`${section === "saveSection" ? "flex" : "hidden"} grow `}
+      className={`flex grow `}
     >
       <div className=" flex flex-col max-w-2xl px-4 mx-auto w-full max-h-[30dvh] my-auto text-neutral-400">
 

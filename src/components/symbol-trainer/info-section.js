@@ -4,9 +4,7 @@ export default function InfoSection({ section }) {
   return (
     <section
       id="info"
-      className={`${
-        section === "infoSection" ? "flex" : "hidden"
-      } grow w-full bg- black max-w-2xl mx-auto px-4`}
+      className={`flex grow w-full bg- black max-w-2xl mx-auto px-4`}
     >
       <div className="my-auto w-full max-w-2xl max-h-[54dvh] overflow-scroll prose prose-neutral prose-invert prose-h3:text-neutral-400 prose-h3:font-bold prose-h2:text-neutral-400 text-neutral-400 ">
         <h2 className="hidden">Info</h2>
@@ -31,7 +29,7 @@ export default function InfoSection({ section }) {
         <p>Your scores of each level are shown in the level menu.</p>
 
         <p>
-          The levels change <span class="hover:">color</span> depending on your
+          The levels also change (hover)color depending on your
           high scores: <span className="text-red-500">20</span> <span className="text-violet-500">30</span> <span className="text-yellow-la">40</span> <span className="text-emerald-la">50</span>  <span className="text-neutral-600">55</span> <span className="text-neutral-800">60</span>
         </p>
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function MenuTrainer( {setSection, level}) {
+export default function MenuTrainer( {setSection, levelId}) {
   return (
     <nav
       id="menu"
@@ -13,7 +13,7 @@ export default function MenuTrainer( {setSection, level}) {
           </button>
         </li>{" "}
         <li className="ml-auto mr-4 hover:text-neutral-200 mt-px font-medium">
-          <button onClick={() => setSection("levelSection")}>Level {level}</button>
+          <button onClick={() => setSection("levelSection")}>Level {levelId}</button>
         </li>
         <li className="hover:text-neutral-200 mt-px font-medium mr-4">
           <button onClick={() => setSection("infoSection")}>Info</button>

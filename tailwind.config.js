@@ -29,6 +29,10 @@ const tailwindConfig = {
         xxs: "6.5px",
         la1: ["26.5px", "31px"],
       },
+      letterSpacing:{
+
+        widerer: '0.25em'
+      },
       colors: {
         orange: {
           la: "#ff8632",

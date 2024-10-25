@@ -1,19 +1,57 @@
 import React, { useEffect, useRef, useState } from "react";
 import levels from "../../data/levels.json";
+import scores from "../../data/scores.json";
+import { checkWin, checkSpeed, saveScore } from "../../utils/trainer-logic";
 
-export default function TrainerSection({ level }) {
-  const [inputValue, setInputValue] = useState("");
-  const levelString = levels[level - 1].string;
-  console.log("ls:", levelString);
+export default function TrainerSection({ levelId }) {
+  console.log("_________trainer________component cycle start");
+  const [inputString, setInputString] = useState("");
+  const [levelString, setLevelString] = useState("");
+  const [trainerState, setTrainerState] = useState(""); // ready, fail, win
+  const [startTime, setStartTime] = useState(null);
+  const [endTime, setEndTime] = useState(null);
+  const [wpm, setWpm] = useState(null);
   const inputRef = useRef(null);
 
   useEffect(() => {
     inputRef.current.focus();
   }, []);
 
+  useEffect(() => {
+    setLevelString(levels[levelId-1].string);
+  }, [levelId]);
+
   const handleBlur = (e) => {
     inputRef.current.focus();
   };
+
+  useEffect(() => {
+    checkWin(
+      inputString,
+      levelString,
+      setInputString,
+      setTrainerState,
+      inputRef
+    );
+    checkSpeed(
+      inputString,
+      levelString,
+      trainerState,
+      setStartTime,
+      setEndTime,
+      startTime,
+      endTime,
+      setWpm
+    );
+  }, [inputString]);
+
+  useEffect(() => {
+    saveScore(wpm, levelId, scores);
+  });
+
+  useEffect(() => {
+    console.log("trainerState:", trainerState);
+  }, [trainerState]);
 
   return (
     <section
@@ -24,16 +62,25 @@ export default function TrainerSection({ level }) {
         <div className="">
           <input
             ref={inputRef}
-            className="absolute whitespace-pr   text-neutral-200 z-20 caret-emerald-la tracking-widest my-auto focus:outline-none bg-transparent w-full"
+            className={`absolute whitespace-pre  ${
+              trainerState === "fail" ? "text-neutral-400" : "text-neutral-200"
+            }   z-10 caret-emerald-la caret-transparen tracking-widerer my-auto focus:outline-none bg-transparent w-full`}
             type="text"
-            onChange={(e) => setInputValue(e.target.value)}
+            value={inputString}
+            onChange={(e) => setInputString(e.target.value)}
             onBlur={handleBlur}
           />
-          <p id="bg curtain between" className="absolute inset-  text-neutral-700 tracking-widest whitespace-pr  bg-neutral-700 pointer-events-none ">
-            {inputValue}
+          <p
+            id="bg curtain between"
+            className="absolute inset- text-neutral-700 tracking-widere whitespace-pre  bg-neutral-700 pointer-events-none  "
+          >
+            {inputString}
           </p>
         </div>
-        <p id="space/placeholder" className=" tracking-widest text-neutral-400 whitespace-pre">
+        <p
+          id="space/placeholder"
+          className=" tracking-widerer text-neutral-400 whitespace-pre"
+        >
           {levelString}
         </p>
       </div>
