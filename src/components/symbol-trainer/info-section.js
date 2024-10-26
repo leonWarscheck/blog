@@ -29,7 +29,7 @@ export default function InfoSection({ section }) {
         <p>Your scores of each level are shown in the level menu.</p>
 
         <p>
-          The levels also change (hover)color depending on your
+          The levels also change (hover-) color depending on your
           high scores: <span className="text-red-500">20</span> <span className="text-violet-500">30</span> <span className="text-yellow-la">40</span> <span className="text-emerald-la">50</span>  <span className="text-neutral-600">55</span> <span className="text-neutral-800">60</span>
         </p>
 

@@ -3,10 +3,11 @@ import levels from "../../data/levels.json";
 // import scores from "../../data/scores.json";
 import { checkWin, checkSpeed, saveScore } from "../../utils/trainer-logic";
 
-export default function TrainerSection({ levelId, scores }) {
+export default function TrainerSection({ levelId, scores, setScores }) {
   console.log("_________trainer________component cycle start");
   const [inputString, setInputString] = useState("");
   const [levelString, setLevelString] = useState("");
+  const [progressString, setProgressString] = useState("");
   const [trainerState, setTrainerState] = useState(""); // ready, fail, win
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
@@ -18,7 +19,7 @@ export default function TrainerSection({ levelId, scores }) {
   }, []);
 
   useEffect(() => {
-    setLevelString(levels[levelId-1].string);
+    setLevelString(levels[levelId - 1].string);
   }, [levelId]);
 
   const handleBlur = (e) => {
@@ -45,15 +46,19 @@ export default function TrainerSection({ levelId, scores }) {
     );
   }, [inputString]);
 
-  // useEffect(() => {
-  //   saveScore(wpm, levelId, scores);
-  // });
+  useEffect(() => {
+    saveScore(wpm, levelId, scores, setScores);
+  }, [wpm]);
 
   useEffect(() => {
-    console.log("scores in trainer:", scores)
-    console.log("scores[levelId-1].wpm", scores?? scores[levelId-1].wpm)
+    // console.log("scores in trainer:", scores);
+    // console.log("scores[levelId-1].wpm", scores[levelId - 1]?.wpm);
     console.log("trainerState:", trainerState);
   }, [trainerState]);
+
+  useEffect(() => {
+    console.log("levelString:", levelString);
+  }, [levelString]);
 
   return (
     <section
@@ -68,18 +73,26 @@ export default function TrainerSection({ levelId, scores }) {
               trainerState === "fail" ? "text-neutral-400" : "text-neutral-200"
             } 
             
-                ${ (scores[levelId-1]?.wpm >= 60) ? "caret-neutral-700" 
-                : (scores[levelId-1]?.wpm >= 55) ?  "*:caret-neutral-600" 
-                : (scores[levelId-1]?.wpm >= 50) ?  "caret-emerald-la" 
-                : (scores[levelId-1]?.wpm >= 40) ? "caret-yellow-la"
-                : (scores[levelId-1]?.wpm >= 30) ?  "caret-violet-500"
-                : (scores[levelId-1]?.wpm >= 20) ? "caret-red-500" 
-                : "caret-neutral-200"}
+                ${
+                  scores[levelId - 1]?.wpm >= 60
+                    ? "caret-neutral-700"
+                    : scores[levelId - 1]?.wpm >= 55
+                    ? "*:caret-neutral-600"
+                    : scores[levelId - 1]?.wpm >= 50
+                    ? "caret-emerald-la"
+                    : scores[levelId - 1]?.wpm >= 40
+                    ? "caret-yellow-la"
+                    : scores[levelId - 1]?.wpm >= 30
+                    ? "caret-violet-500"
+                    : scores[levelId - 1]?.wpm >= 20
+                    ? "caret-red-500"
+                    : "caret-neutral-200"
+                }
             z-10  caret-transparen tracking-widerer my-auto focus:outline-none bg-transparent w-full`}
             type="text"
             value={inputString}
             onChange={(e) => setInputString(e.target.value)}
-            // onBlur={handleBlur}
+            onBlur={handleBlur}
           />
           <p
             id="bg curtain between"

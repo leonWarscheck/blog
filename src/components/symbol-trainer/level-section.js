@@ -1,8 +1,8 @@
 import React from "react";
 import levels from "../../data/levels.json";
-import scores from "../../data/scores-template.json"
+import { saveLastLevel } from "../../utils/trainer-logic";
 
-export default function LevelSection({ setSection, setLevelId,  }) {
+export default function LevelSection({ setSection, setLevelId, scores, setScores}) {
  
 
 
@@ -26,7 +26,7 @@ export default function LevelSection({ setSection, setLevelId,  }) {
                 : (score.wpm >= 30) ?  "hover:text-violet-500"
                 : (score.wpm >= 20) ? "hover:text-red-500" 
                 : "hover:text-neutral-400"}`}
-                onClick={()=>{setSection("trainerSection"); setLevelId(level.id);}} 
+                onClick={()=>{setSection("trainerSection"); setLevelId(level.id); saveLastLevel(level.id, scores, setScores);}} 
                 >
                   <h3 className=" font-bold">
                     <span>Level {level.id} </span>

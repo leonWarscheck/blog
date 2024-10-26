@@ -30,6 +30,7 @@ export default function TypeSymbols() {
       parsedScores = JSON.parse(fetchedScores);
       setScores(parsedScores);
     }
+    console.log("setScores")
   }, []);
   
   
@@ -37,14 +38,15 @@ export default function TypeSymbols() {
   useEffect(() => {
         const lastLevel = scores[48]?.lastLevel || 49; 
         setLevelId(lastLevel);
+        console.log(scores[48] , "set lastLevel from scores")
   }, [scores]);
 
 
   return (
     <main className="min-h-dv grow flex flex-col bg-neutral-700">
-      {section === "trainerSection" && <TrainerSection {...{ levelId , scores}} />}
+      {section === "trainerSection" && <TrainerSection {...{ levelId , scores, setScores}} />}
       {section === "levelSection" && (
-        <LevelSection {...{ setSection, setLevelId }} />
+        <LevelSection {...{ setSection, setLevelId, scores, setScores }} />
       )}
       {section === "infoSection" && <InfoSection />}
       {section === "saveSection" && <SaveSection {...{}} />}

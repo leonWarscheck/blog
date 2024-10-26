@@ -8,21 +8,22 @@ export function checkSpeed(
   endTime,
   setWpm
 ) {
-  if (inputString.length < 2) {
-    setStartTime(new Date() );
+  if (inputString.length === 1 ) {
+    setStartTime(new Date());
+    console.log("setting startTime")
   }
 
   if (inputString === levelString) {
-   const latestEndTime = new Date(); 
+    const latestEndTime = new Date();
     setEndTime(latestEndTime);
     const winTime = latestEndTime - startTime;
     const wordsPerString = levelString.length / 5;
-    const winTimesPerMinuteRatio =  60000/ winTime ;
-    const wpm = Math.round(wordsPerString * winTimesPerMinuteRatio );
+    const winTimesPerMinuteRatio = 60000 / winTime;
+    const wpm = Math.round(wordsPerString * winTimesPerMinuteRatio);
     console.log("wpm:", wpm);
     setWpm(wpm);
   }
-    // return null;
+  // return null;
 }
 
 export function checkWin(
@@ -42,8 +43,8 @@ export function checkWin(
     }, 2222);
   }
 
-  for (let i = 0; i < inputString.length; i++) {
-    console.log("levelString[i]", inputString[i]);
+  for (let i = 0; i < inputString?.length; i++) {
+    console.log("inputCharLoop:", inputString[i]);
     if (i > levelString.length || inputString[i] !== levelString[i]) {
       setTrainerState("fail");
       setTimeout(() => {
@@ -54,15 +55,37 @@ export function checkWin(
   }
 }
 
-// export function saveScore(wpm, levelId, scores) {
-//   const latestScore = scores[levelId - 1].wpm;
-//   if (wpm > latestScore) {
-//     scores[levelId - 1].wpm = wpm; // ! how do I best write into the file? setup browser store directly?
-//   }
-// }
+export function saveScore(wpm, levelId, scores, setScores) {
+  const latestScore = scores[levelId - 1]?.wpm;
+  if (wpm > latestScore) {
+    const modifiedScores = scores.map((level) => {
+      if (level.id === levelId) {
+        return {
+          ...level,
+          wpm: wpm,
+        };
+      } else {
+        return { ...level };
+      }
+    });
 
-export function saveLastLevel(levelId){
-
-    
+    localStorage.setItem("scores", JSON.stringify(modifiedScores));
+    setScores(modifiedScores);
+  }
 }
 
+export function saveLastLevel(levelId, scores, setScores) {
+  const modifiedScores = scores.map((level) => {
+    if (level.id === 49) {
+      return {
+        ...level,
+        lastLevel: levelId,
+      };
+    } else {
+      return { ...level };
+    }
+  });
+  
+  localStorage.setItem("scores", JSON.stringify(modifiedScores));
+  setScores(modifiedScores);
+}
