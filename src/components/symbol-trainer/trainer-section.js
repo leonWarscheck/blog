@@ -1,20 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
 import levels from "../../data/levels.json";
-// import scores from "../../data/scores.json";
-import { checkWin, checkSpeed, saveScore } from "../../utils/trainer-logic";
+import { checkWin, checkSpeed, saveScore, getProgressString } from "../../utils/trainer-logic";
 
 export default function TrainerSection({ levelId, scores, setScores }) {
-  console.log("_________trainer________component cycle start");
   const [inputString, setInputString] = useState("");
-  const [levelString, setLevelString] = useState("");
+  const [levelString, setLevelString] = useState(null);
   const [progressString, setProgressString] = useState("");
   const [trainerState, setTrainerState] = useState(""); // ready, fail, win
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
   const [wpm, setWpm] = useState(null);
   const inputRef = useRef(null);
-
+  
   useEffect(() => {
+    console.log("_________trainer________");
     inputRef.current.focus();
   }, []);
 
@@ -46,6 +45,12 @@ export default function TrainerSection({ levelId, scores, setScores }) {
     );
   }, [inputString]);
 
+  useEffect(()=>{
+    console.log("daRealIS:", inputString)
+    getProgressString(levelString, inputString, setProgressString);
+  }, [inputString])
+
+
   useEffect(() => {
     saveScore(wpm, levelId, scores, setScores);
   }, [wpm]);
@@ -69,34 +74,36 @@ export default function TrainerSection({ levelId, scores, setScores }) {
         <div className="">
           <input
             ref={inputRef}
-            className={`absolute whitespace-pre  ${
-              trainerState === "fail" ? "text-neutral-400" : "text-neutral-200"
-            } 
+            className={`absolute whitespace-pre  
             
                 ${
                   scores[levelId - 1]?.wpm >= 60
-                    ? "caret-neutral-700"
+                    ? "caret-neutral-800 text-neutral-800"
                     : scores[levelId - 1]?.wpm >= 55
-                    ? "*:caret-neutral-600"
+                    ? "caret-neutral-600 text-neutral-600"
                     : scores[levelId - 1]?.wpm >= 50
-                    ? "caret-emerald-la"
+                    ? "caret-emerald-la text-emerald-la"
                     : scores[levelId - 1]?.wpm >= 40
-                    ? "caret-yellow-la"
+                    ? "caret-yellow-la text-yellow-la"
                     : scores[levelId - 1]?.wpm >= 30
-                    ? "caret-violet-500"
+                    ? "caret-violet-500 text-violet-500"
                     : scores[levelId - 1]?.wpm >= 20
-                    ? "caret-red-500"
-                    : "caret-neutral-200"
-                }
-            z-10  caret-transparen tracking-widerer my-auto focus:outline-none bg-transparent w-full`}
+                    ? "caret-red-500 text-red-500"
+                    : "caret-neutral-200 text-neutral-200"
+                } ${
+              trainerState === "fail" ? "text-neutral-400" : ""
+            } 
+            z-10  ${trainerState === "win" && "caret-transparent"} opacity-  tracking-widerer my-auto focus:outline-none bg-transparent w-full`}
             type="text"
             value={inputString}
+            // value={progressString? progressString : ""}
+            // value={trainerState=== "win" ? progressString+"WPM "+wpm : progressString}
             onChange={(e) => setInputString(e.target.value)}
             onBlur={handleBlur}
           />
           <p
             id="bg curtain between"
-            className="absolute inset- text-neutral-700 tracking-widere whitespace-pre  bg-neutral-700 pointer-events-none  "
+            className="absolute inset- text-neutral-700 tracking-widerer whitespace-pre  bg-neutral-700 pointer-events-none  "
           >
             {inputString}
           </p>

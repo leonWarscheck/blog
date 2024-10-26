@@ -5,16 +5,16 @@ import InfoSection from "../components/symbol-trainer/info-section";
 import SaveSection from "../components/symbol-trainer/save-section";
 import MenuTrainer from "../components/symbol-trainer/menu-trainer";
 import ResponsiveNote from "../components/symbol-trainer/responsive-note";
-// import scores from "../data/scores.json";
-import scoresTemplate from "../data/scores.json";
+import scoresTemplate from "../data/scores-template.json";
 
 export default function TypeSymbols() {
   const [section, setSection] = useState("trainerSection");
   const [scores, setScores] = useState([]);
   const [levelId, setLevelId] = useState(49);
-
+  
   
   useEffect(() => {
+    console.log("______page reload_____");
     let fetchedScores = localStorage.getItem("scores");
     let parsedScores;
     

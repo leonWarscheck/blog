@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function MenuTrainer( {setSection, levelId}) {
+export default function MenuTrainer( {setSection, levelId, wpm}) {
   return (
     <nav
       id="menu"

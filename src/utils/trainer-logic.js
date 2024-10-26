@@ -34,16 +34,17 @@ export function checkWin(
   inputRef
 ) {
   if (inputString === levelString) {
-    // setTrainerState("win");
-    inputRef.current.blur();
+    setTrainerState("win");
+    // inputRef.current.blur();
     console.log();
     setTimeout(() => {
+      // console.log("why so early????????????????????")
       setInputString("");
       setTrainerState("ready");
-    }, 2222);
+    }, 4000);
   }
 
-  for (let i = 0; i < inputString?.length; i++) {
+  for (let i = 0; i < inputString.length; i++) {
     console.log("inputCharLoop:", inputString[i]);
     if (i > levelString.length || inputString[i] !== levelString[i]) {
       setTrainerState("fail");
@@ -88,4 +89,12 @@ export function saveLastLevel(levelId, scores, setScores) {
   
   localStorage.setItem("scores", JSON.stringify(modifiedScores));
   setScores(modifiedScores);
+}
+
+
+export function getProgressString(levelString, inputString, setProgressString){
+ const inputLength = inputString.length
+ const progressString = levelString?.slice(0, inputLength)
+
+  setProgressString( progressString)
 }
