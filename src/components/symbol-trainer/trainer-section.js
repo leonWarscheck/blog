@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import levels from "../../data/levels.json";
-import { checkWin, checkSpeed, saveScore, getProgressString } from "../../utils/trainer-logic";
+import {
+  checkWin,
+  checkSpeed,
+  saveScore,
+  getProgressString,
+} from "../../utils/trainer-logic";
 
 export default function TrainerSection({ levelId, scores, setScores }) {
   const [inputString, setInputString] = useState("");
@@ -11,7 +16,7 @@ export default function TrainerSection({ levelId, scores, setScores }) {
   const [endTime, setEndTime] = useState(null);
   const [wpm, setWpm] = useState(null);
   const inputRef = useRef(null);
-  
+
   useEffect(() => {
     console.log("_________trainer________");
     inputRef.current.focus();
@@ -21,9 +26,17 @@ export default function TrainerSection({ levelId, scores, setScores }) {
     setLevelString(levels[levelId - 1].string);
   }, [levelId]);
 
-  const handleBlur = (e) => {
-    inputRef.current.focus();
-  };
+  useEffect(() => {
+    const handleClick = () => {
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+    };
+
+    document.addEventListener("click", handleClick);
+
+    return () => document.removeEventListener("click", handleClick);
+  }, []);
 
   useEffect(() => {
     checkWin(
@@ -45,14 +58,14 @@ export default function TrainerSection({ levelId, scores, setScores }) {
     );
   }, [inputString]);
 
-  useEffect(()=>{
-    console.log("daRealIS:", inputString)
+  useEffect(() => {
+    console.log("daRealIS:", inputString);
     getProgressString(levelString, inputString, setProgressString);
-  }, [inputString])
+  }, [inputString]);
 
-//  useEffect(()=>{
-//     setWpm(scores[levelId-1]?.wpm)
-//  }, [scores])
+  //  useEffect(()=>{
+  //     setWpm(scores[levelId-1]?.wpm)
+  //  }, [scores])
 
   useEffect(() => {
     saveScore(wpm, levelId, scores, setScores);
@@ -77,13 +90,14 @@ export default function TrainerSection({ levelId, scores, setScores }) {
         <div className="">
           <input
             ref={inputRef}
-            className={`absolute whitespace-pr  
-            
-                ${(trainerState === "ready" || trainerState === "win" ) &&
+            type="text"
+            value={inputString}
+            onChange={(e) => setInputString(e.target.value)}
+            className={`absolute whitespace-pr   opacity- z-10 tracking-widerer my-auto focus:outline-none bg-transparent w-full
+                ${ 
+                  trainerState !== "fail" &&
                   (scores[levelId - 1]?.wpm >= 60
-                    ? "caret-neutral-800 text-neutral-800"
-                    : scores[levelId - 1]?.wpm >= 55
-                    ? "caret-neutral-600 text-neutral-600"
+                 ? "caret-neutral-200 text-neutral-200"
                     : scores[levelId - 1]?.wpm >= 50
                     ? "caret-emerald-la text-emerald-la"
                     : scores[levelId - 1]?.wpm >= 40
@@ -93,16 +107,9 @@ export default function TrainerSection({ levelId, scores, setScores }) {
                     : scores[levelId - 1]?.wpm >= 20
                     ? "caret-red-500 text-red-500"
                     : "caret-neutral-200 text-neutral-200")
-                } ${
-              trainerState === "fail" ? "text-neutral-400" : ""
-            } 
-            z-10  ${trainerState === "win" && "caret-transparent"} opacity-  tracking-widerer my-auto focus:outline-none bg-transparent w-full`}
-            type="text"
-            value={inputString}
-            // value={progressString? progressString : ""}
-            // value={trainerState=== "win" ? progressString+"WPM "+wpm : progressString}
-            onChange={(e) => setInputString(e.target.value)}
-            onBlur={(event)=> {event.isTrusted ? console.log("---------------trusted") : console.log("---------------------NOT trusted")}}
+                } ${trainerState === "fail" ? "text-neutral-400" : ""} 
+                
+              `}
           />
           <p
             id="bg curtain between"
@@ -117,12 +124,13 @@ export default function TrainerSection({ levelId, scores, setScores }) {
         >
           {levelString}
         </p>
-        <p className={` ${trainerState === "win" ? "block" : "invisible"} ml-4  min-w-6
+        <p
+          className={` ${
+            trainerState === "win" ? "block" : "invisible"
+          } ml-4  min-w-6
         ${
           scores[levelId - 1]?.wpm >= 60
-            ? " text-neutral-800"
-            : scores[levelId - 1]?.wpm >= 55
-            ? " text-neutral-600"
+            ? " text-neutral-200"
             : scores[levelId - 1]?.wpm >= 50
             ? "text-emerald-la"
             : scores[levelId - 1]?.wpm >= 40
@@ -133,7 +141,10 @@ export default function TrainerSection({ levelId, scores, setScores }) {
             ? "text-red-500"
             : " text-neutral-200"
         }
-        `}>{wpm}</p>
+        `}
+        >
+          {wpm}
+        </p>
       </div>
     </section>
   );

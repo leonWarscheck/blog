@@ -19,8 +19,7 @@ export default function LevelSection({ setSection, setLevelId, scores, setScores
             return (
               <li key={level.id} className={`w-full ${level.id === 49? "hidden": "flex"}`}>
                 <button className={`flex w-full py-2  hover: text-neutral-500 group
-                ${(score.wpm >= 60) ? "hover:text-neutral-700" 
-                : (score.wpm >= 55) ?  "hover:text-neutral-600" 
+                ${(score.wpm >= 60) ? "hover:text-neutral-400" 
                 : (score.wpm >= 50) ?  "hover:text-emerald-la" 
                 : (score.wpm >= 40) ? "hover:text-yellow-la"
                 : (score.wpm >= 30) ?  "hover:text-violet-500"

@@ -58,15 +58,7 @@ export default function Header({}) {
         >
           <h1 className="">LeonAndersen</h1>
         </Link>
-        <ul className="hidden -mb-1 c1:flex gap-x-4 ml-auto    font-medium [470]">
-          {/* <li>
-              <Link
-                className="text-xl text-amber-400 hover:text-neutral-200 text-neutral-400"
-                href="/tools"
-              >
-                Tools
-              </Link>
-            </li> */}
+        <ul className="hidden -mb-1.5 c1:flex gap-x-4 ml-auto    font-medium [470]">
           <li>
             <Link
               className="text- base sm xl text-orange- 500  hover:text-neutral-200 "
@@ -75,9 +67,17 @@ export default function Header({}) {
               About
             </Link>
           </li>
-          <li className=" flex items-center relative">
+          <li>
+              <Link
+                className="text-  hover:text-neutral-200"
+                href="/symbol-trainer"
+              >
+                Tools
+              </Link>
+            </li>
+          {/* <li className=" flex items-center relative">
             <button
-              className="text- sm xl text-red- 500 hover:text-neutral-200 "
+            className="text- sm xl text-red- 500 hover:text-neutral-200 "
               onClick={handleSubscribeClick}
             >
               Subscribe
@@ -88,7 +88,7 @@ export default function Header({}) {
                 onSubscribe={handleCancel}
               />
             )}
-          </li>
+          </li> */}
         </ul>
         <Menu
           handleMenuToggle2={handleMenuToggle}

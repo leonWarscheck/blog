@@ -29,13 +29,13 @@ export default function InfoSection({ section }) {
         <p>Your scores of each level are shown in the level menu.</p>
 
         <p>
-          The levels also change (hover-) color depending on your
-          high scores: <span className="text-red-500">20</span> <span className="text-violet-500">30</span> <span className="text-yellow-la">40</span> <span className="text-emerald-la">50</span>  <span className="text-neutral-600">55</span> 
+          The levels also change  hover-color and "trainer-color" depending on your reached milestones: <span className="text-red-500">20</span> <span className="text-violet-500">30</span> <span className="text-yellow-la">40</span> <span className="text-emerald-la">50</span>  <span className="text-neutral-400">60</span> 
+          <br/>Why does it become gray again at 60? Because once you can accurately type 21 consecutive characters on 60 wpm, you should probably spend your time on more productive things ;)
         </p>
 
         <p>
-         <span className="font-bold">Suggested progression:</span> Find your starting range, and finish all levels
-          in order with the next milestone (eg. starting range: 15-25, next
+         <span className="font-bold">Suggested progression:</span> Find your starting range by doing level 42 a few times. Now start at level 1 and finish all levels
+          in order up the next milestone (eg. starting range: 15-25, next
           milestone: 30). Then start over from the first level striving for the
           next milestone on each, etc.
         </p>
@@ -58,8 +58,7 @@ export default function InfoSection({ section }) {
         <p>The attributes of each level are described in the Level menu:</p>
         <ul>
           <li>
-            7, 14, 21 is the number of characters per string. Being over 55 wpm fluent with
-            21 consecutive symbols should be more than enough.
+            7, 14, 21 is the number of characters per string.
           </li>
           <li>
             r means it is the reverse order of the previous level, so you learn

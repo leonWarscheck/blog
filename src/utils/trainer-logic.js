@@ -38,8 +38,11 @@ export function checkWin(
       setInputString("");
       setTrainerState("ready");
       
-      inputRef.current.focus();
+      setTimeout(() => {
+        inputRef.current.focus();
+      }, 100);
     }, 3000);
+    
   }
   
   for (let i = 0; i < inputString.length; i++) {
@@ -50,7 +53,9 @@ export function checkWin(
       setTimeout(() => {
         setInputString("");
         setTrainerState("ready");
-        inputRef.current.focus();
+        setTimeout(() => {
+          inputRef.current.focus();
+        }, 100);
       }, 1000);
     }
   }
