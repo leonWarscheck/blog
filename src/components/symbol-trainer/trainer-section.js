@@ -102,7 +102,7 @@ export default function TrainerSection({ levelId, scores, setScores }) {
             // value={progressString? progressString : ""}
             // value={trainerState=== "win" ? progressString+"WPM "+wpm : progressString}
             onChange={(e) => setInputString(e.target.value)}
-            onBlur={handleBlur}
+            onBlur={(event)=> {event.isTrusted ? console.log("---------------trusted") : console.log("---------------------NOT trusted")}}
           />
           <p
             id="bg curtain between"

@@ -10,7 +10,6 @@ export function checkSpeed(
 ) {
   if (inputString.length === 1) {
     setStartTime(new Date());
-    console.log("setting startTime");
   }
 
   if (inputString === levelString) {
@@ -20,10 +19,8 @@ export function checkSpeed(
     const wordsPerString = levelString.length / 5;
     const winTimesPerMinuteRatio = 60000 / winTime;
     const wpm = Math.round(wordsPerString * winTimesPerMinuteRatio);
-    console.log("wpm:", wpm);
     setWpm(wpm);
   }
-  // return null;
 }
 
 export function checkWin(
@@ -36,21 +33,24 @@ export function checkWin(
   if (inputString === levelString) {
     setTrainerState("win");
     inputRef.current.blur();
-    console.log();
+    console.log("programmatic .blur() on win");
     setTimeout(() => {
-      // console.log("why so early????????????????????")
       setInputString("");
       setTrainerState("ready");
+      
+      inputRef.current.focus();
     }, 3000);
   }
-
+  
   for (let i = 0; i < inputString.length; i++) {
-    console.log("inputCharLoop:", inputString[i]);
+    // console.log("inputCharLoop:", inputString[i]);
     if (i > levelString.length || inputString[i] !== levelString[i]) {
       setTrainerState("fail");
+      inputRef.current.blur();
       setTimeout(() => {
         setInputString("");
         setTrainerState("ready");
+        inputRef.current.focus();
       }, 1000);
     }
   }
@@ -131,7 +131,6 @@ export function importBackup(event, setMessage) {
   reader.onload = (e) => {
     try {
       const data = JSON.parse(e.target.result);
-      console.log(e.target.result)
       localStorage.setItem("scores", JSON.stringify(data));
       setMessage("Import Successful.");
     } catch (error) {
@@ -148,9 +147,7 @@ export function importBackup(event, setMessage) {
 export function calcBackupDifference(scores) {
   const now = new Date();
   const lastBackupDate = new Date(scores[48]?.lastBackup);
-  console.log("lastBackupDate:", lastBackupDate, now)
   const differenceInHours = Math.round((now - lastBackupDate) / (1000 * 60 * 60));
-  console.log("diff:", differenceInHours)
   return differenceInHours
 }
 

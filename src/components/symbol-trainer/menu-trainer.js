@@ -1,6 +1,29 @@
 import React from "react";
 
-export default function MenuTrainer( {setSection, levelId, scores}) {
+export default function MenuTrainer({ setSection, section, levelId, scores }) {
+  
+  const handleLevelToggle = () => {
+    if (section === "levelSection") {
+      setSection("trainerSection");
+    } else {
+      setSection("levelSection");
+    }
+  };
+  const handleInfoToggle = () => {
+    if (section === "infoSection") {
+      setSection("trainerSection");
+    } else {
+      setSection("infoSection");
+    }
+  };
+  const handleSaveToggle = () => {
+    if (section === "saveSection") {
+      setSection("trainerSection");
+    } else {
+      setSection("saveSection");
+    }
+  };
+
   return (
     <nav
       id="menu"
@@ -12,21 +35,24 @@ export default function MenuTrainer( {setSection, levelId, scores}) {
             SymbolTrainer
           </button>
         </li>{" "}
-        {/* <li className="mr-auto ml-8">L {levelId} | WPM {scores[levelId-1]?.wpm}</li> */}
         <li className="ml-auto mr-4 hover:text-neutral-200 mt-px font-medium">
-          <button onClick={() => setSection("levelSection")}>
-          Level&nbsp; 
-          {levelId.toString().length === 1 ? levelId.toString().padStart(2, '0') : levelId} 
-          {/* {levelId}  */}
-          &nbsp;/&nbsp;
-          {scores[levelId-1]?.wpm.toString().length === 1 ? scores[levelId-1]?.wpm.toString().padStart(2, '0') : scores[levelId-1]?.wpm} 
+          <button onClick={handleLevelToggle}>
+            Level&nbsp;
+            {levelId.toString().length === 1
+              ? levelId.toString().padStart(2, "0")
+              : levelId}
+            {/* {levelId}  */}
+            &nbsp;/&nbsp;
+            {scores[levelId - 1]?.wpm.toString().length === 1
+              ? scores[levelId - 1]?.wpm.toString().padStart(2, "0")
+              : scores[levelId - 1]?.wpm}
           </button>
         </li>
         <li className="hover:text-neutral-200 mt-px font-medium mr-4">
-          <button onClick={() => setSection("infoSection")}>Info</button>
+          <button onClick={handleInfoToggle}>Info</button>
         </li>{" "}
         <li className="hover:text-neutral-200 mt-px font-medium">
-          <button onClick={() => setSection("saveSection")}>Save</button>
+          <button onClick={handleSaveToggle}>Save</button>
         </li>{" "}
       </ul>
     </nav>
