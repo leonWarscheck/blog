@@ -50,6 +50,9 @@ export default function TrainerSection({ levelId, scores, setScores }) {
     getProgressString(levelString, inputString, setProgressString);
   }, [inputString])
 
+//  useEffect(()=>{
+//     setWpm(scores[levelId-1]?.wpm)
+//  }, [scores])
 
   useEffect(() => {
     saveScore(wpm, levelId, scores, setScores);
@@ -70,14 +73,14 @@ export default function TrainerSection({ levelId, scores, setScores }) {
       id="trainer"
       className={`flex grow max-w-2xl mx-auto w-full px-4 mt- 20 `}
     >
-      <div className=" relative mx-auto my-auto text-left text-lg overflow-hidden">
+      <div className=" relative font-mono flex mx-auto my-auto text-left text-lg overflow-hidden">
         <div className="">
           <input
             ref={inputRef}
-            className={`absolute whitespace-pre  
+            className={`absolute whitespace-pr  
             
-                ${
-                  scores[levelId - 1]?.wpm >= 60
+                ${(trainerState === "ready" || trainerState === "win" ) &&
+                  (scores[levelId - 1]?.wpm >= 60
                     ? "caret-neutral-800 text-neutral-800"
                     : scores[levelId - 1]?.wpm >= 55
                     ? "caret-neutral-600 text-neutral-600"
@@ -89,7 +92,7 @@ export default function TrainerSection({ levelId, scores, setScores }) {
                     ? "caret-violet-500 text-violet-500"
                     : scores[levelId - 1]?.wpm >= 20
                     ? "caret-red-500 text-red-500"
-                    : "caret-neutral-200 text-neutral-200"
+                    : "caret-neutral-200 text-neutral-200")
                 } ${
               trainerState === "fail" ? "text-neutral-400" : ""
             } 
@@ -103,17 +106,34 @@ export default function TrainerSection({ levelId, scores, setScores }) {
           />
           <p
             id="bg curtain between"
-            className="absolute inset- text-neutral-700 tracking-widerer whitespace-pre  bg-neutral-700 pointer-events-none  "
+            className="absolute inset- text-neutral-700 tracking-widerer whitespace-pr  bg-neutral-700 pointer-events-none  "
           >
             {inputString}
           </p>
         </div>
         <p
           id="space/placeholder"
-          className=" tracking-widerer text-neutral-400 whitespace-pre"
+          className=" tracking-widerer text-neutral-400 whitespace-pr"
         >
           {levelString}
         </p>
+        <p className={` ${trainerState === "win" ? "block" : "invisible"} ml-4  min-w-6
+        ${
+          scores[levelId - 1]?.wpm >= 60
+            ? " text-neutral-800"
+            : scores[levelId - 1]?.wpm >= 55
+            ? " text-neutral-600"
+            : scores[levelId - 1]?.wpm >= 50
+            ? "text-emerald-la"
+            : scores[levelId - 1]?.wpm >= 40
+            ? "text-yellow-la"
+            : scores[levelId - 1]?.wpm >= 30
+            ? "text-violet-500"
+            : scores[levelId - 1]?.wpm >= 20
+            ? "text-red-500"
+            : " text-neutral-200"
+        }
+        `}>{wpm}</p>
       </div>
     </section>
   );

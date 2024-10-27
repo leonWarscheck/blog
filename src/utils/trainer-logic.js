@@ -8,9 +8,9 @@ export function checkSpeed(
   endTime,
   setWpm
 ) {
-  if (inputString.length === 1 ) {
+  if (inputString.length === 1) {
     setStartTime(new Date());
-    console.log("setting startTime")
+    console.log("setting startTime");
   }
 
   if (inputString === levelString) {
@@ -35,13 +35,13 @@ export function checkWin(
 ) {
   if (inputString === levelString) {
     setTrainerState("win");
-    // inputRef.current.blur();
+    inputRef.current.blur();
     console.log();
     setTimeout(() => {
       // console.log("why so early????????????????????")
       setInputString("");
       setTrainerState("ready");
-    }, 4000);
+    }, 3000);
   }
 
   for (let i = 0; i < inputString.length; i++) {
@@ -86,15 +86,77 @@ export function saveLastLevel(levelId, scores, setScores) {
       return { ...level };
     }
   });
-  
+
   localStorage.setItem("scores", JSON.stringify(modifiedScores));
   setScores(modifiedScores);
 }
 
+export function saveLastBackupDate(scores, setScores) {
+  const modifiedScores = scores.map((level) => {
+    if (level.id === 49) {
+      return {
+        ...level,
+        lastBackup: new Date(),
+      };
+    } else {
+      return { ...level };
+    }
+  });
 
-export function getProgressString(levelString, inputString, setProgressString){
- const inputLength = inputString.length
- const progressString = levelString?.slice(0, inputLength)
+  localStorage.setItem("scores", JSON.stringify(modifiedScores));
+  setScores(modifiedScores);
+}
 
-  setProgressString( progressString)
+export function downloadScoresJSON() {
+  const scoresJSON = localStorage.getItem("scores");
+
+  if (scoresJSON) {
+    const blob = new Blob([scoresJSON], { type: "application/json" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "symbol-trainer-scores.json";
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(link.href);
+  } else {
+    console.error("No scores found in localStorage.");
+  }
+}
+
+export function importBackup(event, setMessage) {
+  const file = event.target.files[0];
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      console.log(e.target.result)
+      localStorage.setItem("scores", JSON.stringify(data));
+      setMessage("Import Successful.");
+    } catch (error) {
+      console.error("Invalid JSON file", error);
+      setMessage("Import Error:", error);
+    }
+  };
+
+  if (file) {
+    reader.readAsText(file);
+  }
+}
+
+export function calcBackupDifference(scores) {
+  const now = new Date();
+  const lastBackupDate = new Date(scores[48]?.lastBackup);
+  console.log("lastBackupDate:", lastBackupDate, now)
+  const differenceInHours = Math.round((now - lastBackupDate) / (1000 * 60 * 60));
+  console.log("diff:", differenceInHours)
+  return differenceInHours
+}
+
+export function getProgressString(levelString, inputString, setProgressString) {
+  const inputLength = inputString.length;
+  const progressString = levelString?.slice(0, inputLength);
+
+  setProgressString(progressString);
 }

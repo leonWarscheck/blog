@@ -30,7 +30,7 @@ export default function InfoSection({ section }) {
 
         <p>
           The levels also change (hover-) color depending on your
-          high scores: <span className="text-red-500">20</span> <span className="text-violet-500">30</span> <span className="text-yellow-la">40</span> <span className="text-emerald-la">50</span>  <span className="text-neutral-600">55</span> <span className="text-neutral-800">60</span>
+          high scores: <span className="text-red-500">20</span> <span className="text-violet-500">30</span> <span className="text-yellow-la">40</span> <span className="text-emerald-la">50</span>  <span className="text-neutral-600">55</span> 
         </p>
 
         <p>
@@ -52,14 +52,14 @@ export default function InfoSection({ section }) {
         </p>
 
         <p>
-          You can see the current level number next to the Level menu button in the bottom menu bar.
+          You can also see the current level number and its highest score next to the Level menu button in the bottom menu bar.
         </p>
 
         <p>The attributes of each level are described in the Level menu:</p>
         <ul>
           <li>
-            7, 14, 21 is the number of characters per string. Being fluent with
-            21 consecutive symbols should be enough.
+            7, 14, 21 is the number of characters per string. Being over 55 wpm fluent with
+            21 consecutive symbols should be more than enough.
           </li>
           <li>
             r means it is the reverse order of the previous level, so you learn

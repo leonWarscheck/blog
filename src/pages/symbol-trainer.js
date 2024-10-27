@@ -8,7 +8,7 @@ import ResponsiveNote from "../components/symbol-trainer/responsive-note";
 import scoresTemplate from "../data/scores-template.json";
 
 export default function TypeSymbols() {
-  const [section, setSection] = useState("trainerSection");
+  const [section, setSection] = useState("saveSection");
   const [scores, setScores] = useState([]);
   const [levelId, setLevelId] = useState(49);
   
@@ -49,9 +49,9 @@ export default function TypeSymbols() {
         <LevelSection {...{ setSection, setLevelId, scores, setScores }} />
       )}
       {section === "infoSection" && <InfoSection />}
-      {section === "saveSection" && <SaveSection {...{}} />}
+      {section === "saveSection" && <SaveSection {...{scores, setScores}} />}
 
-      <MenuTrainer {...{ setSection, levelId }} />
+      <MenuTrainer {...{ setSection, levelId, scores }} />
       <ResponsiveNote />
     </main>
   );

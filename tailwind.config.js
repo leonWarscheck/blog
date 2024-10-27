@@ -1,4 +1,3 @@
-
 const tailwindConfig = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -29,9 +28,11 @@ const tailwindConfig = {
         xxs: "6.5px",
         la1: ["26.5px", "31px"],
       },
-      letterSpacing:{
-
-        widerer: '0.25em'
+      fontFamily: {
+        "font-overpass-mono": ['"Overpass Mono"', "monospace"],
+      },
+      letterSpacing: {
+        widerer: "0.25em",
       },
       colors: {
         orange: {
