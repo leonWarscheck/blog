@@ -1,5 +1,5 @@
 import React from "react";
-import levels from "../../data/levels.json";
+import levels from "../../data/levels-2.json";
 import { saveLastLevel } from "../../utils/trainer-logic";
 
 export default function LevelSection({ setSection, setLevelId, scores, setScores}) {
@@ -17,7 +17,7 @@ export default function LevelSection({ setSection, setLevelId, scores, setScores
           {levels.map((level, index) => {
             const score = scores[index]
             return (
-              <li key={level.id} className={`w-full ${level.id === 49? "hidden": "flex"}`}>
+              <li key={level.id} className={`w-full ${level.id === 61? "hidden": "flex"}`}>
                 <button className={`flex w-full py-2  hover: text-neutral-500 group
                 ${(score.wpm >= 60) ? "hover:text-neutral-400" 
                 : (score.wpm >= 50) ?  "hover:text-emerald-la" 

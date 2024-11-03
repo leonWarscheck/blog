@@ -196,6 +196,7 @@
     "wpm": 0,
     "info": "config purpose object",
     "lastLevel": 1,
-    "lastBackup": ""
+    "lastBackup": "",
+    "newUser": true
   }
 ]

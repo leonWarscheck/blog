@@ -82,7 +82,7 @@ export function saveScore(wpm, levelId, scores, setScores) {
 
 export function saveLastLevel(levelId, scores, setScores) {
   const modifiedScores = scores.map((level) => {
-    if (level.id === 49) {
+    if (level.id === 61) {
       return {
         ...level,
         lastLevel: levelId,
@@ -98,7 +98,7 @@ export function saveLastLevel(levelId, scores, setScores) {
 
 export function saveLastBackupDate(scores, setScores) {
   const modifiedScores = scores.map((level) => {
-    if (level.id === 49) {
+    if (level.id === 61) {
       return {
         ...level,
         lastBackup: new Date(),
@@ -109,7 +109,24 @@ export function saveLastBackupDate(scores, setScores) {
   });
 
   localStorage.setItem("scores", JSON.stringify(modifiedScores));
-  setScores(modifiedScores);
+  // setScores(modifiedScores); //! can I really leave this out?
+}
+
+
+export function notNewUser( scores, setScores){
+  const modifiedScores = scores.map((level) => {
+    if (level.id === 61) {
+      return {
+        ...level,
+        newUser: false,
+      };
+    } else {
+      return { ...level };
+    }
+  });
+
+  localStorage.setItem("scores", JSON.stringify(modifiedScores));
+  // setScores(modifiedScores);
 }
 
 export function downloadScoresJSON() {
@@ -133,6 +150,7 @@ export function downloadScoresJSON() {
 export function importBackup(event, setMessage) {
   const file = event.target.files[0];
   const reader = new FileReader();
+
   reader.onload = (e) => {
     try {
       const data = JSON.parse(e.target.result);
@@ -151,14 +169,9 @@ export function importBackup(event, setMessage) {
 
 export function calcBackupDifference(scores) {
   const now = new Date();
-  const lastBackupDate = new Date(scores[48]?.lastBackup);
+  const lastBackupDate = new Date(scores[60]?.lastBackup);
   const differenceInHours = Math.round((now - lastBackupDate) / (1000 * 60 * 60));
   return differenceInHours
 }
 
-export function getProgressString(levelString, inputString, setProgressString) {
-  const inputLength = inputString.length;
-  const progressString = levelString?.slice(0, inputLength);
 
-  setProgressString(progressString);
-}

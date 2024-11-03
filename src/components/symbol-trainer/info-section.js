@@ -11,39 +11,54 @@ export default function InfoSection({ section }) {
 
         <h3>How to Use</h3>
         <p>
-          Pick your level of choice in the Level menu to open the trainer and
+          Pick your level in the bottom bar Level tab to open the trainer and
           start typing.
         </p>
 
         <p>
-          Your words-per-minute (WPM) score only gets shown and saved, if you
-          finish a string with 100% accuracy. That should be the main focus.
+          Your <span className="font-extrabold">current score</span> (WPM) gets
+          shown right to the current levelString. But only if you finish a
+          string with 100% accuracy!
         </p>
 
         <p>
-          If you type a wrong character, the trainer automatically resets. No
-          need to restart manually. (Be aware: The auto reset can hype you into quite a
-          rush, stay relax.)
+          You can see the current level number and its{" "}
+          <span className="font-extrabold">highest score</span> in the bottom
+          bar. Your highscores are also shown in the level menu.
         </p>
-
-        <p>Your scores of each level are shown in the level menu.</p>
-
         <p>
-          The levels also change  hover-color and "trainer-color" depending on your reached milestones: <span className="text-red-500">20</span> <span className="text-violet-500">30</span> <span className="text-yellow-la">40</span> <span className="text-emerald-la">50</span>  <span className="text-neutral-400">60</span> 
-          <br/>Why does it become gray again at 60? Because once you can accurately type 21 consecutive characters on 60 wpm, you should probably spend your time on more productive things ;)
-        </p>
-
-        <p>
-         <span className="font-bold">Suggested progression:</span> Find your starting range by doing level 42 a few times. Now start at level 1 and finish all levels
-          in order up the next milestone (eg. starting range: 15-25, next
-          milestone: 30). Then start over from the first level striving for the
-          next milestone on each, etc.
+          If you type a wrong character, the trainer{" "}
+          <span className="italic">automatically resets</span>. No need to
+          restart manually.
         </p>
 
         <p>
-          <span className="font-bold">Saving:</span> Your scores get saved in the browser's local storage. To
-          download a backup and import your scores, go to the Save menu. Risk of
-          loss depends on your browser settings and behavior.
+          The levels also change hover-color and "trainer-color" depending on
+          your reached milestones: <span className="text-red-500">20</span>{" "}
+          <span className="text-violet-500">30</span>{" "}
+          <span className="text-yellow-la">40</span>{" "}
+          <span className="text-emerald-la">50</span>{" "}
+          <span className="text-neutral-400">60</span>
+          <br />
+          <br />
+          Why does it become gray again after 60? Because once you can
+          accurately type 15 consecutive characters on 60 wpm, you should
+          probably spend your time on more productive things ;)
+        </p>
+
+        <p>
+          <span className="font-bold">Suggested progression:</span> Find your
+          starting range by doing level 53 a few times. Now start at level 1 and
+          finish all levels in order up to the next milestone (eg. starting range:
+          15-25, next milestone: 30). Then start over from the first level
+          striving for the next milestone on each, etc.
+        </p>
+
+        <p>
+          <span className="font-bold">Saving:</span> Your scores get saved in
+          the browser's local storage. To download a backup and import your
+          scores, go to the Save menu. Risk of loss depends on your browser
+          settings and behavior.
         </p>
 
         <p>
@@ -51,20 +66,14 @@ export default function InfoSection({ section }) {
           the last level you picked.
         </p>
 
-        <p>
-          You can also see the current level number and its highest score next to the Level menu button in the bottom menu bar.
-        </p>
-
         <p>The attributes of each level are described in the Level menu:</p>
         <ul>
-          <li>
-            7, 14, 21 is the number of characters per string.
-          </li>
+          <li>5, 10, 15 is the number of characters per string.</li>
           <li>
             r means it is the reverse order of the previous level, so you learn
             both directions of each movement.
           </li>
-          <li>48 levels in total - scroll on the menu to see them all.</li>
+          <li>60 levels in total - scroll on the menu to see them all.</li>
         </ul>
 
         <h3>Why to Use</h3>
@@ -84,10 +93,11 @@ export default function InfoSection({ section }) {
           </li>
           <li>
             MonkeyType has custom tests enabling symbol training, but has no
-            progression of levels... lots of manual level configuration and no small string score tracking.
+            progression of levels...which leads to lots of manual level
+            configuration and no small string score tracking.
           </li>
         </ol>
-          <p>This trainer is your best-of-both solution.</p>
+        <p>This trainer is your best-of-both solution.</p>
       </div>
     </section>
   );

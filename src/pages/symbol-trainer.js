@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 import TrainerSection from "../components/symbol-trainer/trainer-section";
 import LevelSection from "../components/symbol-trainer/level-section";
 import InfoSection from "../components/symbol-trainer/info-section";
+import InfoHint from "../components/symbol-trainer/info-hint";
 import SaveSection from "../components/symbol-trainer/save-section";
 import MenuTrainer from "../components/symbol-trainer/menu-trainer";
 import ResponsiveNote from "../components/symbol-trainer/responsive-note";
-import scoresTemplate from "../data/scores-template.json";
+import scoresTemplate from "../data/scores-template-2.json";
+import { notNewUser } from "../utils/trainer-logic";
 
 export default function TypeSymbols() {
   const [section, setSection] = useState("trainerSection");
   const [scores, setScores] = useState([]);
-  const [levelId, setLevelId] = useState(49);
+  const [levelId, setLevelId] = useState(61);
   
   
   useEffect(() => {
@@ -36,9 +38,10 @@ export default function TypeSymbols() {
   
 
   useEffect(() => {
-        const lastLevel = scores[48]?.lastLevel || 49; 
+        const lastLevel = scores[60]?.lastLevel || 1; 
         setLevelId(lastLevel);
-        console.log(scores[48] , "set lastLevel from scores")
+        console.log(scores[60] , "set lastLevel from scores")
+        if (scores[60]?.newUser){setSection("infoSection"); notNewUser( scores, setScores);}else{setSection("trainerSection")}
   }, [scores]);
 
 
@@ -49,6 +52,8 @@ export default function TypeSymbols() {
         <LevelSection {...{ setSection, setLevelId, scores, setScores }} />
       )}
       {section === "infoSection" && <InfoSection />}
+      {section === "infoHint" && <InfoHint />}
+
       {section === "saveSection" && <SaveSection {...{scores, setScores}} />}
 
       <MenuTrainer {...{ setSection, section, levelId, scores }} />

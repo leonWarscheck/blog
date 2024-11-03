@@ -14,15 +14,15 @@ function transformData(data) {
  return data.map((level) => {
     return ({
         id: level.id,
-        wpm: getRandomWpm(),
+        wpm: 0,
       });
 
     }
     );
 }
 
-const filePath = path.resolve("../data/levels.json");
-const transformedFilePath = path.resolve("../data/scores.json");
+const filePath = path.resolve("../data/levels-2.json");
+const transformedFilePath = path.resolve("../data/scores-2.json");
 
 const processData = async () => {
   try {

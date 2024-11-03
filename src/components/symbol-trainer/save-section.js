@@ -58,7 +58,7 @@ useEffect(() => {
             </label>
           </div>
         </div>
-<p className=" justify-center flex text-neutral-500 mb-4">last backup download was on { scores[48]?.lastBackup.toString().slice(0,10)}, about {calcBackupDifference(scores)}h ago</p>
+<p className={` ${scores[60]?.lastBackup ? "flex": "hidden"} justify-center  text-neutral-500 mb-4`}>last backup download was on { scores[60]?.lastBackup.toString().slice(0,10)}, about {calcBackupDifference(scores)}h ago</p>
 <p className={` justify-center flex ${message === "Import Successful." ? "text-emerald-la": "text-red-500"} min-h-4`}>{message? message: ""}</p>
 
       </div>

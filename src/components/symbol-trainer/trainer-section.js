@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import levels from "../../data/levels.json";
+import levels from "../../data/levels-2.json";
 import {
   checkWin,
   checkSpeed,
@@ -10,8 +10,7 @@ import {
 export default function TrainerSection({ levelId, scores, setScores }) {
   const [inputString, setInputString] = useState("");
   const [levelString, setLevelString] = useState(null);
-  const [progressString, setProgressString] = useState("");
-  const [trainerState, setTrainerState] = useState(""); // ready, fail, win
+  const [trainerState, setTrainerState] = useState(""); // ready, fail, win ?
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
   const [wpm, setWpm] = useState(null);
@@ -58,10 +57,10 @@ export default function TrainerSection({ levelId, scores, setScores }) {
     );
   }, [inputString]);
 
-  useEffect(() => {
-    console.log("daRealIS:", inputString);
-    getProgressString(levelString, inputString, setProgressString);
-  }, [inputString]);
+  // useEffect(() => {
+  //   console.log("daRealIS:", inputString);
+  //   getProgressString(levelString, inputString, setProgressString);
+  // }, [inputString]);
 
   //  useEffect(()=>{
   //     setWpm(scores[levelId-1]?.wpm)
@@ -84,7 +83,7 @@ export default function TrainerSection({ levelId, scores, setScores }) {
   return (
     <section
       id="trainer"
-      className={`flex grow max-w-2xl mx-auto w-full px-4 mt- 20 `}
+      className={`flex flex-col grow max-w-2xl mx-auto w-full px-4 mt- 20 `}
     >
       <div className=" relative font-mono flex mx-auto my-auto text-left text-lg overflow-hidden">
         <div className="">
@@ -140,12 +139,13 @@ export default function TrainerSection({ levelId, scores, setScores }) {
             : scores[levelId - 1]?.wpm >= 20
             ? "text-red-500"
             : " text-neutral-200"
-        }
+          }
         `}
         >
           {wpm}
         </p>
       </div>
+          {/* <p className="absolute left-1/2 top-1/2 bg-neutral-">help</p> */}
     </section>
   );
 }
