@@ -49,7 +49,7 @@ export default function MenuTrainer({ setSection, section, levelId, scores }) {
           </button>
         </li>
         <li className="hover:text-neutral-200 mt-px font-medium mr-4">
-          <button onClick={handleInfoToggle}>Info</button>
+          <button onClick={handleInfoToggle}>Help</button>
         </li>{" "}
         <li className="hover:text-neutral-200 mt-px font-medium">
           <button onClick={handleSaveToggle}>Save</button>

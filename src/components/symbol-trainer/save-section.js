@@ -35,8 +35,8 @@ useEffect(() => {
           <button
             className="bg-neutral- hover:text-neutral-500 underline rounded-sm flex"
             onClick={() => {
-              saveLastBackupDate(scores, setScores);
               downloadScoresJSON();
+              saveLastBackupDate(scores, setScores);
             }}
           >
             Download Backup File
@@ -58,7 +58,7 @@ useEffect(() => {
             </label>
           </div>
         </div>
-<p className={` ${scores[60]?.lastBackup ? "flex": "hidden"} justify-center  text-neutral-500 mb-4`}>last backup download was on { scores[60]?.lastBackup.toString().slice(0,10)}, about {calcBackupDifference(scores)}h ago</p>
+<p className={` flex justify-center  text-neutral-500 mb-4`}>last backup download was on { scores[60]?.lastBackup.toString().slice(0,10) || "'never'"}, about {calcBackupDifference(scores).toString() || "infinite "}h ago</p>
 <p className={` justify-center flex ${message === "Import Successful." ? "text-emerald-la": "text-red-500"} min-h-4`}>{message? message: ""}</p>
 
       </div>

@@ -12,7 +12,7 @@ export default function InfoSection({ section }) {
         <h3>How to Use</h3>
         <p>
           Pick your level in the bottom bar Level tab to open the trainer and
-          start typing.
+          start typing. In the trainer, you can change levels via  <span className="font-bold">`cmd + j / k`</span>.
         </p>
 
         <p>
@@ -46,11 +46,20 @@ export default function InfoSection({ section }) {
           probably spend your time on more productive things ;)
         </p>
 
+        <p>The attributes of each level are described in the Level menu:</p>
+        <ul>
+          <li>5, 10, 15 is the number of characters per string.</li>
+          <li>
+            r means it is the reverse order of the previous level, so you learn
+            both directions of each movement.
+          </li>
+          <li>60 levels in total - scroll on the menu to see them all.</li>
+        </ul>
         <p>
-          <span className="font-bold">Suggested progression:</span> Find your
-          starting range by doing level 53 a few times. Now start at level 1 and
+          <span className="font-bold">Suggested progression:</span> The jumps in characters per string (length) are the biggest shifts in difficulty (at level 20 and 40). Find your
+          starting range for each length by doing its last level (20, 40, 60) a few times. Now start at the length's first level and
           finish all levels in order up to the next milestone (eg. starting range:
-          15-25, next milestone: 30). Then start over from the first level
+          15-25, next milestone: 30 wpm). Then start over from the first level
           striving for the next milestone on each, etc.
         </p>
 
@@ -66,15 +75,6 @@ export default function InfoSection({ section }) {
           the last level you picked.
         </p>
 
-        <p>The attributes of each level are described in the Level menu:</p>
-        <ul>
-          <li>5, 10, 15 is the number of characters per string.</li>
-          <li>
-            r means it is the reverse order of the previous level, so you learn
-            both directions of each movement.
-          </li>
-          <li>60 levels in total - scroll on the menu to see them all.</li>
-        </ul>
 
         <h3>Why to Use</h3>
         <ol>

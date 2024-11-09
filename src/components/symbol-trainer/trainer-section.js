@@ -4,10 +4,10 @@ import {
   checkWin,
   checkSpeed,
   saveScore,
-  getProgressString,
+  saveLastLevel,
 } from "../../utils/trainer-logic";
 
-export default function TrainerSection({ levelId, scores, setScores }) {
+export default function TrainerSection({ setLevelId, levelId, scores, setScores }) {
   const [inputString, setInputString] = useState("");
   const [levelString, setLevelString] = useState(null);
   const [trainerState, setTrainerState] = useState(""); // ready, fail, win ?
@@ -36,6 +36,28 @@ export default function TrainerSection({ levelId, scores, setScores }) {
 
     return () => document.removeEventListener("click", handleClick);
   }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (((event.metaKey || event.ctrlKey) && event.key === 'j') && levelId >=2) {
+        console.log("levelId:",levelId)
+        const previousLevel  = levelId - 1
+        setLevelId(previousLevel)
+        saveLastLevel(previousLevel, scores, setScores)
+      } else if (((event.metaKey || event.ctrlKey) && event.key === 'k') && levelId <= 59) {
+        console.log("levelId:",levelId)
+        const nextLevel  = levelId +1
+        setLevelId(nextLevel)
+        saveLastLevel(nextLevel, scores, setScores)
+      }
+    };
+  
+    window.addEventListener('keydown', handleKeyDown);
+  
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [levelId]);
 
   useEffect(() => {
     checkWin(

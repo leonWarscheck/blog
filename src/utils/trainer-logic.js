@@ -101,7 +101,7 @@ export function saveLastBackupDate(scores, setScores) {
     if (level.id === 61) {
       return {
         ...level,
-        lastBackup: new Date(),
+        lastBackup: new Date().toString(),
       };
     } else {
       return { ...level };
@@ -109,7 +109,7 @@ export function saveLastBackupDate(scores, setScores) {
   });
 
   localStorage.setItem("scores", JSON.stringify(modifiedScores));
-  // setScores(modifiedScores); //! can I really leave this out?
+  setScores(modifiedScores); //! can I really leave this out?
 }
 
 
@@ -126,7 +126,7 @@ export function notNewUser( scores, setScores){
   });
 
   localStorage.setItem("scores", JSON.stringify(modifiedScores));
-  // setScores(modifiedScores);
+  setScores(modifiedScores);
 }
 
 export function downloadScoresJSON() {
