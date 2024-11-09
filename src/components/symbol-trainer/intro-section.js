@@ -22,7 +22,7 @@ export default function IntroSection({ setSection }) {
     >
       <div className="mx-auto my-auto flex flex-col text-center ">
         <h2 className={`text-2xl  font-semibold mb-2 mt-8 ${"text-" + color} `}>
-          Symbol<span className="text-neutral-300">Trainer</span>
+          Symbol<span className="text-neutral-400">Trainer</span>
         </h2>
         {/* <h3 className="font- semibold mb-2 text-neutral-300 text-xl">
           A Typing Speed Trainer for Symbols and Numbers
