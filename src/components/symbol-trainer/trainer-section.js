@@ -23,6 +23,7 @@ export default function TrainerSection({ setLevelId, levelId, scores, setScores 
 
   useEffect(() => {
     setLevelString(levels[levelId - 1].string);
+    saveLastLevel(levelId, scores, setScores) //todo: why did this fix work?
   }, [levelId]);
 
   useEffect(() => {
@@ -43,17 +44,17 @@ export default function TrainerSection({ setLevelId, levelId, scores, setScores 
         console.log("levelId:",levelId)
         const previousLevel  = levelId - 1
         setLevelId(previousLevel)
-        saveLastLevel(previousLevel, scores, setScores)
+        // saveLastLevel(previousLevel, scores, setScores)
       } else if (((event.metaKey || event.ctrlKey) && event.key === 'k') && levelId <= 59) {
         console.log("levelId:",levelId)
         const nextLevel  = levelId +1
         setLevelId(nextLevel)
-        saveLastLevel(nextLevel, scores, setScores)
+        // saveLastLevel(nextLevel, scores, setScores)
       }
     };
-  
+    
     window.addEventListener('keydown', handleKeyDown);
-  
+    
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };

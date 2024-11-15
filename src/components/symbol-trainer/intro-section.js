@@ -10,7 +10,7 @@ export default function IntroSection({ setSection }) {
     const colorInterval = setInterval(() => {
       colorIndex = (colorIndex + 1) % colors.length;
       setColor(colors[colorIndex]);
-    }, 1500);
+    }, 1234);
 
     return () => clearInterval(colorInterval);
   }, []);
@@ -21,7 +21,7 @@ export default function IntroSection({ setSection }) {
       className={`flex grow w-full bg- black max-w-2xl mx-auto px-4 `}
     >
       <div className="mx-auto my-auto flex flex-col text-center ">
-        <h2 className={`text-2xl  font-semibold mb-2 mt-8 ${"text-" + color} `}>
+        <h2 className={`text-2xl  font-semibold mb-2 mt-6 ${"text-" + color} `}>
           Symbol<span className="text-neutral-400">Trainer</span>
         </h2>
         {/* <h3 className="font- semibold mb-2 text-neutral-300 text-xl">

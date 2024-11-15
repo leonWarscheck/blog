@@ -156,6 +156,7 @@ export function importBackup(event, setMessage) {
       const data = JSON.parse(e.target.result);
       localStorage.setItem("scores", JSON.stringify(data));
       setMessage("Import Successful.");
+      // todo: update score state to trigger rerender of levelSection
     } catch (error) {
       console.error("Invalid JSON file", error);
       setMessage("Import Error:", error);
