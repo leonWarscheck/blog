@@ -40,12 +40,12 @@ export default function TrainerSection({ setLevelId, levelId, scores, setScores 
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (((event.metaKey || event.ctrlKey) && event.key === 'j') && levelId >=2) {
+      if (((event.metaKey || event.ctrlKey) && event.key === 'k') && levelId >=2) {
         console.log("levelId:",levelId)
         const previousLevel  = levelId - 1
         setLevelId(previousLevel)
         // saveLastLevel(previousLevel, scores, setScores)
-      } else if (((event.metaKey || event.ctrlKey) && event.key === 'k') && levelId <= 59) {
+      } else if (((event.metaKey || event.ctrlKey) && event.key === 'j') && levelId <= 59) {
         console.log("levelId:",levelId)
         const nextLevel  = levelId +1
         setLevelId(nextLevel)
