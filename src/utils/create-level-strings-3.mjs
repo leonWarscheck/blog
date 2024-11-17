@@ -76,11 +76,11 @@ function createRandomString(caseType, length, lastLevel) {
 // console.log(createRandomString(all, 21));
 
 function transformData(data) {
+  // create base levelStrings
   let lastLevel;
   const stringsAdded = data.map((level, index) => {
     if (!level.reverse) {
       const transformedLevel = {
-        id: index,
         reverse: level.reverse,
         length: level.length,
         case: level.case,
@@ -92,7 +92,6 @@ function transformData(data) {
       return transformedLevel;
     } else if (level.reverse) {
       return {
-        id: index,
         reverse: level.reverse,
         length: level.length,
         case: level.case,
@@ -100,19 +99,58 @@ function transformData(data) {
       };
     }
   });
-  let index = 0;
-  return stringsAdded.map((level) => {
-    index = ++index;
+
+  // create sublevels from baseString
+  const sublevels = [];
+
+  stringsAdded.forEach((level) => {
+    sublevels.push(
+      {
+        reverse: level.reverse,
+        length: "5",
+        case: level.case,
+        string: level.string.slice(0, 5),
+      },
+      {
+        reverse: level.reverse,
+        length: "5",
+        case: level.case,
+        string: level.string.slice(5, 10),
+      },
+      {
+        reverse: level.reverse,
+        length: "5",
+        case: level.case,
+        string: level.string.slice(10, 15),
+      },
+      {
+        reverse: level.reverse,
+        length: "10",
+        case: level.case,
+        string: level.string.slice(0, 10),
+      },
+      {
+        reverse: level.reverse,
+        length: "15",
+        case: level.case,
+        string: level.string,
+      }
+    );
+  });
+
+  //index levelIds for all (sub)levels
+  const sublevelsWithId = sublevels.map((level, index) => {
     return {
-      ...level,
       id: index,
+      ...level,
     };
   });
+
+  return sublevelsWithId;
 }
 
-
-const filePath = path.resolve("../data/levels-template-2.json");
-const transformedFilePath = path.resolve("../data/levels-2.json");
+const filePath = path.resolve("../data/levels-template-3.json");
+const transformedFilePath = path.resolve("../data/levels-3.json");
 
 const processData = async () => {
   try {
