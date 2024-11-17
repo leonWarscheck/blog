@@ -82,7 +82,7 @@ export function saveScore(wpm, levelId, scores, setScores) {
 
 export function saveLastLevel(levelId, scores, setScores) {
   const modifiedScores = scores.map((level) => {
-    if (level.id === 61) {
+    if (level.id === 0) {
       return {
         ...level,
         lastLevel: levelId,
@@ -98,7 +98,7 @@ export function saveLastLevel(levelId, scores, setScores) {
 
 export function saveLastBackupDate(scores, setScores) {
   const modifiedScores = scores.map((level) => {
-    if (level.id === 61) {
+    if (level.id === 0) {
       return {
         ...level,
         lastBackup: new Date().toString(),
@@ -115,7 +115,7 @@ export function saveLastBackupDate(scores, setScores) {
 
 export function notNewUser( scores, setScores){
   const modifiedScores = scores.map((level) => {
-    if (level.id === 61) {
+    if (level.id === 0) {
       return {
         ...level,
         newUser: false,
@@ -170,7 +170,7 @@ export function importBackup(event, setMessage) {
 
 export function calcBackupDifference(scores) {
   const now = new Date();
-  const lastBackupDate = new Date(scores[60]?.lastBackup);
+  const lastBackupDate = new Date(scores[0]?.lastBackup);
   const differenceInHours = Math.round((now - lastBackupDate) / (1000 * 60 * 60));
   return differenceInHours
 }

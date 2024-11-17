@@ -1,0 +1,346 @@
+[
+  {
+    "id": 1,
+    "reverse": false,
+    "length": "7",
+    "case": "lowerCase",
+    "string": ";-0-6,/"
+  },
+  {
+    "id": 2,
+    "reverse": true,
+    "length": "7",
+    "case": "lowerCase",
+    "string": "/,6-0-;"
+  },
+  {
+    "id": 3,
+    "reverse": false,
+    "length": "7",
+    "case": "lowerCase",
+    "string": "5.1.[]'"
+  },
+  {
+    "id": 4,
+    "reverse": true,
+    "length": "7",
+    "case": "lowerCase",
+    "string": "'][.1.5"
+  },
+  {
+    "id": 5,
+    "reverse": false,
+    "length": "7",
+    "case": "upperCase",
+    "string": "!|\"!#_$"
+  },
+  {
+    "id": 6,
+    "reverse": true,
+    "length": "7",
+    "case": "upperCase",
+    "string": "$_#!\"|!"
+  },
+  {
+    "id": 7,
+    "reverse": false,
+    "length": "7",
+    "case": "upperCase",
+    "string": "{+(^+@%"
+  },
+  {
+    "id": 8,
+    "reverse": true,
+    "length": "7",
+    "case": "upperCase",
+    "string": "%@+^(+{"
+  },
+  {
+    "id": 9,
+    "reverse": false,
+    "length": "7",
+    "case": "mixedCase",
+    "string": "28}=->|"
+  },
+  {
+    "id": 10,
+    "reverse": true,
+    "length": "7",
+    "case": "mixedCase",
+    "string": "|>-=}82"
+  },
+  {
+    "id": 11,
+    "reverse": false,
+    "length": "7",
+    "case": "mixedCase",
+    "string": "0#{5,&{"
+  },
+  {
+    "id": 12,
+    "reverse": true,
+    "length": "7",
+    "case": "mixedCase",
+    "string": "{&,5{#0"
+  },
+  {
+    "id": 13,
+    "reverse": false,
+    "length": "7",
+    "case": "allChars",
+    "string": "~JD`*$^"
+  },
+  {
+    "id": 14,
+    "reverse": true,
+    "length": "7",
+    "case": "allChars",
+    "string": "^$*`DJ~"
+  },
+  {
+    "id": 15,
+    "reverse": false,
+    "length": "7",
+    "case": "allChars",
+    "string": "wn/'}{:"
+  },
+  {
+    "id": 16,
+    "reverse": true,
+    "length": "7",
+    "case": "allChars",
+    "string": ":{}'/nw"
+  },
+  {
+    "id": 17,
+    "reverse": false,
+    "length": "14",
+    "case": "lowerCase",
+    "string": "0250=.,-/-',]="
+  },
+  {
+    "id": 18,
+    "reverse": true,
+    "length": "14",
+    "case": "lowerCase",
+    "string": "=],'-/-,.=0520"
+  },
+  {
+    "id": 19,
+    "reverse": false,
+    "length": "14",
+    "case": "lowerCase",
+    "string": ";/[5'[]',1,6/8"
+  },
+  {
+    "id": 20,
+    "reverse": true,
+    "length": "14",
+    "case": "lowerCase",
+    "string": "8/6,1,']['5[/;"
+  },
+  {
+    "id": 21,
+    "reverse": false,
+    "length": "14",
+    "case": "upperCase",
+    "string": "{?^%&^\"!{:@|_("
+  },
+  {
+    "id": 22,
+    "reverse": true,
+    "length": "14",
+    "case": "upperCase",
+    "string": "(_|@:{!\"^&%^?{"
+  },
+  {
+    "id": 23,
+    "reverse": false,
+    "length": "14",
+    "case": "upperCase",
+    "string": "&(!*?}+}):(*#$"
+  },
+  {
+    "id": 24,
+    "reverse": true,
+    "length": "14",
+    "case": "upperCase",
+    "string": "$#*(:)}+}?*!(&"
+  },
+  {
+    "id": 25,
+    "reverse": false,
+    "length": "14",
+    "case": "mixedCase",
+    "string": "=;-1/<}*7;1}{#"
+  },
+  {
+    "id": 26,
+    "reverse": true,
+    "length": "14",
+    "case": "mixedCase",
+    "string": "#{}1;7*}</1-;="
+  },
+  {
+    "id": 27,
+    "reverse": false,
+    "length": "14",
+    "case": "mixedCase",
+    "string": "&%?!?87[^8'2*;"
+  },
+  {
+    "id": 28,
+    "reverse": true,
+    "length": "14",
+    "case": "mixedCase",
+    "string": ";*2'8^[78?!?%&"
+  },
+  {
+    "id": 29,
+    "reverse": false,
+    "length": "14",
+    "case": "allChars",
+    "string": "/>t1zo`[!)[>!}"
+  },
+  {
+    "id": 30,
+    "reverse": true,
+    "length": "14",
+    "case": "allChars",
+    "string": "}!>[)![`oz1t>/"
+  },
+  {
+    "id": 31,
+    "reverse": false,
+    "length": "14",
+    "case": "allChars",
+    "string": "|9zO*/9_|:/~^~"
+  },
+  {
+    "id": 32,
+    "reverse": true,
+    "length": "14",
+    "case": "allChars",
+    "string": "~^~/:|_9/*Oz9|"
+  },
+  {
+    "id": 33,
+    "reverse": false,
+    "length": "21",
+    "case": "lowerCase",
+    "string": "/]591/']1[43`'-,.;,.`"
+  },
+  {
+    "id": 34,
+    "reverse": true,
+    "length": "21",
+    "case": "lowerCase",
+    "string": "`.,;.,-'`34[1]'/195]/"
+  },
+  {
+    "id": 35,
+    "reverse": false,
+    "length": "21",
+    "case": "lowerCase",
+    "string": ";='30.`8=06/-2-/`.,']"
+  },
+  {
+    "id": 36,
+    "reverse": true,
+    "length": "21",
+    "case": "lowerCase",
+    "string": "]',.`/-2-/60=8`.03'=;"
+  },
+  {
+    "id": 37,
+    "reverse": false,
+    "length": "21",
+    "case": "upperCase",
+    "string": "^#)^$%}()#+:&_&{_<{<("
+  },
+  {
+    "id": 38,
+    "reverse": true,
+    "length": "21",
+    "case": "upperCase",
+    "string": "(<{<_{&_&:+#)(}%$^)#^"
+  },
+  {
+    "id": 39,
+    "reverse": false,
+    "length": "21",
+    "case": "upperCase",
+    "string": "#(\"_:{|:$>!%$+)^#*?^>"
+  },
+  {
+    "id": 40,
+    "reverse": true,
+    "length": "21",
+    "case": "upperCase",
+    "string": ">^?*#^)+$%!>$:|{:_\"(#"
+  },
+  {
+    "id": 41,
+    "reverse": false,
+    "length": "21",
+    "case": "mixedCase",
+    "string": "07[?{4<9`-|0>7~?:@_$;"
+  },
+  {
+    "id": 42,
+    "reverse": true,
+    "length": "21",
+    "case": "mixedCase",
+    "string": ";$_@:?~7>0|-`9<4{?[70"
+  },
+  {
+    "id": 43,
+    "reverse": false,
+    "length": "21",
+    "case": "mixedCase",
+    "string": "2!5$;^!8-*,6`5?2;@'{/"
+  },
+  {
+    "id": 44,
+    "reverse": true,
+    "length": "21",
+    "case": "mixedCase",
+    "string": "/{'@;2?5`6,*-8!^;$5!2"
+  },
+  {
+    "id": 45,
+    "reverse": false,
+    "length": "21",
+    "case": "allChars",
+    "string": "n5M69},:w,';>+#.%'/-%"
+  },
+  {
+    "id": 46,
+    "reverse": true,
+    "length": "21",
+    "case": "allChars",
+    "string": "%-/'%.#+>;',w:,}96M5n"
+  },
+  {
+    "id": 47,
+    "reverse": false,
+    "length": "21",
+    "case": "allChars",
+    "string": "Mnk2JT(?#=,(`!]&_{^.?"
+  },
+  {
+    "id": 48,
+    "reverse": true,
+    "length": "21",
+    "case": "allChars",
+    "string": "?.^{_&]!`(,=#?(TJ2knM"
+  },
+  {
+    "info": "default config purpose, hidden",
+    "id": 49,
+    "reverse": false,
+    "length": "",
+    "case": "",
+    "string": ""
+  }
+]

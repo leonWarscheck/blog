@@ -7,13 +7,13 @@ import InfoHint from "../components/symbol-trainer/info-hint";
 import SaveSection from "../components/symbol-trainer/save-section";
 import MenuTrainer from "../components/symbol-trainer/menu-trainer";
 import ResponsiveNote from "../components/symbol-trainer/responsive-note";
-import scoresTemplate from "../data/scores-template-2.json";
+import scoresTemplate from "../data/scores-template.json";
 import { notNewUser } from "../utils/trainer-logic";
 
 export default function TypeSymbols() {
   const [section, setSection] = useState("introSection");
   const [scores, setScores] = useState([]);
-  const [levelId, setLevelId] = useState(61);
+  const [levelId, setLevelId] = useState(0);
   
   
   useEffect(() => {
@@ -32,17 +32,16 @@ export default function TypeSymbols() {
       // trigger sync of storage to scores
       parsedScores = JSON.parse(fetchedScores);
       setScores(parsedScores);
-      console.log("setScores with:", parsedScores)
+      // console.log("setScores with:", parsedScores)
     }
   }, []);
   
   
 
   useEffect(() => {
-        const lastLevel = scores[60]?.lastLevel || 1; 
+        const lastLevel = scores[0]?.lastLevel || 1; 
         
         setLevelId(lastLevel);
-        console.log(scores[60] , "set lastLevel from scores", lastLevel)
         // if (scores[60]?.newUser === true){setSection("infoSection"); notNewUser(scores, setScores);}
   }, [scores]);
 

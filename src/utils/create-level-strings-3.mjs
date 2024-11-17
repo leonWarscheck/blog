@@ -1,17 +1,15 @@
 import fs from "fs/promises";
 import path from "path";
-import { v4 as uuidv4 } from "uuid";
-
-const cases = {
-  numbers: "1234567890",
-  lowerCase: "1234567890-=[];'`,./",
-  upperCase: '!@#$%^&*()_+{}:"|~<>?',
-  mixedCase: "1234567890-=[];'`,./!@#$%^&*()_+{}:|~<>?",
-  allChars:
-    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-=[];'`,./!@#$%^&*()_+{}:|~<>?",
-};
 
 function createRandomString(caseType, length, lastLevel) {
+  const cases = {
+    numbers: "1234567890",
+    lowerCase: "1234567890-=[];'`,./",
+    upperCase: '!@#$%^&*()_+{}:"|~<>?',
+    mixedCase: "1234567890-=[];'`,./!@#$%^&*()_+{}:|~<>?",
+    allChars:
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-=[];'`,./!@#$%^&*()_+{}:|~<>?",
+  };
   let randomString = "";
   const charCount = {};
   const loweredCaseCount = {};
@@ -73,8 +71,6 @@ function createRandomString(caseType, length, lastLevel) {
   return randomString;
 }
 
-// console.log(createRandomString(all, 21));
-
 function transformData(data) {
   // create base levelStrings
   let lastLevel;
@@ -100,8 +96,16 @@ function transformData(data) {
     }
   });
 
-  // create sublevels from baseString
-  const sublevels = [];
+  // create sublevels from baseString and add them infront of the default config sublevel
+  const sublevels = [
+    {
+      info: "default config purpose, hidden",
+      reverse: false,
+      length: "",
+      case: "",
+      string: "",
+    },
+  ];
 
   stringsAdded.forEach((level) => {
     sublevels.push(
@@ -146,23 +150,43 @@ function transformData(data) {
     };
   });
 
-  return sublevelsWithId;
+  const scoresTemplate = [];
+
+  sublevelsWithId.map((level) => {
+    if (level.id === 0) {
+      scoresTemplate.push({
+        id: 0,
+        wpm: 0,
+        info: "config purpose object",
+        lastLevel: 1,
+        lastBackup: "",
+        newUser: true,
+      });
+    } else {
+      scoresTemplate.push({ id: level.id, wpm: 0 });
+    }
+  });
+
+  return { levels: sublevelsWithId, scoresTemplate };
 }
 
-const filePath = path.resolve("../data/levels-template-3.json");
-const transformedFilePath = path.resolve("../data/levels-3.json");
-
 const processData = async () => {
+  const filePath = path.resolve("../data/levels-template-3.json");
+  const transformedFilePath1 = path.resolve("../data/levels.json");
+  const transformedFilePath2 = path.resolve("../data/scores-template.json");
   try {
     const rawData = await fs.readFile(filePath, "utf8");
     const data = JSON.parse(rawData);
     console.log("data:", !!data);
 
-    const transformedData = transformData(data);
-    console.log("transformedData:", !!transformedData);
+    const { levels, scoresTemplate } = transformData(data);
+    console.log("levels:", !!levels);
+
+    await fs.writeFile(transformedFilePath1, JSON.stringify(levels, null, 2));
+
     await fs.writeFile(
-      transformedFilePath,
-      JSON.stringify(transformedData, null, 2)
+      transformedFilePath2,
+      JSON.stringify(scoresTemplate, null, 2)
     );
 
     console.log("Data transformation complete. Transformed data saved.");

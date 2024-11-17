@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import levels from "../../data/levels-2.json";
+import levels from "../../data/levels.json";
 import {
   checkWin,
   checkSpeed,
@@ -7,7 +7,12 @@ import {
   saveLastLevel,
 } from "../../utils/trainer-logic";
 
-export default function TrainerSection({ setLevelId, levelId, scores, setScores }) {
+export default function TrainerSection({
+  setLevelId,
+  levelId,
+  scores,
+  setScores,
+}) {
   const [inputString, setInputString] = useState("");
   const [levelString, setLevelString] = useState(null);
   const [trainerState, setTrainerState] = useState(""); // ready, fail, win ?
@@ -16,16 +21,13 @@ export default function TrainerSection({ setLevelId, levelId, scores, setScores 
   const [wpm, setWpm] = useState(null);
   const inputRef = useRef(null);
 
+  // level setup and re-entrypoint save
   useEffect(() => {
-    console.log("_________trainer________");
-    inputRef.current.focus();
-  }, []);
-
-  useEffect(() => {
-    setLevelString(levels[levelId - 1].string);
-    saveLastLevel(levelId, scores, setScores) //todo: why did this fix work?
+    setLevelString(levels[levelId].string);
+    saveLastLevel(levelId, scores, setScores);
   }, [levelId]);
 
+  // always focused (except during win/fail-resets)
   useEffect(() => {
     const handleClick = () => {
       if (inputRef.current) {
@@ -38,28 +40,12 @@ export default function TrainerSection({ setLevelId, levelId, scores, setScores 
     return () => document.removeEventListener("click", handleClick);
   }, []);
 
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (((event.metaKey || event.ctrlKey) && event.key === 'k') && levelId >=2) {
-        console.log("levelId:",levelId)
-        const previousLevel  = levelId - 1
-        setLevelId(previousLevel)
-        // saveLastLevel(previousLevel, scores, setScores)
-      } else if (((event.metaKey || event.ctrlKey) && event.key === 'j') && levelId <= 59) {
-        console.log("levelId:",levelId)
-        const nextLevel  = levelId +1
-        setLevelId(nextLevel)
-        // saveLastLevel(nextLevel, scores, setScores)
-      }
-    };
-    
-    window.addEventListener('keydown', handleKeyDown);
-    
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [levelId]);
+  // useEffect(() => {
+  //   console.log("_________trainer________");
+  //   inputRef.current.focus();
+  // }, []);
 
+  // main typing check logic
   useEffect(() => {
     checkWin(
       inputString,
@@ -80,28 +66,39 @@ export default function TrainerSection({ setLevelId, levelId, scores, setScores 
     );
   }, [inputString]);
 
-  // useEffect(() => {
-  //   console.log("daRealIS:", inputString);
-  //   getProgressString(levelString, inputString, setProgressString);
-  // }, [inputString]);
-
-  //  useEffect(()=>{
-  //     setWpm(scores[levelId-1]?.wpm)
-  //  }, [scores])
-
+  // save wpm score to localStorage (wpm set by checkWin & checkspeed)
   useEffect(() => {
     saveScore(wpm, levelId, scores, setScores);
   }, [wpm]);
 
+  // change level shortcut
   useEffect(() => {
-    // console.log("scores in trainer:", scores);
-    // console.log("scores[levelId-1].wpm", scores[levelId - 1]?.wpm);
-    console.log("trainerState:", trainerState);
-  }, [trainerState]);
+    const handleKeyDown = (event) => {
+      if (
+        (event.metaKey || event.ctrlKey) &&
+        event.key === "k" &&
+        levelId >= 2
+      ) {
+        console.log("levelId:", levelId);
+        const previousLevel = levelId - 1;
+        setLevelId(previousLevel);
+      } else if (
+        (event.metaKey || event.ctrlKey) &&
+        event.key === "j" &&
+        levelId <= scores.length-2
+      ) {
+        console.log("levelId:", levelId);
+        const nextLevel = levelId + 1;
+        setLevelId(nextLevel);
+      }
+    };
 
-  useEffect(() => {
-    console.log("levelString:", levelString);
-  }, [levelString]);
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [levelId]);
 
   return (
     <section
@@ -116,17 +113,17 @@ export default function TrainerSection({ setLevelId, levelId, scores, setScores 
             value={inputString}
             onChange={(e) => setInputString(e.target.value)}
             className={`absolute whitespace-pr   opacity- z-10 tracking-widerer my-auto focus:outline-none bg-transparent w-full
-                ${ 
+                ${
                   trainerState !== "fail" &&
-                  (scores[levelId - 1]?.wpm >= 60
-                 ? "caret-neutral-200 text-neutral-200"
-                    : scores[levelId - 1]?.wpm >= 50
+                  (scores[levelId]?.wpm >= 60
+                    ? "caret-neutral-200 text-neutral-200"
+                    : scores[levelId]?.wpm >= 50
                     ? "caret-emerald-la text-emerald-la"
-                    : scores[levelId - 1]?.wpm >= 40
+                    : scores[levelId]?.wpm >= 40
                     ? "caret-yellow-la text-yellow-la"
-                    : scores[levelId - 1]?.wpm >= 30
+                    : scores[levelId]?.wpm >= 30
                     ? "caret-violet-500 text-violet-500"
-                    : scores[levelId - 1]?.wpm >= 20
+                    : scores[levelId]?.wpm >= 20
                     ? "caret-red-500 text-red-500"
                     : "caret-neutral-200 text-neutral-200")
                 } ${trainerState === "fail" ? "text-neutral-400" : ""} 
@@ -151,24 +148,24 @@ export default function TrainerSection({ setLevelId, levelId, scores, setScores 
             trainerState === "win" ? "block" : "invisible"
           } ml-4  min-w-6
         ${
-          scores[levelId - 1]?.wpm >= 60
+          scores[levelId]?.wpm >= 60
             ? " text-neutral-200"
-            : scores[levelId - 1]?.wpm >= 50
+            : scores[levelId]?.wpm >= 50
             ? "text-emerald-la"
-            : scores[levelId - 1]?.wpm >= 40
+            : scores[levelId]?.wpm >= 40
             ? "text-yellow-la"
-            : scores[levelId - 1]?.wpm >= 30
+            : scores[levelId]?.wpm >= 30
             ? "text-violet-500"
-            : scores[levelId - 1]?.wpm >= 20
+            : scores[levelId]?.wpm >= 20
             ? "text-red-500"
             : " text-neutral-200"
-          }
+        }
         `}
         >
           {wpm}
         </p>
       </div>
-          {/* <p className="absolute left-1/2 top-1/2 bg-neutral-">help</p> */}
+      {/* <p className="absolute left-1/2 top-1/2 bg-neutral-">help</p> */}
     </section>
   );
 }

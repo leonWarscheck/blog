@@ -12,7 +12,8 @@ export default function InfoSection({ section }) {
         <h3>How to Use</h3>
         <p>
           Pick your level in the bottom bar Level tab to open the trainer and
-          start typing. In the trainer, you can change levels via  <span className="font-bold">`cmd + j / k`</span>.
+          start typing. In the trainer, you can change levels via{" "}
+          <span className="font-bold">`cmd + j / k`</span>.
         </p>
 
         <p>
@@ -33,7 +34,7 @@ export default function InfoSection({ section }) {
         </p>
 
         <p>
-          The levels also change hover-color and "trainer-color" depending on
+          The levels also change "menu-color" and "trainer-color" depending on
           your reached milestones: <span className="text-red-500">20</span>{" "}
           <span className="text-violet-500">30</span>{" "}
           <span className="text-yellow-la">40</span>{" "}
@@ -53,14 +54,18 @@ export default function InfoSection({ section }) {
             r means it is the reverse order of the previous level, so you learn
             both directions of each movement.
           </li>
-          <li>60 levels in total - scroll on the menu to see them all.</li>
+          <li>
+            40 full level-strings each sliced up into 5 sub-levels that build up
+            to the full level length
+            <br /> = 200 levels in total
+          </li>
         </ul>
         <p>
-          <span className="font-bold">Suggested progression:</span> The jumps in characters per string (length) are the biggest shifts in difficulty (at level 20 and 40). Find your
-          starting range for each length by doing its last level (20, 40, 60) a few times. Now start at the length's first level and
-          finish all levels in order up to the next milestone (eg. starting range:
-          15-25, next milestone: 30 wpm). Then start over from the first level
-          striving for the next milestone on each, etc.
+          <span className="font-bold">Suggested progression: </span>Choose a full
+          level (Level Number = multiple of 5) and try it a few times to
+          estimate your starting range. Then use the related sublevels to build
+          up to the next milestone (eg. starting range: 15-25, next milestone:
+          30 wpm).
         </p>
 
         <p>
@@ -74,7 +79,6 @@ export default function InfoSection({ section }) {
           When you come back after leaving the page, the trainer will default to
           the last level you picked.
         </p>
-
 
         <h3>Why to Use</h3>
         <ol>

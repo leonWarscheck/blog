@@ -43,9 +43,9 @@ export default function MenuTrainer({ setSection, section, levelId, scores }) {
               : levelId}
             {/* {levelId}  */}
             &nbsp;/&nbsp;
-            {scores[levelId - 1]?.wpm.toString().length === 1
-              ? scores[levelId - 1]?.wpm.toString().padStart(2, "0")
-              : scores[levelId - 1]?.wpm}
+            {scores[levelId]?.wpm.toString().length === 1
+              ? scores[levelId]?.wpm.toString().padStart(2, "0")
+              : scores[levelId]?.wpm}
           </button>
         </li>
         <li className="hover:text-neutral-200 mt-px font-medium mr-4">

@@ -1,5 +1,5 @@
 import React from "react";
-import levels from "../../data/levels-2.json";
+import levels from "../../data/levels.json";
 import { saveLastLevel } from "../../utils/trainer-logic";
 
 export default function LevelSection({ setSection, setLevelId, scores, setScores}) {
@@ -17,15 +17,15 @@ export default function LevelSection({ setSection, setLevelId, scores, setScores
           {levels.map((level, index) => {
             const score = scores[index]
             return (
-              <li key={level.id} className={`w-full ${level.id === 61? "hidden": "flex"}`}>
-                <button className={`flex w-full py-2  hover: text-neutral-500 group
-                ${(score.wpm >= 60) ? "hover:text-neutral-400" 
-                : (score.wpm >= 50) ?  "hover:text-emerald-la" 
-                : (score.wpm >= 40) ? "hover:text-yellow-la"
-                : (score.wpm >= 30) ?  "hover:text-violet-500"
-                : (score.wpm >= 20) ? "hover:text-red-500" 
-                : "hover:text-neutral-400"}`}
-                onClick={()=>{setSection("trainerSection"); setLevelId(level.id); saveLastLevel(level.id, scores, setScores); }} 
+              <li key={level.id} className={`w-full ${level.id === 0 ? "hidden": "flex"}`}>
+                <button className={`flex w-full py-2 group hover:text-neutral-400
+                ${(score.wpm >= 60) ? "text-neutral-400" 
+                : (score.wpm >= 50) ?  "text-emerald-la" 
+                : (score.wpm >= 40) ? "text-yellow-la"
+                : (score.wpm >= 30) ?  "text-violet-500"
+                : (score.wpm >= 20) ? "text-red-500" 
+                : "text-neutral-500"}`}
+                onClick={()=>{setSection("trainerSection"); console.log("level.id: ", level.id); setLevelId(level.id); saveLastLevel(level.id, scores, setScores); }} 
                 >
                   <h3 className=" font-bold">
                     <span>Level {level.id} </span>
