@@ -62,7 +62,7 @@ export function checkWin(
 }
 
 export function saveScore(wpm, levelId, scores, setScores) {
-  const latestScore = scores[levelId - 1]?.wpm;
+  const latestScore = scores[levelId]?.wpm;
   if (wpm > latestScore) {
     const modifiedScores = scores.map((level) => {
       if (level.id === levelId) {
