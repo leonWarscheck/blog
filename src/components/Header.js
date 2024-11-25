@@ -1,8 +1,8 @@
 import Link from "next/link";
-import SubscribeForm from "./SubscribeFormHeader";
+import SubscribeForm from "./subscribeform-header";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import Menu from "./Menu";
+import Menu from "./menu";
 
 export default function Header({}) {
   const router = useRouter()
@@ -15,14 +15,13 @@ export default function Header({}) {
   
     if (menuOpen) {
       bodyElement.classList.add("scrollbar-hide");
-      bodyElement.style.overflow = "hidden"; // Block scrolling
+      bodyElement.style.overflow = "hidden";
     } else {
       bodyElement.classList.remove("scrollbar-hide");
-      bodyElement.style.overflow = ""; // Reset to default
+      bodyElement.style.overflow = ""; 
     }
   
     return () => {
-      // Clean up to avoid affecting other parts of the app
       bodyElement.style.overflow = ""; 
     };
   }, [menuOpen]);

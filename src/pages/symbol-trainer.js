@@ -17,7 +17,6 @@ export default function TypeSymbols() {
   
   
   useEffect(() => {
-    console.log("______page reload_____");
     let fetchedScores = localStorage.getItem("scores");
     let parsedScores;
     
@@ -32,7 +31,6 @@ export default function TypeSymbols() {
       // trigger sync of storage to scores
       parsedScores = JSON.parse(fetchedScores);
       setScores(parsedScores);
-      // console.log("setScores with:", parsedScores)
     }
   }, []);
   
@@ -40,9 +38,7 @@ export default function TypeSymbols() {
 
   useEffect(() => {
         const lastLevel = scores[0]?.lastLevel || 1; 
-        
         setLevelId(lastLevel);
-        // if (scores[60]?.newUser === true){setSection("infoSection"); notNewUser(scores, setScores);}
   }, [scores]);
 
 

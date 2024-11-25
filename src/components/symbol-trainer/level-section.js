@@ -1,4 +1,3 @@
-import React from "react";
 import levels from "../../data/levels.json";
 import { saveLastLevel } from "../../utils/trainer-logic";
 

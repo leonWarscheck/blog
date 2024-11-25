@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const inputIds = ["navSubInput", "pageSubInput", "footSubInput"];
     const preElementsInView = new Set();
   
-    // Callback function for the Intersection Observer
     function handleIntersect(entries) {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -14,31 +13,30 @@ document.addEventListener('DOMContentLoaded', (event) => {
       });
     }
   
-    // Create the Intersection Observer
     const observer = new IntersectionObserver(handleIntersect, {
-      root: null, // Use the viewport as the root
-      threshold: 0.1 // Adjust the threshold as needed
+      root: null, 
+      threshold: 0.1 
     });
   
-    // Observe all <pre> elements
     const preElements = document.querySelectorAll("pre");
     preElements.forEach((pre) => observer.observe(pre));
   
     document.addEventListener("keydown", function (event) {
-      const focusedElement = document.activeElement; // Get the currently focused element
+      const focusedElement = document.activeElement; 
   
       if (!inputIds.includes(focusedElement.id)) {
         if (event.key === "j") {
-          window.scrollBy(0, 50); // Scroll down by 50 pixels
+          window.scrollBy(0, 50); 
         } else if (event.key === "k") {
-          window.scrollBy(0, -50); // Scroll up by 50 pixels
+          window.scrollBy(0, -50);
+          // TODO: fix sideways scroll
         } else if (event.key === "l" || event.key === "h") {
-          const scrollStep = 50; // Adjust the scroll amount as needed
+          const scrollStep = 50; 
           preElementsInView.forEach((pre) => {
             if (event.key === "l") {
-              pre.scrollLeft += scrollStep; // Scroll right
+              pre.scrollLeft += scrollStep;
             } else if (event.key === "h") {
-              pre.scrollLeft -= scrollStep; // Scroll left
+              pre.scrollLeft -= scrollStep; 
             }
           });
         }

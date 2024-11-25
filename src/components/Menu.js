@@ -5,12 +5,13 @@ import { useState, useEffect, useRef } from "react";
 export default function Menu({ handleMenuToggle2, menuOpen, handleMenuClose }) {
   const [feedbackState, setFeedbackState] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const inputRef = useRef(null)
+  const inputRef = useRef(null);
 
-  useEffect(()=>{if(inputRef.current){
-    inputRef.current.focus();
-  }
-}, []);
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
   const handleSubscribe = async (event) => {
     event.preventDefault();
@@ -70,13 +71,6 @@ export default function Menu({ handleMenuToggle2, menuOpen, handleMenuClose }) {
               >
                 About
               </Link>
-              {/* <Link
-                onClick={handleMenuClose}
-                className=" text-yellow-400 w-full py-11 border-r-4 border-yellow-400 flex hover:text-neutral-400"
-                href="/about"
-              >
-                About
-              </Link> */}
             </li>
 
             <li className="relative border-r-4  border-violet-500">

@@ -8,13 +8,11 @@ export default function AboutPage() {
     const posts = document.querySelectorAll("li");
     const handleHover = () => setNumber(Math.floor(Math.random() * 4) + 1);
     posts.forEach((post) => {
-      // post.addEventListener("mouseenter", handleHover);
       post.addEventListener("mouseleave", handleHover);
     });
 
     return () => {
       posts.forEach((post) => {
-        // post.removeEventListener("mouseenter", handleHover);
         post.addEventListener("mouseleave", handleHover);
       });
     };
@@ -27,8 +25,6 @@ export default function AboutPage() {
       </Head>
 
       <section>
-        {/* <h1 className="font-semibold text-2xl mb-1 ">Leon Andersen</h1> */}
-
         <p className="text- lg mb- text- balance c1:textjustify pb-">
           <span className="font- semibold">Leon Andersen</span> is a Fullstack
           JavaScript Developer at ReactSquad. <br />
@@ -61,11 +57,6 @@ export default function AboutPage() {
               </a>
             </h2>
           </li>
-          {/* <li>
-          <h2 className="mx-2  underline-offset-2 hover:text-neutral-400">
-            <a href="https://twitter.com/leonAndersen">Twitter</a>
-          </h2>
-        </li> */}
           <li>
             <h2
               className={` custom-border  h-[22.5px]  ${
@@ -86,8 +77,6 @@ export default function AboutPage() {
         </ul>
         <h2 className="font-bold text- lg pb-2">Other Interests/ Skills:</h2>
         <ul className=" list-disc pl-5">
-          {/* <li>The Art of Learning,</li>
-          <li>Systems Thinking,</li> */}
           <li>Music Production,</li>
           <li>Psychology,</li>
           <li>and Media Design.</li>

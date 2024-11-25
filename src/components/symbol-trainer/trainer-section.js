@@ -15,7 +15,7 @@ export default function TrainerSection({
 }) {
   const [inputString, setInputString] = useState("");
   const [levelString, setLevelString] = useState(null);
-  const [trainerState, setTrainerState] = useState(""); // ready, fail, win ?
+  const [trainerState, setTrainerState] = useState("");
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
   const [wpm, setWpm] = useState(null);
@@ -39,11 +39,6 @@ export default function TrainerSection({
 
     return () => document.removeEventListener("click", handleClick);
   }, []);
-
-  // useEffect(() => {
-  //   console.log("_________trainer________");
-  //   inputRef.current.focus();
-  // }, []);
 
   // main typing check logic
   useEffect(() => {
@@ -85,7 +80,7 @@ export default function TrainerSection({
       } else if (
         (event.metaKey || event.ctrlKey) &&
         event.key === "j" &&
-        levelId <= scores.length-2
+        levelId <= scores.length - 2
       ) {
         console.log("levelId:", levelId);
         const nextLevel = levelId + 1;
@@ -165,7 +160,6 @@ export default function TrainerSection({
           {wpm}
         </p>
       </div>
-      {/* <p className="absolute left-1/2 top-1/2 bg-neutral-">help</p> */}
     </section>
   );
 }

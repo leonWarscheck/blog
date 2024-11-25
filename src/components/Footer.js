@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import SubscribeForm from "./SubscribeFormFooter";
+import SubscribeForm from "./subscribeform-footer";
 
 export default function Footer() {
   const router = useRouter();

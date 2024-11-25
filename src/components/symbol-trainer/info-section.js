@@ -1,6 +1,5 @@
-import React from "react";
 
-export default function InfoSection({ section }) {
+export default function InfoSection() {
   return (
     <section
       id="info"

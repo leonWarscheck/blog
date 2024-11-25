@@ -1,7 +1,4 @@
-import React from "react";
-
 export default function MenuTrainer({ setSection, section, levelId, scores }) {
-  
   const handleLevelToggle = () => {
     if (section === "levelSection") {
       setSection("trainerSection");
@@ -41,7 +38,6 @@ export default function MenuTrainer({ setSection, section, levelId, scores }) {
             {levelId.toString().length === 1
               ? levelId.toString().padStart(2, "0")
               : levelId}
-            {/* {levelId}  */}
             &nbsp;/&nbsp;
             {scores[levelId]?.wpm.toString().length === 1
               ? scores[levelId]?.wpm.toString().padStart(2, "0")

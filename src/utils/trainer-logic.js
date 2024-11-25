@@ -37,16 +37,14 @@ export function checkWin(
     setTimeout(() => {
       setInputString("");
       setTrainerState("ready");
-      
+
       setTimeout(() => {
         inputRef.current.focus();
       }, 100);
     }, 3000);
-    
   }
-  
+
   for (let i = 0; i < inputString.length; i++) {
-    // console.log("inputCharLoop:", inputString[i]);
     if (i > levelString.length || inputString[i] !== levelString[i]) {
       setTrainerState("fail");
       inputRef.current.blur();
@@ -109,23 +107,6 @@ export function saveLastBackupDate(scores, setScores) {
   });
 
   localStorage.setItem("scores", JSON.stringify(modifiedScores));
-  setScores(modifiedScores); //! can I really leave this out?
-}
-
-
-export function notNewUser( scores, setScores){
-  const modifiedScores = scores.map((level) => {
-    if (level.id === 0) {
-      return {
-        ...level,
-        newUser: false,
-      };
-    } else {
-      return { ...level };
-    }
-  });
-
-  localStorage.setItem("scores", JSON.stringify(modifiedScores));
   setScores(modifiedScores);
 }
 
@@ -156,7 +137,7 @@ export function importBackup(event, setMessage) {
       const data = JSON.parse(e.target.result);
       localStorage.setItem("scores", JSON.stringify(data));
       setMessage("Import Successful.");
-      // todo: update score state to trigger rerender of levelSection
+      // TODO: update of score state via import should trigger rerender of levelSection
     } catch (error) {
       console.error("Invalid JSON file", error);
       setMessage("Import Error:", error);
@@ -171,8 +152,8 @@ export function importBackup(event, setMessage) {
 export function calcBackupDifference(scores) {
   const now = new Date();
   const lastBackupDate = new Date(scores[0]?.lastBackup);
-  const differenceInHours = Math.round((now - lastBackupDate) / (1000 * 60 * 60));
-  return differenceInHours
+  const differenceInHours = Math.round(
+    (now - lastBackupDate) / (1000 * 60 * 60)
+  );
+  return differenceInHours;
 }
-
-

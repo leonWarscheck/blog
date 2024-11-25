@@ -1,9 +1,6 @@
-import Footer from "./Footer";
-import Header from "./Header";
-import "../utils/vimScroll";
-// import { Open_Sans } from 'next/font/google'
-
-// const myFont = Open_Sans({ subsets: ['latin'] })
+import Footer from "./footer";
+import Header from "./header";
+import "../utils/vim-scroll";
 
 import localFont from "next/font/local";
 
