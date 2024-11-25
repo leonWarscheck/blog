@@ -3,12 +3,10 @@ import TrainerSection from "../components/symbol-trainer/trainer-section";
 import LevelSection from "../components/symbol-trainer/level-section";
 import InfoSection from "../components/symbol-trainer/info-section";
 import IntroSection from "../components/symbol-trainer/intro-section";
-import InfoHint from "../components/symbol-trainer/info-hint";
 import SaveSection from "../components/symbol-trainer/save-section";
 import MenuTrainer from "../components/symbol-trainer/menu-trainer";
 import ResponsiveNote from "../components/symbol-trainer/responsive-note";
 import scoresTemplate from "../data/scores-template.json";
-import { notNewUser } from "../utils/trainer-logic";
 
 export default function TypeSymbols() {
   const [section, setSection] = useState("introSection");
@@ -50,7 +48,6 @@ export default function TypeSymbols() {
       )}
       {section === "infoSection" && <InfoSection />}
       {section === "introSection" && <IntroSection {...{setSection}}/>}
-      {section === "infoHint" && <InfoHint />}
 
 
       {section === "saveSection" && <SaveSection {...{scores, setScores}} />}
