@@ -1,4 +1,4 @@
-import Layout from "../components/layout";
+import Layout from "../components/layout.js";
 import "../styles/globals.css";
 import "../styles/overpass-mono.css"
 import Head from "next/head";
