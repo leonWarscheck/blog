@@ -1,5 +1,5 @@
-import Footer from "./footer";
-import Header from "./header";
+import Footer from "./footter";
+import Header from "./heaader";
 import "../utils/vim-scroll";
 
 import localFont from "next/font/local";
