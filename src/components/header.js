@@ -48,8 +48,8 @@ export default function Header({}) {
   };
 
   return (
-    <header className={`h-20 bg-neutral-700 items-center flex fixed w-full ${router.route.startsWith('/posts') ?"text-neutral-200": "text-neutral-200"} ${router.asPath === "/symbol-trainer" && "text-neutral-500"} `} >
-      <nav className="max-w-2xl pt-6 mx-auto flex flex-grow items-center px-4">
+    <header className={`h-20  bg-neutral-700 items-center flex fixed w-full ${router.route.startsWith('/posts') ?"text-neutral-200": "text-neutral-200"} ${router.asPath === "/symbol-trainer" && "text-neutral-500"} `} >
+      <nav className="max-w-2xl pt-6 mx-auto flex flex-grow  items-center px-4">
         <Link
           className=" absolute bottom- [25px] c3 font-semibold text-2xl hover:text-neutral-200  "
           href="/"
@@ -57,7 +57,7 @@ export default function Header({}) {
         >
           <h1 className="">LeonAndersen</h1>
         </Link>
-        <ul className="hidden -mb-1.5 c1:flex gap-x-4 ml-auto    font-medium [470]">
+        <ul className="hidde -mb-1.5 c1: flex gap-x-4 ml-auto    font-medium [470]">
           <li>
             <Link
               className="text- base sm xl text-orange- 500  hover:text-neutral-200 "
@@ -89,11 +89,11 @@ export default function Header({}) {
             )}
           </li> */}
         </ul>
-        <Menu
+        {/* <Menu
           handleMenuToggle2={handleMenuToggle}
           menuOpen={menuOpen}
           handleMenuClose={handleMenuClose}
-        />
+        /> */}
       </nav>
     </header>
   );
