@@ -98,7 +98,7 @@ export default function TrainerSection({
   return (
     <section
       id="trainer"
-      className={`flex flex-col grow max-w-2xl mx-auto w-full px-4 mt- 20  `}
+      className={`flex flex-col grow max-w-2xl mx-auto w-full px-4 mt- 20 `}
     >
       <div className=" relative font-mono flex mx-auto my-auto text-left text-lg overflow-hidden">
         <div className="">
@@ -107,7 +107,7 @@ export default function TrainerSection({
             type="text"
             value={inputString}
             onChange={(e) => setInputString(e.target.value)}
-            className={`absolute z-10 whitespace-pr   opacity-  tracking-widerer my-auto focus:outline-none bg-transparent w-full
+            className={`absolute whitespace-pr   opacity- z-10 tracking-widerer my-auto focus:outline-none bg-transparent w-full
                 ${
                   trainerState !== "fail" &&
                   (scores[levelId]?.wpm >= 60
@@ -127,7 +127,7 @@ export default function TrainerSection({
           />
           <p
             id="bg curtain between"
-            className="absolute z-10 inset- text-neutral-700 tracking-widerer whitespace-pr  bg-neutral-700 pointer-events-none  "
+            className="absolute inset- text-neutral-700 tracking-widerer whitespace-pr  bg-neutral-700 pointer-events-none  "
           >
             {inputString}
           </p>
