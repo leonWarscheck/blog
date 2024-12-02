@@ -21,12 +21,12 @@ export default function AboutPage() {
   return (
     <main className="max-w-2xl mx-auto pt-32 mt-0.5 pb-12 px-4 grow ">
       <Head>
-        <title>About Leon Andersen</title>
+        <title>About Leon Warscheck</title>
       </Head>
 
       <section>
         <p className="text- lg mb- text- balance c1:textjustify pb-">
-          <span className="font- semibold">Leon Andersen</span> is a Fullstack
+          <span className="font- semibold">Leon Warscheck</span> is a Fullstack
           JavaScript Developer at ReactSquad. <br />
           <br />
           After studying audio engineering he discovered his passion for
@@ -52,7 +52,7 @@ export default function AboutPage() {
                   : " hover:border-emerald-la hover:text-emerald-la"
               }`}
             >
-              <a href="https://github.com/leonAndersen" className="">
+              <a href="https://github.com/leonWarscheck" className="">
                 Github
               </a>
             </h2>
@@ -69,7 +69,7 @@ export default function AboutPage() {
                   : " hover:border-emerald-la hover:text-emerald-la"
               }`}
             >
-              <a href="mailto:leon.andersen@protonmail.com" className="">
+              <a href="mailto:leon.warscheck@outlook.com" className="">
                 Email
               </a>
             </h2>

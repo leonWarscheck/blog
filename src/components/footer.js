@@ -15,7 +15,7 @@ export default function Footer() {
     setShowSubscription(false);
   };
   return (
-    <footer className={` bg-neutral-700 text-neutral-300 h-8 ${(router.asPath === "/symbol-trainer-redux" || "/symbol-trainer") && "hidden"} `}>
+    <footer className={` bg-neutral-700 text-neutral-300 h-8 ${(router.asPath ===  "/symbol-trainer" || router.asPath === "/symbol-trainer-redux" ) && "hidden"} `}>
       <nav className="c1:hidden max-w-2xl mx-auto px-4 flex grow items-center h-full">
         <ul className="flex">
           <li className="flex items-center">
@@ -27,7 +27,7 @@ export default function Footer() {
       </nav>
       <nav className="hidden c1:flex grow max-w-2xl mx-auto px-4  items-center h-full ">
         <Link className="text-sm  hover:text-neutral-400" href="/">
-          <h1>LeonAndersen</h1>
+          <h1>LeonWarscheck</h1>
         </Link>
         <ul className="hidden c1:flex space-x-4  ml-auto ">
           <li className="flex items-center">

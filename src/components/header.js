@@ -48,14 +48,16 @@ export default function Header({}) {
   };
 
   return (
-    <header className={`h-20  bg-neutral-700 items-center flex fixed w-full ${router.route.startsWith('/posts') ?"text-neutral-200": "text-neutral-200"} ${(router.asPath === "/symbol-trainer"|| "/symbol-trainer-redux" )&& "text-neutral-500"} `} >
+    <header className={`h-20  bg-neutral-700 items-center flex fixed w-full ${router.route.startsWith('/posts') ?"text-neutral-200": "text-neutral-200"} 
+    ${(router.asPath === "/symbol-trainer" || router.asPath === "/symbol-trainer-redux") && "text-neutral-500"}
+ `} >
       <nav className="max-w-2xl pt-6 mx-auto flex flex-grow  items-center px-4">
         <Link
           className=" absolute bottom- [25px] c3 font-semibold text-2xl hover:text-neutral-200  "
           href="/"
           onClick={handleMenuClose}
         >
-          <h1 className="">LeonAndersen</h1>
+          <h1 className="">LeonWarscheck</h1>
         </Link>
         <ul className="hidde -mb-1.5 c1: flex gap-x-4 ml-auto    font-medium [470]">
           <li>

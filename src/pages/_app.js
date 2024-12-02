@@ -8,7 +8,7 @@ export default function MyApp({ Component, pageProps }) {
     // <>
       <Layout>
         <Head>
-          <title>LeonAndersen</title>
+          <title>LeonWarscheck</title>
         </Head>
           <Component {...pageProps} />
       </Layout>

@@ -76,7 +76,7 @@ Except for some basic CSS overview, I had almost zero experience with it before 
 
 For the harder part of styling - positioning and responsive design - I also
 wrote intructions later in this article. Additionally you can find all
-_tailwind-classes_ that I used in my [source code](https://github.com/leonAndersen/blog) on Github.
+_tailwind-classes_ that I used in my [source code](https://github.com/leonWarscheck/blog) on Github.
 
 If you are new to to *Github/* version control: Work through [this](https://youtu.be/ulQA5tjJark?si=ZhyJQfluX-rneEbr) Git Crash Course. And make sure to read through *[conventional commits](https://www.conventionalcommits.org/en/v1.0.0/)*.
 
@@ -357,7 +357,7 @@ return (
     <header className="..."> // reminder: you can find all tailwind-classes in my source code on github. I leave them out of all code examples for focus.
       <nav> // "navbar" often gets used synonymously with "header", but it's just one of headers possible childs. wrap it.
         <Link href="/"> // common practice: distinguish the main logo from the rest of the navigation links           
-          <h1>LeonAndersen</h1>
+          <h1>LeonWarscheck</h1>
         </Link>
         <ul> // wrap the other navigation items into a ul
           <li>
@@ -388,7 +388,7 @@ export default function Footer (){
     <footer>
         <nav> // eventhough navbar is mostly associated with the header, navigation links in the footer are also usually a navbar
           <Link href="/">
-            <h1>LeonAndersen</h1>
+            <h1>LeonWarscheck</h1>
           </Link>
           <ul>
             <li> // instead of "About", I link to the Imprint page (obligation in germany)
@@ -457,7 +457,7 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <Layout>
       <Head> // set the default browsertab title
-        <title>LeonAndersen</title>
+        <title>LeonWarscheck</title>
       </Head>
         <Component {...pageProps} /> // this is where the individual pages and their props "dock into" the app
     </Layout>
@@ -695,7 +695,7 @@ export default function Header({}){
             href="/"
             onClick={handleMenuClose} // Main logo button closing the menu to reveal the homepage.
           >
-            <h1>LeonAndersen</h1>
+            <h1>LeonWarscheck</h1>
           </Link>
           <ul> // Does not show on smaller screens, Menu component main button shows instead.
             <li> 
@@ -925,7 +925,7 @@ Here is a list of all the references mentioned throughout the article:
 - [Webdeveloper Bootcamp by Colt Steele](https://www.udemy.com/course/the-web-developer-bootcamp/)
 - [TailwindCSS Crash Course by Code with Guillaume](https://youtu.be/ft30zcMlFao?si=U1WJGAnrofYRtGtk)
 - [TailwindCSS Docs](https://www.tailwindcss.com)
-- [LeonAndersen.com Source Code on Github](https://github.com/leonAndersen/blog)
+- [LeonWarscheck.com Source Code on Github](https://github.com/leonWarscheck/blog)
 - [Github Crashcourse by Academind](https://youtu.be/ulQA5tjJark?si=ZhyJQfluX-rneEbr) 
 - [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 - [Accessibility in React - MDN Article](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks/React_accessibility)
