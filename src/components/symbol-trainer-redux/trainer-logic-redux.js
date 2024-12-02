@@ -1,3 +1,40 @@
+export function checkWin(
+  inputString,
+  levelString,
+  setInputString,
+  setTrainerState,
+  inputRef
+) {
+  if (inputString === levelString) {
+    setTrainerState("win");
+    inputRef.current.blur();
+    console.log("programmatic .blur() on win");
+    setTimeout(() => {
+      setInputString("");
+      setTrainerState("ready");
+
+      setTimeout(() => {
+        inputRef.current.focus();
+      }, 100);
+    }, 3000);
+  }
+
+  for (let i = 0; i < inputString.length; i++) {
+    if (i > levelString.length || inputString[i] !== levelString[i]) {
+      setTrainerState("fail");
+      inputRef.current.blur();
+      setTimeout(() => {
+        setInputString("");
+        setTrainerState("ready");
+        setTimeout(() => {
+          inputRef.current.focus();
+        }, 100);
+      }, 1000);
+    }
+  }
+}
+
+
 export function checkSpeed(
   inputString,
   levelString,
@@ -24,63 +61,6 @@ export function checkSpeed(
 }
 
 
-export function checkSpeedClean(
-  inputString,
-  levelString,
-  setStartTime,
-  startTime,
-  setWpm
-) {
-  if (inputString.length === 1) {
-    setStartTime(new Date());
-  }
-
-  if (inputString === levelString) {
-    const endTime = new Date();
-    const winTime = endTime - startTime;
-    const wordsPerString = levelString.length / 5;
-    const winTimesPerMinuteRatio = 60000 / winTime;
-    const wpm = Math.round(wordsPerString * winTimesPerMinuteRatio);
-    setWpm(wpm);
-  }
-}
-
-
-export function checkWin(
-  inputString,
-  levelString,
-  setInputString,
-  setTrainerState,
-  inputRef
-) {
-  if (inputString === levelString) {
-    setTrainerState("win");
-    inputRef.current.blur();
-    setTimeout(() => {
-      setInputString("");
-      setTrainerState("ready");
-
-      setTimeout(() => {
-        inputRef.current.focus();
-      }, 100);
-    }, 3000);
-  }
-
-  for (let i = 0; i < inputString.length; i++) {
-    if (i > levelString.length || inputString[i] !== levelString[i]) {
-      setTrainerState("fail");
-      inputRef.current.blur();
-      setTimeout(() => {
-        setInputString("");
-        setTrainerState("ready");
-        setTimeout(() => {
-          inputRef.current.focus();
-        }, 100);
-      }, 1000);
-    }
-  }
-}
-
 export function saveScore(wpm, levelId, scores, setScores) {
   const latestScore = scores[levelId]?.wpm;
   if (wpm > latestScore) {
@@ -100,7 +80,7 @@ export function saveScore(wpm, levelId, scores, setScores) {
   }
 }
 
-export function saveLastLevel(levelId, scores, setScores) {
+export function saveLastLevel(levelId, scores, dispatch) {
   const modifiedScores = scores.map((level) => {
     if (level.id === 0) {
       return {
@@ -113,7 +93,7 @@ export function saveLastLevel(levelId, scores, setScores) {
   });
 
   localStorage.setItem("scores", JSON.stringify(modifiedScores));
-  setScores(modifiedScores);
+  dispatch({type:"setScores", modifiedScores})
 }
 
 export function saveLastBackupDate(scores, setScores) {

@@ -16,6 +16,7 @@ export default function TypeSymbols() {
   useEffect(() => {
     let fetchedScores = localStorage.getItem("scores");
     let parsedScores;
+    
 
     if (!fetchedScores) {
       // initialize storage

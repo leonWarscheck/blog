@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
           window.scrollBy(0, 50); 
         } else if (event.key === "k") {
           window.scrollBy(0, -50);
-          // TODO: fix sideways scroll
+          // TODO: fix or delete sideways scroll
         } else if (event.key === "l" || event.key === "h") {
           const scrollStep = 50; 
           preElementsInView.forEach((pre) => {

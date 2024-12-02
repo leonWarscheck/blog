@@ -69,17 +69,9 @@ export default function Header({}) {
           <li>
               <Link
                 className="text-  hover:text-neutral-200"
-                href="/symbol-trainer-redux"
-              >
-                Tools
-              </Link>
-            </li>
-          <li>
-              <Link
-                className="text-  hover:text-neutral-200"
                 href="/symbol-trainer"
               >
-                Tools2
+                Tools
               </Link>
             </li>
           {/* <li className=" flex items-center relative">

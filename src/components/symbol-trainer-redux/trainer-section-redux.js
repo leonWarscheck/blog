@@ -1,128 +1,63 @@
-import React, { useEffect, useRef, useState } from "react";
-import levels from "../../data/levels.json";
+import { useContext, useEffect, useRef, useState } from "react";
+{/** todo
+ - sagas?:
+ -- calc wpm set highscore on win handler
+ -- reset differently based on isWin/ isFail state
+
+ -- display wpm not based on isWin state, how?
+ -- autofocus always no matter where clicked
+
+ -- changeLevelId shortcut handler => custom Hook
+  */}
+
 import {
-  checkWin,
-  checkSpeed,
-  saveScore,
-  saveLastLevel,
-} from "../../utils/trainer-logic";
+  inputStringChanged,
+  levelIdChanged,
+  selectLevelString,
+  selectInputString,
+  selectIsWin,
+  selectIsFail,
+  selectCurrentLevelHighScore,
+  selectTrainerColorClasses,
+  selectCurrentWpm,
 
-export default function TrainerSection({
-  setLevelId,
-  levelId,
-  scores,
-  setScores,
-}) {
-  const [inputString, setInputString] = useState("");
-  const [levelString, setLevelString] = useState(null);
-  const [trainerState, setTrainerState] = useState("");
-  const [startTime, setStartTime] = useState(null);
-  const [endTime, setEndTime] = useState(null);
-  const [wpm, setWpm] = useState(null);
+
+} from "./reducer";
+import { SymbolTrainerContext } from "../../pages/symbol-trainer-redux";
+
+export default function TrainerSection() {
+  const { state, dispatch } = useContext(SymbolTrainerContext);
   const inputRef = useRef(null);
+  const levelString = selectLevelString(state)
+  const inputString = selectInputString(state)
+  const isWin = selectIsWin(state)
+  const isFail = selectIsFail(state)
+  const trainerColorClasses = selectTrainerColorClasses(state)
+  const currentWpm = selectCurrentWpm(state) || null
 
-  // level setup and re-entrypoint save
-  useEffect(() => {
-    setLevelString(levels[levelId].string);
-    saveLastLevel(levelId, scores, setScores);
-  }, [levelId]);
-
-  // always focused (except during win/fail-resets)
-  useEffect(() => {
-    const handleClick = () => {
-      if (inputRef.current) {
-        inputRef.current.focus();
-      }
-    };
-
-    document.addEventListener("click", handleClick);
-
-    return () => document.removeEventListener("click", handleClick);
-  }, []);
-
-  // main typing check logic
-  useEffect(() => {
-    checkWin(
-      inputString,
-      levelString,
-      setInputString,
-      setTrainerState,
-      inputRef
-    );
-    checkSpeed(
-      inputString,
-      levelString,
-      trainerState,
-      setStartTime,
-      setEndTime,
-      startTime,
-      endTime,
-      setWpm
-    );
-  }, [inputString]);
-
-  // save wpm score to localStorage (wpm set by checkWin & checkspeed)
-  useEffect(() => {
-    saveScore(wpm, levelId, scores, setScores);
-  }, [wpm]);
-
-  // change level shortcut
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (
-        (event.metaKey || event.ctrlKey) &&
-        event.key === "k" &&
-        levelId >= 2
-      ) {
-        console.log("levelId:", levelId);
-        const previousLevel = levelId - 1;
-        setLevelId(previousLevel);
-      } else if (
-        (event.metaKey || event.ctrlKey) &&
-        event.key === "j" &&
-        levelId <= scores.length - 2
-      ) {
-        console.log("levelId:", levelId);
-        const nextLevel = levelId + 1;
-        setLevelId(nextLevel);
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [levelId]);
+  const handleBlur = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
 
   return (
     <section
       id="trainer"
-      className={`flex flex-col grow max-w-2xl mx-auto w-full px-4 mt- 20 `}
+      className={`flex flex-col grow max-w-2xl mx-auto w-full px-4 mt- 20 relativ`}
     >
-      <div className=" relative font-mono flex mx-auto my-auto text-left text-lg overflow-hidden">
+      <div className="relative pl- 10 font-mono flex mx-auto my-auto text-left text-lg overflow-hidden">
         <div className="">
           <input
+          autoFocus={true}
+          onBlur={handleBlur}
+          disabled={isWin || isFail}
             ref={inputRef}
             type="text"
             value={inputString}
-            onChange={(e) => setInputString(e.target.value)}
+            onChange={(e) => dispatch(inputStringChanged(e.target.value))}
             className={`absolute whitespace-pr   opacity- z-10 tracking-widerer my-auto focus:outline-none bg-transparent w-full
-                ${
-                  trainerState !== "fail" &&
-                  (scores[levelId]?.wpm >= 60
-                    ? "caret-neutral-200 text-neutral-200"
-                    : scores[levelId]?.wpm >= 50
-                    ? "caret-emerald-la text-emerald-la"
-                    : scores[levelId]?.wpm >= 40
-                    ? "caret-yellow-la text-yellow-la"
-                    : scores[levelId]?.wpm >= 30
-                    ? "caret-violet-500 text-violet-500"
-                    : scores[levelId]?.wpm >= 20
-                    ? "caret-red-500 text-red-500"
-                    : "caret-neutral-200 text-neutral-200")
-                } ${trainerState === "fail" ? "text-neutral-400" : ""} 
-                
+              ${trainerColorClasses}
               `}
           />
           <p
@@ -139,25 +74,15 @@ export default function TrainerSection({
           {levelString}
         </p>
         <p
-          className={` ${
-            trainerState === "win" ? "block" : "invisible"
-          } ml-4  min-w-6
+          className={`ml-4  min-w-6
         ${
-          scores[levelId]?.wpm >= 60
-            ? " text-neutral-200"
-            : scores[levelId]?.wpm >= 50
-            ? "text-emerald-la"
-            : scores[levelId]?.wpm >= 40
-            ? "text-yellow-la"
-            : scores[levelId]?.wpm >= 30
-            ? "text-violet-500"
-            : scores[levelId]?.wpm >= 20
-            ? "text-red-500"
-            : " text-neutral-200"
+          (isWin ? "block" : "invisible") +
+          " " +
+          trainerColorClasses
         }
         `}
         >
-          {wpm}
+          {currentWpm}
         </p>
       </div>
     </section>

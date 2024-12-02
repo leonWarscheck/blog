@@ -1,56 +1,37 @@
-import React, { useEffect, useState } from "react";
+import { useContext, createContext, useReducer } from "react";
+import {
+  selectSection,
+  initialState,
+  symbolTrainerReducer,
+  useSagaReducer,
+} from "../components/symbol-trainer-redux/reducer";
+import { rootSaga } from "../components/symbol-trainer-redux/sagas";
 import TrainerSection from "../components/symbol-trainer-redux/trainer-section-redux";
 import LevelSection from "../components/symbol-trainer-redux/level-section-redux";
-import InfoSection from "../components/symbol-trainer-redux/info-section-redux";
+import HelpSection from "../components/symbol-trainer-redux/help-section-redux";
 import IntroSection from "../components/symbol-trainer-redux/intro-section-redux";
 import SaveSection from "../components/symbol-trainer-redux/save-section-redux";
 import MenuTrainer from "../components/symbol-trainer-redux/trainer-menu-redux";
 import ResponsiveNote from "../components/symbol-trainer-redux/responsive-note-redux";
-import scoresTemplate from "../data/scores-template.json";
 
-export default function TypeSymbols() {
-  const [section, setSection] = useState("introSection");
-  const [scores, setScores] = useState([]);
-  const [levelId, setLevelId] = useState(0);
+export const SymbolTrainerContext = createContext(null);
 
-  useEffect(() => {
-    let fetchedScores = localStorage.getItem("scores");
-    let parsedScores;
+export default function TrainerPage() {
+  const {state, dispatch} = useSagaReducer(rootSaga, symbolTrainerReducer, initialState);
 
-    if (!fetchedScores) {
-      // initialize storage
-      localStorage.setItem("scores", JSON.stringify(scoresTemplate));
-      fetchedScores = localStorage.getItem("scores");
-
-      parsedScores = JSON.parse(fetchedScores);
-      setScores(parsedScores);
-    } else {
-      // trigger sync of storage to scores state
-      parsedScores = JSON.parse(fetchedScores);
-      setScores(parsedScores);
-    }
-  }, []);
-
-  useEffect(() => {
-    const lastLevel = scores[0]?.lastLevel || 1;
-    setLevelId(lastLevel);
-  }, [scores]);
+  const section = selectSection(state);
 
   return (
-    <main className="min-h-dv grow flex flex-col bg-neutral-700 ">
-      {section === "trainerSection" && (
-        <TrainerSection {...{ setLevelId, levelId, scores, setScores }} />
-      )}
-      {section === "levelSection" && (
-        <LevelSection {...{ setSection, setLevelId, scores, setScores }} />
-      )}
-      {section === "infoSection" && <InfoSection />}
-      {section === "introSection" && <IntroSection {...{ setSection }} />}
-
-      {section === "saveSection" && <SaveSection {...{ scores, setScores }} />}
-
-      <MenuTrainer {...{ setSection, section, levelId, scores }} />
-      <ResponsiveNote />
-    </main>
+    <SymbolTrainerContext.Provider value={{ state, dispatch }}>
+      <main className="min-h-dv grow flex flex-col bg-neutral-700 ">
+        {section === "trainerSection" && <TrainerSection />}
+        {/* {state.section === "levelSection" && <LevelSection />} */}
+        {section === "helpSection" && <HelpSection />}
+        {section === "introSection" && <IntroSection />}
+        {/* {state.section === "saveSection" && <SaveSection />} */}
+        {/* <MenuTrainer /> */}
+        {/* <ResponsiveNote /> */}
+      </main>
+    </SymbolTrainerContext.Provider>
   );
 }

@@ -19,6 +19,9 @@ export default function TrainerSection({
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
   const [wpm, setWpm] = useState(null);
+  const [trainerColorClasses, setTrainerColorClasses] = useState(
+    "caret-neutral-200 text-neutral-200"
+  );
   const inputRef = useRef(null);
 
   // level setup and re-entrypoint save
@@ -66,6 +69,32 @@ export default function TrainerSection({
     saveScore(wpm, levelId, scores, setScores);
   }, [wpm]);
 
+  useEffect(() => {
+    if (trainerState !== "fail") {
+      const trainerColor =
+        scores[levelId]?.wpm >= 60
+          ? "neutral-200"
+          : scores[levelId]?.wpm >= 50
+          ? "emerald-la"
+          : scores[levelId]?.wpm >= 40
+          ? "yellow-la"
+          : scores[levelId]?.wpm >= 30
+          ? "violet-500"
+          : scores[levelId]?.wpm >= 20
+          ? "red-500 "
+          : "neutral-200";
+      if (trainerState === "win") {
+        setTrainerColorClasses("text-" + trainerColor);
+      } else {
+        setTrainerColorClasses(
+          "text-" + trainerColor + " caret-" + trainerColor
+        );
+      }
+    } else {
+      setTrainerColorClasses("text-neutral-400");
+    }
+  }, [scores[levelId], trainerState]);
+
   // change level shortcut
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -76,7 +105,7 @@ export default function TrainerSection({
       ) {
         console.log("levelId:", levelId);
         const previousLevel = levelId - 1;
-        setLevelId(previousLevel);
+        setLevelId(previousLevel); //check rest in reducer
       } else if (
         (event.metaKey || event.ctrlKey) &&
         event.key === "j" &&
@@ -98,9 +127,9 @@ export default function TrainerSection({
   return (
     <section
       id="trainer"
-      className={`flex flex-col grow max-w-2xl mx-auto w-full px-4 mt- 20 `}
+      className={`flex flex-col grow max-w-2xl mx-auto w-full px-4 mt- 20 relativ `}
     >
-      <div className=" relative font-mono flex mx-auto my-auto text-left text-lg overflow-hidden">
+      <div className=" relative font-mono flex pl- 10  mx-auto my-auto text-left text-lg overflow-hidden">
         <div className="">
           <input
             ref={inputRef}
@@ -108,22 +137,8 @@ export default function TrainerSection({
             value={inputString}
             onChange={(e) => setInputString(e.target.value)}
             className={`absolute whitespace-pr   opacity- z-10 tracking-widerer my-auto focus:outline-none bg-transparent w-full
-                ${
-                  trainerState !== "fail" &&
-                  (scores[levelId]?.wpm >= 60
-                    ? "caret-neutral-200 text-neutral-200"
-                    : scores[levelId]?.wpm >= 50
-                    ? "caret-emerald-la text-emerald-la"
-                    : scores[levelId]?.wpm >= 40
-                    ? "caret-yellow-la text-yellow-la"
-                    : scores[levelId]?.wpm >= 30
-                    ? "caret-violet-500 text-violet-500"
-                    : scores[levelId]?.wpm >= 20
-                    ? "caret-red-500 text-red-500"
-                    : "caret-neutral-200 text-neutral-200")
-                } ${trainerState === "fail" ? "text-neutral-400" : ""} 
-                
-              `}
+                ${trainerColorClasses}
+                `}
           />
           <p
             id="bg curtain between"
@@ -139,22 +154,11 @@ export default function TrainerSection({
           {levelString}
         </p>
         <p
-          className={` ${
-            trainerState === "win" ? "block" : "invisible"
-          } ml-4  min-w-6
-        ${
-          scores[levelId]?.wpm >= 60
-            ? " text-neutral-200"
-            : scores[levelId]?.wpm >= 50
-            ? "text-emerald-la"
-            : scores[levelId]?.wpm >= 40
-            ? "text-yellow-la"
-            : scores[levelId]?.wpm >= 30
-            ? "text-violet-500"
-            : scores[levelId]?.wpm >= 20
-            ? "text-red-500"
-            : " text-neutral-200"
-        }
+          className={`ml-4  min-w-6 ${
+            (trainerState === "win" ? "block" : "invisible") +
+            " " +
+            trainerColorClasses
+          }
         `}
         >
           {wpm}

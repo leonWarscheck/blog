@@ -1,5 +1,5 @@
 
-export default function InfoSection() {
+export default function HelpSection() {
   return (
     <section
       id="info"
