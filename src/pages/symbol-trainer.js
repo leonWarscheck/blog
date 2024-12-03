@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Head from "next/head";
 import TrainerSection from "../components/symbol-trainer/trainer-section";
 import LevelSection from "../components/symbol-trainer/level-section";
 import InfoSection from "../components/symbol-trainer/info-section";
@@ -39,6 +40,9 @@ export default function TypeSymbols() {
 
   return (
     <main className="min-h-dv grow flex flex-col bg-neutral-700 ">
+       <Head>
+        <title>SymbolTrainer</title>
+      </Head>
       {section === "trainerSection" && (
         <TrainerSection {...{ setLevelId, levelId, scores, setScores }} />
       )}

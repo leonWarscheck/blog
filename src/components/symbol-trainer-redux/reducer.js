@@ -67,7 +67,7 @@ export const selectIsWin = (state) =>
   selectLevelString(state) === selectInputString(state);
 export const selectIsFail = (state) => {
 
-  for (let i = 0; i < inputString.length; i++) {
+  for (let i = 0; i < selectInputString(state).length; i++) {
     if (i >= selectLevelString(state).length || selectInputString(state)[i] !== selectLevelString(state)[i]) {
       return true; 
     }
@@ -78,7 +78,7 @@ export const selectIsFail = (state) => {
 
 export const selectHighScores = () => JSON.parse(localStorage.getItem("highScores"));
 export const selectCurrentLevelHighScore = (state) =>
-  selectHighScores(state)?.[selectLevelId(state)] || 0;
+  selectHighScores(state)[selectLevelId(state)] || 0;
 
 export const selectTrainerColorClasses = (state) => {
   if (!selectIsFail(state)) {

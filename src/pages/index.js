@@ -1,9 +1,10 @@
 import Link from "next/link";
 import Date from "../components/date";
+import Head from "next/head";
 import { getFeedData } from "../utils/get-feed-data";
 
-export async function getStaticProps() {
-  const feedData = await getFeedData();
+export function getStaticProps() {
+  const feedData = getFeedData();
   return {
     props: {
       feedData,
@@ -21,6 +22,9 @@ export default function HomeFeed({ feedData }) {
 
   return (
     <main className="grow max-w-2xl pt-32 mt-0.5 mx-auto px-4 min-h-dvh ">
+       <Head>
+        <title>A Blog by LeonWarscheck</title>
+      </Head>
       <ul>
         {feedData.map(({ slug, date, readingTime, title, preview }, index) => (
           <li className="mb-16 group" key={slug}>

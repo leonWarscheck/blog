@@ -21,7 +21,7 @@ export default function AboutPage() {
   return (
     <main className="max-w-2xl mx-auto pt-32 mt-0.5 pb-12 px-4 grow ">
       <Head>
-        <title>About Leon Warscheck</title>
+        <title>About LeonWarscheck</title>
       </Head>
 
       <section>
@@ -83,7 +83,7 @@ export default function AboutPage() {
         </ul>
         <hr className="mt-6" />
         <h3 className="italic text- sm lg mt-2 font-light ">
-          "Creative power is head and heart working together."
+          "True creative power is head and heart working together."
         </h3>
       </section>
     </main>

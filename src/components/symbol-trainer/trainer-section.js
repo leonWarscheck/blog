@@ -100,7 +100,7 @@ export default function TrainerSection({
     const handleKeyDown = (event) => {
       if (
         (event.metaKey || event.ctrlKey) &&
-        event.key === "k" &&
+        event.key === "ArrowUp" &&
         levelId >= 2
       ) {
         console.log("levelId:", levelId);
@@ -108,7 +108,7 @@ export default function TrainerSection({
         setLevelId(previousLevel); //check rest in reducer
       } else if (
         (event.metaKey || event.ctrlKey) &&
-        event.key === "j" &&
+        event.key === "ArrowDown" &&
         levelId <= scores.length - 2
       ) {
         console.log("levelId:", levelId);
@@ -127,22 +127,22 @@ export default function TrainerSection({
   return (
     <section
       id="trainer"
-      className={`flex flex-col grow max-w-2xl mx-auto w-full px-4 mt- 20 relativ `}
+      className={`flex flex-col grow max-w-2xl mx-auto w-full px-4`}
     >
-      <div className=" relative font-mono flex pl- 10  mx-auto my-auto text-left text-lg overflow-hidden">
+      <div className=" relative font-mono flex mx-auto my-auto text-left text-lg overflow-hidden">
         <div className="">
           <input
             ref={inputRef}
             type="text"
             value={inputString}
             onChange={(e) => setInputString(e.target.value)}
-            className={`absolute whitespace-pr   opacity- z-10 tracking-widerer my-auto focus:outline-none bg-transparent w-full
+            className={`absolute whitespace-pr z-10 tracking-widerer my-auto focus:outline-none bg-transparent w-full
                 ${trainerColorClasses}
                 `}
           />
           <p
             id="bg curtain between"
-            className="absolute inset- text-neutral-700 tracking-widerer whitespace-pr  bg-neutral-700 pointer-events-none  "
+            className="absolute text-neutral-700 tracking-widerer whitespace-pr  bg-neutral-700 pointer-events-none  "
           >
             {inputString}
           </p>

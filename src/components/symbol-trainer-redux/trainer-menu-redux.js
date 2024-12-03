@@ -1,8 +1,14 @@
 import { useContext } from "react";
-import { TrainerPageContext } from "../../pages/symbol-trainer-redux"
+import { SymbolTrainerContext} from "../../pages/symbol-trainer-redux"
+import { selectCurrentLevelHighScore, selectHighScores, selectLevelId } from "./reducer";
 
 export default function MenuTrainer() {
-  const {state, dispatch} = useContext(TrainerPageContext);
+  const {state, dispatch} = useContext(SymbolTrainerContext);
+
+  const highScore = 1
+  // selectCurrentLevelHighScore(state);  
+// const highScores = selectHighScores(state);
+ const levelId = selectLevelId(state)
   
   const handleLevelToggle = () => {
     if (section === "levelSection") {
@@ -40,13 +46,13 @@ export default function MenuTrainer() {
         <li className="ml-auto mr-4 hover:text-neutral-200 mt-px font-medium">
           <button onClick={handleLevelToggle}>
             Level&nbsp;
-            {state.levelId.toString().length === 1
-              ? state.levelId.toString().padStart(2, "0")
-              : state.levelId}
+            {levelId.toString().length === 1
+              ? levelId.toString().padStart(2, "0")
+              : levelId}
             &nbsp;/&nbsp;
-            {state.scores[state.levelId]?.wpm.toString().length === 1
-              ? state.scores[state.levelId]?.wpm.toString().padStart(2, "0")
-              : state.scores[state.levelId]?.wpm}
+            {highScore.toString().length === 1
+              ? highScore.toString().padStart(2, "0")
+              : highScore}
           </button>
         </li>
         <li className="hover:text-neutral-200 mt-px font-medium mr-4">
