@@ -1,17 +1,4 @@
 import { useContext, useEffect, useRef, useState } from "react";
-{
-  /** todo
- - sagas?:
- -- calc wpm set highscore on win handler
- -- reset differently based on isWin/ isFail state
-
- -- display wpm not based on isWin state, how?
- -- autofocus always no matter where clicked
-
- -- changeLevelId shortcut handler => custom Hook
-  */
-}
-
 import {
   inputStringChanged,
   levelIdChanged,
@@ -22,30 +9,28 @@ import {
   selectCurrentLevelHighScore,
   selectTrainerColorClasses,
   selectCurrentWpm,
+  selectLevelId,
 } from "./reducer";
 import { SymbolTrainerContext } from "../../pages/symbol-trainer-redux";
+import levels from "../../data/levels.json";
+import { useLevelNavigation } from "./use-level-navigation-hook";
+import { useCustomInputFocus } from "./use-custom-input-focus";
 
 export default function TrainerSection() {
   const { state, dispatch } = useContext(SymbolTrainerContext);
   const inputRef = useRef(null);
+  
   const levelString = selectLevelString(state);
   const inputString = selectInputString(state);
   const isWin = selectIsWin(state);
   const isFail = selectIsFail(state);
   const trainerColorClasses = selectTrainerColorClasses(state);
-  const currentWpm = selectCurrentWpm(state) || 10;
-
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [isWin, isFail]);
-
-  const handleBlur = () => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  };
+  const currentWpm = selectCurrentWpm(state) || 0;
+  const levelId = selectLevelId(state);
+  
+  const [handleBlur] = useCustomInputFocus(inputRef, isWin, isFail);
+  useLevelNavigation(levelId, levels.length, levelIdChanged);
+  
 
   return (
     <section

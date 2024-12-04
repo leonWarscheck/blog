@@ -34,7 +34,7 @@ const syncLocalHighScores = (currentLevelHighScore, currentWpm, levelId) => {
 function* handleInputStringChanged() {
   const inputString = yield select(selectInputString);
 
-  if (inputString.length === 1) {
+  if (inputString.length === 1) { // todo: hasUserTyped?
     yield put(startTimeSet(new Date()));
   } 
   
@@ -46,8 +46,8 @@ function* handleInputStringChanged() {
     const currentLevelHighScore = yield select(selectCurrentLevelHighScore);
     syncLocalHighScores(currentLevelHighScore, currentWpm, levelId);
 
-    yield delay(3_000);
-    yield put(inputStringChanged(""));
+    yield delay(2_000);
+    yield put(inputStringChanged("")); 
   }
 
   if (yield select(selectIsFail)) {

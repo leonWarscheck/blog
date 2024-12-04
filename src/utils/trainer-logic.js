@@ -63,7 +63,7 @@ export function checkWin(
       setTimeout(() => {
         inputRef.current.focus();
       }, 100);
-    }, 3000);
+    }, 2000);
   }
 
   for (let i = 0; i < inputString.length; i++) {

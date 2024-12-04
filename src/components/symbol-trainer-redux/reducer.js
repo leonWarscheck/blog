@@ -7,10 +7,12 @@ export const sectionChanged = (payload) => ({
   type: "sectionChanged",
   payload,
 });
-export const levelIdChanged = (payload) => ({
-  type: "levelIdChanged",
-  payload,
-});
+// export const levelIdChanged = (payload) => ({
+//   type: "levelIdChanged",
+//   payload,
+// });
+
+export const levelIdChanged = (payload) => JSON.stringify(localStorage.setItem("levelId", payload))
 export const inputStringChanged = (payload) => ({
   type: "inputStringChanged",
   payload,
@@ -21,7 +23,6 @@ export const endTimeSet = (payload) => ({ type: "endTimeSet", payload });
 // reducer + saga mount
 export const initialState = {
   section: "introSection",
-  levelId: 2,
   inputString: "",
   trainerState: "",
   startTime: null,
@@ -30,10 +31,8 @@ export const initialState = {
 
 export function symbolTrainerReducer(state, action) {
   switch (action.type) {
-    case sectionChanged().type:
+    case sectionChanged(). type:
       return { ...state, section: action.payload };
-    case levelIdChanged().type:
-      return { ...state, levelId: action.payload };
     case inputStringChanged().type:
       return { ...state, inputString: action.payload };
     case startTimeSet().type:
@@ -59,7 +58,9 @@ export const useSagaReducer = (saga, reducer, initial) => {
 
 // selectors
 export const selectSection = (state) => state.section;
-export const selectLevelId = (state) => state.levelId;
+// export const selectLevelId = (state) => state.levelId;
+export const selectLevelId = () => JSON.parse(localStorage.getItem("levelId"));
+
 export const selectLevelString = (state) => levels[selectLevelId(state)].string;
 export const selectInputString = (state) => state.inputString;
 
@@ -76,14 +77,15 @@ export const selectIsFail = (state) => {
 };
 
 
-export const selectHighScores = () => JSON.parse(localStorage.getItem("highScores"));
+export const selectHighScores = () => JSON.parse(localStorage.getItem("highScores")) ;
 export const selectCurrentLevelHighScore = (state) =>
   selectHighScores(state)[selectLevelId(state)] || 0;
+
 
 export const selectTrainerColorClasses = (state) => {
   if (!selectIsFail(state)) {
     const trainerColor =
-      selectCurrentLevelHighScore(state) >= 60
+          selectCurrentLevelHighScore(state) >= 60
         ? "neutral-200"
         : selectCurrentLevelHighScore(state) >= 50
         ? "emerald-la"
