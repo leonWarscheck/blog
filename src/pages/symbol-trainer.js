@@ -33,6 +33,9 @@ export default function TypeSymbols() {
     }
   }, []);
 
+
+  
+
   useEffect(() => {
     const lastLevel = scores[0]?.lastLevel || 1;
     setLevelId(lastLevel);

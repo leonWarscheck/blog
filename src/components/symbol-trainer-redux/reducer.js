@@ -7,39 +7,46 @@ export const sectionChanged = (payload) => ({
   type: "sectionChanged",
   payload,
 });
-// export const levelIdChanged = (payload) => ({
-//   type: "levelIdChanged",
-//   payload,
-// });
-
-export const levelIdChanged = (payload) => JSON.stringify(localStorage.setItem("levelId", payload))
-export const inputStringChanged = (payload) => ({
-  type: "inputStringChanged",
+export const levelIdChanged = (payload) => ({
+  type: "levelIdChanged",
+  payload,
+});
+export const loadSymbolTrainer = () => ({ type: "loadSymbolTrainer" });
+export const userTypedInTrainerInput = (payload) => ({
+  type: "userTypedInTrainerInput",
   payload,
 });
 export const startTimeSet = (payload) => ({ type: "startTimeSet", payload });
 export const endTimeSet = (payload) => ({ type: "endTimeSet", payload });
+export const backupDateChanged = (payload) => ({
+  type: " backupDateChanged",
+  payload,
+});
 
 // reducer + saga mount
 export const initialState = {
-  section: "introSection",
+  section: "trainerSection",
+  levelId: 1,
   inputString: "",
-  trainerState: "",
   startTime: null,
   endTime: null,
+  backupDate: null,
 };
 
 export function symbolTrainerReducer(state, action) {
   switch (action.type) {
-    case sectionChanged(). type:
+    case sectionChanged().type:
       return { ...state, section: action.payload };
-    case inputStringChanged().type:
-      return { ...state, inputString: action.payload };
+    case levelIdChanged().type:
+      return { ...state, levelId: action.payload };
+    case userTypedInTrainerInput().type:
+      return { ...state, inputString: action.payload }; // ! key too different to typename?
     case startTimeSet().type:
       return { ...state, startTime: action.payload };
     case endTimeSet().type:
       return { ...state, endTime: action.payload };
-    
+    case backupDateChanged().type:
+      return { ...state, backupDate: action.payload };
     default:
       return state;
   }
@@ -58,34 +65,35 @@ export const useSagaReducer = (saga, reducer, initial) => {
 
 // selectors
 export const selectSection = (state) => state.section;
-// export const selectLevelId = (state) => state.levelId;
-export const selectLevelId = () => JSON.parse(localStorage.getItem("levelId"));
+export const selectLevelId = (state) => state.levelId;
 
-export const selectLevelString = (state) => levels[selectLevelId(state)].string;
+export const selectLevelString = (state) =>
+  levels[selectLevelId(state)]?.string;
 export const selectInputString = (state) => state.inputString;
 
 export const selectIsWin = (state) =>
   selectLevelString(state) === selectInputString(state);
 export const selectIsFail = (state) => {
-
   for (let i = 0; i < selectInputString(state).length; i++) {
-    if (i >= selectLevelString(state).length || selectInputString(state)[i] !== selectLevelString(state)[i]) {
-      return true; 
+    if (
+      i >= selectLevelString(state).length ||
+      selectInputString(state)[i] !== selectLevelString(state)[i]
+    ) {
+      return true;
     }
   }
   return false;
 };
 
-
-export const selectHighScores = () => JSON.parse(localStorage.getItem("highScores")) ;
+export const selectHighScores = () =>
+  JSON.parse(localStorage.getItem("highScores"));
 export const selectCurrentLevelHighScore = (state) =>
   selectHighScores(state)[selectLevelId(state)] || 0;
-
 
 export const selectTrainerColorClasses = (state) => {
   if (!selectIsFail(state)) {
     const trainerColor =
-          selectCurrentLevelHighScore(state) >= 60
+      selectCurrentLevelHighScore(state) >= 60
         ? "neutral-200"
         : selectCurrentLevelHighScore(state) >= 50
         ? "emerald-la"
@@ -109,50 +117,22 @@ export const selectTrainerColorClasses = (state) => {
   }
 };
 
-const selectStartTime = (state) => state.startTime;
-const selectEndTime =(state) => state.endTime;
-export const selectCurrentWpm = (state)=>{
-  const winTime = selectEndTime(state) - selectStartTime(state);
+export const selectStartTime = (state) => state.startTime;
+const selectEndTime = (state) => state.endTime;
+
+export const selectCurrentWpm = (state) => {
+  const endTime = selectEndTime(state);
+  const startTime = selectStartTime(state);
+
+  if (!endTime || endTime <= startTime) {
+    return "00";
+  }
+
+  const winTime = endTime - startTime;
   const wordsPerString = selectLevelString(state).length / 5;
   const winTimesPerMinuteRatio = 60000 / winTime;
-  return Math.round(wordsPerString * winTimesPerMinuteRatio)
-} 
 
-// export const setScores = (payload) => ({ type: "setScores", payload });
-// export const setLevelId = (payload) => ({ type: "setLevelId", payload });
-// export const setInputString = (payload) => ({
-//   type: "setInputString",
-//   payload,
-// });
-// export const setLevelString = (payload) => ({
-//   type: "setLevelString",
-//   payload,
-// });
-// export const setTrainerState = (payload) => ({
-//   type: "setTrainerState",
-//   payload,
-// });
-// export const setStartTime = (payload) => ({ type: "setStartTime", payload });
-// export const setEndTime = (payload) => ({ type: "setEndTime", payload });
-// export const setWpm = (payload) => ({ type: "setWpm", payload });
-// export const setTrainerColorClasses = (payload) => ({
-//   type: "setTrainerColorClasses",
-//   payload,
-// });
+  return Math.round(wordsPerString * winTimesPerMinuteRatio);
+};
 
-// case setInputString().type:
-//   return { ...state, inputString: action.payload };
-// case setLevelString().type:
-//   return { ...state, levelString: action.payload };
-// case setTrainerState().type:
-//   return { ...state, trainerState: action.payload };
-// case setStartTime().type:
-//   return { ...state, startTime: action.payload };
-// case setEndTime().type:
-//   return { ...state, endTime: action.payload };
-// case setWpm().type:
-//   return { ...state, wpm: action.payload };
-// case setScores().type:
-//   return { ...state, scores: action.payload };
-// case setLevelId().type:
-//   return { ...state, levelId: action.payload };
+export const selectBackupDate = (state) => state.backupDate;

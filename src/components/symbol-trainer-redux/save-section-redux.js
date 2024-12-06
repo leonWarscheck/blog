@@ -1,13 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
-  saveLastBackupDate,
-  downloadScoresJSON,
+  downloadHighScoresJSON,
   importBackup,
   calcBackupDifference,
-} from "../../utils/trainer-logic";
+} from "./trainer-logic-redux";
+import { SymbolTrainerContext } from "../../pages/symbol-trainer-redux";
+import { backupDateChanged, selectBackupDate } from "./reducer";
 
-export default function SaveSection({ scores, setScores }) {
+export default function SaveSection() {
   const [message, setMessage] = useState();
+  const { state, dispatch } = useContext(SymbolTrainerContext);
+
+  const backupDate = selectBackupDate(state);
 
   useEffect(() => {
     if (message) {
@@ -21,7 +25,7 @@ export default function SaveSection({ scores, setScores }) {
 
   return (
     <section id="save" className={`flex grow `}>
-      <div className=" flex flex-col max-w-2xl px-4 mx-auto w-full max-h-[30dvh] my-auto text-neutral-400">
+      <div className=" flex flex-col max-w-2xl px-4 mx-auto w-full max-h-[30dvh] my-auto text-neutral-400 pt-12 ">
         <h2 className="text-2xl font-bold text-center mb-4">
           Additional Saving Options
         </h2>
@@ -34,8 +38,8 @@ export default function SaveSection({ scores, setScores }) {
           <button
             className="bg-neutral- hover:text-neutral-500 underline rounded-sm flex"
             onClick={() => {
-              downloadScoresJSON();
-              saveLastBackupDate(scores, setScores);
+              downloadHighScoresJSON();
+              dispatch(backupDateChanged(new Date().toString()));
             }}
           >
             Download Backup File
@@ -58,16 +62,15 @@ export default function SaveSection({ scores, setScores }) {
           </div>
         </div>
         <p className={` flex justify-center  text-neutral-500 mb-4`}>
-          last backup download was on{" "}
-          {scores[0]?.lastBackup.toString().slice(0, 10) || "'never'"}, about{" "}
-          {calcBackupDifference(scores).toString() || "infinite "}h ago
+          last backup download was on {backupDate?.slice(0, 15)}, about{" "}
+          {calcBackupDifference(backupDate)}h ago.
         </p>
         <p
-          className={` justify-center flex ${
+          className={` justify-center flex min-h-4 ${
             message === "Import Successful."
               ? "text-emerald-la"
               : "text-red-500"
-          } min-h-4`}
+          } `}
         >
           {message ? message : ""}
         </p>

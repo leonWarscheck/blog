@@ -1,7 +1,7 @@
-import levels from "../../data/levels.json";
+import levels from "../../data/levels-redux.json";
 import { useEffect } from "react";
 
-export const useLevelNavigation = (levelId, levelLength, levelIdChanged) => {
+export const useLevelNavigation = (levelId, levels, levelIdChanged, dispatch) => {
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (
@@ -10,16 +10,14 @@ export const useLevelNavigation = (levelId, levelLength, levelIdChanged) => {
         levelId >= 2
       ) {
         const previousLevel = levelId - 1;
-        console.log(previousLevel);
-        levelIdChanged(previousLevel);
+        dispatch(levelIdChanged(previousLevel));
       } else if (
         (((event.metaKey || event.ctrlKey) && event.key === "ArrowDown") ||
           event.key === "k") &&
-        levelId <= levelLength - 2
+        levelId <= levels.length - 1
       ) {
         const nextLevel = levelId + 1;
-        console.log(nextLevel);
-        levelIdChanged(nextLevel);
+        dispatch(levelIdChanged(nextLevel));
       }
     };
 
@@ -28,5 +26,5 @@ export const useLevelNavigation = (levelId, levelLength, levelIdChanged) => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [levelId]); // todo: trigger handleInitialize Saga from useEffect for localSync and otherwise use reducerstate and only push to local 
+  }, [levelId]); 
 };

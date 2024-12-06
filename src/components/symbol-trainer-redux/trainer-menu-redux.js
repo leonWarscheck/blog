@@ -12,6 +12,7 @@ export default function MenuTrainer() {
 
   const highScore = selectCurrentLevelHighScore(state);
   const levelId = selectLevelId(state);
+  console.log("levelId: ", levelId)
   const section = selectSection(state);
 
   const handleToggle = (sectionToToggle) => {

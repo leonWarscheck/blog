@@ -12,7 +12,7 @@ export default function HelpSection() {
         <p>
           Pick your level in the bottom bar Level tab to open the trainer and
           start typing. In the trainer, you can change levels via{" "}
-          <span className="font-bold">`cmd + j / k`</span>.
+          <span className="font-bold">`cmd + j / k` or `cmd + 	&darr; /	&uarr;`</span>.
         </p>
 
         <p>

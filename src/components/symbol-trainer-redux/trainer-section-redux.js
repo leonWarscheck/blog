@@ -1,36 +1,35 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import {
-  inputStringChanged,
+  userTypedInTrainerInput,
   levelIdChanged,
   selectLevelString,
   selectInputString,
   selectIsWin,
   selectIsFail,
-  selectCurrentLevelHighScore,
   selectTrainerColorClasses,
   selectCurrentWpm,
   selectLevelId,
 } from "./reducer";
 import { SymbolTrainerContext } from "../../pages/symbol-trainer-redux";
-import levels from "../../data/levels.json";
+import levels from "../../data/levels-redux.json";
 import { useLevelNavigation } from "./use-level-navigation-hook";
 import { useCustomInputFocus } from "./use-custom-input-focus";
 
 export default function TrainerSection() {
   const { state, dispatch } = useContext(SymbolTrainerContext);
   const inputRef = useRef(null);
-  
+
   const levelString = selectLevelString(state);
   const inputString = selectInputString(state);
   const isWin = selectIsWin(state);
   const isFail = selectIsFail(state);
   const trainerColorClasses = selectTrainerColorClasses(state);
-  const currentWpm = selectCurrentWpm(state) || 0;
+  const currentWpm = selectCurrentWpm(state);
   const levelId = selectLevelId(state);
-  
+  console.log("currentwpm: ", currentWpm);
+
   const [handleBlur] = useCustomInputFocus(inputRef, isWin, isFail);
-  useLevelNavigation(levelId, levels.length, levelIdChanged);
-  
+  useLevelNavigation(levelId, levels, levelIdChanged, dispatch);
 
   return (
     <section
@@ -46,7 +45,7 @@ export default function TrainerSection() {
             ref={inputRef}
             type="text"
             value={inputString}
-            onChange={(e) => dispatch(inputStringChanged(e.target.value))}
+            onChange={(e) => dispatch(userTypedInTrainerInput(e.target.value))}
             className={`absolute whitespace-pr z-10 tracking-widerer my-auto focus:outline-none bg-transparent w-full
               ${trainerColorClasses}
               `}

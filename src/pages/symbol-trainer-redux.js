@@ -1,5 +1,6 @@
-import { useContext, createContext, useReducer } from "react";
+import { useContext, createContext, useReducer, useEffect } from "react";
 import {
+  loadSymbolTrainer,
   selectSection,
   initialState,
   symbolTrainerReducer,
@@ -8,34 +9,50 @@ import {
 import { rootSaga } from "../components/symbol-trainer-redux/sagas";
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import TrainerSection from "../components/symbol-trainer-redux/trainer-section-redux";
 import LevelSection from "../components/symbol-trainer-redux/level-section-redux";
 import HelpSection from "../components/symbol-trainer-redux/help-section-redux";
 import IntroSection from "../components/symbol-trainer-redux/intro-section-redux";
 import SaveSection from "../components/symbol-trainer-redux/save-section-redux";
 import ResponsiveNote from "../components/symbol-trainer-redux/responsive-note-redux";
-const MenuTrainer = dynamic(() => import("../components/symbol-trainer-redux/trainer-menu-redux"), {
-  ssr: false,
-});
+const MenuTrainer = dynamic(
+  () => import("../components/symbol-trainer-redux/trainer-menu-redux"),
+  {
+    ssr: false,
+  }
+);
+const TrainerSection = dynamic(
+  () => import("../components/symbol-trainer-redux/trainer-section-redux"),
+  {
+    ssr: false,
+  }
+);
 
 export const SymbolTrainerContext = createContext(null);
 
 export default function TrainerPage() {
-  const {state, dispatch} = useSagaReducer(rootSaga, symbolTrainerReducer, initialState);
+  const { state, dispatch } = useSagaReducer(
+    rootSaga,
+    symbolTrainerReducer,
+    initialState
+  );
 
   const section = selectSection(state);
+
+  useEffect(() => {
+    dispatch(loadSymbolTrainer());
+  }, []);
 
   return (
     <SymbolTrainerContext.Provider value={{ state, dispatch }}>
       <main className="min-h-dv grow flex flex-col bg-neutral-700 ">
-      <Head>
-        <title>SymbolTrainer</title>
-      </Head>
+        <Head>
+          <title>SymbolTrainer</title>
+        </Head>
         {section === "trainerSection" && <TrainerSection />}
         {state.section === "levelSection" && <LevelSection />}
         {section === "helpSection" && <HelpSection />}
         {section === "introSection" && <IntroSection />}
-        {/* {state.section === "saveSection" && <SaveSection />} */}
+        {state.section === "saveSection" && <SaveSection />}
         <MenuTrainer />
         <ResponsiveNote />
       </main>
