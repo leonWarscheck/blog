@@ -1,4 +1,4 @@
-import SubscribeFormOnPage from "../../components/subscribeform-blogpage";
+import SubscribeFormOnPage from "./subscribeform-blogpage";
 
 export default function MdxLayout({ children }) {
   return (
