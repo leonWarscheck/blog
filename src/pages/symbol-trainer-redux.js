@@ -5,23 +5,23 @@ import {
   initialState,
   symbolTrainerReducer,
   useSagaReducer,
-} from "../components/symbol-trainer-redux/reducer";
-import { rootSaga } from "../components/symbol-trainer-redux/sagas";
+} from "../features/symbol-trainer-redux/reducer";
+import { rootSaga } from "../features/symbol-trainer-redux/sagas";
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import LevelSection from "../components/symbol-trainer-redux/level-section-redux";
-import HelpSection from "../components/symbol-trainer-redux/help-section-redux";
-import IntroSection from "../components/symbol-trainer-redux/intro-section-redux";
-import SaveSection from "../components/symbol-trainer-redux/save-section-redux";
-import ResponsiveNote from "../components/symbol-trainer-redux/responsive-note-redux";
+import LevelSection from "../features/symbol-trainer-redux/components/level-section-redux";
+import HelpSection from "../features/symbol-trainer-redux/components/help-section-redux";
+import IntroSection from "../features/symbol-trainer-redux/components/intro-section-redux";
+import SaveSection from "../features/symbol-trainer-redux/components/save-section-redux";
+import ResponsiveNote from "../features/symbol-trainer-redux/components/responsive-note-redux";
 const MenuTrainer = dynamic(
-  () => import("../components/symbol-trainer-redux/trainer-menu-redux"),
+  () => import("../features/symbol-trainer-redux/components/trainer-menu-redux"),
   {
     ssr: false,
   }
 );
 const TrainerSection = dynamic(
-  () => import("../components/symbol-trainer-redux/trainer-section-redux"),
+  () => import("../features/symbol-trainer-redux/components/trainer-section-redux"),
   {
     ssr: false,
   }

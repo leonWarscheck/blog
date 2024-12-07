@@ -1,6 +1,6 @@
 import Footer from "./footer";
 import Header from "./header";
-import "../utils/vim-scroll";
+import "../features/blog/vim-scroll";
 
 import localFont from "next/font/local";
 

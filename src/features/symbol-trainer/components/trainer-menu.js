@@ -1,4 +1,6 @@
 export default function MenuTrainer({ setSection, section, levelId, scores }) {
+ const score = scores[levelId]
+ 
   const handleLevelToggle = () => {
     if (section === "levelSection") {
       setSection("trainerSection");
@@ -39,9 +41,9 @@ export default function MenuTrainer({ setSection, section, levelId, scores }) {
               ? levelId.toString().padStart(2, "0")
               : levelId}
             &nbsp;/&nbsp;
-            {scores[levelId]?.wpm.toString().length === 1
-              ? scores[levelId]?.wpm.toString().padStart(2, "0")
-              : scores[levelId]?.wpm}
+            {score?.toString().length === 1
+              ? score?.toString().padStart(2, "0")
+              : score? score : "00"}
           </button>
         </li>
         <li className="hover:text-neutral-200 mt-px font-medium mr-4">

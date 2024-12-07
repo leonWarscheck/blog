@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
-import { SymbolTrainerContext } from "../../pages/symbol-trainer-redux";
-import { sectionChanged } from "../symbol-trainer-redux/reducer";
+import { SymbolTrainerContext } from "../../../pages/symbol-trainer-redux";
+import { sectionChanged } from "../reducer";
 
 export default function IntroSection() {
   const { state, dispatch } = useContext(SymbolTrainerContext);

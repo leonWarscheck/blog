@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export const useCustomInputFocus = (inputRef, isWin, isFail) => {
+export const useCustomInputFocusBehaviour = (inputRef, isWin, isFail) => {
   useEffect(() => {
     if (inputRef.current) {
       setTimeout(() => inputRef.current.focus(), 100);

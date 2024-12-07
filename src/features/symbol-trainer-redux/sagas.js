@@ -42,10 +42,10 @@ function* watchLoadSymbolTrainer() {
 const getTime = () => new Date();
 const syncToLocalHighScores = (currentLevelHighScore, currentWpm, levelId) => {
   if (currentWpm > currentLevelHighScore) {
-    const HighScores = JSON.parse(localStorage.getItem("highScores")) || {};
-    HighScores[levelId] = currentWpm;
+    const highScores = JSON.parse(localStorage.getItem("highScores")) || {};
+    highScores[levelId] = currentWpm;
 
-    localStorage.setItem("highScores", JSON.stringify(HighScores));
+    localStorage.setItem("highScores", JSON.stringify(highScores));
   }
 };
 // hander & watcher sagas:
@@ -53,7 +53,7 @@ function* handleUserTypedInTrainerInput() {
   const inputString = yield select(selectInputString);
   const startTime = yield select(selectStartTime);
 
-  if (startTime === null ) {
+  if (inputString === 1 && startTime === null) {
     yield put(startTimeSet(getTime()));
   }
 

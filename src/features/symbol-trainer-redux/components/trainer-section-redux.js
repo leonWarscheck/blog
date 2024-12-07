@@ -9,11 +9,11 @@ import {
   selectTrainerColorClasses,
   selectCurrentWpm,
   selectLevelId,
-} from "./reducer";
-import { SymbolTrainerContext } from "../../pages/symbol-trainer-redux";
-import levels from "../../data/levels-redux.json";
-import { useLevelNavigation } from "./use-level-navigation-hook";
-import { useCustomInputFocus } from "./use-custom-input-focus";
+} from "../reducer";
+import { SymbolTrainerContext } from "../../../pages/symbol-trainer-redux";
+import levels from "../levels-redux.json";
+import { useLevelNavigationShortcut } from "../use-level-navigation-shortcut-redux";
+import { useCustomInputFocusBehaviour } from "../use-custom-input-focus-behaviour-redux";
 
 export default function TrainerSection() {
   const { state, dispatch } = useContext(SymbolTrainerContext);
@@ -26,10 +26,9 @@ export default function TrainerSection() {
   const trainerColorClasses = selectTrainerColorClasses(state);
   const currentWpm = selectCurrentWpm(state);
   const levelId = selectLevelId(state);
-  console.log("currentwpm: ", currentWpm);
 
-  const [handleBlur] = useCustomInputFocus(inputRef, isWin, isFail);
-  useLevelNavigation(levelId, levels, levelIdChanged, dispatch);
+  const [handleBlur] = useCustomInputFocusBehaviour(inputRef, isWin, isFail);
+  useLevelNavigationShortcut(levelId, levels, levelIdChanged, dispatch);
 
   return (
     <section
@@ -39,6 +38,7 @@ export default function TrainerSection() {
       <div className="relative font-mono flex mx-auto my-auto text-left text-lg overflow-hidden">
         <div className="">
           <input
+            id="trainerInput"
             autoFocus={true}
             onBlur={handleBlur}
             disabled={isWin || isFail}
@@ -51,15 +51,15 @@ export default function TrainerSection() {
               `}
           />
           <p
-            id="bg curtain between"
-            className="absolute text-neutral-700 tracking-widerer whitespace-pr  bg-neutral-700 pointer-events-none "
+            id="'curtain' between levelString and inputString"
+            className="absolute text-neutral-700 tracking-widerer whitespace-pr  bg-neutral-700 pointer-events-none"
           >
             {inputString}
           </p>
         </div>
         <p
           id="space/placeholder"
-          className=" tracking-widerer text-neutral-400 whitespace-pr"
+          className="tracking-widerer text-neutral-400 whitespace-pr"
         >
           {levelString}
         </p>

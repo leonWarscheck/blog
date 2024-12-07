@@ -40,7 +40,6 @@ function createRandomString(caseType, length, lastLevel) {
   while (randomString.length < length) {
     const randomChar =
       caseString[Math.floor(Math.random() * caseString.length)];
-    // console.log("randomCharTry:", randomChar);
     charCount[randomChar] = (charCount[randomChar] || 0) + 1;
     loweredCaseCount[randomChar.toLowerCase()] =
       (charCount[randomChar.toLowerCase()] || 0) + 1;
@@ -51,7 +50,6 @@ function createRandomString(caseType, length, lastLevel) {
         randomString[randomString.length - 1] !== randomChar && // no consecutive occurence of same character
         noRepeatsLastStingMax5(randomChar) // in strings of length 7: no character appears in consecutive strings
       ) {
-        console.log("randomNum:", randomChar);
         randomString += randomChar;
       }
     } else {
@@ -62,7 +60,6 @@ function createRandomString(caseType, length, lastLevel) {
         protectNumberAndLetterLimit(randomString, randomChar, length) && // maximum a quarter of chars can be letter or number
         noRepeatsLastStingMax5(randomChar) // in strings of length 7: no character appears in consecutive strings
       ) {
-        console.log("randomChar:", randomChar);
         randomString += randomChar;
       }
     }

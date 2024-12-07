@@ -1,7 +1,6 @@
-import levels from "../../data/levels-redux.json";
 import { useEffect } from "react";
 
-export const useLevelNavigation = (levelId, levels, levelIdChanged, dispatch) => {
+export const useLevelNavigationShortcut = (levelId, levels, levelIdChanged, dispatch) => {
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (

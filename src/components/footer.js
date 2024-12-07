@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import SubscribeForm from "./subscribeform-footer";
+import SubscribeForm from "../features/blog/subscribeform-footer";
 
 export default function Footer() {
   const router = useRouter();
@@ -15,7 +15,13 @@ export default function Footer() {
     setShowSubscription(false);
   };
   return (
-    <footer className={` bg-neutral-700 text-neutral-300 h-8 ${(router.asPath ===  "/symbol-trainer" || router.asPath === "/symbol-trainer-redux" ) && "hidden"} `}>
+    <footer
+      className={` bg-neutral-700 text-neutral-300 h-8 ${
+        (router.asPath === "/symbol-trainer" ||
+          router.asPath === "/symbol-trainer-redux") &&
+        "hidden"
+      } `}
+    >
       <nav className="c1:hidden max-w-2xl mx-auto px-4 flex grow items-center h-full">
         <ul className="flex">
           <li className="flex items-center">

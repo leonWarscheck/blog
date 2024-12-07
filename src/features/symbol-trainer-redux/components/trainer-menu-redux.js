@@ -1,18 +1,17 @@
 import { useContext } from "react";
-import { SymbolTrainerContext } from "../../pages/symbol-trainer-redux";
+import { SymbolTrainerContext } from "../../../pages/symbol-trainer-redux";
 import {
   sectionChanged,
   selectCurrentLevelHighScore,
   selectSection,
   selectLevelId,
-} from "./reducer";
+} from "../reducer";
 
 export default function MenuTrainer() {
   const { state, dispatch } = useContext(SymbolTrainerContext);
 
   const highScore = selectCurrentLevelHighScore(state);
   const levelId = selectLevelId(state);
-  console.log("levelId: ", levelId)
   const section = selectSection(state);
 
   const handleToggle = (sectionToToggle) => {
@@ -35,7 +34,7 @@ export default function MenuTrainer() {
           </button>
         </li>{" "}
         <li className="ml-auto mr-4 hover:text-neutral-200 mt-px font-medium">
-          <button onClick={()=>handleToggle("levelSection")}>
+          <button onClick={() => handleToggle("levelSection")}>
             Level&nbsp;
             {levelId.toString().length === 1
               ? levelId.toString().padStart(2, "0")
@@ -47,10 +46,10 @@ export default function MenuTrainer() {
           </button>
         </li>
         <li className="hover:text-neutral-200 mt-px font-medium mr-4">
-          <button onClick={()=>handleToggle("helpSection")}>Help</button>
+          <button onClick={() => handleToggle("helpSection")}>Help</button>
         </li>{" "}
         <li className="hover:text-neutral-200 mt-px font-medium">
-          <button onClick={()=>handleToggle("saveSection")}>Save</button>
+          <button onClick={() => handleToggle("saveSection")}>Save</button>
         </li>{" "}
       </ul>
     </nav>

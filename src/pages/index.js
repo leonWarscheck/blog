@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Date from "../components/date";
 import Head from "next/head";
-import { getFeedData } from "../utils/get-feed-data";
+import { getFeedData } from "../features/blog/get-feed-data";
 
 export function getStaticProps() {
   const feedData = getFeedData();

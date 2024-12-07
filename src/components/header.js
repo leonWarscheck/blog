@@ -1,5 +1,5 @@
 import Link from "next/link";
-import SubscribeForm from "./subscribeform-header";
+import SubscribeForm from "../features/blog/subscribeform-header";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Menu from "./menu";
@@ -48,10 +48,7 @@ export default function Header({}) {
   return (
     <header
       className={`h-20 bg-neutral-700 items-center flex fixed w-full 
-      ${
-        router.route.startsWith("/posts")
-          && "text-neutral-200"
-      } 
+      ${router.route.startsWith("/posts") && "text-neutral-200"} 
     ${
       (router.asPath === "/symbol-trainer" ||
         router.asPath === "/symbol-trainer-redux") &&

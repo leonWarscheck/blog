@@ -1,6 +1,6 @@
 import createSagaMiddleware from "redux-saga";
 import { createReducer } from "react-use";
-import levels from "../../data/levels.json";
+import levels from "./levels-redux.json";
 
 // action creators
 export const sectionChanged = (payload) => ({
@@ -25,7 +25,7 @@ export const backupDateChanged = (payload) => ({
 
 // reducer + saga mount
 export const initialState = {
-  section: "trainerSection",
+  section: "introSection",
   levelId: 1,
   inputString: "",
   startTime: null,

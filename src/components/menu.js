@@ -1,44 +1,7 @@
 import Link from "next/link";
-import axios from "axios";
-import { useState, useEffect, useRef } from "react";
+import SubscribeFormMenu from "../features/blog/subscribeform-menu";
 
 export default function Menu({ handleMenuToggle2, menuOpen, handleMenuClose }) {
-  const [feedbackState, setFeedbackState] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const inputRef = useRef(null);
-
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, []);
-
-  const handleSubscribe = async (event) => {
-    event.preventDefault();
-
-    if (isSubmitting) return;
-
-    setIsSubmitting(true);
-
-    inputRef.current.blur();
-
-    try {
-      const formData = new FormData(event.target);
-      const email = formData.get("email");
-
-      const response = await axios.post("/api/subscribeApi", { email });
-
-      console.log(response.data);
-      setFeedbackState("success");
-    } catch (error) {
-      console.error(error);
-      setFeedbackState("failure");
-    } finally {
-      setIsSubmitting(false);
-      setTimeout(() => setFeedbackState(""), 2500);
-    }
-  };
-
   return (
     <>
       <button
@@ -74,43 +37,7 @@ export default function Menu({ handleMenuToggle2, menuOpen, handleMenuClose }) {
             </li>
 
             <li className="relative border-r-4  border-violet-500">
-              <form className="" onSubmit={handleSubscribe}>
-                {feedbackState === "" && (
-                  <>
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="Email"
-                      className=" placeholder:text-neutral-400 pl-1 placeholder:hover:text-neutral-400 absolute  top-0 w-full    focus:outline-none bg-neutral-600 text-neutral-400 "
-                      required
-                      autoCapitalize="off"
-                      autoCorrect="off"
-                      ref={inputRef}
-                    />
-                    <button
-                      className="text-red-500 w-full   py-11  flex hover:text-neutral-400"
-                      type="submit"
-                      disabled={isSubmitting}
-                    >
-                      Subscribe
-                    </button>
-                  </>
-                )}
-                {feedbackState === "success" && (
-                  <p className="text-2xl mr-auto pt-7 text-red-500 pb-7">
-                    Success.
-                    <br />
-                    Thank you for subscribing.
-                  </p>
-                )}
-                {feedbackState === "failure" && (
-                  <p className="text-2xl mr-auto pt-7 text-red-500 pb-7">
-                    Something went wrong.
-                    <br />
-                    Please try again or try a different email.
-                  </p>
-                )}
-              </form>
+              <SubscribeFormMenu />
             </li>
           </ul>
         </div>

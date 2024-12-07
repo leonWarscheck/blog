@@ -1,56 +1,39 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
-import TrainerSection from "../components/symbol-trainer/trainer-section";
-import LevelSection from "../components/symbol-trainer/level-section";
-import InfoSection from "../components/symbol-trainer/info-section";
-import IntroSection from "../components/symbol-trainer/intro-section";
-import SaveSection from "../components/symbol-trainer/save-section";
-import MenuTrainer from "../components/symbol-trainer/trainer-menu";
-import ResponsiveNote from "../components/symbol-trainer/responsive-note";
-import scoresTemplate from "../data/scores-template.json";
+import TrainerSection from "../features/symbol-trainer/components/trainer-section";
+import LevelSection from "../features/symbol-trainer/components/level-section";
+import InfoSection from "../features/symbol-trainer/components/info-section";
+import IntroSection from "../features/symbol-trainer/components/intro-section";
+import SaveSection from "../features/symbol-trainer/components/save-section";
+import MenuTrainer from "../features/symbol-trainer/components/trainer-menu";
+import ResponsiveNote from "../features/symbol-trainer/components/responsive-note";
 
-export default function TypeSymbols() {
+export default function SymbolTrainerPage() {
   const [section, setSection] = useState("introSection");
   const [scores, setScores] = useState([]);
   const [levelId, setLevelId] = useState(0);
 
+  // initial sync from localStorage
   useEffect(() => {
-    let fetchedScores = localStorage.getItem("scores");
-    let parsedScores;
-    
+    const scores = JSON.parse(localStorage.getItem("highScores"));
+    const lastLevel = JSON.parse(localStorage.getItem("levelId"));
 
-    if (!fetchedScores) {
-      // initialize storage
-      localStorage.setItem("scores", JSON.stringify(scoresTemplate));
-      fetchedScores = localStorage.getItem("scores");
-
-      parsedScores = JSON.parse(fetchedScores);
-      setScores(parsedScores);
-    } else {
-      // trigger sync of storage to scores state
-      parsedScores = JSON.parse(fetchedScores);
-      setScores(parsedScores);
-    }
-  }, []);
-
-
-  
-
-  useEffect(() => {
-    const lastLevel = scores[0]?.lastLevel || 1;
+    setScores(scores);
     setLevelId(lastLevel);
-  }, [scores]);
+  }, []);
 
   return (
     <main className="min-h-dv grow flex flex-col bg-neutral-700 ">
-       <Head>
+      <Head>
         <title>SymbolTrainer</title>
       </Head>
       {section === "trainerSection" && (
         <TrainerSection {...{ setLevelId, levelId, scores, setScores }} />
       )}
       {section === "levelSection" && (
-        <LevelSection {...{ setSection, setLevelId, scores, setScores }} />
+        <LevelSection
+          {...{ setSection, setLevelId, scores, setScores, levelId }}
+        />
       )}
       {section === "infoSection" && <InfoSection />}
       {section === "introSection" && <IntroSection {...{ setSection }} />}
