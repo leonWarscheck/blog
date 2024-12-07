@@ -10,7 +10,6 @@ export function checkUserTyping(
   // on start of user typing
   if (inputString.length === 1 && startTime === null) {
     setStartTime(new Date());
-    console.log("startTime set");
   }
 
   // on win
@@ -52,7 +51,6 @@ export function checkUserTyping(
 
 export const saveScore = (wpm, levelId, scores, setScores) => {
   const currentLevelHighScore = scores[levelId] ?? 0;
-  console.log("bl: ", currentLevelHighScore);
   if (wpm > currentLevelHighScore) {
     const highScores = JSON.parse(localStorage.getItem("highScores")) || {};
     highScores[levelId] = wpm;

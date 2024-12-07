@@ -1,7 +1,7 @@
 import levels from "../levels-redux.json";
 import {
-  sectionChanged,
-  levelIdChanged,
+  sectionClicked,
+  levelClicked,
   selectHighScores,
   selectLevelId,
 } from "../reducer";
@@ -52,8 +52,8 @@ export default function LevelSection() {
                     : "text-neutral-500"
                 }`}
                   onClick={() => {
-                    dispatch(sectionChanged("trainerSection"));
-                    dispatch(levelIdChanged(index + 1));
+                    dispatch(sectionClicked("trainerSection"));
+                    dispatch(levelClicked(index + 1));
                   }}
                 >
                   <h3 className=" font-bold">

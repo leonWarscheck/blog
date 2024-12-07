@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import {
   userTypedInTrainerInput,
-  levelIdChanged,
+  levelChosenByShortcut,
   selectLevelString,
   selectInputString,
   selectIsWin,
@@ -28,7 +28,7 @@ export default function TrainerSection() {
   const levelId = selectLevelId(state);
 
   const [handleBlur] = useCustomInputFocusBehaviour(inputRef, isWin, isFail);
-  useLevelNavigationShortcut(levelId, levels, levelIdChanged, dispatch);
+  useLevelNavigationShortcut(levelId, levels, levelChosenByShortcut, dispatch);
 
   return (
     <section

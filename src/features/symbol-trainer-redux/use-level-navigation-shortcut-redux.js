@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 
-export const useLevelNavigationShortcut = (levelId, levels, levelIdChanged, dispatch) => {
+export const useLevelNavigationShortcut = (
+  levelId,
+  levels,
+  levelChosenByShortcut,
+  dispatch
+) => {
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (
@@ -9,14 +14,14 @@ export const useLevelNavigationShortcut = (levelId, levels, levelIdChanged, disp
         levelId >= 2
       ) {
         const previousLevel = levelId - 1;
-        dispatch(levelIdChanged(previousLevel));
+        dispatch(levelChosenByShortcut(previousLevel));
       } else if (
         (((event.metaKey || event.ctrlKey) && event.key === "ArrowDown") ||
           event.key === "k") &&
         levelId <= levels.length - 1
       ) {
         const nextLevel = levelId + 1;
-        dispatch(levelIdChanged(nextLevel));
+        dispatch(levelChosenByShortcut(nextLevel));
       }
     };
 
@@ -25,5 +30,5 @@ export const useLevelNavigationShortcut = (levelId, levels, levelIdChanged, disp
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [levelId]); 
+  }, [levelId]);
 };

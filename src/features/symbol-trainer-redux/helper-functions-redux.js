@@ -19,7 +19,7 @@ export function downloadHighScoresJSON() {
 export function importBackup(event, setMessage) {
   const file = event.target.files[0];
   const reader = new FileReader();
-
+  
   reader.onload = (e) => {
     try {
       const data = JSON.parse(e.target.result);
@@ -35,12 +35,4 @@ export function importBackup(event, setMessage) {
   if (file) {
     reader.readAsText(file);
   }
-}
-
-export function calcBackupDifference(backupDate) {
-  const now = new Date();
-  const differenceInHours = Math.round(
-    (now - new Date(backupDate)) / (1000 * 60 * 60)
-  );
-  return differenceInHours;
 }

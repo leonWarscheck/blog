@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { SymbolTrainerContext } from "../../../pages/symbol-trainer-redux";
-import { sectionChanged } from "../reducer";
+import { sectionClicked } from "../reducer";
 
 export default function IntroSection() {
   const { state, dispatch } = useContext(SymbolTrainerContext);
@@ -29,13 +29,13 @@ export default function IntroSection() {
         </h2>
         <p className="space-x-2 text-neutral-400">
           <button
-            onClick={() => dispatch(sectionChanged("helpSection"))}
+            onClick={() => dispatch(sectionClicked("helpSection"))}
             className="underline hover:text-neutral-300"
           >
             Instructions / Help
           </button>{" "}
           <button
-            onClick={() => dispatch(sectionChanged("trainerSection"))}
+            onClick={() => dispatch(sectionClicked("trainerSection"))}
             className="underline hover:text-neutral-300"
           >
             SymbolTrainer

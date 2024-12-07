@@ -5,13 +5,18 @@ import {
   calcBackupDifference,
 } from "../helper-functions-redux";
 import { SymbolTrainerContext } from "../../../pages/symbol-trainer-redux";
-import { backupDateChanged, selectBackupDate } from "../reducer";
+import {
+  backupDownloadClicked,
+  selectBackupDate,
+  selectBackupDifference,
+} from "../reducer";
 
 export default function SaveSection() {
   const [message, setMessage] = useState();
   const { state, dispatch } = useContext(SymbolTrainerContext);
 
   const backupDate = selectBackupDate(state);
+  const backupDifference = selectBackupDifference(state, new Date());
 
   useEffect(() => {
     if (message) {
@@ -39,7 +44,7 @@ export default function SaveSection() {
             className="bg-neutral- hover:text-neutral-500 underline rounded-sm flex"
             onClick={() => {
               downloadHighScoresJSON();
-              dispatch(backupDateChanged(new Date().toString()));
+              dispatch(backupDownloadClicked(new Date().toString()));
             }}
           >
             Download Backup File
@@ -63,7 +68,7 @@ export default function SaveSection() {
         </div>
         <p className={` flex justify-center  text-neutral-500 mb-4`}>
           last backup download was on {backupDate?.slice(0, 10)}, about{" "}
-          {calcBackupDifference(backupDate)}h ago.
+          {backupDifference}h ago.
         </p>
         <p
           className={` justify-center flex min-h-4 ${

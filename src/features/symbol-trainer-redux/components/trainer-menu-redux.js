@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { SymbolTrainerContext } from "../../../pages/symbol-trainer-redux";
 import {
-  sectionChanged,
+  sectionClicked,
   selectCurrentLevelHighScore,
   selectSection,
   selectLevelId,
@@ -16,9 +16,9 @@ export default function MenuTrainer() {
 
   const handleToggle = (sectionToToggle) => {
     if (section === sectionToToggle) {
-      dispatch(sectionChanged("trainerSection"));
+      dispatch(sectionClicked("trainerSection"));
     } else {
-      dispatch(sectionChanged(sectionToToggle));
+      dispatch(sectionClicked(sectionToToggle));
     }
   };
 
@@ -29,7 +29,7 @@ export default function MenuTrainer() {
     >
       <ul className="flex w-full">
         <li className="mr-aut font-semibold text- 2xl hover:text-neutral-200">
-          <button onClick={() => dispatch(sectionChanged("trainerSection"))}>
+          <button onClick={() => dispatch(sectionClicked("trainerSection"))}>
             SymbolTrainer
           </button>
         </li>{" "}

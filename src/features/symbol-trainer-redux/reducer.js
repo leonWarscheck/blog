@@ -3,23 +3,54 @@ import { createReducer } from "react-use";
 import levels from "./levels-redux.json";
 
 // action creators
-export const sectionChanged = (payload) => ({
-  type: "sectionChanged",
+export const sectionClicked = (payload) => ({
+  type: "sectionClicked",
   payload,
 });
-export const levelIdChanged = (payload) => ({
-  type: "levelIdChanged",
+export const levelClicked = (payload) => ({
+  type: "levelClicked",
   payload,
 });
+export const levelChosenByShortcut = (payload) => ({
+  type: "levelChosenByShortcut",
+  payload,
+});
+export const levelSyncedFromLocalStorage = (payload) => ({
+  type: "levelSyncedFromLocalStorage",
+  payload,
+});
+const changeCurrentLevel = (state, levelId) => ({
+  ...state,
+  levelId: levelId,
+});
+
 export const loadSymbolTrainer = () => ({ type: "loadSymbolTrainer" });
 export const userTypedInTrainerInput = (payload) => ({
   type: "userTypedInTrainerInput",
   payload,
 });
-export const startTimeSet = (payload) => ({ type: "startTimeSet", payload });
-export const endTimeSet = (payload) => ({ type: "endTimeSet", payload });
-export const backupDateChanged = (payload) => ({
-  type: " backupDateChanged",
+export const typingStarted = (payload) => ({ type: "typingStarted", payload });
+export const typingEndedByWinning = (payload) => ({
+  type: "typingEndedByWinning",
+  payload,
+});
+export const backupDownloadClicked = (payload) => ({
+  type: " backupDownloadClicked",
+  payload,
+});
+export const backupDateSyncedFromLocalStorage = (payload) => ({
+  type: "backupDateSyncedFromLocalStorage",
+  payload,
+});
+
+const changeBackupDate = (state, backupDate) => ({
+  ...state,
+  backupDate: backupDate,
+});
+
+// !
+export const backupImportClicked = (payload) => ({
+  type: "backupImportClicked",
   payload,
 });
 
@@ -31,22 +62,34 @@ export const initialState = {
   startTime: null,
   endTime: null,
   backupDate: null,
+  importMessage: null,
 };
 
-export function symbolTrainerReducer(state, action) {
-  switch (action.type) {
-    case sectionChanged().type:
-      return { ...state, section: action.payload };
-    case levelIdChanged().type:
-      return { ...state, levelId: action.payload };
+export function symbolTrainerReducer(
+  state = initialState,
+  { type, payload } = {}
+) {
+  switch (type) {
+    case sectionClicked().type:
+      return { ...state, section: payload };
+    case levelClicked().type:
+      return changeCurrentLevel(state, payload);
+    case levelChosenByShortcut().type:
+      return changeCurrentLevel(state, payload);
+    case levelSyncedFromLocalStorage().type:
+      return changeCurrentLevel(state, payload);
     case userTypedInTrainerInput().type:
-      return { ...state, inputString: action.payload }; // ! key too different to typename?
-    case startTimeSet().type:
-      return { ...state, startTime: action.payload };
-    case endTimeSet().type:
-      return { ...state, endTime: action.payload };
-    case backupDateChanged().type:
-      return { ...state, backupDate: action.payload };
+      return { ...state, inputString: payload };
+    case typingStarted().type:
+      return { ...state, startTime: payload };
+    case typingEndedByWinning().type:
+      return { ...state, endTime: payload };
+    case backupDownloadClicked().type:
+      return changeBackupDate(state, payload);
+    case backupDateSyncedFromLocalStorage().type:
+      return changeBackupDate(state, payload);
+    case backupImportClicked().type:
+      return { ...state, importMessage: payload };
     default:
       return state;
   }
@@ -124,6 +167,7 @@ export const selectCurrentWpm = (state) => {
   const endTime = selectEndTime(state);
   const startTime = selectStartTime(state);
 
+  // prevent Infinity
   if (!endTime || endTime <= startTime) {
     return "00";
   }
@@ -136,3 +180,11 @@ export const selectCurrentWpm = (state) => {
 };
 
 export const selectBackupDate = (state) => state.backupDate;
+export const selectBackupDifference = (state, now) => {
+  const differenceInHours = Math.round(
+    (now - new Date(selectBackupDate(state))) / (1000 * 60 * 60)
+  );
+  return differenceInHours;
+};
+
+export const selectImportMessage = (state) => state.importMessage;
