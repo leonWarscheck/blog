@@ -6,7 +6,7 @@ import {
   selectLevelId,
 } from "../reducer";
 import { useContext, useRef, useEffect } from "react";
-import { SymbolTrainerContext } from "../../../pages/symbol-trainer-redux";
+import { SymbolTrainerContext } from "../symbol-trainer-redux-page";
 
 export default function LevelSection() {
   const { state, dispatch } = useContext(SymbolTrainerContext);
@@ -15,6 +15,7 @@ export default function LevelSection() {
 
   const levelRefs = useRef([]);
 
+  // auto scroll to (current) levelId
   useEffect(() => {
     if (levelId && levelRefs.current[levelId]) {
       levelRefs.current[levelId].scrollIntoView({
@@ -29,7 +30,7 @@ export default function LevelSection() {
       <div className="mx-auto my-auto max-w-2xl  px-4 w-full max-h-[50dvh] overflow-scroll ">
         <ul className=" my-auto w-full">
           {levels.map((level, index) => {
-            const score = highScores[level.id];
+            const score = highScores?.[level.id];
             return (
               <li
                 key={level.id}

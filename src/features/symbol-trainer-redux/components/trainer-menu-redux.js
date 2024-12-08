@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { SymbolTrainerContext } from "../../../pages/symbol-trainer-redux";
+import { SymbolTrainerContext } from "../symbol-trainer-redux-page";
 import {
   sectionClicked,
   selectCurrentLevelHighScore,

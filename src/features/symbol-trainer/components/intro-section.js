@@ -10,7 +10,7 @@ export default function IntroSection({ setSection }) {
     const colorInterval = setInterval(() => {
       colorIndex = (colorIndex + 1) % colors.length;
       setColor(colors[colorIndex]);
-    }, 1234);
+    }, 1111);
 
     return () => clearInterval(colorInterval);
   }, []);

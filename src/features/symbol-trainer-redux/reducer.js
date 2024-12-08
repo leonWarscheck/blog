@@ -1,6 +1,7 @@
 import createSagaMiddleware from "redux-saga";
 import { createReducer } from "react-use";
 import levels from "./levels-redux.json";
+import { select } from "redux-saga/effects";
 
 // action creators
 export const sectionClicked = (payload) => ({
@@ -48,7 +49,6 @@ const changeBackupDate = (state, backupDate) => ({
   backupDate: backupDate,
 });
 
-// !
 export const backupImportClicked = (payload) => ({
   type: "backupImportClicked",
   payload,
@@ -131,7 +131,7 @@ export const selectIsFail = (state) => {
 export const selectHighScores = () =>
   JSON.parse(localStorage.getItem("highScores"));
 export const selectCurrentLevelHighScore = (state) =>
-  selectHighScores(state)[selectLevelId(state)] || 0;
+  selectHighScores(state)?.[selectLevelId(state)] || 0;
 
 export const selectTrainerColorClasses = (state) => {
   if (!selectIsFail(state)) {

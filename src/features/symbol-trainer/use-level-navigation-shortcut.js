@@ -5,14 +5,14 @@ export const useLevelNavigationShortcut = (levelId, setLevelId, levels) => {
     const handleKeyDown = (event) => {
       if (
         (((event.metaKey || event.ctrlKey) && event.key === "ArrowUp") ||
-          event.key === "j") &&
+          event.key === "k") &&
         levelId >= 2
       ) {
         const previousLevel = levelId - 1;
         setLevelId(previousLevel);
       } else if (
         (((event.metaKey || event.ctrlKey) && event.key === "ArrowDown") ||
-          event.key === "k") &&
+          event.key === "j") &&
         levelId <= levels.length - 1
       ) {
         const nextLevel = levelId + 1;

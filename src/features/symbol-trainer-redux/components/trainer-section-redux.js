@@ -10,7 +10,7 @@ import {
   selectCurrentWpm,
   selectLevelId,
 } from "../reducer";
-import { SymbolTrainerContext } from "../../../pages/symbol-trainer-redux";
+import { SymbolTrainerContext } from "../symbol-trainer-redux-page";
 import levels from "../levels-redux.json";
 import { useLevelNavigationShortcut } from "../use-level-navigation-shortcut-redux";
 import { useCustomInputFocusBehaviour } from "../use-custom-input-focus-behaviour-redux";

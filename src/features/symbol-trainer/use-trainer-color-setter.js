@@ -7,7 +7,7 @@ export function useTrainerColorSetter(
   setTrainerColorClasses
 ) {
   useEffect(() => {
-    const score = scores[levelId];
+    const score = scores?.[levelId];
     const trainerColor =
       score >= 60
         ? "neutral-200"
@@ -31,5 +31,5 @@ export function useTrainerColorSetter(
     } else if (trainerState === "fail") {
       setTrainerColorClasses("text-neutral-400");
     }
-  }, [scores[levelId], trainerState]);
+  }, [scores?.[levelId], trainerState]);
 }

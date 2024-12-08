@@ -1,5 +1,5 @@
 export default function MenuTrainer({ setSection, section, levelId, scores }) {
- const score = scores[levelId]
+ const score = scores?.[levelId]
  
   const handleLevelToggle = () => {
     if (section === "levelSection") {
@@ -37,8 +37,8 @@ export default function MenuTrainer({ setSection, section, levelId, scores }) {
         <li className="ml-auto mr-4 hover:text-neutral-200 mt-px font-medium">
           <button onClick={handleLevelToggle}>
             Level&nbsp;
-            {levelId.toString().length === 1
-              ? levelId.toString().padStart(2, "0")
+            {levelId?.toString().length === 1
+              ? levelId?.toString().padStart(2, "0")
               : levelId}
             &nbsp;/&nbsp;
             {score?.toString().length === 1

@@ -32,8 +32,9 @@ import {
 function* handleLoadSymbolTrainer() {
   const levelId = Number(localStorage.getItem("levelId"));
   const backupDate = localStorage.getItem("backupDate") || "";
-
-  yield put(levelSyncedFromLocalStorage(levelId));
+  if (levelId) {
+    yield put(levelSyncedFromLocalStorage(levelId));
+  }
   yield put(backupDateSyncedFromLocalStorage(backupDate));
 }
 function* watchLoadSymbolTrainer() {

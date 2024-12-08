@@ -3,8 +3,8 @@ import {
   downloadHighScoresJSON,
   importBackup,
   calcBackupDifference,
-} from "../helper-functions-redux";
-import { SymbolTrainerContext } from "../../../pages/symbol-trainer-redux";
+} from "../helpers-redux";
+import { SymbolTrainerContext } from "../symbol-trainer-redux-page";
 import {
   backupDownloadClicked,
   selectBackupDate,
@@ -67,8 +67,8 @@ export default function SaveSection() {
           </div>
         </div>
         <p className={` flex justify-center  text-neutral-500 mb-4`}>
-          last backup download was on {backupDate?.slice(0, 10)}, about{" "}
-          {backupDifference}h ago.
+          Last backup download was on {backupDate?.slice(0, 10) || "never"},
+          about {backupDifference || 0}h ago.
         </p>
         <p
           className={` justify-center flex min-h-4 ${

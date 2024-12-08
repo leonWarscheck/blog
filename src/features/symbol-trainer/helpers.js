@@ -50,7 +50,7 @@ export function checkUserTyping(
 }
 
 export const saveScore = (wpm, levelId, scores, setScores) => {
-  const currentLevelHighScore = scores[levelId] ?? 0;
+  const currentLevelHighScore = scores?.[levelId] ?? 0;
   if (wpm > currentLevelHighScore) {
     const highScores = JSON.parse(localStorage.getItem("highScores")) || {};
     highScores[levelId] = wpm;
@@ -64,25 +64,11 @@ export function saveLastLevel(levelId) {
   localStorage.setItem("levelId", levelId);
 }
 
-export const getLevelSectionColor = (score) => {
-  score >= 60
-    ? "text-neutral-400"
-    : score >= 50
-    ? "text-emerald-la"
-    : score >= 40
-    ? "text-yellow-la"
-    : score >= 30
-    ? "text-violet-500"
-    : score >= 20
-    ? "text-red-500"
-    : "text-neutral-500";
-};
-
-export function saveLastBackupDate() {
-  localStorage.setItem("backupDate", new Date().toString());
+export function syncLastBackupDateToLocalStorage(now) {
+  localStorage.setItem("backupDate", now);
 }
 
-export function downloadScoresJSON() {
+export function downloadScoresJSON(setBackupDate, setMessage) {
   const scoresJSON = localStorage.getItem("highScores");
 
   if (scoresJSON) {
@@ -97,6 +83,9 @@ export function downloadScoresJSON() {
     URL.revokeObjectURL(link.href);
   } else {
     console.error("No scores found in localStorage.");
+    setBackupDate("");
+    setMessage("No scores found in localStorage.")
+    syncLastBackupDateToLocalStorage("");
   }
 }
 
@@ -120,8 +109,7 @@ export function importBackup(event, setMessage) {
   }
 }
 
-export function calcBackupDifference(backupDate) {
-  const now = new Date();
+export function calcBackupDifference(backupDate, now) {
   const differenceInHours = Math.round(
     (now - new Date(backupDate)) / (1000 * 60 * 60)
   );

@@ -1,14 +1,20 @@
 import { useState, useEffect } from "react";
 import {
-  saveLastBackupDate,
+  syncLastBackupDateToLocalStorage,
   downloadScoresJSON,
   importBackup,
   calcBackupDifference,
-} from "../helper-functions";
+} from "../helpers";
 
 export default function SaveSection({ scores, setScores }) {
   const [message, setMessage] = useState();
-  const backupDate = localStorage.getItem("backupDate");
+  const [backupDate, setBackupDate] = useState();
+  const backupDifference = calcBackupDifference(backupDate, new Date());
+
+  useEffect(() => {
+    setBackupDate(localStorage.getItem("backupDate") || "")
+  }, [])
+
 
   useEffect(() => {
     if (message) {
@@ -35,8 +41,9 @@ export default function SaveSection({ scores, setScores }) {
           <button
             className="bg-neutral- hover:text-neutral-500 underline rounded-sm flex"
             onClick={() => {
-              downloadScoresJSON();
-              saveLastBackupDate(scores, setScores);
+              syncLastBackupDateToLocalStorage(new Date().toString());
+              setBackupDate(new Date().toString())
+              downloadScoresJSON(setBackupDate, setMessage);
             }}
           >
             Download Backup File
@@ -59,9 +66,8 @@ export default function SaveSection({ scores, setScores }) {
           </div>
         </div>
         <p className={` flex justify-center  text-neutral-500 mb-4`}>
-          last backup download was on{" "}
-          {backupDate.toString().slice(0, 10) || "'never'"}, about{" "}
-          {calcBackupDifference(backupDate).toString() || "infinite "}h ago
+          last backup download was on {backupDate?.slice(0, 10) || "never"},
+          about {backupDifference || 0}h ago
         </p>
         <p
           className={` justify-center flex ${

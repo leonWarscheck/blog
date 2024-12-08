@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import levels from "../levels.json";
-import { saveScore, saveLastLevel, checkUserTyping } from "../helper-functions";
+import { saveScore, saveLastLevel, checkUserTyping } from "../helpers";
 import { useCustomInputFocusBehaviour } from "../use-custom-input-focus-behaviour";
 import { useLevelNavigationShortcut } from "../use-level-navigation-shortcut";
 import { useTrainerColorSetter } from "../use-trainer-color-setter";
@@ -23,8 +23,8 @@ export default function TrainerSection({
 
   // loading levelString and saving re-entrypoint (lastLevel)
   useEffect(() => {
-    setLevelString(levels[levelId].string);
-    saveLastLevel(levelId, scores, setScores);
+    setLevelString(levels[levelId]?.string);
+    saveLastLevel(levelId);
   }, [levelId]);
 
   // main typing trainer logic

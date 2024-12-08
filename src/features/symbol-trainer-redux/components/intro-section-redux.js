@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { SymbolTrainerContext } from "../../../pages/symbol-trainer-redux";
+import { SymbolTrainerContext } from "../symbol-trainer-redux-page";
 import { sectionClicked } from "../reducer";
 
 export default function IntroSection() {
@@ -13,7 +13,7 @@ export default function IntroSection() {
     const colorInterval = setInterval(() => {
       colorIndex = (colorIndex + 1) % colors.length;
       setColor(colors[colorIndex]);
-    }, 1234);
+    }, 1111);
 
     return () => clearInterval(colorInterval);
   }, []);
