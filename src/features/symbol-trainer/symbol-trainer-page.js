@@ -10,16 +10,17 @@ import ResponsiveNote from "./components/responsive-note";
 
 export default function SymbolTrainerPage() {
   const [section, setSection] = useState("introSection");
-  const [scores, setScores] = useState([]);
-  const [levelId, setLevelId] = useState(0);
+  const [scores, setScores] = useState();
+  const [levelId, setLevelId] = useState(1);
 
   // initial sync from localStorage
   useEffect(() => {
-    const scores = JSON.parse(localStorage.getItem("highScores"));
     const lastLevel = JSON.parse(localStorage.getItem("levelId"));
-
+    const scores = JSON.parse(localStorage.getItem("highScores"));
+    if (lastLevel) {
+      setLevelId(lastLevel);
+    }
     setScores(scores);
-    setLevelId(lastLevel);
   }, []);
 
   return (

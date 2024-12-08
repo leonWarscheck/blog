@@ -71,7 +71,7 @@ export default function Header({}) {
             </Link>
           </li>
           <li>
-            <Link className="hover:text-neutral-200" href="/symbol-trainer">
+            <Link className="hover:text-neutral-200" href="/symbol-trainer-redux">
               Tools
             </Link>
           </li>
