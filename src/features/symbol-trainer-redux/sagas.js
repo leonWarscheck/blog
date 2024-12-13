@@ -2,15 +2,17 @@ import {
   all,
   select,
   put,
+  call,
   delay,
   takeEvery,
-  take,
   takeLatest,
 } from "redux-saga/effects";
 import {
   userTypedInTrainerInput,
   levelClicked,
   typingStarted,
+  userWon,
+  userFailed,
   typingEndedByWinning,
   selectInputString,
   selectLevelId,
@@ -23,25 +25,14 @@ import {
   backupDownloadClicked,
   selectBackupDate,
   levelChosenByShortcut,
-  levelSyncedFromLocalStorage,
-  backupDateSyncedFromLocalStorage,
+  levelAndBackupDateSyncedFromLocalStorage,
 } from "./reducer";
 
-// initial data sync FROM localStorage on first mount of symbol-trainer page
-// handler & watcher saga
-function* handleLoadSymbolTrainer() {
-  const levelId = Number(localStorage.getItem("levelId"));
-  const backupDate = localStorage.getItem("backupDate") || "";
-  if (levelId) {
-    yield put(levelSyncedFromLocalStorage(levelId));
-  }
-  yield put(backupDateSyncedFromLocalStorage(backupDate));
-}
-function* watchLoadSymbolTrainer() {
-  yield takeLatest(loadSymbolTrainer().type, handleLoadSymbolTrainer);
-}
-
-//trainerSection logic
+/*
+=====================
+trainerSection logic
+=====================
+*/
 // helperfunctions:
 const getTime = () => new Date();
 const syncToLocalHighScores = (currentLevelHighScore, currentWpm, levelId) => {
@@ -58,11 +49,13 @@ function* handleUserTypedInTrainerInput() {
   const startTime = yield select(selectStartTime);
 
   if (inputString.length === 1 && startTime === null) {
-    yield put(typingStarted(getTime()));
+    const now = yield call(getTime());
+    yield put(typingStarted(now));
   }
 
   if (yield select(selectIsWin)) {
-    yield put(typingEndedByWinning(getTime()));
+    const now = yield call(getTime());
+    yield put(typingEndedByWinning(now));
 
     const currentWpm = yield select(selectCurrentWpm);
     const levelId = yield select(selectLevelId);
@@ -70,14 +63,12 @@ function* handleUserTypedInTrainerInput() {
     syncToLocalHighScores(currentLevelHighScore, currentWpm, levelId);
 
     yield delay(2_000);
-    yield put(userTypedInTrainerInput(""));
-    yield put(typingStarted(null));
+    yield put(userWon());
   }
 
   if (yield select(selectIsFail)) {
     yield delay(1_000);
-    yield put(userTypedInTrainerInput(""));
-    yield put(typingStarted(null));
+    yield put(userFailed());
   }
 }
 
@@ -88,7 +79,27 @@ function* watchUserTypedInTrainerInput() {
   );
 }
 
-// sync backupdate & levelId TO localStorage
+/*
+========================================
+initial data sync FROM localStorage 
+(on first mount of symbol-trainer page)
+========================================
+*/
+// handler & watcher sagas:
+function* handleLoadSymbolTrainer() {
+  const levelId = Number(localStorage.getItem("levelId"));
+  const backupDate = localStorage.getItem("backupDate");
+  yield put(levelAndBackupDateSyncedFromLocalStorage({ levelId, backupDate }));
+}
+function* watchLoadSymbolTrainer() {
+  yield takeLatest(loadSymbolTrainer().type, handleLoadSymbolTrainer);
+}
+
+/*
+==========================================
+sync backupdate & levelId TO localStorage
+==========================================
+*/
 // helperfunctions:
 const syncToLocalBackupDate = (backupDate) => {
   localStorage.setItem("backupDate", backupDate);
@@ -97,7 +108,7 @@ const syncToLocalLevelId = (levelId) => {
   localStorage.setItem("levelId", levelId);
 };
 
-// handler & watcher saga:
+// handler & watcher sagas:
 function* handleSyncToLocalStorage(action) {
   if (action.type === backupDownloadClicked().type) {
     const backupDateFromReducer = yield select(selectBackupDate);
@@ -122,6 +133,11 @@ function* watchSyncLocalStorage() {
   );
 }
 
+/*
+==========
+root saga
+==========
+*/
 export function* rootSaga() {
   yield all([
     watchLoadSymbolTrainer(),

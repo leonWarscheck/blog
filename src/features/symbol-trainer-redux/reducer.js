@@ -1,44 +1,73 @@
 import createSagaMiddleware from "redux-saga";
 import { createReducer } from "react-use";
 import levels from "./levels-redux.json";
-import { select } from "redux-saga/effects";
 
+// ================
 // action creators
+// ================
 export const sectionClicked = (payload) => ({
   type: "sectionClicked",
   payload,
 });
+
 export const levelClicked = (payload) => ({
   type: "levelClicked",
   payload,
 });
+
 export const levelChosenByShortcut = (payload) => ({
   type: "levelChosenByShortcut",
   payload,
 });
-export const levelSyncedFromLocalStorage = (payload) => ({
-  type: "levelSyncedFromLocalStorage",
-  payload,
-});
+
 const changeCurrentLevel = (state, levelId) => ({
   ...state,
   levelId: levelId,
 });
 
+export const levelAndBackupDateSyncedFromLocalStorage = ({
+  levelId,
+  backupDate,
+} = {}) => ({
+  type: "levelAndBackupDateSyncedFromLocalStorage",
+  payload: { levelId, backupDate },
+});
+
+const handleLevelAndBackupSync = (state, { levelId, backupDate }) => ({
+  ...state,
+  levelId: levelId || 1,
+  backupDate: backupDate || "",
+});
+
 export const loadSymbolTrainer = () => ({ type: "loadSymbolTrainer" });
+
 export const userTypedInTrainerInput = (payload) => ({
   type: "userTypedInTrainerInput",
   payload,
 });
+
+export const userWon = () => ({ type: userWon });
+
+export const userFailed = () => ({ type: userFailed });
+
+const resetLevelOnWinOrFail = (state) => ({
+  ...state,
+  inputString: "",
+  startTime: null,
+});
+
 export const typingStarted = (payload) => ({ type: "typingStarted", payload });
+
 export const typingEndedByWinning = (payload) => ({
   type: "typingEndedByWinning",
   payload,
 });
+
 export const backupDownloadClicked = (payload) => ({
   type: " backupDownloadClicked",
   payload,
 });
+
 export const backupDateSyncedFromLocalStorage = (payload) => ({
   type: "backupDateSyncedFromLocalStorage",
   payload,
@@ -54,7 +83,9 @@ export const backupImportClicked = (payload) => ({
   payload,
 });
 
+// =====================
 // reducer + saga mount
+// =====================
 export const initialState = {
   section: "introSection",
   levelId: 1,
@@ -76,10 +107,14 @@ export function symbolTrainerReducer(
       return changeCurrentLevel(state, payload);
     case levelChosenByShortcut().type:
       return changeCurrentLevel(state, payload);
-    case levelSyncedFromLocalStorage().type:
-      return changeCurrentLevel(state, payload);
+    case levelAndBackupDateSyncedFromLocalStorage().type:
+      return handleLevelAndBackupSync(state, payload);
     case userTypedInTrainerInput().type:
       return { ...state, inputString: payload };
+    case userWon().type:
+      return resetLevelOnWinOrFail(state);
+    case userFailed().type:
+      return resetLevelOnWinOrFail(state);
     case typingStarted().type:
       return { ...state, startTime: payload };
     case typingEndedByWinning().type:
@@ -106,16 +141,21 @@ export const useSagaReducer = (saga, reducer, initial) => {
   return { state, dispatch };
 };
 
+// ==========
 // selectors
+// ==========
 export const selectSection = (state) => state.section;
+
 export const selectLevelId = (state) => state.levelId;
 
 export const selectLevelString = (state) =>
   levels[selectLevelId(state)]?.string;
+
 export const selectInputString = (state) => state.inputString;
 
 export const selectIsWin = (state) =>
   selectLevelString(state) === selectInputString(state);
+
 export const selectIsFail = (state) => {
   for (let i = 0; i < selectInputString(state).length; i++) {
     if (
@@ -130,6 +170,7 @@ export const selectIsFail = (state) => {
 
 export const selectHighScores = () =>
   JSON.parse(localStorage.getItem("highScores"));
+
 export const selectCurrentLevelHighScore = (state) =>
   selectHighScores(state)?.[selectLevelId(state)] || 0;
 
@@ -161,6 +202,7 @@ export const selectTrainerColorClasses = (state) => {
 };
 
 export const selectStartTime = (state) => state.startTime;
+
 const selectEndTime = (state) => state.endTime;
 
 export const selectCurrentWpm = (state) => {
@@ -180,6 +222,7 @@ export const selectCurrentWpm = (state) => {
 };
 
 export const selectBackupDate = (state) => state.backupDate;
+
 export const selectBackupDifference = (state, now) => {
   const differenceInHours = Math.round(
     (now - new Date(selectBackupDate(state))) / (1000 * 60 * 60)
