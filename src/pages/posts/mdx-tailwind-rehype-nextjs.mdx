@@ -1,8 +1,9 @@
 ---
-title: "MDX, Tailwind & Code Styling in NextJS Pages-Routing"
-date: "2023-02-06"
-readingTime: "11min"
-preview: "Setting up MDX in NextJS can be a bit of a struggle. Especially when you are mixing it with Tailwind and Rehype Pretty Code, which at times seem to interfere. Here is how you can set them up together in near harmony. (+ Custom Colortheme)"
+title: 'MDX, Tailwind & Code Styling in NextJS Pages-Routing'
+date: '2024-02-06'
+readingTime: '11min'
+preview: 'Setting up MDX in NextJS can be a bit of a struggle. Especially when you are mixing it with Tailwind and Rehype Pretty Code, which at times seem to interfere. Here is how you can set them up together in near harmony. (+ Custom Colortheme)'
+
 ---
 
 import MdxLayout from "../../features/blog/mdx-layout";
@@ -32,8 +33,7 @@ export default function MDXPage({ children }) {
 Setting up MDX in NextJS can be a bit of a struggle. Especially when you mix it
 with Tailwind and Rehype Pretty Code, which at times interfere. Here is how you can set them
 up together in near harmony.
-
-<br />{" "}
+<br/> 
 
 ### Table of Contents <a href="" id="toc"></a>
 
@@ -45,7 +45,6 @@ up together in near harmony.
 5. [Custom Colortheme](#custom-colortheme)
 
 ---
-
 ### 0. <a href="#toc" id="prerequisites">Prerequisites</a>
 
 You must have already either followed the steps of this guide:
@@ -58,17 +57,13 @@ Or have scanned through it to make sure the state of your project lines up with 
 - the [pages-routing setup,](/posts/nextjs-pages-blog-tutorial-2024#routing)
 - and the [HomeFeed component](/posts/nextjs-pages-blog-tutorial-2024#homefeed) should be exactly the same.
 
-<br />
-### 1. <a href="#toc" id="mdx-setup">
-  MDX Setup
-</a>
+<br/>
+### 1. <a href="#toc" id="mdx-setup">MDX Setup</a>
 
 Start with the basic installation:
-
 ```zsh title="zsh / bash"
 npm install @next/mdx @mdx-js/loader @mdx-js/react @types/mdx
 ```
-
 Now to the config file, with a little bummer. The [NextJS docs](https://nextjs.org/docs/pages/building-your-application/configuring/mdx) show an
 outdated version of the configuration settings:
 
@@ -112,52 +107,52 @@ the file-ending to .mjs.
 
 A big part in making the whole setup work, is
 to understand how the config file works, so you can consciously re-adjust from
-there.
+there. 
 
 If you should get stuck anyway, I can recommend to follow the steps again in a
-from-scratch NextJS project.
+from-scratch NextJS project. 
 
-_Note for beginners: You can set that up really fast in a separate IDE workspace
-and run both your main and your experimentation project at the same time._
+*Note for beginners: You can set that up really fast in a separate IDE workspace
+and run both your main and your experimentation project at the same time.*
+
 
 #### Remark Frontmatter Plugin
 
 Now you should be able to see your .mdx pages via `localhost:3000/posts/blog-post-title.mdx`. However, the frontmatter metadata section gets rendered aswell and ruins the start of the article. To hide it, install `remark-frontmatter`:
 
 ```zsh title="zsh / bash"
-npm install remark-frontmatter
+npm install remark-frontmatter 
 ```
 
 And update the config:
 
 ```js title="/next.config.mjs"
 import nextMDX from "@next/mdx";
-import remarkFrontmatter from "remark-frontmatter"; // Import.
+import remarkFrontmatter from 'remark-frontmatter' // Import.
 
 const nextConfig = {
   pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
   reactStrictMode: true,
 };
 
-const withMDX = nextMDX({
-  options: {
+const withMDX = nextMDX({ options: {
     remarkPlugins: [remarkFrontmatter], // Set.
-  },
-});
+} });
 
 export default withMDX(nextConfig);
 ```
 
-<br />
+<br/>
 
 ### 2. <a href="#toc" id="tailwind-typography">Tailwind Typography Setup</a>
 
+
 Now the metadata is hidden and you should only see the content of the markdown
-page.
+page. 
 
 The next thing to notice is that there is no markdown formating: `##h2` `- li`
 `>blockquote` etc aren't showing as they should. That's because
-Tailwind resets all styles, including markdown elements.
+Tailwind resets all styles, including markdown elements. 
 
 You have to install the [Tailwind Typography Plugin](https://github.com/tailwindlabs/tailwindcss-typography) and apply its `prose`-classes to your .mdx pages, to revive the markdown functionality.
 
@@ -185,7 +180,9 @@ const tailwindConfig = {
     },
     // ...
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [
+    require("@tailwindcss/typography"),
+  ],
 };
 export default tailwindConfig;
 ```
@@ -212,18 +209,16 @@ export default function MdxLayout({ children }) {
   );
 }
 ```
-
 Explanation of classes (line by line):
-
 1. general `<main>` settings related to height, width, positioning etc
 2. "activate" prose for all posts, set grayscale tone, enable darkmode
 3. customizations for markdown elements
 
-_Check out the [Tailwind Typography Docs](https://github.com/tailwindlabs/tailwindcss-typography) for all styling options._
+*Check out the [Tailwind Typography Docs](https://github.com/tailwindlabs/tailwindcss-typography) for all styling options.*
 
-Now, its time to mount `MdxLayout`. Below the frontmatter, and above your content of _each_ .mdx file insert this `MDXPage` component:
+Now, its time to mount `MdxLayout`. Below the frontmatter, and above your content of *each* .mdx file insert this `MDXPage` component:
 
-```js title="/src/pages/posts/each-blog-post-title.mdx"
+```js title="/src/pages/posts/each-blog-post-title.mdx" 
 ---
 title: ""
 date: "2023-00-00"
@@ -231,7 +226,6 @@ readingTime: "00min"
 preview: ""
 ---
 ```
-
 ```js caption="Tip: You can save a post-template.mdx file containing empty frontmatter and this component."
 import MdxLayout from "../components/MdxLayout"; // Import.
 import Head from "next/head";
@@ -239,29 +233,27 @@ import Head from "next/head";
 export default function MDXPage({ children }) {
   const headtitle = "Headtitle For The Post"; // Here you can set the Head title for your current post.
   return (
-    <MdxLayout>
-      {" "}
-      // Mount.
+    <MdxLayout> // Mount.
       <Head>
         <title>{headtitle}</title>
       </Head>
-      <article className="text-justify">{children}</article> // Set styling specific
-      for this post. Include article tag for SEO.
+      <article className="text-justify">{children}</article> // Set styling specific for this post. Include article tag for SEO.
     </MdxLayout>
   );
 }
 
+
 // Blog post content...
 ```
 
+
 Now you should finally see markdown behaviour as usual. Congratulations!
 
-<br />
-### 3. <a href="#toc" id="rehype-pretty-code">
-  Rehype Pretty Code
-</a>
+<br/>
+### 3. <a href="#toc" id="rehype-pretty-code">Rehype Pretty Code</a>
 
-Every dev blog needs proper codeblocks. A great syntax highlighter for this projects tech stack is [Rehype Pretty Code](https://rehype-pretty.pages.dev/).
+
+Every dev blog needs proper codeblocks. A great syntax highlighter for this projects tech stack is [Rehype Pretty Code](https://rehype-pretty.pages.dev/). 
 
 Install via npm:
 
@@ -273,7 +265,7 @@ And setup in `next.config.mjs`:
 
 ```js title="/next.config.mjs"
 import nextMDX from "@next/mdx";
-import remarkFrontmatter from "remark-frontmatter";
+import remarkFrontmatter from 'remark-frontmatter'
 import rehypePrettyCode from "rehype-pretty-code"; // Import.
 
 const nextConfig = {
@@ -283,25 +275,20 @@ const nextConfig = {
 
 // See docs for more options and pre-packaged themes.
 const prettyCodeOptions = {
-  theme: "synthwave-84",
+  theme: 'synthwave-84',
 };
 
-const withMDX = nextMDX({
-  options: {
-    remarkPlugins: [remarkFrontmatter],
+const withMDX = nextMDX({ options: {
+    remarkPlugins: [remarkFrontmatter], 
     rehypePlugins: [[rehypePrettyCode, prettyCodeOptions]], // Set.
-  },
-});
+} });
 
 export default withMDX(nextConfig);
 ```
-
 Now your codeblocks should be pretty, let's go!
 
-<br />
-### 4. <a href="#toc" id="mdx-custom-elements">
-  MDX Custom Elements
-</a>
+<br/>
+### 4. <a href="#toc" id="mdx-custom-elements">MDX Custom Elements</a>
 
 There is a lot you can customize via Tailwind Typography, but for some markdown components you might want extra control.
 
@@ -311,17 +298,16 @@ Just create an `mdx-components.js` file like this in your root folder, and NextJ
 export function useMDXComponents(components) {
   return {
     h2: ({ children }) => <h2 className="text-4xl text-red-500">{children}</h2>, // Tailwind Classes do not always work here.
-    hr: () => <hr style={{ height: "1.7px", backgroundColor: "white" }} />, // Inline styles did always work so far.
-    pre: ({ children }) => <pre>{children}</pre>, // Why is this unstyled? See explanation further below.
+    hr: () => ( <hr style={{ height: "1.7px", backgroundColor: "white" }} /> ), // Inline styles did always work so far.
+    pre: ({children})=> <pre>{children}</pre>, // Why is this unstyled? See explanation further below. 
     ...components,
   };
 }
 ```
-
 Even if you don't have customizations in mind yet, make sure to set up at least
 the empty component already, you will likely run in to trouble without it later.
 
-At this point we have TailwindCSS, Tailwind Typography, Vanilla CSS and Markdown (and Prettycode) intermingling. I am pretty sure that's the reason, why sometimes, Tailwind classes don't work in `mdx-components.js`.
+At this point we have TailwindCSS, Tailwind Typography, Vanilla CSS and Markdown (and Prettycode) intermingling. I am pretty sure that's the reason, why sometimes, Tailwind classes don't work in `mdx-components.js`. 
 
 I have not found a direct solution for that, but you can cope by using inline-styles CSS (see `<hr/>`) or by customizing MDX components via Tailwind Typography in `MdxLayout.js`.
 
@@ -331,15 +317,14 @@ found a way to make it work: Insert `pre: ({children})=> <pre>{children}</pre>,`
 
 **MDXProvider:** Some tutorials also tell you to use an `<MDXProvider>` for custom components, but that is not neccessary and critizised by the [MDX Docs](https://mdxjs.com/docs/using-mdx/#mdx-provider). Instead, just set up the `mdx-components.js` file like explained, and have `<MDXProvider>` (`@mdx-js/react`) NOT installed.
 
-<br />
-### 5. <a href="#toc" id="custom-colortheme">
-  Custom Colortheme
-</a>
+<br/>
+### 5. <a href="#toc" id="custom-colortheme">Custom Colortheme</a>
 
-Parallel to the blog, I created a custom colortheme _to use in VS Codium_. I
-used this buggy, but cool [themegenerator on vscode.one](https://themes.vscode.one/theme/LAndersen/JdlQJNw3).
 
-<Image src={themeGenerator} alt="a screenshot of the theme generator tool" />
+Parallel to the blog, I created a custom colortheme *to use in VS Codium*. I
+used this buggy, but cool [themegenerator on vscode.one](https://themes.vscode.one/theme/LAndersen/JdlQJNw3). 
+
+<Image src={themeGenerator} alt="a screenshot of the theme generator tool"/>
 
 Unfortunately I found out afterwards, that it is not compatible with the newest
 versions of VS Code. However, I could at least use it for this blog, by
@@ -347,9 +332,9 @@ importing it via `fs`:
 
 ```js title="/next.config.mjs"
 import nextMDX from "@next/mdx";
-import remarkFrontmatter from "remark-frontmatter";
+import remarkFrontmatter from 'remark-frontmatter'
 import rehypePrettyCode from "rehype-pretty-code";
-import fs from "fs"; // Import filesystem to access locally stored custom colortheme.
+import fs from 'fs'; // Import filesystem to access locally stored custom colortheme.
 
 const nextConfig = {
   pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
@@ -361,12 +346,10 @@ const prettyCodeOptions = {
   theme: JSON.parse(fs.readFileSync("./public/LSD-Classics.json", "utf-8")),
 };
 
-const withMDX = nextMDX({
-  options: {
-    remarkPlugins: [remarkFrontmatter],
+const withMDX = nextMDX({ options: {
+    remarkPlugins: [remarkFrontmatter], 
     rehypePlugins: [[rehypePrettyCode, prettyCodeOptions]], // Set plugin.
-  },
-});
+} });
 
 export default withMDX(nextConfig);
 ```

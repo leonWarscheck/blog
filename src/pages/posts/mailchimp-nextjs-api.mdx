@@ -24,7 +24,7 @@ export default function MDXPage({ children }) {
       <Head>
         <title>{headtitle}</title>
       </Head>
-      <article className="">{children}</article>
+    <article className="">{children}</article>
     </MdxLayout>
   );
 }
@@ -38,8 +38,7 @@ export default function MDXPage({ children }) {
 Every Website needs an Email Newsletter. MailChimp is a popular service for
 that. Here is how you can connect it to NextJS with a custom SubscribeForm - and learn the
 Next API routes in the process!
-
-<br />
+<br/>
 <a id="toc"></a>
 ### Table of Contents
 
@@ -50,9 +49,7 @@ Next API routes in the process!
 4. [Get Auth Data from Mailchimp](#get-mailchimp-auth-data)
 5. [Next API Setup](#next-api-setup)
 6. [SubcribeForm User-Feedback](#subscribeform-user-feedback)
-
 ---
-
 ### <a id="requirements" href="#toc">0. Requirements</a>
 
 To get it rolling as smooth as possible, you need to have a NextJS project with
@@ -60,15 +57,14 @@ To get it rolling as smooth as possible, you need to have a NextJS project with
 - these [NextJS Installation settings,](/posts/nextjs-pages-blog-tutorial-2024#installation)
 - and this [pages routing structure.](/posts/nextjs-pages-blog-tutorial-2024#routing)
 
+
 It will still work in many other cases (including with premade components), but you would need to make adjustments in filepaths etc.
 
 Also make sure to install the HTTP request client [Axios](https://www.npmjs.com/package/axios):
 `npm install axios`
 
-<br />
-### <a id="custom-subscribeform" href="#toc">
-  1. Custom SubscribeForm
-</a>
+<br/>
+### <a id="custom-subscribeform" href="#toc">1. Custom SubscribeForm</a>
 
 Growing an email list can be one of the main objectives of a blog. So I found an
 everpresent subscribe form in the fixed header to be a cool idea. To keep it a
@@ -80,10 +76,10 @@ the logic for that:
 import SubscribeForm from "./SubscribeFormHeader";
 import { useState, useEffect } from "react";
 
-export default function Header({}) {
+export default function Header({}){
   const [showSubscription, setShowSubscription] = useState(false);
 
-  const handleSubscribeClick = () => {
+ const handleSubscribeClick = () => {
     setShowSubscription(true); // statechange that opens the form
   };
 
@@ -94,32 +90,34 @@ export default function Header({}) {
   return (
     <header>
       <nav>
-        <Link>
-          <h1>LeonWarscheck</h1>
-        </Link>
-        <ul>
-          <li>
-            <Link>About</Link>
-          </li>
-          <li>
-            <button
-              onClick={handleSubscribeClick} // triggers the conditional rendering via statechange
-            >
-              Subscribe
-            </button>
-            {showSubscription && ( // conditional rendering
-              <SubscribeForm
-                onCancel={handleCancel}
-                onSubscribe={handleCancel} // both props are doing the same, just at different places in the interaction with the form
-              />
-            )}
-          </li>
-        </ul>
-        <Menu />
+          <Link>
+            <h1>LeonWarscheck</h1>
+          </Link>
+          <ul>
+            <li>
+              <Link>
+                About
+              </Link>
+            </li>
+            <li>
+              <button
+                onClick={handleSubscribeClick} // triggers the conditional rendering via statechange 
+              >
+                Subscribe
+              </button>
+              {showSubscription && ( // conditional rendering
+                <SubscribeForm
+                  onCancel={handleCancel}
+                  onSubscribe={handleCancel} // both props are doing the same, just at different places in the interaction with the form
+                />
+              )}
+            </li>
+          </ul>
+          <Menu/>
       </nav>
     </header>
   );
-}
+};
 ```
 
 And here is whats going on in the Form component, including how to jump the
@@ -129,13 +127,11 @@ cursor into the email-input, once the form opens:
 import axios from "axios";
 import { useEffect, useRef } from "react";
 
-export default function SubscribeForm({ onCancel, onSubscribe }) {
-  // getting props from Header.js
+export default function SubscribeForm({ onCancel, onSubscribe }) { // getting props from Header.js
   const inputRef = useRef(null); // useRef directly accesses the input dom-element
 
   useEffect(() => {
-    if (inputRef.current) {
-      // .current is built into useRef and parses the referenced dom-element, once it mounts into the dom-tree
+    if (inputRef.current) { // .current is built into useRef and parses the referenced dom-element, once it mounts into the dom-tree
       inputRef.current.focus(); // .focus() places the cursor into the input
     }
   }, []);
@@ -146,9 +142,7 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
   };
 
   return (
-    <form onSubmit={handleSubscribe}>
-      {" "}
-      // see next section
+    <form onSubmit={handleSubscribe}> // see next section
       <input
         type="email"
         name="email"
@@ -158,10 +152,10 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
         autoCorrect="off"
         ref={inputRef} // useRef api
       />
-      <button type="submit">Subscribe</button>
-      <button onClick={onCancel}>
-        {" "}
-        // triggers conditional (un-)rendering of subForm component in Header.js
+      <button type="submit">
+        Subscribe
+      </button>
+      <button onClick={onCancel}> // triggers conditional (un-)rendering of subForm component in Header.js
         Cancel
       </button>
     </form>
@@ -169,10 +163,9 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
 }
 ```
 
-<br />
-### <a id="subscribeform-handler-setup" href="#toc">
-  2. SubscribeForm Handler Setup
-</a>
+
+<br/>
+### <a id="subscribeform-handler-setup" href="#toc">2. SubscribeForm Handler Setup</a>
 
 Now let's look at the "handleSubscribe" component. You can find all the detailed
 explanations in the comments:
@@ -212,17 +205,14 @@ export default function SubscribeForm({}) {
         autoCapitalize="off"
         autoCorrect="off"
       />
-      // subform details left out for focus. more in section 6. SubscribeForm
-      User-Feedback
+      // subform details left out for focus. more in section 6. SubscribeForm User-Feedback
     </form>
   );
 }
 ```
 
-<br />
-### <a id="envlocal-setup" href="#toc">
-  3. .env.local Setup
-</a>
+<br/>
+### <a id="envlocal-setup" href="#toc">3. .env.local Setup</a>
 
 Create a `.env.local` file in your root directory and insert the following
 variable names just like this:
@@ -249,10 +239,9 @@ Later, when you deploy your next-app, you will leave both files as they are to
 stay able to develop locally, but very likely copy the values directly into the
 deployment service API gui (e.g. Vercel).
 
-<br />
-### <a id="get-mailchimp-auth-data" href="#toc">
-  4. Get MailChimp Auth Data
-</a>
+
+<br/>
+### <a id="get-mailchimp-auth-data" href="#toc">4. Get MailChimp Auth Data</a>
 
 Now sign up to mailchimp and follow this screenshot journey to copy the auth data
 into the x-placeholders in `.env.local`:
@@ -273,10 +262,9 @@ Now find and copy-paste the MAILCHIMP_AUDIENCE_ID like this:
 
 You now have all neccessary auth data set up in your local environment variables.
 
-<br />
-### <a id="next-api-setup" href="#toc">
-  5. Next API Setup
-</a>
+
+<br/>
+### <a id="next-api-setup" href="#toc">5. Next API Setup</a>
 
 In section 1, your submithandler in `SubscribeForm.js` has sent a post request
 to your Next API. Now your `postHandler` in `subscribeApi.js` structures the
@@ -285,7 +273,7 @@ final HTTP package via `axios.post`.
 
 Next API is the "backend middleman" between the client and the mailchimp api
 like this: `Client <=> NextAPI <=> MailChimpAPI`. This makes sure that the
-private authorization data can not get accessed by the browser.
+private authorization data can not get accessed by the browser. 
 
 ```js title="/src/pages/api/subscribeApi.js"
 import axios from "axios"; // Import axios for HTTP requesthandling.
@@ -339,8 +327,7 @@ export default async function postHandler(req, res) {
   }
 }
 ```
-
-<br />
+<br/>
 
 ### <a id="subscribeform-user-feedback" href="#toc">6. SubcribeForm User-Feedback</a>
 
@@ -354,7 +341,7 @@ import { useState, useEffect, useRef } from "react"; // Import useState.
 
 export default function SubscribeForm({ onCancel, onSubscribe }) {
   const [feedbackState, setFeedbackState] = useState(""); // Capture the different API responses to use them for conditional rendering below.
-  const [isSubmitting, setIsSubmitting] = useState(false); // Capture boolean, if a submission is already in process.
+  const [isSubmitting, setIsSubmitting] = useState(false); // Capture boolean, if a submission is already in process. 
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -368,7 +355,7 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
 
     if (isSubmitting) return; // Abort functioncall, if another submission is already in progress to avoid double requests.
 
-    setIsSubmitting(true); // Set submission state on first call of function. Has to be after the abortion mechanism.
+    setIsSubmitting(true); // Set submission state on first call of function. Has to be after the abortion mechanism. 
 
     inputRef.current.blur(); // Give user a first visual feedback (blur = remove cursor focus), while waiting for the response.
 
@@ -387,52 +374,48 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
       setIsSubmitting(false); // Set submission cycle to be finished, re-enabling sumbit button for new submission attempts.
       setTimeout(() => onSubscribe(), 2500); // Trigger closing of SubscribeForm in Header.js (see section 1.). Set duration of message being displayed.
       setTimeout(() => setFeedbackState(""), 3000); // Hides message. Make sure to trigger after closing of form, as it is part of the form.
+      
     }
   };
 
   return (
-    <>
-      // Conditional rendering via strict equality with state-string. // Enables
-      infinite state conditions vs boolean.
+    <> 
+      // Conditional rendering via strict equality with state-string. 
+      // Enables infinite state conditions vs boolean.
       {feedbackState === "" && ( // Condition 1. (Default, pre submit)
-        <form onSubmit={handleSubscribe}>
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            required
-            autoCapitalize="off"
-            autoCorrect="off"
-            ref={inputRef}
-          />
-          <button
-            type="submit"
-            disabled={isSubmitting} // Multi submission prevented by disabling submit button via isSubmitting state in handleSubscribe.
-          >
-            Subscribe
-          </button>
-          <button onClick={onCancel}>Cancel</button>
-        </form>
+        <form
+      onSubmit={handleSubscribe}
+    ><input
+        type="email"
+        name="email"
+        placeholder="Email"
+        required
+        autoCapitalize="off"
+        autoCorrect="off"
+        ref={inputRef}
+      /><button
+        type="submit"
+        disabled={isSubmitting} // Multi submission prevented by disabling submit button via isSubmitting state in handleSubscribe.
+      >
+        Subscribe
+      </button>
+      <button onClick={onCancel}>
+        Cancel
+      </button>
+    </form>
       )}
-      // In this example you would render the messages overlaying the header
-      buttons.
+      // In this example you would render the messages overlaying the header buttons.
       {feedbackState === "success" && ( // Condition 2.
-        <p>
-          Success.&nbsp;<span>Thank&nbsp;you.</span>
-        </p> // You can get creative. I used a span to render 2 colors to match my header button design with the messages.
+          <p>Success.&nbsp;<span>Thank&nbsp;you.</span></p> // You can get creative. I used a span to render 2 colors to match my header button design with the messages.
       )}
       {feedbackState === "failure" && ( // Condition 3.
-        <p>
-          Failure.&nbsp;<span>Please&nbsp;try&nbsp;again.</span>
-        </p>
+        <p>Failure.&nbsp;<span>Please&nbsp;try&nbsp;again.</span></p>
       )}
-    </>
+      </>
   );
 }
 ```
-
 ---
-
 And that's all you need for setting up Mailchimp via Next API! If you like my
 style of explanation, feel free to subscribe to my newsletter - in the
 header - to experience the component you just studied:)
