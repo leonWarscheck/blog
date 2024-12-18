@@ -1,9 +1,6 @@
 export default function HelpSection() {
   return (
-    <section
-      id="info"
-      className={`mx-auto flex w-full max-w-2xl grow px-4`}
-    >
+    <section id="info" className={`mx-auto flex w-full max-w-2xl grow px-4`}>
       <div className="prose prose-neutral prose-invert my-auto max-h-[54dvh] w-full max-w-2xl overflow-scroll text-neutral-400 prose-h2:text-neutral-400 prose-h3:font-bold prose-h3:text-neutral-400">
         <h2 className="hidden">Info</h2>
 

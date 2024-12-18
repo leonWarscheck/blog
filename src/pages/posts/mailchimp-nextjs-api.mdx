@@ -74,9 +74,7 @@ Also make sure to install the HTTP request client
 [Axios](https://www.npmjs.com/package/axios): `npm install axios`
 
 <br />
-### <a id="custom-subscribeform" href="#toc">
-  1. Custom SubscribeForm
-</a>
+### <a id="custom-subscribeform" href="#toc">1. Custom SubscribeForm</a>
 
 Growing an email list can be one of the main objectives of a blog. So I found an
 everpresent subscribe form in the fixed header to be a cool idea. To keep it a
@@ -178,9 +176,7 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
 ```
 
 <br />
-### <a id="subscribeform-handler-setup" href="#toc">
-  2. SubscribeForm Handler Setup
-</a>
+### <a id="subscribeform-handler-setup" href="#toc">  2. SubscribeForm Handler Setup</a>
 
 Now let's look at the "handleSubscribe" component. You can find all the detailed
 explanations in the comments:
@@ -228,9 +224,7 @@ export default function SubscribeForm({}) {
 ```
 
 <br />
-### <a id="envlocal-setup" href="#toc">
-  3. .env.local Setup
-</a>
+### <a id="envlocal-setup" href="#toc">  3. .env.local Setup</a>
 
 Create a `.env.local` file in your root directory and insert the following
 variable names just like this:
@@ -258,9 +252,7 @@ stay able to develop locally, but very likely copy the values directly into the
 deployment service API gui (e.g. Vercel).
 
 <br />
-### <a id="get-mailchimp-auth-data" href="#toc">
-  4. Get MailChimp Auth Data
-</a>
+### <a id="get-mailchimp-auth-data" href="#toc"> 4. Get MailChimp Auth Data</a>
 
 Now sign up to mailchimp and follow this screenshot journey to copy the auth
 data into the x-placeholders in `.env.local`:
@@ -283,9 +275,7 @@ You now have all neccessary auth data set up in your local environment
 variables.
 
 <br />
-### <a id="next-api-setup" href="#toc">
-  5. Next API Setup
-</a>
+### <a id="next-api-setup" href="#toc">5. Next API Setup</a>
 
 In section 1, your submithandler in `SubscribeForm.js` has sent a post request
 to your Next API. Now your `postHandler` in `subscribeApi.js` structures the

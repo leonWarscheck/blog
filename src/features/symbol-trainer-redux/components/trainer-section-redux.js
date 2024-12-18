@@ -1,19 +1,20 @@
 import { useContext, useEffect, useRef, useState } from 'react';
+
+import levels from '../levels-redux.json';
 import {
-  userTypedInTrainerInput,
   levelChosenByShortcut,
-  selectLevelString,
-  selectInputString,
-  selectIsWin,
-  selectIsFail,
-  selectTrainerColorClasses,
   selectCurrentWpm,
+  selectInputString,
+  selectIsFail,
+  selectIsWin,
   selectLevelId,
+  selectLevelString,
+  selectTrainerColorClasses,
+  userTypedInTrainerInput,
 } from '../reducer';
 import { SymbolTrainerContext } from '../symbol-trainer-redux-page';
-import levels from '../levels-redux.json';
-import { useLevelNavigationShortcut } from '../use-level-navigation-shortcut-redux';
 import { useCustomInputFocusBehaviour } from '../use-custom-input-focus-behaviour-redux';
+import { useLevelNavigationShortcut } from '../use-level-navigation-shortcut-redux';
 
 export default function TrainerSection() {
   const { state, dispatch } = useContext(SymbolTrainerContext);
@@ -46,19 +47,16 @@ export default function TrainerSection() {
             type="text"
             value={inputString}
             onChange={e => dispatch(userTypedInTrainerInput(e.target.value))}
-            className={` absolute z-10 my-auto w-full bg-transparent tracking-widerer focus:outline-none ${trainerColorClasses} `}
+            className={`absolute z-10 my-auto w-full bg-transparent tracking-widerer focus:outline-none ${trainerColorClasses} `}
           />
           <p
             id="'curtain' between levelString and inputString"
-            className=" pointer-events-none absolute bg-neutral-700 tracking-widerer text-neutral-700"
+            className="pointer-events-none absolute bg-neutral-700 tracking-widerer text-neutral-700"
           >
             {inputString}
           </p>
         </div>
-        <p
-          id="space/placeholder"
-          className=" tracking-widerer text-neutral-400"
-        >
+        <p id="space/placeholder" className="tracking-widerer text-neutral-400">
           {levelString}
         </p>
         <p

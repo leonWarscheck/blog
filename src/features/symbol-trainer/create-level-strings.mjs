@@ -1,5 +1,5 @@
-import fs from 'fs/promises';
-import path from 'path';
+import fs from 'node:fs/promises';
+import path from 'node:path';
 
 function createRandomString(caseType, length, lastLevel) {
   const cases = {
@@ -30,11 +30,7 @@ function createRandomString(caseType, length, lastLevel) {
   };
 
   const noRepeatsLastStingMax5 = randomChar => {
-    if (length <= 5) {
-      return !lastString.includes(randomChar);
-    } else {
-      return true;
-    }
+    return length <= 5 ? !lastString.includes(randomChar) : true;
   };
 
   while (randomString.length < length) {
@@ -47,7 +43,7 @@ function createRandomString(caseType, length, lastLevel) {
     if (caseType === 'numbers') {
       if (
         charCount[randomChar] <= 2 && // max ocurrence of same char is 2
-        randomString[randomString.length - 1] !== randomChar && // no consecutive occurence of same character
+        randomString.at(-1) !== randomChar && // no consecutive occurence of same character
         noRepeatsLastStingMax5(randomChar) // in strings of length 7: no character appears in consecutive strings
       ) {
         randomString += randomChar;
@@ -56,7 +52,7 @@ function createRandomString(caseType, length, lastLevel) {
       if (
         charCount[randomChar] <= 2 && // max ocurrence of same char is 2
         loweredCaseCount[randomChar.toLowerCase()] <= 3 && // max occurence of same char in any case is 3
-        randomString[randomString.length - 1] !== randomChar && // no consecutive occurence of same character
+        randomString.at(-1) !== randomChar && // no consecutive occurence of same character
         protectNumberAndLetterLimit(randomString, randomChar, length) && // maximum a quarter of chars can be letter or number
         noRepeatsLastStingMax5(randomChar) // in strings of length 7: no character appears in consecutive strings
       ) {

@@ -1,18 +1,19 @@
+import { useEffect, useRef } from 'react';
+
+import { saveLastLevel } from '../helpers';
 import levels from '../levels.json';
-import { useRef, useEffect } from 'react';
-import { saveLastLevel, getLevelSectionColor } from '../helpers';
 export default function LevelSection({
   setSection,
   setLevelId,
   scores,
   levelId,
 }) {
-  const levelRefs = useRef([]);
+  const levelReferences = useRef([]);
 
   // auto scroll to (current) levelId
   useEffect(() => {
-    if (levelId && levelRefs.current[levelId - 1]) {
-      levelRefs.current[levelId - 1].scrollIntoView({
+    if (levelId && levelReferences.current[levelId - 1]) {
+      levelReferences.current[levelId - 1].scrollIntoView({
         behavior: 'smooth',
         block: 'center',
       });
@@ -28,7 +29,7 @@ export default function LevelSection({
             return (
               <li
                 key={level.id}
-                ref={el => (levelRefs.current[index] = el)}
+                ref={element => (levelReferences.current[index] = element)}
                 className={`w-full ${level.id === 0 ? 'hidden' : 'flex'}`}
               >
                 <button

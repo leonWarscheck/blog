@@ -1,15 +1,16 @@
-import { useState, useEffect, useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
+
 import {
+  calcBackupDifference,
   downloadHighScoresJSON,
   importBackup,
-  calcBackupDifference,
 } from '../helpers-redux';
-import { SymbolTrainerContext } from '../symbol-trainer-redux-page';
 import {
   backupDownloadClicked,
   selectBackupDate,
   selectBackupDifference,
 } from '../reducer';
+import { SymbolTrainerContext } from '../symbol-trainer-redux-page';
 
 export default function SaveSection() {
   const [message, setMessage] = useState();

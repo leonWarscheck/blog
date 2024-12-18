@@ -1,6 +1,7 @@
-import { useState, useEffect, useContext } from 'react';
-import { SymbolTrainerContext } from '../symbol-trainer-redux-page';
+import { useContext, useEffect, useState } from 'react';
+
 import { sectionClicked } from '../reducer';
+import { SymbolTrainerContext } from '../symbol-trainer-redux-page';
 
 export default function IntroSection() {
   const { state, dispatch } = useContext(SymbolTrainerContext);
@@ -19,10 +20,7 @@ export default function IntroSection() {
   }, []);
 
   return (
-    <section
-      id="intro"
-      className={`mx-auto flex w-full max-w-2xl grow px-4`}
-    >
+    <section id="intro" className={`mx-auto flex w-full max-w-2xl grow px-4`}>
       <div className="mx-auto my-auto flex flex-col text-center">
         <h2 className={`mb-2 mt-6 text-2xl font-semibold ${'text-' + color} `}>
           Symbol<span className="text-neutral-400">Trainer</span>

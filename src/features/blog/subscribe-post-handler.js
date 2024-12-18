@@ -1,14 +1,14 @@
 import axios from 'axios';
 
-export default async function postHandler(req, res) {
-  if (req.method === 'POST') {
+export default async function postHandler(request, res) {
+  if (request.method === 'POST') {
     try {
       const API_KEY = process.env.MAILCHIMP_API_KEY;
       const AUDIENCE_ID = process.env.MAILCHIMP_AUDIENCE_ID;
       const DATACENTER = process.env.MAILCHIMP_API_SERVER;
       const mailchimpEndpoint = `https://${DATACENTER}.api.mailchimp.com/3.0/lists/${AUDIENCE_ID}/members`;
 
-      const email = req.body.email;
+      const email = request.body.email;
 
       const response = await axios.post(
         mailchimpEndpoint,

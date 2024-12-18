@@ -1,31 +1,32 @@
 import {
   all,
-  select,
-  put,
   call,
   delay,
+  put,
+  select,
   takeEvery,
   takeLatest,
 } from 'redux-saga/effects';
+
 import {
-  userTypedInTrainerInput,
-  levelClicked,
-  typingStarted,
-  userWon,
-  userFailed,
-  typingEndedByWinning,
-  selectInputString,
-  selectLevelId,
-  selectCurrentWpm,
-  selectIsWin,
-  selectIsFail,
-  selectStartTime,
-  selectCurrentLevelHighScore,
-  loadSymbolTrainer,
   backupDownloadClicked,
-  selectBackupDate,
-  levelChosenByShortcut,
   levelAndBackupDateSyncedFromLocalStorage,
+  levelChosenByShortcut,
+  levelClicked,
+  loadSymbolTrainer,
+  selectBackupDate,
+  selectCurrentLevelHighScore,
+  selectCurrentWpm,
+  selectInputString,
+  selectIsFail,
+  selectIsWin,
+  selectLevelId,
+  selectStartTime,
+  typingEndedByWinning,
+  typingStarted,
+  userFailed,
+  userTypedInTrainerInput,
+  userWon,
 } from './reducer';
 
 // =====================
@@ -60,12 +61,12 @@ function* handleUserTypedInTrainerInput() {
     const currentLevelHighScore = yield select(selectCurrentLevelHighScore);
     syncToLocalHighScores(currentLevelHighScore, currentWpm, levelId);
 
-    yield delay(2_000);
+    yield delay(2000);
     yield put(userWon());
   }
 
   if (yield select(selectIsFail)) {
-    yield delay(1_000);
+    yield delay(1000);
     yield put(userFailed());
   }
 }

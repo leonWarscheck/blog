@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function SubscribeFormOnPage({}) {
   const [feedbackState, setFeedbackState] = useState('');
@@ -52,7 +52,7 @@ export default function SubscribeFormOnPage({}) {
   return (
     <form
       ref={formRef}
-      className=" mb-7 mt-10 text-wrap bg-neutral-700 py-5 c1:h-40"
+      className="mb-7 mt-10 text-wrap bg-neutral-700 py-5 c1:h-40"
       onSubmit={handleSubscribe}
     >
       {feedbackState === '' && (

@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
-import TrainerSection from './components/trainer-section';
-import LevelSection from './components/level-section';
+import React, { useEffect, useState } from 'react';
+
 import InfoSection from './components/info-section';
 import IntroSection from './components/intro-section';
+import LevelSection from './components/level-section';
+import ResponsiveNote from './components/responsive-note';
 import SaveSection from './components/save-section';
 import MenuTrainer from './components/trainer-menu';
-import ResponsiveNote from './components/responsive-note';
+import TrainerSection from './components/trainer-section';
 
 export default function SymbolTrainerPage() {
   const [section, setSection] = useState('introSection');

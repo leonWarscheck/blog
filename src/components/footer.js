@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
+
 import SubscribeFormFooter from '../features/blog/subscribeform-footer';
 
 export default function Footer() {

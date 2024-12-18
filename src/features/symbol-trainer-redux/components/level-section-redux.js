@@ -1,11 +1,12 @@
+import { useContext, useEffect, useRef } from 'react';
+
 import levels from '../levels-redux.json';
 import {
-  sectionClicked,
   levelClicked,
+  sectionClicked,
   selectHighScores,
   selectLevelId,
 } from '../reducer';
-import { useContext, useRef, useEffect } from 'react';
 import { SymbolTrainerContext } from '../symbol-trainer-redux-page';
 
 export default function LevelSection() {
@@ -13,12 +14,12 @@ export default function LevelSection() {
   const highScores = selectHighScores(state);
   const levelId = selectLevelId(state);
 
-  const levelRefs = useRef([]);
+  const levelReferences = useRef([]);
 
   // auto scroll to (current) levelId
   useEffect(() => {
-    if (levelId && levelRefs.current[levelId]) {
-      levelRefs.current[levelId].scrollIntoView({
+    if (levelId && levelReferences.current[levelId]) {
+      levelReferences.current[levelId].scrollIntoView({
         behavior: 'smooth',
         block: 'center',
       });
@@ -34,7 +35,7 @@ export default function LevelSection() {
             return (
               <li
                 key={level.id}
-                ref={el => (levelRefs.current[index] = el)}
+                ref={element => (levelReferences.current[index] = element)}
                 className={`flex w-full`}
               >
                 <button

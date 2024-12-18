@@ -1,4 +1,5 @@
 import Link from 'next/link';
+
 import SubscribeFormMenu from '../features/blog/subscribeform-menu';
 
 export default function Menu({ handleMenuToggle2, menuOpen, handleMenuClose }) {
@@ -9,12 +10,12 @@ export default function Menu({ handleMenuToggle2, menuOpen, handleMenuClose }) {
         onClick={handleMenuToggle2}
       >
         <div
-          className={` h-[3px] w-8 ${
+          className={`h-[3px] w-8 ${
             menuOpen ? 'bg-neutral-500' : 'bg-neutral-200'
           }`}
         />
         <div
-          className={` h-[3px] w-8 ${
+          className={`h-[3px] w-8 ${
             menuOpen ? 'bg-neutral-500' : 'bg-neutral-200'
           }`}
         />

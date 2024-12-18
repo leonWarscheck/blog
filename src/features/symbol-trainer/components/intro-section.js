@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function IntroSection({ setSection }) {
   const [color, setColor] = useState('emerald-la');
@@ -16,10 +16,7 @@ export default function IntroSection({ setSection }) {
   }, []);
 
   return (
-    <section
-      id="info"
-      className={`mx-auto flex w-full max-w-2xl grow px-4`}
-    >
+    <section id="info" className={`mx-auto flex w-full max-w-2xl grow px-4`}>
       <div className="mx-auto my-auto flex flex-col text-center">
         <h2 className={`mb-2 mt-6 text-2xl font-semibold ${'text-' + color} `}>
           Symbol<span className="text-neutral-400">Trainer</span>

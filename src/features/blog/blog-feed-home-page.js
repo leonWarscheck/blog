@@ -1,6 +1,7 @@
-import Link from 'next/link';
-import Date from '../../components/date';
 import Head from 'next/head';
+import Link from 'next/link';
+
+import Date from '../../components/date';
 
 export default function HomeFeed({ feedData }) {
   const colorClasses = [

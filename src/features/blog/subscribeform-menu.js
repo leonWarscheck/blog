@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function SubscribeFormMenu({ onCancel, onSubscribe }) {
   const [feedbackState, setFeedbackState] = useState('');

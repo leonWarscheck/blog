@@ -1,5 +1,6 @@
-import createSagaMiddleware from 'redux-saga';
 import { createReducer } from 'react-use';
+import createSagaMiddleware from 'redux-saga';
+
 import levels from './levels-redux.json';
 
 // ================
@@ -156,10 +157,10 @@ export const selectIsWin = state =>
   selectLevelString(state) === selectInputString(state);
 
 export const selectIsFail = state => {
-  for (let i = 0; i < selectInputString(state).length; i++) {
+  for (let index = 0; index < selectInputString(state).length; index++) {
     if (
-      i >= selectLevelString(state).length ||
-      selectInputString(state)[i] !== selectLevelString(state)[i]
+      index >= selectLevelString(state).length ||
+      selectInputString(state)[index] !== selectLevelString(state)[index]
     ) {
       return true;
     }
@@ -174,7 +175,10 @@ export const selectCurrentLevelHighScore = state =>
   selectHighScores(state)?.[selectLevelId(state)] || 0;
 
 export const selectTrainerColorClasses = state => {
-  if (!selectIsFail(state)) {
+  if (selectIsFail(state)) {
+    // fail
+    return 'text-neutral-400';
+  } else {
     const trainerColor =
       selectCurrentLevelHighScore(state) >= 60
         ? 'neutral-200'
@@ -194,9 +198,6 @@ export const selectTrainerColorClasses = state => {
       // neither fail or win (inputString is reset to "", or user is typing without mistakes)
       return 'text-' + trainerColor + ' caret-' + trainerColor;
     }
-  } else {
-    // fail
-    return 'text-neutral-400';
   }
 };
 
@@ -215,7 +216,7 @@ export const selectCurrentWpm = state => {
 
   const winTime = endTime - startTime;
   const wordsPerString = selectLevelString(state).length / 5;
-  const winTimesPerMinuteRatio = 60000 / winTime;
+  const winTimesPerMinuteRatio = 60_000 / winTime;
 
   return Math.round(wordsPerString * winTimesPerMinuteRatio);
 };

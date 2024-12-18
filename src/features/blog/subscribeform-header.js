@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function SubscribeForm({ onCancel, onSubscribe }) {
   const [feedbackState, setFeedbackState] = useState('');
@@ -71,14 +71,14 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
       )}
       {feedbackState === 'success' && (
         <div className="absolute right-0 flex bg-neutral-700 pl-28">
-          <p >
+          <p>
             Success.&nbsp;<span>Thank&nbsp;you.</span>
           </p>
         </div>
       )}
       {feedbackState === 'failure' && (
         <div className="absolute right-0 flex bg-neutral-700 pl-32">
-          <p >
+          <p>
             Failure.&nbsp;
             <span>Please&nbsp;try&nbsp;again.</span>
           </p>

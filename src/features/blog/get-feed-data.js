@@ -1,5 +1,6 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
+
 import matter from 'gray-matter';
 
 const postsDirectory = path.join(process.cwd(), '/src/pages/posts');
@@ -20,10 +21,6 @@ export function getFeedData() {
   });
 
   return allPostsData.sort((a, b) => {
-    if (a.date < b.date) {
-      return 1;
-    } else {
-      return -1;
-    }
+    return a.date < b.date ? 1 : -1;
   });
 }

@@ -1,11 +1,12 @@
 import { useContext } from 'react';
-import { SymbolTrainerContext } from '../symbol-trainer-redux-page';
+
 import {
   sectionClicked,
   selectCurrentLevelHighScore,
-  selectSection,
   selectLevelId,
+  selectSection,
 } from '../reducer';
+import { SymbolTrainerContext } from '../symbol-trainer-redux-page';
 
 export default function MenuTrainer() {
   const { state, dispatch } = useContext(SymbolTrainerContext);

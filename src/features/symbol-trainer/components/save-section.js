@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 import {
-  syncLastBackupDateToLocalStorage,
+  calcBackupDifference,
   downloadScoresJSON,
   importBackup,
-  calcBackupDifference,
+  syncLastBackupDateToLocalStorage,
 } from '../helpers';
 
 export default function SaveSection({ scores, setScores }) {

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
+
+import { checkUserTyping, saveLastLevel, saveScore } from '../helpers';
 import levels from '../levels.json';
-import { saveScore, saveLastLevel, checkUserTyping } from '../helpers';
 import { useCustomInputFocusBehaviour } from '../use-custom-input-focus-behaviour';
 import { useLevelNavigationShortcut } from '../use-level-navigation-shortcut';
 import { useTrainerColorSetter } from '../use-trainer-color-setter';
@@ -83,10 +84,7 @@ export default function TrainerSection({
             {inputString}
           </p>
         </div>
-        <p
-          id="space/placeholder"
-          className="tracking-widerer text-neutral-400"
-        >
+        <p id="space/placeholder" className="tracking-widerer text-neutral-400">
           {levelString}
         </p>
         <p

@@ -1,8 +1,9 @@
-import Footer from './footer';
-import Header from './header';
 import '../features/blog/vim-scroll';
 
 import localFont from 'next/font/local';
+
+import Footer from './footer';
+import Header from './header';
 
 const myFont = localFont({
   src: [

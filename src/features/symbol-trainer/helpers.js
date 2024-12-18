@@ -21,7 +21,7 @@ export function checkUserTyping(
     const endTime = new Date();
     const winTime = endTime - startTime;
     const wordsPerString = levelString.length / 5;
-    const winTimesPerMinuteRatio = 60000 / winTime;
+    const winTimesPerMinuteRatio = 60_000 / winTime;
     const wpm = Math.round(wordsPerString * winTimesPerMinuteRatio);
     setWpm(wpm);
 

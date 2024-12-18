@@ -1,19 +1,20 @@
-import { useContext, createContext, useReducer, useEffect } from 'react';
+import dynamic from 'next/dynamic';
+import Head from 'next/head';
+import { createContext, useContext, useEffect, useReducer } from 'react';
+
+import HelpSection from './components/help-section-redux';
+import IntroSection from './components/intro-section-redux';
+import LevelSection from './components/level-section-redux';
+import ResponsiveNote from './components/responsive-note-redux';
+import SaveSection from './components/save-section-redux';
 import {
+  initialState,
   loadSymbolTrainer,
   selectSection,
-  initialState,
   symbolTrainerReducer,
   useSagaReducer,
 } from './reducer';
 import { rootSaga } from './sagas';
-import Head from 'next/head';
-import dynamic from 'next/dynamic';
-import LevelSection from './components/level-section-redux';
-import HelpSection from './components/help-section-redux';
-import IntroSection from './components/intro-section-redux';
-import SaveSection from './components/save-section-redux';
-import ResponsiveNote from './components/responsive-note-redux';
 const MenuTrainer = dynamic(() => import('./components/trainer-menu-redux'), {
   ssr: false,
 });
