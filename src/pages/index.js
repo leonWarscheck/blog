@@ -1,12 +1,12 @@
-import { getFeedData } from "../features/blog/get-feed-data";
+import { getFeedData } from '../features/blog/get-feed-data';
 
 export function getStaticProps() {
-    const feedData = getFeedData();
-    return {
-        props: {
-            feedData,
-        },
-    };
+  const feedData = getFeedData();
+  return {
+    props: {
+      feedData,
+    },
+  };
 }
 
-export {default} from "../features/blog/blog-feed-home-page"
+export { default } from '../features/blog/blog-feed-home-page';

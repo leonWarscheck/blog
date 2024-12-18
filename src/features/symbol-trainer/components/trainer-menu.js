@@ -1,57 +1,59 @@
 export default function MenuTrainer({ setSection, section, levelId, scores }) {
- const score = scores?.[levelId]
- 
+  const score = scores?.[levelId];
+
   const handleLevelToggle = () => {
-    if (section === "levelSection") {
-      setSection("trainerSection");
+    if (section === 'levelSection') {
+      setSection('trainerSection');
     } else {
-      setSection("levelSection");
+      setSection('levelSection');
     }
   };
   const handleInfoToggle = () => {
-    if (section === "infoSection") {
-      setSection("trainerSection");
+    if (section === 'infoSection') {
+      setSection('trainerSection');
     } else {
-      setSection("infoSection");
+      setSection('infoSection');
     }
   };
   const handleSaveToggle = () => {
-    if (section === "saveSection") {
-      setSection("trainerSection");
+    if (section === 'saveSection') {
+      setSection('trainerSection');
     } else {
-      setSection("saveSection");
+      setSection('saveSection');
     }
   };
 
   return (
     <nav
       id="menu"
-      className=" text-neutral-500 flex max-w-2xl w-full mx-auto px-4 mb-2 "
+      className="mx-auto mb-2 flex w-full max-w-2xl px-4 text-neutral-500"
     >
       <ul className="flex w-full">
-        <li className="mr-aut font-semibold text- 2xl hover:text-neutral-200">
-          <button onClick={() => setSection("trainerSection")}>
+        <li className="text- 2xl font-semibold hover:text-neutral-200">
+          <button onClick={() => setSection('trainerSection')}>
             SymbolTrainer
           </button>
-        </li>{" "}
-        <li className="ml-auto mr-4 hover:text-neutral-200 mt-px font-medium">
+        </li>{' '}
+        <li className="ml-auto mr-4 mt-px font-medium hover:text-neutral-200">
           <button onClick={handleLevelToggle}>
             Level&nbsp;
             {levelId?.toString().length === 1
-              ? levelId?.toString().padStart(2, "0")
+              ? levelId?.toString().padStart(2, '0')
               : levelId}
             &nbsp;/&nbsp;
             {score?.toString().length === 1
-              ? score?.toString().padStart(2, "0")
-              : score? score : "00"}
+              ? score?.toString().padStart(2, '0')
+              : score
+                ? score
+                : '00'}
           </button>
         </li>
-        <li className="hover:text-neutral-200 mt-px font-medium mr-4">
+        <li className="mr-4 mt-px font-medium hover:text-neutral-200">
           <button onClick={handleInfoToggle}>Help</button>
-        </li>{" "}
-        <li className="hover:text-neutral-200 mt-px font-medium">
+        </li>{' '}
+        <li className="mt-px font-medium hover:text-neutral-200">
           <button onClick={handleSaveToggle}>Save</button>
-        </li>{" "}
+        </li>{' '}
       </ul>
     </nav>
   );

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from 'react';
 import {
   userTypedInTrainerInput,
   levelChosenByShortcut,
@@ -9,11 +9,11 @@ import {
   selectTrainerColorClasses,
   selectCurrentWpm,
   selectLevelId,
-} from "../reducer";
-import { SymbolTrainerContext } from "../symbol-trainer-redux-page";
-import levels from "../levels-redux.json";
-import { useLevelNavigationShortcut } from "../use-level-navigation-shortcut-redux";
-import { useCustomInputFocusBehaviour } from "../use-custom-input-focus-behaviour-redux";
+} from '../reducer';
+import { SymbolTrainerContext } from '../symbol-trainer-redux-page';
+import levels from '../levels-redux.json';
+import { useLevelNavigationShortcut } from '../use-level-navigation-shortcut-redux';
+import { useCustomInputFocusBehaviour } from '../use-custom-input-focus-behaviour-redux';
 
 export default function TrainerSection() {
   const { state, dispatch } = useContext(SymbolTrainerContext);
@@ -33,9 +33,9 @@ export default function TrainerSection() {
   return (
     <section
       id="trainer"
-      className={`flex flex-col grow max-w-2xl mx-auto w-full px-4`}
+      className={`mx-auto flex w-full max-w-2xl grow flex-col px-4`}
     >
-      <div className="relative font-mono flex mx-auto my-auto text-left text-lg overflow-hidden">
+      <div className="relative mx-auto my-auto flex overflow-hidden text-left font-mono text-lg">
         <div className="">
           <input
             id="trainerInput"
@@ -45,28 +45,24 @@ export default function TrainerSection() {
             ref={inputRef}
             type="text"
             value={inputString}
-            onChange={(e) => dispatch(userTypedInTrainerInput(e.target.value))}
-            className={`absolute whitespace-pr z-10 tracking-widerer my-auto focus:outline-none bg-transparent w-full
-              ${trainerColorClasses}
-              `}
+            onChange={e => dispatch(userTypedInTrainerInput(e.target.value))}
+            className={` absolute z-10 my-auto w-full bg-transparent tracking-widerer focus:outline-none ${trainerColorClasses} `}
           />
           <p
             id="'curtain' between levelString and inputString"
-            className="absolute text-neutral-700 tracking-widerer whitespace-pr  bg-neutral-700 pointer-events-none"
+            className=" pointer-events-none absolute bg-neutral-700 tracking-widerer text-neutral-700"
           >
             {inputString}
           </p>
         </div>
         <p
           id="space/placeholder"
-          className="tracking-widerer text-neutral-400 whitespace-pr"
+          className=" tracking-widerer text-neutral-400"
         >
           {levelString}
         </p>
         <p
-          className={`ml-4  min-w-6
-        ${(isWin ? "block" : "invisible") + " " + trainerColorClasses}
-        `}
+          className={`ml-4 min-w-6 ${(isWin ? 'block' : 'invisible') + ' ' + trainerColorClasses} `}
         >
           {currentWpm}
         </p>

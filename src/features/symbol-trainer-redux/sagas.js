@@ -6,7 +6,7 @@ import {
   delay,
   takeEvery,
   takeLatest,
-} from "redux-saga/effects";
+} from 'redux-saga/effects';
 import {
   userTypedInTrainerInput,
   levelClicked,
@@ -26,21 +26,19 @@ import {
   selectBackupDate,
   levelChosenByShortcut,
   levelAndBackupDateSyncedFromLocalStorage,
-} from "./reducer";
+} from './reducer';
 
-/*
-=====================
-trainerSection logic
-=====================
-*/
+// =====================
+// trainerSection logic
+// =====================
 // helperfunctions:
 const getTime = () => new Date();
 const syncToLocalHighScores = (currentLevelHighScore, currentWpm, levelId) => {
   if (currentWpm > currentLevelHighScore) {
-    const highScores = JSON.parse(localStorage.getItem("highScores")) || {};
+    const highScores = JSON.parse(localStorage.getItem('highScores')) || {};
     highScores[levelId] = currentWpm;
 
-    localStorage.setItem("highScores", JSON.stringify(highScores));
+    localStorage.setItem('highScores', JSON.stringify(highScores));
   }
 };
 // hander & watcher sagas:
@@ -75,37 +73,33 @@ function* handleUserTypedInTrainerInput() {
 function* watchUserTypedInTrainerInput() {
   yield takeEvery(
     userTypedInTrainerInput().type,
-    handleUserTypedInTrainerInput
+    handleUserTypedInTrainerInput,
   );
 }
 
-/*
-========================================
-initial data sync FROM localStorage 
-(on first mount of symbol-trainer page)
-========================================
-*/
+// ========================================
+// initial data sync FROM localStorage
+// (on first mount of symbol-trainer page)
+// ========================================
 // handler & watcher sagas:
 function* handleLoadSymbolTrainer() {
-  const levelId = Number(localStorage.getItem("levelId"));
-  const backupDate = localStorage.getItem("backupDate");
+  const levelId = Number(localStorage.getItem('levelId'));
+  const backupDate = localStorage.getItem('backupDate');
   yield put(levelAndBackupDateSyncedFromLocalStorage({ levelId, backupDate }));
 }
 function* watchLoadSymbolTrainer() {
   yield takeLatest(loadSymbolTrainer().type, handleLoadSymbolTrainer);
 }
 
-/*
-==========================================
-sync backupdate & levelId TO localStorage
-==========================================
-*/
+// ==========================================
+// sync backupdate & levelId TO localStorage
+// ==========================================
 // helperfunctions:
-const syncToLocalBackupDate = (backupDate) => {
-  localStorage.setItem("backupDate", backupDate);
+const syncToLocalBackupDate = backupDate => {
+  localStorage.setItem('backupDate', backupDate);
 };
-const syncToLocalLevelId = (levelId) => {
-  localStorage.setItem("levelId", levelId);
+const syncToLocalLevelId = levelId => {
+  localStorage.setItem('levelId', levelId);
 };
 
 // handler & watcher sagas:
@@ -125,19 +119,17 @@ function* handleSyncToLocalStorage(action) {
 
 function* watchSyncLocalStorage() {
   yield takeEvery(
-    (action) =>
+    action =>
       action.type === backupDownloadClicked().type ||
       action.type === levelClicked().type ||
       action.type === levelChosenByShortcut().type,
-    handleSyncToLocalStorage
+    handleSyncToLocalStorage,
   );
 }
 
-/*
-==========
-root saga
-==========
-*/
+// ==========
+// root saga
+// ==========
 export function* rootSaga() {
   yield all([
     watchLoadSymbolTrainer(),

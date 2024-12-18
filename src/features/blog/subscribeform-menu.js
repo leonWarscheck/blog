@@ -1,8 +1,8 @@
-import axios from "axios";
-import { useState, useEffect, useRef } from "react";
+import axios from 'axios';
+import { useState, useEffect, useRef } from 'react';
 
 export default function SubscribeFormMenu({ onCancel, onSubscribe }) {
-  const [feedbackState, setFeedbackState] = useState("");
+  const [feedbackState, setFeedbackState] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const inputRef = useRef(null);
 
@@ -12,7 +12,7 @@ export default function SubscribeFormMenu({ onCancel, onSubscribe }) {
     }
   }, []);
 
-  const handleSubscribe = async (event) => {
+  const handleSubscribe = async event => {
     event.preventDefault();
 
     if (isSubmitting) return;
@@ -23,40 +23,40 @@ export default function SubscribeFormMenu({ onCancel, onSubscribe }) {
 
     try {
       const formData = new FormData(event.target);
-      const email = formData.get("email");
+      const email = formData.get('email');
 
-      const response = await axios.post("/api/subscribeApi", { email });
+      const response = await axios.post('/api/subscribeApi', { email });
 
       console.log(response.data);
-      setFeedbackState("success");
+      setFeedbackState('success');
       setTimeout(() => onSubscribe(), 3000);
     } catch (error) {
       console.error(error);
-      setFeedbackState("failure");
-      setTimeout(() => setFeedbackState(""), 2000);
+      setFeedbackState('failure');
+      setTimeout(() => setFeedbackState(''), 2000);
     } finally {
       setIsSubmitting(false);
       setTimeout(() => onSubscribe(), 2000);
-      setTimeout(() => setFeedbackState(""), 2500);
+      setTimeout(() => setFeedbackState(''), 2500);
     }
   };
 
   return (
     <form className="" onSubmit={handleSubscribe}>
-      {feedbackState === "" && (
+      {feedbackState === '' && (
         <>
           <input
             type="email"
             name="email"
             placeholder="Email"
-            className=" placeholder:text-neutral-400 pl-1 placeholder:hover:text-neutral-400 absolute  top-0 w-full    focus:outline-none bg-neutral-600 text-neutral-400 "
+            className="absolute top-0 w-full bg-neutral-600 pl-1 text-neutral-400 placeholder:text-neutral-400 placeholder:hover:text-neutral-400 focus:outline-none"
             required
             autoCapitalize="off"
             autoCorrect="off"
             ref={inputRef}
           />
           <button
-            className="text-red-500 w-full   py-11  flex hover:text-neutral-400"
+            className="flex w-full py-11 text-red-500 hover:text-neutral-400"
             type="submit"
             disabled={isSubmitting}
           >
@@ -64,15 +64,15 @@ export default function SubscribeFormMenu({ onCancel, onSubscribe }) {
           </button>
         </>
       )}
-      {feedbackState === "success" && (
-        <p className="text-2xl mr-auto pt-7 text-red-500 pb-7">
+      {feedbackState === 'success' && (
+        <p className="mr-auto pb-7 pt-7 text-2xl text-red-500">
           Success.
           <br />
           Thank you for subscribing.
         </p>
       )}
-      {feedbackState === "failure" && (
-        <p className="text-2xl mr-auto pt-7 text-red-500 pb-7">
+      {feedbackState === 'failure' && (
+        <p className="mr-auto pb-7 pt-7 text-2xl text-red-500">
           Something went wrong.
           <br />
           Please try again or try a different email.

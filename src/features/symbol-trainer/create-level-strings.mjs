@@ -1,23 +1,23 @@
-import fs from "fs/promises";
-import path from "path";
+import fs from 'fs/promises';
+import path from 'path';
 
 function createRandomString(caseType, length, lastLevel) {
   const cases = {
-    numbers: "1234567890",
+    numbers: '1234567890',
     lowerCase: "1234567890-=[];'`,./",
     upperCase: '!@#$%^&*()_+{}:"|~<>?',
     mixedCase: "1234567890-=[];'`,./!@#$%^&*()_+{}:|~<>?",
     allChars:
       "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-=[];'`,./!@#$%^&*()_+{}:|~<>?",
   };
-  let randomString = "";
+  let randomString = '';
   const charCount = {};
   const loweredCaseCount = {};
-  const lastString = lastLevel ? lastLevel.string : "";
+  const lastString = lastLevel ? lastLevel.string : '';
   const caseString = cases[caseType];
 
-  const isLetter = (char) => /[a-zA-Z]/.test(char);
-  const isNumber = (char) => /[0-9]/.test(char);
+  const isLetter = char => /[a-zA-Z]/.test(char);
+  const isNumber = char => /[0-9]/.test(char);
   const protectNumberAndLetterLimit = (inputString, inputChar, length) => {
     const letterCount = (inputString.match(/[a-zA-Z]/g) || []).length;
     const numberCount = (inputString.match(/[0-9]/g) || []).length;
@@ -29,7 +29,7 @@ function createRandomString(caseType, length, lastLevel) {
     }
   };
 
-  const noRepeatsLastStingMax5 = (randomChar) => {
+  const noRepeatsLastStingMax5 = randomChar => {
     if (length <= 5) {
       return !lastString.includes(randomChar);
     } else {
@@ -44,7 +44,7 @@ function createRandomString(caseType, length, lastLevel) {
     loweredCaseCount[randomChar.toLowerCase()] =
       (charCount[randomChar.toLowerCase()] || 0) + 1;
 
-    if (caseType === "numbers") {
+    if (caseType === 'numbers') {
       if (
         charCount[randomChar] <= 2 && // max ocurrence of same char is 2
         randomString[randomString.length - 1] !== randomChar && // no consecutive occurence of same character
@@ -79,7 +79,7 @@ function transformData(data) {
         case: level.case,
         string: createRandomString(level.case, level.length, lastLevel),
       };
-      console.log("transforming data");
+      console.log('transforming data');
 
       lastLevel = transformedLevel;
       return transformedLevel;
@@ -88,7 +88,7 @@ function transformData(data) {
         reverse: level.reverse,
         length: level.length,
         case: level.case,
-        string: lastLevel.string.split("").reverse().join(""), // Access stored string
+        string: lastLevel.string.split('').reverse().join(''), // Access stored string
       };
     }
   });
@@ -96,46 +96,46 @@ function transformData(data) {
   // create sublevels from baseString and add them infront of the default config sublevel
   const sublevels = [
     {
-      info: "default config purpose, hidden",
+      info: 'default config purpose, hidden',
       reverse: false,
-      length: "",
-      case: "",
-      string: "",
+      length: '',
+      case: '',
+      string: '',
     },
   ];
 
-  stringsAdded.forEach((level) => {
+  stringsAdded.forEach(level => {
     sublevels.push(
       {
         reverse: level.reverse,
-        length: "5",
+        length: '5',
         case: level.case,
         string: level.string.slice(0, 5),
       },
       {
         reverse: level.reverse,
-        length: "5",
+        length: '5',
         case: level.case,
         string: level.string.slice(5, 10),
       },
       {
         reverse: level.reverse,
-        length: "5",
+        length: '5',
         case: level.case,
         string: level.string.slice(10, 15),
       },
       {
         reverse: level.reverse,
-        length: "10",
+        length: '10',
         case: level.case,
         string: level.string.slice(0, 10),
       },
       {
         reverse: level.reverse,
-        length: "15",
+        length: '15',
         case: level.case,
         string: level.string,
-      }
+      },
     );
   });
 
@@ -149,14 +149,14 @@ function transformData(data) {
 
   const scoresTemplate = [];
 
-  sublevelsWithId.map((level) => {
+  sublevelsWithId.map(level => {
     if (level.id === 0) {
       scoresTemplate.push({
         id: 0,
         wpm: 0,
-        info: "config purpose object",
+        info: 'config purpose object',
         lastLevel: 1,
-        lastBackup: "",
+        lastBackup: '',
         newUser: true,
       });
     } else {
@@ -168,11 +168,11 @@ function transformData(data) {
 }
 
 const processData = async () => {
-  const filePath = path.resolve("../data/levels-template-3.json");
-  const transformedFilePath1 = path.resolve("../data/levels.json");
-  const transformedFilePath2 = path.resolve("../data/scores-template.json");
+  const filePath = path.resolve('../data/levels-template-3.json');
+  const transformedFilePath1 = path.resolve('../data/levels.json');
+  const transformedFilePath2 = path.resolve('../data/scores-template.json');
   try {
-    const rawData = await fs.readFile(filePath, "utf8");
+    const rawData = await fs.readFile(filePath, 'utf8');
     const data = JSON.parse(rawData);
 
     const { levels, scoresTemplate } = transformData(data);
@@ -181,12 +181,12 @@ const processData = async () => {
 
     await fs.writeFile(
       transformedFilePath2,
-      JSON.stringify(scoresTemplate, null, 2)
+      JSON.stringify(scoresTemplate, null, 2),
     );
 
-    console.log("Data transformation complete. Transformed data saved.");
+    console.log('Data transformation complete. Transformed data saved.');
   } catch (error) {
-    console.error("Error processing data:", error);
+    console.error('Error processing data:', error);
   }
 };
 

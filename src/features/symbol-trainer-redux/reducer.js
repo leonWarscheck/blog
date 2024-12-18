@@ -1,22 +1,22 @@
-import createSagaMiddleware from "redux-saga";
-import { createReducer } from "react-use";
-import levels from "./levels-redux.json";
+import createSagaMiddleware from 'redux-saga';
+import { createReducer } from 'react-use';
+import levels from './levels-redux.json';
 
 // ================
 // action creators
 // ================
-export const sectionClicked = (payload) => ({
-  type: "sectionClicked",
+export const sectionClicked = payload => ({
+  type: 'sectionClicked',
   payload,
 });
 
-export const levelClicked = (payload) => ({
-  type: "levelClicked",
+export const levelClicked = payload => ({
+  type: 'levelClicked',
   payload,
 });
 
-export const levelChosenByShortcut = (payload) => ({
-  type: "levelChosenByShortcut",
+export const levelChosenByShortcut = payload => ({
+  type: 'levelChosenByShortcut',
   payload,
 });
 
@@ -29,20 +29,20 @@ export const levelAndBackupDateSyncedFromLocalStorage = ({
   levelId,
   backupDate,
 } = {}) => ({
-  type: "levelAndBackupDateSyncedFromLocalStorage",
+  type: 'levelAndBackupDateSyncedFromLocalStorage',
   payload: { levelId, backupDate },
 });
 
 const handleLevelAndBackupSync = (state, { levelId, backupDate }) => ({
   ...state,
   levelId: levelId || 1,
-  backupDate: backupDate || "",
+  backupDate: backupDate || '',
 });
 
-export const loadSymbolTrainer = () => ({ type: "loadSymbolTrainer" });
+export const loadSymbolTrainer = () => ({ type: 'loadSymbolTrainer' });
 
-export const userTypedInTrainerInput = (payload) => ({
-  type: "userTypedInTrainerInput",
+export const userTypedInTrainerInput = payload => ({
+  type: 'userTypedInTrainerInput',
   payload,
 });
 
@@ -50,26 +50,26 @@ export const userWon = () => ({ type: userWon });
 
 export const userFailed = () => ({ type: userFailed });
 
-const resetLevelOnWinOrFail = (state) => ({
+const resetLevelOnWinOrFail = state => ({
   ...state,
-  inputString: "",
+  inputString: '',
   startTime: null,
 });
 
-export const typingStarted = (payload) => ({ type: "typingStarted", payload });
+export const typingStarted = payload => ({ type: 'typingStarted', payload });
 
-export const typingEndedByWinning = (payload) => ({
-  type: "typingEndedByWinning",
+export const typingEndedByWinning = payload => ({
+  type: 'typingEndedByWinning',
   payload,
 });
 
-export const backupDownloadClicked = (payload) => ({
-  type: " backupDownloadClicked",
+export const backupDownloadClicked = payload => ({
+  type: ' backupDownloadClicked',
   payload,
 });
 
-export const backupDateSyncedFromLocalStorage = (payload) => ({
-  type: "backupDateSyncedFromLocalStorage",
+export const backupDateSyncedFromLocalStorage = payload => ({
+  type: 'backupDateSyncedFromLocalStorage',
   payload,
 });
 
@@ -78,8 +78,8 @@ const changeBackupDate = (state, backupDate) => ({
   backupDate: backupDate,
 });
 
-export const backupImportClicked = (payload) => ({
-  type: "backupImportClicked",
+export const backupImportClicked = payload => ({
+  type: 'backupImportClicked',
   payload,
 });
 
@@ -87,9 +87,9 @@ export const backupImportClicked = (payload) => ({
 // reducer + saga mount
 // =====================
 export const initialState = {
-  section: "introSection",
+  section: 'introSection',
   levelId: 1,
-  inputString: "",
+  inputString: '',
   startTime: null,
   endTime: null,
   backupDate: null,
@@ -98,7 +98,7 @@ export const initialState = {
 
 export function symbolTrainerReducer(
   state = initialState,
-  { type, payload } = {}
+  { type, payload } = {},
 ) {
   switch (type) {
     case sectionClicked().type:
@@ -124,7 +124,7 @@ export function symbolTrainerReducer(
     case backupDateSyncedFromLocalStorage().type:
       return changeBackupDate(state, payload);
     case backupImportClicked().type:
-      return { ...state, importMessage: payload };
+      return { ...state, event: payload }; // !
     default:
       return state;
   }
@@ -144,19 +144,18 @@ export const useSagaReducer = (saga, reducer, initial) => {
 // ==========
 // selectors
 // ==========
-export const selectSection = (state) => state.section;
+export const selectSection = state => state.section;
 
-export const selectLevelId = (state) => state.levelId;
+export const selectLevelId = state => state.levelId;
 
-export const selectLevelString = (state) =>
-  levels[selectLevelId(state)]?.string;
+export const selectLevelString = state => levels[selectLevelId(state)]?.string;
 
-export const selectInputString = (state) => state.inputString;
+export const selectInputString = state => state.inputString;
 
-export const selectIsWin = (state) =>
+export const selectIsWin = state =>
   selectLevelString(state) === selectInputString(state);
 
-export const selectIsFail = (state) => {
+export const selectIsFail = state => {
   for (let i = 0; i < selectInputString(state).length; i++) {
     if (
       i >= selectLevelString(state).length ||
@@ -169,49 +168,49 @@ export const selectIsFail = (state) => {
 };
 
 export const selectHighScores = () =>
-  JSON.parse(localStorage.getItem("highScores"));
+  JSON.parse(localStorage.getItem('highScores'));
 
-export const selectCurrentLevelHighScore = (state) =>
+export const selectCurrentLevelHighScore = state =>
   selectHighScores(state)?.[selectLevelId(state)] || 0;
 
-export const selectTrainerColorClasses = (state) => {
+export const selectTrainerColorClasses = state => {
   if (!selectIsFail(state)) {
     const trainerColor =
       selectCurrentLevelHighScore(state) >= 60
-        ? "neutral-200"
+        ? 'neutral-200'
         : selectCurrentLevelHighScore(state) >= 50
-        ? "emerald-la"
-        : selectCurrentLevelHighScore(state) >= 40
-        ? "yellow-la"
-        : selectCurrentLevelHighScore(state) >= 30
-        ? "violet-500"
-        : selectCurrentLevelHighScore(state) >= 20
-        ? "red-500 "
-        : "neutral-200";
+          ? 'emerald-la'
+          : selectCurrentLevelHighScore(state) >= 40
+            ? 'yellow-la'
+            : selectCurrentLevelHighScore(state) >= 30
+              ? 'violet-500'
+              : selectCurrentLevelHighScore(state) >= 20
+                ? 'red-500 '
+                : 'neutral-200';
     if (selectIsWin(state)) {
       // win
-      return "text-" + trainerColor;
+      return 'text-' + trainerColor;
     } else {
       // neither fail or win (inputString is reset to "", or user is typing without mistakes)
-      return "text-" + trainerColor + " caret-" + trainerColor;
+      return 'text-' + trainerColor + ' caret-' + trainerColor;
     }
   } else {
     // fail
-    return "text-neutral-400";
+    return 'text-neutral-400';
   }
 };
 
-export const selectStartTime = (state) => state.startTime;
+export const selectStartTime = state => state.startTime;
 
-const selectEndTime = (state) => state.endTime;
+const selectEndTime = state => state.endTime;
 
-export const selectCurrentWpm = (state) => {
+export const selectCurrentWpm = state => {
   const endTime = selectEndTime(state);
   const startTime = selectStartTime(state);
 
   // prevent Infinity
   if (!endTime || endTime <= startTime) {
-    return "00";
+    return '00';
   }
 
   const winTime = endTime - startTime;
@@ -221,13 +220,13 @@ export const selectCurrentWpm = (state) => {
   return Math.round(wordsPerString * winTimesPerMinuteRatio);
 };
 
-export const selectBackupDate = (state) => state.backupDate;
+export const selectBackupDate = state => state.backupDate;
 
 export const selectBackupDifference = (state, now) => {
   const differenceInHours = Math.round(
-    (now - new Date(selectBackupDate(state))) / (1000 * 60 * 60)
+    (now - new Date(selectBackupDate(state))) / (1000 * 60 * 60),
   );
   return differenceInHours;
 };
 
-export const selectImportMessage = (state) => state.importMessage;
+export const selectImportMessage = state => state.importMessage;

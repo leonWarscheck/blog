@@ -1,11 +1,11 @@
-import { useContext } from "react";
-import { SymbolTrainerContext } from "../symbol-trainer-redux-page";
+import { useContext } from 'react';
+import { SymbolTrainerContext } from '../symbol-trainer-redux-page';
 import {
   sectionClicked,
   selectCurrentLevelHighScore,
   selectSection,
   selectLevelId,
-} from "../reducer";
+} from '../reducer';
 
 export default function MenuTrainer() {
   const { state, dispatch } = useContext(SymbolTrainerContext);
@@ -14,9 +14,9 @@ export default function MenuTrainer() {
   const levelId = selectLevelId(state);
   const section = selectSection(state);
 
-  const handleToggle = (sectionToToggle) => {
+  const handleToggle = sectionToToggle => {
     if (section === sectionToToggle) {
-      dispatch(sectionClicked("trainerSection"));
+      dispatch(sectionClicked('trainerSection'));
     } else {
       dispatch(sectionClicked(sectionToToggle));
     }
@@ -25,32 +25,32 @@ export default function MenuTrainer() {
   return (
     <nav
       id="menu"
-      className=" text-neutral-500 flex max-w-2xl w-full mx-auto px-4 mb-2 "
+      className="mx-auto mb-2 flex w-full max-w-2xl px-4 text-neutral-500"
     >
       <ul className="flex w-full">
-        <li className="mr-aut font-semibold text- 2xl hover:text-neutral-200">
-          <button onClick={() => dispatch(sectionClicked("trainerSection"))}>
+        <li className="font-semibold hover:text-neutral-200">
+          <button onClick={() => dispatch(sectionClicked('trainerSection'))}>
             SymbolTrainer
           </button>
-        </li>{" "}
-        <li className="ml-auto mr-4 hover:text-neutral-200 mt-px font-medium">
-          <button onClick={() => handleToggle("levelSection")}>
+        </li>{' '}
+        <li className="ml-auto mr-4 mt-px font-medium hover:text-neutral-200">
+          <button onClick={() => handleToggle('levelSection')}>
             Level&nbsp;
             {levelId.toString().length === 1
-              ? levelId.toString().padStart(2, "0")
+              ? levelId.toString().padStart(2, '0')
               : levelId}
             &nbsp;/&nbsp;
             {highScore.toString().length === 1
-              ? highScore.toString().padStart(2, "0")
+              ? highScore.toString().padStart(2, '0')
               : highScore}
           </button>
         </li>
-        <li className="hover:text-neutral-200 mt-px font-medium mr-4">
-          <button onClick={() => handleToggle("helpSection")}>Help</button>
-        </li>{" "}
-        <li className="hover:text-neutral-200 mt-px font-medium">
-          <button onClick={() => handleToggle("saveSection")}>Save</button>
-        </li>{" "}
+        <li className="mr-4 mt-px font-medium hover:text-neutral-200">
+          <button onClick={() => handleToggle('helpSection')}>Help</button>
+        </li>{' '}
+        <li className="mt-px font-medium hover:text-neutral-200">
+          <button onClick={() => handleToggle('saveSection')}>Save</button>
+        </li>{' '}
       </ul>
     </nav>
   );

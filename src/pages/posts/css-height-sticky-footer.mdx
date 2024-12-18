@@ -1,18 +1,22 @@
 ---
-title: "How to build a 'sticky footer' for your WebApp | CSS Height & Positioning"
-date: "2023-01-29"
-readingTime: "5min"
-preview: "A sticky footer never goes higher than the viewport bottom, but it can go lower if the main content is bigger. CSS 'height' throws some wierd quirks in the building process. Here is how you can slay that demon."
+title:
+  "How to build a 'sticky footer' for your WebApp | CSS Height & Positioning"
+date: '2023-01-29'
+readingTime: '5min'
+preview:
+  "A sticky footer never goes higher than the viewport bottom, but it can go
+  lower if the main content is bigger. CSS 'height' throws some wierd quirks in
+  the building process. Here is how you can slay that demon."
 ---
 
-import MdxLayout from "../../features/blog/mdx-layout";
-import Head from "next/head";
-import Image from "next/image";
-import cssOverview from "../../../public/cssoverview.png";
-import blankSlate from "../../../public/blank-slate.png";
+import MdxLayout from '../../features/blog/mdx-layout';
+import Head from 'next/head';
+import Image from 'next/image';
+import cssOverview from '../../../public/cssoverview.png';
+import blankSlate from '../../../public/blank-slate.png';
 
 export default function MDXPage({ children }) {
-  const headtitle = "Sticky Footer CSS Height";
+  const headtitle = 'Sticky Footer CSS Height';
   return (
     <MdxLayout>
       <Head>
@@ -25,7 +29,7 @@ export default function MDXPage({ children }) {
 
 ## How to build a "sticky footer" for your WebApp | CSS Height & Positioning
 
-<div className="text-neutral-400 text-sm">
+<div className="text-sm text-neutral-400">
   January 29, 2023 - 5min - #css #height #positioning #stickyfooter #webdev
 </div>
 
@@ -35,18 +39,21 @@ confuse your deepest beliefs about reality! It's a common webdeveloper joke,
 that CSS height is the hardest part of programming. But fear not, you will
 likely find your solution in this article.
 
-<br/>
+<br />
 <a id="toc"></a>
 ### Table of Contents
 
 1. [Common Attempts & Solution](#attempts-and-solution)
 2. [CSS Debugging Strategies](#css-debugging-strategies)
 3. [Alternative: Use Grid](#alternative-grid)
+
 ---
+
 ### 1. <a id="attempts-and-solution" href="#toc">Common Attempts & Solution</a>
 
+Ok, first of all, let's assume your situation is similar to this basic html
+structure:
 
-Ok, first of all, let's assume your situation is similar to this basic html structure:
 ```js title=""
 <Html>
   <body>
@@ -62,10 +69,13 @@ Ok, first of all, let's assume your situation is similar to this basic html stru
 #### What does not work (Common Attempts):
 
 - `<main className="h-screen">` (height: 100vh)
-  - `<main>` is now as high, as the screen which means it pushes the footer out of the viewport
+  - `<main>` is now as high, as the screen which means it pushes the footer out
+    of the viewport
 - `<main className="h-full">` (height: 100%)
-  - nothing happens: the parent elements limit `main` (child) to the size of its contents, via their default `h-auto` (height: auto)
-  - if you set _all_ parents to `h-full`, you get the same "push-out" problem as with `h-screen`
+  - nothing happens: the parent elements limit `main` (child) to the size of its
+    contents, via their default `h-auto` (height: auto)
+  - if you set _all_ parents to `h-full`, you get the same "push-out" problem as
+    with `h-screen`
 
 #### What does work (Solution):
 
@@ -73,7 +83,7 @@ Ok, first of all, let's assume your situation is similar to this basic html stru
 <Html>
   <body>
     // min-height: 100dvh; display: flex; flex-direction: column;
-    <div className="min-h-dvh flex flex-col">
+    <div className="flex min-h-dvh flex-col">
       <header></header>
       // flex-grow: 1;
       <main className="grow"></main>
@@ -93,12 +103,13 @@ screen-height, which would otherwise push out the footer aswell.
 want header, main, footer to be stacked ontop of, not besides each other.)
 
 And `grow` sets `<main>` to fill out as much of the free space in the parent
-flexbox container as possible. `<header>` and `<footer>` should not have `grow` in this case, or they compete for the space.
+flexbox container as possible. `<header>` and `<footer>` should not have `grow`
+in this case, or they compete for the space.
 
-
-<br/>
-### 2. <a id="css-debugging-strategies" href="#toc">CSS Debugging Strategies</a>
-
+<br />
+### 2. <a id="css-debugging-strategies" href="#toc">
+  CSS Debugging Strategies
+</a>
 
 If the above solution did not fit your situtation, or if you are curious on how
 to faster find solutions by yourself, I'll show you 2 approaches that helped me
@@ -111,7 +122,8 @@ about all hmtl tags and classes involved, which are spread over different files.
 The fastest way I found is to:
 
 - open dev tools element view as wide as possible,
-- open just enough parents to reveal only the tags that are relevant to your situation,
+- open just enough parents to reveal only the tags that are relevant to your
+  situation,
 - screenshot that overview,
 - and cross out all left over distractions with your screenshot/ image tool.
   - for example leave only classes related to height and positioning
@@ -124,8 +136,8 @@ after long sessions of confusing trial and error:
   alt="the previously described crossed out screenshot"
 />
 
-Of course you can type that out instead or just cross out in your mind
-while looking at the devtools.
+Of course you can type that out instead or just cross out in your mind while
+looking at the devtools.
 
 If you have a big enough screen, also make sure to open all component files
 besides each other (multiple split editors), in parent to child order.
@@ -135,11 +147,11 @@ besides each other (multiple split editors), in parent to child order.
 Another great way for clarity is to just build everything from scratch...
 almost. Of course you can keep everything that you've built. It's just about
 experimenting on a clean slate in a different branch, where no overlooked CSS
-can interfere. 
+can interfere.
 
-Just `git add .` `git commit` your current branch and `git checkout -b
-blank-slate`. Then delete everything except for the basic html structure from
-above including all css-classes. 
+Just `git add .` `git commit` your current branch and
+`git checkout -b blank-slate`. Then delete everything except for the basic html
+structure from above including all css-classes.
 
 Of course you don't have to spend all that time deleting all classes of all
 components: (In NextJS,) it is enough to delete the Layout component tags in
@@ -157,24 +169,22 @@ export default function Home({}) {
   );
 }
 ```
+
 This way you can edit 4 components in a single file for fast prototyping and
 land quickly at insights that you can then transfer to your actual branch. After
 a few steps from scratch it might just look like this:
 
-<Image
-  src={blankSlate}
-  alt="rudimentary header, main, footer"
-/>
+<Image src={blankSlate} alt="rudimentary header, main, footer" />
 
-
-<br/>
-### 3. <a id="alternative-grid" href="#toc">Alternative: Try Grid</a>
-
+<br />
+### 3. <a id="alternative-grid" href="#toc">
+  Alternative: Try Grid
+</a>
 
 If all the previous assistance still wasn't enough, you can also use CSS-Grid.
 It is a bit unconventional though, because to make it sticky, you would have to
-*nest your footer inside of your main*, which could be confusing for screenreaders
-and SEO. 
+_nest your footer inside of your main_, which could be confusing for
+screenreaders and SEO.
 
 On the other hand, grid seems to be fun working with! Just see for yourself in
 this article by css-tricks.com:

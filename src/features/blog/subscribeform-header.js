@@ -1,8 +1,8 @@
-import axios from "axios";
-import { useState, useEffect, useRef } from "react";
+import axios from 'axios';
+import { useState, useEffect, useRef } from 'react';
 
 export default function SubscribeForm({ onCancel, onSubscribe }) {
-  const [feedbackState, setFeedbackState] = useState("");
+  const [feedbackState, setFeedbackState] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const inputRef = useRef(null);
 
@@ -12,7 +12,7 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
     }
   }, []);
 
-  const handleSubscribe = async (event) => {
+  const handleSubscribe = async event => {
     event.preventDefault();
 
     if (isSubmitting) return;
@@ -23,27 +23,27 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
 
     try {
       const formData = new FormData(event.target);
-      const email = formData.get("email");
+      const email = formData.get('email');
 
-      const response = await axios.post("/api/subscribeApi", { email });
+      const response = await axios.post('/api/subscribeApi', { email });
 
       console.log(response.data);
-      setFeedbackState("success");
+      setFeedbackState('success');
     } catch (error) {
       console.error(error);
-      setFeedbackState("failure");
+      setFeedbackState('failure');
     } finally {
       setIsSubmitting(false);
       setTimeout(() => onSubscribe(), 2500);
-      setTimeout(() => setFeedbackState(""), 3000);
+      setTimeout(() => setFeedbackState(''), 3000);
     }
   };
 
   return (
     <>
-      {feedbackState === "" && (
+      {feedbackState === '' && (
         <form
-          className="absolute bg-neutral-700 -right-[90.5px] flex font-medium [450]"
+          className="absolute -right-[90.5px] flex bg-neutral-700 font-medium"
           onSubmit={handleSubscribe}
         >
           <input
@@ -51,39 +51,36 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
             name="email"
             id="navSubInput"
             placeholder="Email"
-            className=" text- xl pl-4 w-64 h-6 8 12 mt- pt- 1  focus:outline-none bg-neutral-600 text-neutral-200 placeholder-neutral-400 "
+            className="h-6 w-64 bg-neutral-600 pl-4 text-neutral-200 placeholder-neutral-400 focus:outline-none"
             required
             autoCapitalize="off"
             autoCorrect="off"
             ref={inputRef}
           />
           <button
-            className="text- xl text-red-500 pl-4"
+            className="pl-4 text-red-500"
             type="submit"
             disabled={isSubmitting}
           >
             Subscribe
           </button>
-          <button
-            className="mx-5 text- xl    text-neutral-500 "
-            onClick={onCancel}
-          >
+          <button className="mx-5 text-neutral-500" onClick={onCancel}>
             Cancel
           </button>
         </form>
       )}
-      {feedbackState === "success" && (
-        <div className=" absolute flex pl-28 right-0 bg-neutral-700">
-          <p className="text-orange- 500 text- xl ">
-            Success.&nbsp;<span className="text-red- 500">Thank&nbsp;you.</span>
+      {feedbackState === 'success' && (
+        <div className="absolute right-0 flex bg-neutral-700 pl-28">
+          <p >
+            Success.&nbsp;<span>Thank&nbsp;you.</span>
           </p>
         </div>
       )}
-      {feedbackState === "failure" && (
-        <div className=" absolute flex pl-32 right-0 bg-neutral-700">
-          <p className="text-orange- 500 text- xl ">
+      {feedbackState === 'failure' && (
+        <div className="absolute right-0 flex bg-neutral-700 pl-32">
+          <p >
             Failure.&nbsp;
-            <span className="text-red- 500">Please&nbsp;try&nbsp;again.</span>
+            <span>Please&nbsp;try&nbsp;again.</span>
           </p>
         </div>
       )}

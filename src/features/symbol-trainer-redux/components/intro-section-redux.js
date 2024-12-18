@@ -1,13 +1,13 @@
-import { useState, useEffect, useContext } from "react";
-import { SymbolTrainerContext } from "../symbol-trainer-redux-page";
-import { sectionClicked } from "../reducer";
+import { useState, useEffect, useContext } from 'react';
+import { SymbolTrainerContext } from '../symbol-trainer-redux-page';
+import { sectionClicked } from '../reducer';
 
 export default function IntroSection() {
   const { state, dispatch } = useContext(SymbolTrainerContext);
-  const [color, setColor] = useState("emerald-la");
+  const [color, setColor] = useState('emerald-la');
 
   useEffect(() => {
-    const colors = ["emerald-la", "violet-500", "red-500", "yellow-la"];
+    const colors = ['emerald-la', 'violet-500', 'red-500', 'yellow-la'];
     let colorIndex = 0;
 
     const colorInterval = setInterval(() => {
@@ -21,21 +21,21 @@ export default function IntroSection() {
   return (
     <section
       id="intro"
-      className={`flex grow w-full bg- black max-w-2xl mx-auto px-4 `}
+      className={`mx-auto flex w-full max-w-2xl grow px-4`}
     >
-      <div className="mx-auto my-auto flex flex-col text-center ">
-        <h2 className={`text-2xl  font-semibold mb-2 mt-6 ${"text-" + color} `}>
+      <div className="mx-auto my-auto flex flex-col text-center">
+        <h2 className={`mb-2 mt-6 text-2xl font-semibold ${'text-' + color} `}>
           Symbol<span className="text-neutral-400">Trainer</span>
         </h2>
         <p className="space-x-2 text-neutral-400">
           <button
-            onClick={() => dispatch(sectionClicked("helpSection"))}
+            onClick={() => dispatch(sectionClicked('helpSection'))}
             className="underline hover:text-neutral-300"
           >
             Instructions / Help
-          </button>{" "}
+          </button>{' '}
           <button
-            onClick={() => dispatch(sectionClicked("trainerSection"))}
+            onClick={() => dispatch(sectionClicked('trainerSection'))}
             className="underline hover:text-neutral-300"
           >
             SymbolTrainer

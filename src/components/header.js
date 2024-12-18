@@ -1,8 +1,8 @@
-import Link from "next/link";
-import SubscribeForm from "../features/blog/subscribeform-header";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import Menu from "./menu";
+import Link from 'next/link';
+import SubscribeForm from '../features/blog/subscribeform-header';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import Menu from './menu';
 
 export default function Header({}) {
   const router = useRouter();
@@ -10,18 +10,18 @@ export default function Header({}) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const bodyElement = document.querySelector("body");
+    const bodyElement = document.querySelector('body');
 
     if (menuOpen) {
-      bodyElement.classList.add("scrollbar-hide");
-      bodyElement.style.overflow = "hidden";
+      bodyElement.classList.add('scrollbar-hide');
+      bodyElement.style.overflow = 'hidden';
     } else {
-      bodyElement.classList.remove("scrollbar-hide");
-      bodyElement.style.overflow = "";
+      bodyElement.classList.remove('scrollbar-hide');
+      bodyElement.style.overflow = '';
     }
 
     return () => {
-      bodyElement.style.overflow = "";
+      bodyElement.style.overflow = '';
     };
   }, [menuOpen]);
 
@@ -47,31 +47,31 @@ export default function Header({}) {
 
   return (
     <header
-      className={`h-20 bg-neutral-700 items-center flex fixed w-full 
-      ${router.route.startsWith("/posts") && "text-neutral-200"} 
-    ${
-      (router.asPath === "/symbol-trainer" ||
-        router.asPath === "/symbol-trainer-redux") &&
-      "text-neutral-500"
-    }
- `}
+      className={`fixed flex h-20 w-full items-center bg-neutral-700 ${router.route.startsWith('/posts') && 'text-neutral-200'} ${
+        (router.asPath === '/symbol-trainer' ||
+          router.asPath === '/symbol-trainer-redux') &&
+        'text-neutral-500'
+      } `}
     >
-      <nav className="max-w-2xl pt-6 mx-auto flex flex-grow items-center px-4">
+      <nav className="mx-auto flex max-w-2xl flex-grow items-center px-4 pt-6">
         <Link
-          className=" absolute font-semibold text-2xl hover:text-neutral-200"
+          className="absolute text-2xl font-semibold hover:text-neutral-200"
           href="/"
           onClick={handleMenuClose}
         >
           <h1 className="">LeonWarscheck</h1>
         </Link>
-        <ul className="-mb-1.5 flex gap-x-4 ml-auto font-medium">
+        <ul className="-mb-1.5 ml-auto flex gap-x-4 font-medium">
           <li>
-            <Link className="hover:text-neutral-200 " href="/about">
+            <Link className="hover:text-neutral-200" href="/about">
               About
             </Link>
           </li>
           <li>
-            <Link className="hover:text-neutral-200" href="/symbol-trainer-redux">
+            <Link
+              className="hover:text-neutral-200"
+              href="/symbol-trainer-redux"
+            >
               Tools
             </Link>
           </li>
