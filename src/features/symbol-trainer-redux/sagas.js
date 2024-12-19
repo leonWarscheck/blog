@@ -31,13 +31,13 @@ import {
   userWon,
 } from './reducer';
 
-import { 
-  getTime, 
-  syncToLocalHighScores, 
-  syncToLocalBackupDate, 
-  syncToLocalLevelId, 
-  importBackup, 
-  downloadHighScoresJSON
+import {
+  getTime,
+  syncToLocalHighScores,
+  syncToLocalBackupDate,
+  syncToLocalLevelId,
+  importBackup,
+  downloadHighScoresJSON,
 } from './helpers-redux';
 
 // =====================
@@ -48,7 +48,7 @@ function* handleUserTypedInTrainerInput() {
   const startTime = yield select(selectStartTime);
 
   if (inputString.length === 1 && startTime === null) {
-    const now = yield call(getTime());
+    const now = yield call(getTime);
     yield put(typingStarted(now));
   }
 
@@ -61,12 +61,12 @@ function* handleUserTypedInTrainerInput() {
     const currentLevelHighScore = yield select(selectCurrentLevelHighScore);
     syncToLocalHighScores(currentLevelHighScore, currentWpm, levelId);
 
-    yield delay(2_000);
+    yield delay(2000);
     yield put(userWon());
   }
 
   if (yield select(selectIsFail)) {
-    yield delay(1_000);
+    yield delay(1000);
     yield put(userFailed());
   }
 }
@@ -102,13 +102,14 @@ function* handleSyncLevelId() {
 function* watchSyncLevelId() {
   yield takeEvery(
     action =>
-      action.type === levelClicked().type || action.type === levelChosenByShortcut().type,
+      action.type === levelClicked().type ||
+      action.type === levelChosenByShortcut().type,
     handleSyncLevelId,
   );
 }
 
 // ==================================================
-// download backup & sync backupdate TO localStorage 
+// download backup & sync backupdate TO localStorage
 // ==================================================
 function* handleBackupDownload() {
   yield call(downloadHighScoresJSON);
@@ -123,19 +124,17 @@ function* watchBackupDownload() {
 // ===============================================================
 // importing backup file and setting import success/error message
 // ===============================================================
-function*handleImportBackup(action){
-const file = action.payload
-const importMessage = yield call(importBackup, file);
-yield put(importStatusMessageRecieved(importMessage));
-yield delay(4_000);
-yield put(importStatusMessageRecieved(''))
-
+function* handleImportBackup(action) {
+  const file = action.payload;
+  const importMessage = yield call(importBackup, file);
+  yield put(importStatusMessageRecieved(importMessage));
+  yield delay(4_000);
+  yield put(importStatusMessageRecieved(''));
 }
 
-function* watchImportBackup(){
-  yield takeEvery(importBackupClicked().type, handleImportBackup)
-};
-
+function* watchImportBackup() {
+  yield takeEvery(importBackupClicked().type, handleImportBackup);
+}
 
 // ==========
 // root saga

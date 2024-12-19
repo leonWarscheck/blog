@@ -1,8 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 
-import {
-  downloadHighScoresJSON,
-} from '../helpers-redux';
+import { downloadHighScoresJSON } from '../helpers-redux';
 import {
   importBackupClicked,
   backupDownloadClicked,
@@ -18,8 +16,7 @@ export default function SaveSection() {
 
   const backupDate = selectBackupDate(state);
   const backupDifference = selectBackupDifference(state, new Date());
-  const message = selectImportMessage(state)
-
+  const message = selectImportMessage(state);
 
   return (
     <section id="save" className={`flex grow`}>
@@ -35,7 +32,9 @@ export default function SaveSection() {
         <div className="flex justify-center gap-4">
           <button
             className="flex rounded-sm underline hover:text-neutral-500"
-            onClick={() => dispatch(backupDownloadClicked(new Date().toString()))}
+            onClick={() =>
+              dispatch(backupDownloadClicked(new Date().toString()))
+            }
           >
             Download Backup File
           </button>
@@ -44,7 +43,9 @@ export default function SaveSection() {
             <input
               type="file"
               accept=".json"
-              onChange={event => dispatch(importBackupClicked(event.target.files[0]))}
+              onChange={event =>
+                dispatch(importBackupClicked(event.target.files[0]))
+              }
               id="file-upload"
               className="hidden"
             />

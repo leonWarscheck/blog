@@ -1,13 +1,17 @@
-import useRotatingColors from "../../symbol-trainer-redux/use-rotating-colors";
+import useRotatingColors from '../../symbol-trainer/use-rotating-colors';
 
 export default function IntroSection({ setSection }) {
-  
- const color = useRotatingColors(['emerald-la', 'violet-500', 'red-500', 'yellow-la'], 1111)
+  const color = useRotatingColors(
+    ['emerald-la', 'violet-500', 'red-500', 'yellow-la'],
+    1111,
+  );
 
   return (
     <section id="info" className={`mx-auto flex w-full max-w-2xl grow px-4`}>
       <div className="mx-auto my-auto flex flex-col text-center">
-        <h2 className={`mb-2 mt-6 text-2xl pointer-events-none font-semibold ${'text-' + color} `}>
+        <h2
+          className={`pointer-events-none mb-2 mt-6 text-2xl font-semibold ${'text-' + color} `}
+        >
           Symbol<span className="text-neutral-400">Trainer</span>
         </h2>
         <p className="space-x-2 text-neutral-400">

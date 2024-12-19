@@ -1,4 +1,4 @@
-import { useContext, useRef} from 'react';
+import { useContext, useRef } from 'react';
 
 import levels from '../levels-redux.json';
 import {
@@ -19,7 +19,7 @@ import { useLevelNavigationShortcut } from '../use-level-navigation-shortcut-red
 export default function TrainerSection() {
   const { state, dispatch } = useContext(SymbolTrainerContext);
   const inputRef = useRef(null);
-  
+
   const levelString = selectLevelString(state);
   const inputString = selectInputString(state);
   const isWin = selectIsWin(state);
@@ -29,7 +29,7 @@ export default function TrainerSection() {
   const levelId = selectLevelId(state);
 
   const [handleBlur] = useCustomInputFocusBehaviour(inputRef, isWin, isFail);
-  // useLevelNavigationShortcut(levelId, levels, levelChosenByShortcut, dispatch);
+  useLevelNavigationShortcut(levelId, levels, levelChosenByShortcut, dispatch);
 
   return (
     <section

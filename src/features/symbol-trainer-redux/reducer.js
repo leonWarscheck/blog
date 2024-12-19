@@ -47,9 +47,9 @@ export const userTypedInTrainerInput = payload => ({
   payload,
 });
 
-export const userWon = () => ({ type: userWon });
+export const userWon = () => ({ type: 'userWon' });
 
-export const userFailed = () => ({ type: userFailed });
+export const userFailed = () => ({ type: 'userFailed' });
 
 const resetLevelOnWinOrFail = state => ({
   ...state,
@@ -69,7 +69,6 @@ export const backupDownloadClicked = payload => ({
   payload,
 });
 
-
 const changeBackupDate = (state, backupDate) => ({
   ...state,
   backupDate: backupDate,
@@ -80,10 +79,10 @@ export const importBackupClicked = payload => ({
   payload,
 });
 
-export const importStatusMessageRecieved= payload =>({
+export const importStatusMessageRecieved = payload => ({
   type: 'importStatusMessageRecieved',
-  payload
-})
+  payload,
+});
 
 // =====================
 // reducer + saga mount
@@ -103,7 +102,6 @@ export function symbolTrainerReducer(
   { type, payload } = {},
 ) {
   switch (type) {
-
     case sectionClicked().type:
       return { ...state, section: payload };
 
@@ -133,9 +131,9 @@ export function symbolTrainerReducer(
 
     case backupDownloadClicked().type:
       return changeBackupDate(state, payload);
-    
+
     case importStatusMessageRecieved().type:
-      return {...state, importMessage: payload}
+      return { ...state, importMessage: payload };
 
     default:
       return state;
@@ -160,7 +158,7 @@ export const selectSection = state => state.section;
 
 export const selectLevelId = state => state.levelId;
 
-const selectLevel = state => levels[selectLevelId(state)]
+const selectLevel = state => levels[selectLevelId(state)];
 
 export const selectLevelString = state => selectLevel(state)?.string;
 

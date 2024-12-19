@@ -15,5 +15,3 @@ export default function useRotatingColors(colors, interval = 1000) {
 
   return color;
 }
-
-

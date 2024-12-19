@@ -1,11 +1,15 @@
 // handleUserTypedInTrainerInput
 export const getTime = () => new Date();
 
-export const syncToLocalHighScores = (currentLevelHighScore, currentWpm, levelId) => {
+export const syncToLocalHighScores = (
+  currentLevelHighScore,
+  currentWpm,
+  levelId,
+) => {
   if (currentWpm > currentLevelHighScore) {
     const highScores = JSON.parse(localStorage.getItem('highScores')) || {};
     highScores[levelId] = currentWpm;
-    
+
     localStorage.setItem('highScores', JSON.stringify(highScores));
   }
 };
@@ -32,7 +36,6 @@ export function downloadHighScoresJSON() {
 export const syncToLocalBackupDate = backupDate => {
   localStorage.setItem('backupDate', backupDate);
 };
-
 
 // handleSyncLevelId
 export const syncToLocalLevelId = levelId => {
