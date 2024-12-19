@@ -29,7 +29,7 @@ export default function TrainerSection() {
   const levelId = selectLevelId(state);
 
   const [handleBlur] = useCustomInputFocusBehaviour(inputRef, isWin, isFail);
-  useLevelNavigationShortcut(levelId, levels, levelChosenByShortcut, dispatch);
+  // useLevelNavigationShortcut(levelId, levels, levelChosenByShortcut, dispatch);
 
   return (
     <section

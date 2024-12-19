@@ -103,7 +103,7 @@ export function symbolTrainerReducer(
   { type, payload } = {},
 ) {
   switch (type) {
-    
+
     case sectionClicked().type:
       return { ...state, section: payload };
 

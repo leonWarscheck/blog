@@ -1,3 +1,5 @@
+import useRotatingColors from "../../symbol-trainer-redux/use-rotating-colors";
+
 export default function IntroSection({ setSection }) {
   
  const color = useRotatingColors(['emerald-la', 'violet-500', 'red-500', 'yellow-la'], 1111)
