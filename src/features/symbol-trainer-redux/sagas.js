@@ -9,8 +9,17 @@ import {
 } from 'redux-saga/effects';
 
 import {
+  downloadHighScoresJSON,
+  getTime,
+  importBackup,
+  syncToLocalBackupDate,
+  syncToLocalHighScores,
+  syncToLocalLevelId,
+} from './helpers-redux';
+import {
   backupDownloadClicked,
   importBackupClicked,
+  importStatusMessageRecieved,
   levelAndBackupDateSyncedFromLocalStorage,
   levelChosenByShortcut,
   levelClicked,
@@ -23,22 +32,12 @@ import {
   selectIsWin,
   selectLevelId,
   selectStartTime,
-  importStatusMessageRecieved,
   typingEndedByWinning,
   typingStarted,
   userFailed,
   userTypedInTrainerInput,
   userWon,
 } from './reducer';
-
-import {
-  getTime,
-  syncToLocalHighScores,
-  syncToLocalBackupDate,
-  syncToLocalLevelId,
-  importBackup,
-  downloadHighScoresJSON,
-} from './helpers-redux';
 
 // =====================
 // trainerSection logic
@@ -53,7 +52,7 @@ function* handleUserTypedInTrainerInput() {
   }
 
   if (yield select(selectIsWin)) {
-    const now = yield call(getTime());
+    const now = yield call(getTime);
     yield put(typingEndedByWinning(now));
 
     const currentWpm = yield select(selectCurrentWpm);

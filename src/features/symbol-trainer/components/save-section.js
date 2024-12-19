@@ -76,7 +76,7 @@ export default function SaveSection({ scores, setScores }) {
               : 'text-red-500'
           } min-h-4`}
         >
-          {message ? message : ''}
+          {message || ''}
         </p>
       </div>
     </section>

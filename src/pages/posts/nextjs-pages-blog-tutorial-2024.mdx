@@ -3,101 +3,87 @@ title: 'How to Code a Blog in 2024 (with MDX in Next 14 Pages-Routing)'
 headtitle: 'Static vs. Server-Side'
 date: '2023-02-09'
 readingTime: '28min'
-preview:
-  'The step-by-step guide to how you can build a blog-website just like this -
-  using React, Tailwind, NextJS, MDX and MailChimp.'
+preview: 'The step-by-step guide to how you can build a blog-website just like this - using React, Tailwind, NextJS, MDX and MailChimp.'
 ---
+import Head from 'next/head'
+import Image from 'next/image'
+import Link from 'next/link'
+import MdxLayout from "../../features/blog/mdx-layout";
 
-import Head from 'next/head';
-import Image from 'next/image';
-import Link from 'next/link';
-import MdxLayout from '../../features/blog/mdx-layout';
-
-import homepagedraft from '../../../public/homepagedraft.png';
-import bettermf from '../../../public/bettermf.png';
-import naval from '../../../public/naval.png';
-import overreacted from '../../../public/overreacted.png';
-import ableton from '../../../public/ableton.png';
-import menu from '../../../public/menu.png';
-import design404 from '../../../public/404design.png';
+import homepagedraft from '../../../public/homepagedraft.png'
+import bettermf from '../../../public/bettermf.png'
+import naval from '../../../public/naval.png'
+import overreacted from '../../../public/overreacted.png'
+import ableton from '../../../public/ableton.png'
+import menu from '../../../public/menu.png'
+import design404 from '../../../public/404design.png'
 
 export default function MDXPage({ children }) {
-  const headtitle = '2024 NextJS Pages Blog Tutorial';
+  const headtitle= "2024 NextJS Pages Blog Tutorial"
   return (
     <MdxLayout>
-      <Head>
-        <title>{headtitle}</title>
-      </Head>
+      <Head><title>{headtitle}</title></Head>
       <article className="">{children}</article>
     </MdxLayout>
   );
 }
 
+
+
 ## How to Code a Blog in 2024 <br/>(with MDX and Next14 Pages-Routing)
 
-<div className="text-sm text-neutral-400">
-  February 09, 2023 - Updated January 2024 - 28min - #blog #nexjs #tutorial
-  #webdev #docs
+<div className="text-neutral-400 text-sm">
+February 09, 2023 - Updated January 2024 - 28min - #blog #nexjs #tutorial #webdev #docs
 </div>
 
-Welcome to the step-by-step guide of how you can build a blog-website just like
-this - using React, Tailwind, NextJS, MDX and MailChimp.
+Welcome to the step-by-step guide of how you can build a blog-website just
+like this - using React, Tailwind, NextJS, MDX and MailChimp.
 
 **Why use pages routing in 2024/ Next14?** Eventhough NextJS is nudging everyone
 to use App-Routing, at work you will likely encounter older projects that still
-use pages routing. It's a valuable skill to know the legacy ways.
+use pages routing. It's a valuable skill to know the legacy ways. 
 
 **Why MDX with pages routing?** Besides interactive React components in your
 articles: In pages routing you can route with your blog-post-title.mdx files,
 and render them as pages directly without needing to parse them through the
 usual [slug/id].js file. This way you also don't need getStaticRoutes.
 
-To build this setup, I had to pick pieces from many different tutorials. In this
-guide I bring it all together.
-
-<br />
+To build this setup, I had to pick pieces from many different tutorials. 
+In this guide I bring it all together.
+<br/>
 <a id="toc"></a>
 ### Table of Contents
 
-0. [Prerequisites](#prerequisites)
+0. [Prerequisites](#prerequisites) 
 1. [Preparation & Setup](#prep-and-setup)
 2. [Main Building](#main-building)
 3. [References](#references)
 
-_Disclaimer: The instructions of this guide are just my personal
-recommendations. Feel free to customize to your own taste._
-
-## <div className="text-neutral-300">
+_Disclaimer: The instructions of this guide are just my personal recommendations. Feel free to customize to your own taste._
+<div className="text-neutral-300">
+---
 
 ### <a id="prerequisites" href="#toc">0. Prerequisites</a>
 
 If you are a complete beginner at coding, first work through something like the
 Webdeveloper Bootcamp by Colt Steele. That's what gave me the foundations for
-this blog project _(HTML, CSS, JavaScript, React)_.
+this blog project *(HTML, CSS, JavaScript, React)*.
 
-For learning _Tailwind_, scan through
-[this](https://youtu.be/ft30zcMlFao?si=U1WJGAnrofYRtGtk) tutorial on 1.5-2x
-speed. Then learn to actually use it by building your own blog with it. With
-Tailwind-Docs-Search and ChatGPT, this is fun and easy. Except for some basic
-CSS overview, I had almost zero experience with it before this blog.
+For learning *Tailwind*, scan through [this](https://youtu.be/ft30zcMlFao?si=U1WJGAnrofYRtGtk) tutorial on 1.5-2x speed. 
+Then learn to actually use it by building your own blog with it. 
+With Tailwind-Docs-Search and ChatGPT, this is fun and easy. 
+Except for some basic CSS overview, I had almost zero experience with it before this blog.
 
 For the harder part of styling - positioning and responsive design - I also
 wrote intructions later in this article. Additionally you can find all
-_tailwind-classes_ that I used in my
-[source code](https://github.com/leonWarscheck/blog) on Github.
+_tailwind-classes_ that I used in my [source code](https://github.com/leonWarscheck/blog) on Github.
 
-If you are new to to _Github/_ version control: Work through
-[this](https://youtu.be/ulQA5tjJark?si=ZhyJQfluX-rneEbr) Git Crash Course. And
-make sure to read through
-_[conventional commits](https://www.conventionalcommits.org/en/v1.0.0/)_.
+If you are new to to *Github/* version control: Work through [this](https://youtu.be/ulQA5tjJark?si=ZhyJQfluX-rneEbr) Git Crash Course. And make sure to read through *[conventional commits](https://www.conventionalcommits.org/en/v1.0.0/)*.
 
-_Accessibility_ is not my strength yet, so I only adress a few of its aspects in
-this guide. If you want to go deeper on it, my mentor recommends
-[this resource.](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks/React_accessibility)
+_Accessibility_ is not my strength yet, so I only adress a few of its aspects in this guide. If you want to go deeper on it, my mentor recommends [this resource.](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks/React_accessibility) 
 
 IMPORTANT: Before starting your blog project, I can also recommend to watch
-[this](https://youtube.com/playlist?list=PL4cUxeGkcC9g9gP2onazU5-2M-AzA8eBw&si=twXEDUCdzgd17ovh)
-little _NextJS_ course on 1.5-2x speed (no need to code along there imo). This
+[this](https://youtube.com/playlist?list=PL4cUxeGkcC9g9gP2onazU5-2M-AzA8eBw&si=twXEDUCdzgd17ovh) little _NextJS_ course on 1.5-2x speed (no need to code along there imo). This
 will give you a workable overview of the NextJS basics.
 
 </div>
@@ -108,71 +94,62 @@ Working along this structure made the process smooth and straight-forward:
 
 - [preparation](#preparation)
   - [modeling](#modeling) (reference ui/ux)
-  - [drafting](#drafting) (visual and written)
+  - [drafting](#drafting) (visual and written)  
   - [mockup content](#mockup-content)
   - [component plan](#component-plan)
 - [setup](#setup)
   - [installation](#installation)
   - [pages-routing](#routing)
 
-<br />
-## <a id="vision-scope" href="#prep-and-setup">
-  {' '}
-  Vision/ Scope{' '}
-</a>
+
+<br/>
+## <a id="vision-scope" href="#prep-and-setup"> Vision/ Scope </a>
 
 ### <a id="modeling" href="#prep-and-setup">Modeling</a>
-
-If you want to build websites as cool as your idols - steal from them.
-Seriously, everything is a remix. Pick whatever sparks your fire, even outside
-the box of websites.
+If you want to build websites as cool as your idols - steal from them. 
+Seriously, everything is a remix. Pick whatever sparks your fire, even outside the box of websites.
 
 I stole from:
 
 - bettermotherfuckingwebsite.com (main content width and breath)
-  - <Image src={bettermf} alt="screenshot of a simple website" />
+  - <Image src={bettermf}  alt="screenshot of a simple website"/>
 - nav.al (subscribeform in header)
-  - <Image src={naval} alt="screenshot of a nav.al" />
+  - <Image src={naval}  alt="screenshot of a nav.al"/>
 - overreacted.io (header content centered and colorfulness)
-  - <Image src={overreacted} alt="screenshot of dev blog overreacted.io" />
+  - <Image src={overreacted}  alt="screenshot of dev blog overreacted.io"/>
 - AbletonLive Music Production Suite (tag colors I used in my producer days)
-  - <Image src={ableton} alt="screenshot of music production program" />
+  - <Image src={ableton}  alt="screenshot of music production program"/>
 
 ### <a id="drafting" href="#prep-and-setup">Drafting</a>
-
 #### Visual
-
 Draft out the design first. At least roughly. Positioning, proportions,
-colortheme, font vibe, most important elements and pages. I used Photoshop, but
-Gimp or even pen and paper could do. IMPORTANT: Also draft out how it should
-look on mobile aswell!
+colortheme, font vibe, most important elements and pages. I used Photoshop, but Gimp or
+even pen and paper could do. IMPORTANT: Also draft out how it should look on mobile aswell!
 
-Knowing precisely what I wanted to build, and seeing it almost alive from the
-start, felt really helpful to me. This kept me motivated and always clear about
-the next steps.
+Knowing precisely what I wanted to build, and seeing it almost alive from the start, felt really helpful to me.
+This kept me motivated and always clear about the next steps.
 
-It is also a good measurement of how closely you can create what you (or your
-designers) have planned. Of course you can keep happy accidents, but don't take
-them as an excuse to not create and learn what you wanted to in the first place.
+It is also a good measurement of how closely you can create what you (or your designers) have planned.
+Of course you can keep happy accidents, but don't take them as an excuse to not create and learn what you wanted to in the first place.
 
 I am pretty proud of how close I got:
-
-<Image src={homepagedraft} alt="my draft for the homepage" />
+	
+<Image src={homepagedraft}  alt="my draft for the homepage"/>
 *(my first Photoshop draft of the homepage)*
 
 #### Written
 
-Brainstorm notes of all the elements, features and effects you want as
-bulletpoints.
+Brainstorm notes of all the elements, features and effects you want as bulletpoints.
 
-Include stuff that you are not sure about. Just tag that with question marks.
+Include stuff that you are not sure about. Just tag that with question marks. 
 Sort and trim later.
 
 Use these notes and this article as the source for your to do lists.
 
+
 ### <a id="mockup-content" href="#prep-and-setup">Mock Up content</a>
 
-Create placeholder articles and other page content using the LLM of your choice.
+Create placeholder articles and other page content using the LLM of your choice. 
 
 It's easy and makes the building process more fun and realistic.
 
@@ -183,12 +160,11 @@ Here are the prompts I used:
 - write out the first one as a full article including code examples
 - write me a short about page
 
-### <a id="component-plan" href="#prep-and-setup">Component Plan</a>
+### <a id="component-plan" href="#prep-and-setup">Component Plan</a> 
 
-Brainstorm a list of all the major (react-) components and pages you will likely
-need to build, like this:
+Brainstorm a list of all the major (react-) components and pages you will likely need to build, like this:
 
-- HomeFeed (index/ home)
+- HomeFeed (index/ home) 
 - Header
 - Footer
 - Menu
@@ -197,57 +173,59 @@ need to build, like this:
 - About
 - 404
 
-<br />
-## <a id="setup" href="#prep-and-setup">
-  Setup
-</a>
+
+<br/>
+## <a id="setup" href="#prep-and-setup">Setup</a>
 
 ### <a id="installation" href="#prep-and-setup">Installation</a>
 
-- install and run the NextJS project as described in the
-  [NextJS docs](https://nextjs.org/docs/getting-started/installation):
-
+- install and run the NextJS project as described in the [NextJS docs](https://nextjs.org/docs/getting-started/installation):
+  
   0. install Node.js and npm
-  1. `npx create-next-app@latest`
+  1. `npx create-next-app@latest` 
   2. installation settings:
-
-  - What is your project named? **blog**
-  - Would you like to use TypeScript? **No** / Yes
-  - Would you like to use ESLint? **No** / Yes
-  - Would you like to use Tailwind CSS? No / **Yes**
-  - Would you like to use `src/` directory? No / **Yes**
-  - Would you like to use App Router? (recommended) **No** / Yes
-  - Would you like to customize the default import alias (@/\*)? **No** / Yes
-
+    - What is your project named? **blog**
+    - Would you like to use TypeScript? **No** / Yes
+    - Would you like to use ESLint? **No** / Yes
+    - Would you like to use Tailwind CSS? No / **Yes**
+    - Would you like to use `src/` directory? No / **Yes**
+    - Would you like to use App Router? (recommended) **No** / Yes
+    - Would you like to customize the default import alias (@/*)? **No** / Yes
   3. `cd blog`
   4. `npm run dev`
   5. open http://localhost:3000/ in the browser (chrome/ brave)
-
 - delete all unneccessary components of the NextJS default template
-  - `git branch empty-template` to save this as a canvas for css experiments
-    later in the process
+  - `git branch empty-template` to save this as a canvas for css experiments later in the process
 
 ### <a id="routing" href="#prep-and-setup">Routing</a>
 
 NextJS pages-routing in a nutshell:
 
-<div className="prose-pre:bg-neutral-80 prose-pre:mx prose-pre:leading-4">
-  ```md src/ ├── components ├── pages/ │ ├── api │ ├── posts/ │ │ └──
-  blog-titles.mdx // auto-routed to .com/posts/filename (+ collected for
-  feedData.js utility) │ ├── _app.js │ ├── _document.js │ ├── 404.js //
-  auto-routed and hooked up as 404 via reserved filename │ ├── about.js // .js
-  (and .mdx!) in pages/ get auto-routed to .com/filename │ └── index.js //
-  auto-routed as .com/ via reserved filename ├── styles ├── utils/ │ ├──
-  feedData.js // (getStaticProps: fetches blogfeed preview data from
-  ./pages/posts to index.js) │ └── ... └── ... ```
+<div className="prose-pre:leading-4 prose-pre:bg-neutral-80 prose-pre:mx">
+```md
+src/
+├── components
+├── pages/
+│   ├── api
+│   ├── posts/ 
+│   │   └── blog-titles.mdx   // auto-routed to .com/posts/filename (+ collected for feedData.js utility)
+│   ├── _app.js
+│   ├── _document.js
+│   ├── 404.js                // auto-routed and hooked up as 404 via reserved filename 
+│   ├── about.js              // .js (and .mdx!) in pages/ get auto-routed to .com/filename
+│   └── index.js              // auto-routed as .com/ via reserved filename 
+├── styles
+├── utils/
+│   ├── feedData.js           // (getStaticProps: fetches blogfeed preview data from ./pages/posts to index.js)
+│   └── ...
+└── ...
+```
 </div>
 
-NextJS PR determines the URL path of your different pages by their position in
-the folders and a set of special purpose filenames. Make sure to use this exact
-folder structure and the rules described in the comments.
+NextJS PR determines the URL path of your different pages by their position in the folders and a set of special purpose filenames.
+Make sure to use this exact folder structure and the rules described in the comments.
 
 **Action Steps:**
-
 - create all of the component and page files from the component list
 - place them in their routing as described above
   - no need for feedData.js and getStaticProps yet
@@ -255,33 +233,21 @@ folder structure and the rules described in the comments.
 - the files can be empty but should have the right filenames and folderpositions
   - you can already paste your mockup article texts into your .mdx files though
 - test if the routes exist, by typing them in the URL bar of the browser
-  - congrats, you now understand the pages-routing basics, let's learn how to
-    build on top of that in the main building section
+  - congrats, you now understand the pages-routing basics, let's learn how to build on top of that in the main building section
 
-<br />
-## <a id="main-building" href="#toc">
-  2. Main Building
-</a>
+<br/>
+## <a id="main-building" href="#toc">2. Main Building</a>
 
-In this section I explain most of the smaller steps of the main building
-process.
+In this section I explain most of the smaller steps of the main building process.
 
-To keep it organized, I wrote the bigger challenges into seperate, detailed
-articles. You can find them here:
+To keep it organized, I wrote the bigger challenges into seperate, detailed articles.
+You can find them here:
+- <Link href="/posts/mdx-tailwind-rehype-nextjs" className="underline"> MDX & Tailwind in Next 14 PAGES-routing (incl. Syntax Highlighting)</Link>
+- <Link href="/posts/mailchimp-nextjs-api" className="underline">Mailchimp Newsletter Management & Custom SubscribeForm | Next API</Link>
+- <Link href="/posts/css-height-sticky-footer" className="underline">How to build a "sticky footer" for your WebApp | CSS Height & Positioning</Link>
 
-- <Link href="/posts/mdx-tailwind-rehype-nextjs" className="underline">
-    {' '}
-    MDX & Tailwind in Next 14 PAGES-routing (incl. Syntax Highlighting)
-  </Link>
-- <Link href="/posts/mailchimp-nextjs-api" className="underline">
-    Mailchimp Newsletter Management & Custom SubscribeForm | Next API
-  </Link>
-- <Link href="/posts/css-height-sticky-footer" className="underline">
-    How to build a "sticky footer" for your WebApp | CSS Height & Positioning
-  </Link>
 
 Components and aspects covered in this section:
-
 - [HTML Overview](#html-overview)
 - [Header & Footer](#header-and-footer)
 - [Layout](#layout)
@@ -292,20 +258,17 @@ Components and aspects covered in this section:
 - [404](#404)
 - [Favicon](#favicon)
 
-<br />
-### <a id="html-overview" href="#main-building">
-  HTML Overview
-</a>
 
-Before we go into the components, there are a few HTML concepts that are helpful
-to keep in mind for the project:
+<br/>
+### <a id="html-overview" href="#main-building">HTML Overview</a>
+
+Before we go into the components, there are a few HTML concepts that are helpful to keep in mind for the project:
 
 1. **overview**
 
 You can see that there are 3 layers of nesting in a NextJS PR project:
-
-- the "HTML base layer" (\_document.js)
-- the "layout and settings layer" (\_app.js)
+- the "HTML base layer" (_document.js)
+- the "layout and settings layer" (_app.js)
 - and finally the individual pages
 
 <div className="prose-pre:leading-4">
@@ -317,18 +280,17 @@ You can see that there are 3 layers of nesting in a NextJS PR project:
         <Layout>                   // _app.js
         <Component>
                     (<MDXLayout>)  // page files (.js = without MDXLayout)
-                     <main>
+                     <main>    
 
-                     </main>
+                     </main>    
                     (</MDXLayout>)
         </Component>
         </Layout>
-
 </Main>
 </body>
 </Html>
 
-````
+```
 </div>
 
 
@@ -340,7 +302,7 @@ the usually cumbersome CSS positioning, which I go into in [this dedicated artic
 
 Notice the `<Main/>`tag in the base and the `<main></main>` in the page layer.
 The first is a NextJS specific Main that does not actually exists in the dom
-tree and the second represents the mains of the individual pages.
+tree and the second represents the mains of the individual pages. 
 
 No tutorial stressed out the role of the `<main></main>` tag to me - or let alone
 that every page needs one. It turns out, besides CSS clarity, it is
@@ -348,7 +310,7 @@ essential for accessibility and search engine optimization (SEO).
 
 I only knew that you should often use descriptive tags like `<section>` instead of `<div>`, but I
 wasn't aware of the best practice `<main>`-structure, until my mentor pointed it
-out to me... and now you know it too:
+out to me... and now you know it too: 
 
 **main tag rules**
 
@@ -357,7 +319,7 @@ out to me... and now you know it too:
 - only have one `<main>` per page/ DOM-tree
   - make sure to check for "doubles" through all layers via the devtools elements section
     - don't worry, the NextJS `_document.js` `<Main/>` tag does not appear in the client-side
-      DOM-tree, so the "only one `<main>` per DOM-tree"-rule can be fulfilled
+      DOM-tree, so the "only one `<main>` per DOM-tree"-rule can be fulfilled 
   - as there is no `<layout>` html-tag, I falsly used `<main>` tags for that, as it seemed more descriptive than `<div>`
     - instead, to make layout layers more descriptive you can use accessibility attributes
     like `<div role="region" aria-label="Main/MDX Layout">`
@@ -373,8 +335,8 @@ Instead of just stacking them as siblings one after another inside a `<div>`,
 place them in `<li>` tags in a `<ul>`. This way it is clear to the screen reader
 that
 - they are basically a
-navigation menu sitting at the same layer,
-- belonging together,
+navigation menu sitting at the same layer, 
+- belonging together, 
 - and having a clear start and endpoint,
 - even when they have more complex menu nestings.
 
@@ -394,7 +356,7 @@ export default function Header({}){
 return (
     <header className="..."> // reminder: you can find all tailwind-classes in my source code on github. I leave them out of all code examples for focus.
       <nav> // "navbar" often gets used synonymously with "header", but it's just one of headers possible childs. wrap it.
-        <Link href="/"> // common practice: distinguish the main logo from the rest of the navigation links
+        <Link href="/"> // common practice: distinguish the main logo from the rest of the navigation links           
           <h1>LeonWarscheck</h1>
         </Link>
         <ul> // wrap the other navigation items into a ul
@@ -415,118 +377,105 @@ return (
     </header>
   );
 };
-````
-
+```
 The Footer component is almost the same.
 
 ```javascript title="/src/components/Footer.js"
-import Link from 'next/link';
+import Link from "next/link";
 
-export default function Footer() {
+export default function Footer (){
   return (
     <footer>
-      <nav>
-        {' '}
-        // eventhough navbar is mostly associated with the header, navigation
-        links in the footer are also usually a navbar
-        <Link href="/">
-          <h1>LeonWarscheck</h1>
-        </Link>
-        <ul>
-          <li>
-            {' '}
-            // instead of "About", I link to the Imprint page (obligation in
-            germany)
-            <Link href="/imprint">Imprint</Link>
-          </li>
-          <li>
-            <button>Subscribe</button>
-            <SubscribeForm />
-          </li>
-        </ul>
-      </nav>
-      <nav>
-        {' '}
-        // on smaller screensizes this nav replaces the previous sibling nav,
-        otherwise it is hidden
-        <ul>
-          <li>
-            <Link href="/imprint">Imprint</Link>
-          </li>
-        </ul>
-      </nav>
+        <nav> // eventhough navbar is mostly associated with the header, navigation links in the footer are also usually a navbar
+          <Link href="/">
+            <h1>LeonWarscheck</h1>
+          </Link>
+          <ul>
+            <li> // instead of "About", I link to the Imprint page (obligation in germany)
+              <Link href="/imprint">
+                Imprint
+              </Link>
+            </li>
+            <li>
+              <button>
+                Subscribe
+              </button>
+                <SubscribeForm/>
+            </li>
+          </ul>
+        </nav>
+        <nav> // on smaller screensizes this nav replaces the previous sibling nav, otherwise it is hidden
+          <ul>
+            <li>
+              <Link href="/imprint">
+                Imprint
+              </Link>
+            </li>
+          </ul>
+        </nav>
     </footer>
   );
-}
+};
 ```
 
 ---
 
 ### <a id="layout" href="#main-building">Layout</a>
-
-Now that you have `Header` and `Footer`, you can build the NextJS `Layout`
-component. It is also pretty simple and self explanatory:
+Now that you have `Header` and `Footer`, you can build the NextJS `Layout` component.
+It is also pretty simple and self explanatory:
 
 ```javascript title="/src/components/Layout.js"
-import Footer from './Footer';
-import Header from './Header';
+import Footer from "./Footer";
+import Header from "./Header";
 
-export default function Layout({ children }) {
+export default function Layout ({ children }){
   return (
-    <div role="region" aria-label="Main Layout">
-      {' '}
-      // div for css purpose, otherwise use react fragments
-      <Header /> // insert Header and Footer
+    <div role="region" aria-label="Main Layout"> // div for css purpose, otherwise use react fragments
+      <Header/> // insert Header and Footer
       {children} // explanation below
-      <Footer />
+      <Footer/>
     </div>
   );
-}
-```
+};
 
+```
 What might get a little tricky to understand is the`{ children }` prop. It is
 built into React and represents all the content that you wrap inside of a
 components tag. Component-wrapped children props get auto-passed upwards and are
-accessible as soon as you type `children` into the parents props-destructuring
-`({ })`.
+accessible as soon as you type `children` into the parents props-destructuring `({ })`.
 
 As you can see below, inside of a NextJS project, the `Layout` component is
 wrapped around some other essential layers within the `MyApp` component.
 
-```javascript title="/src/pages/_app.js"
-import Layout from '../components/Layout';
-import Head from 'next/head';
-import '../styles/globals.css'; // NextJS parallel to attaching a stylesheet to a vanilla JS HTML head
+
+```javascript  title="/src/pages/_app.js"
+import Layout from "../components/Layout";
+import Head from "next/head";
+import "../styles/globals.css"; // NextJS parallel to attaching a stylesheet to a vanilla JS HTML head
 
 export default function MyApp({ Component, pageProps }) {
   return (
     <Layout>
-      <Head>
-        {' '}
-        // set the default browsertab title
+      <Head> // set the default browsertab title
         <title>LeonWarscheck</title>
       </Head>
-      <Component {...pageProps} /> // this is where the individual pages and
-      their props "dock into" the app
+        <Component {...pageProps} /> // this is where the individual pages and their props "dock into" the app
     </Layout>
   );
 }
 ```
-
 Congrats, now you also understand `_app.js`.
 
 ---
 
 ### <a id="homefeed" href="#main-building">HomeFeed</a>
 
-Just like in
-[this NextJS docs tutorial](https://nextjs.org/learn-pages-router/basics/create-nextjs-app),
-you want the index page to act as a feed with previews of your articles. For
-this you need a `HomeFeed` component and a metadata utility component in a
-separate file.
+Just like in [this NextJS docs tutorial](https://nextjs.org/learn-pages-router/basics/create-nextjs-app), you want the index page to act as
+a feed with previews of your articles. For this you need a `HomeFeed` component and a
+metadata utility component in a separate file.
 
-First, make sure you write metadata in frontmatter format at the very top of
-your articles, like this:
+First, make sure you write metadata in frontmatter format at the very top of your articles,
+like this:
 
 ```mdx title="/src/pages/posts/nextjs-blog-tutorial-2024.mdx" caption=""
 ---
@@ -543,24 +492,24 @@ This component returns an array `[{},{},{},...]` from all the posts, sorted by
 date, with one object per post. Each object contains key-value pairs of the slug
 and the frontmatter metadata out of the .mdx files.
 
-```javascript title="/src/utils/getFeedData.js"
-import fs from 'fs'; // needed for fetching filenames from the filesystem
-import path from 'path'; // needed for defining postsDirectory
-import matter from 'gray-matter'; // install via npm first
+```javascript title="/src/utils/getFeedData.js" 
+import fs from "fs"; // needed for fetching filenames from the filesystem
+import path from "path"; // needed for defining postsDirectory
+import matter from "gray-matter"; // install via npm first
 
 // ensures the path is always correct relative to the root of your project
-const postsDirectory = path.join(process.cwd(), 'src/pages/posts');
+const postsDirectory = path.join(process.cwd(), "src/pages/posts");
 
 export function getFeedData() {
   // get all .mdx file names from /posts
   const fileNames = fs.readdirSync(postsDirectory);
-  const allPostsData = fileNames.map(fileName => {
+  const allPostsData = fileNames.map((fileName) => {
     // remove ".mdx" from file name to get slug
-    const slug = fileName.replace(/\.mdx$/, '');
+    const slug = fileName.replace(/\.mdx$/, "");
 
     // converts .mdx filecontent as string for gray-matter processing
     const fullPath = path.join(postsDirectory, fileName);
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const fileContents = fs.readFileSync(fullPath, "utf8");
 
     // use gray-matter to parse the post metadata section
     const matterResult = matter(fileContents);
@@ -580,18 +529,17 @@ export function getFeedData() {
     }
   });
 }
+
 ```
 
-Then finally you import `getFeedData` into your Homepage, fetch the feedData via
-`getStaticProps` and populate the feed.
+Then finally you import `getFeedData` into your Homepage, fetch the feedData via `getStaticProps` and populate the feed. 
 
 ```js title="/src/pages/index.js"
-import Link from 'next/link';
-import Date from '../components/date'; // needed for date formatting, component shown right below
-import { getFeedData } from '../utils/getFeedData.js';
+import Link from "next/link";
+import Date from "../components/date"; // needed for date formatting, component shown right below
+import { getFeedData } from "../utils/getFeedData.js";
 
-export async function getStaticProps() {
-  // getStaticProps lets NextJS include the data in the pre-render
+export async function getStaticProps() { // getStaticProps lets NextJS include the data in the pre-render 
   const feedData = await getFeedData();
   return {
     props: {
@@ -600,30 +548,22 @@ export async function getStaticProps() {
   };
 }
 
+
 export default function Home({ feedData }) {
   return (
     <main>
-      <ul>
-        {' '}
-        // a feed is a list. Each .map iteration step creates a new li aka a new
-        post preview
+      <ul> // a feed is a list. Each .map iteration step creates a new li aka a new post preview
         {feedData.map(({ slug, date, readingTime, title, preview }) => (
-          <li key={slug}>
-            {' '}
-            // in React, dynamically created lis need unique identifiers, to be
-            managed properly in case of state changes
-            <Link href={`/posts/${slug}`}>
+          <li key={slug}> // in React, dynamically created lis need unique identifiers, to be managed properly in case of state changes
+            <Link href={`/posts/${slug}`} >
               <h2>
-                {title} // use jsx to pass the data directly to its target
-                destination
+                {title} // use jsx to pass the data directly to its target destination
               </h2>
               <h3>
-                <Date dateString={date} /> &nbsp;- &nbsp;{readingTime}
+                <Date dateString={date}/> &nbsp;- &nbsp;{readingTime}
               </h3>
               <p>{preview}</p>
-            </Link>{' '}
-            // wrap the link around the preview, if you want a bigger surface
-            than just the title to be clickable
+            </Link> // wrap the link around the preview, if you want a bigger surface than just the title to be clickable
           </li>
         ))}
       </ul>
@@ -631,9 +571,7 @@ export default function Home({ feedData }) {
   );
 }
 ```
-
 Create this file for the date formatting needed above:
-
 ```js title="/src/components/date.js"
 import { parseISO, format } from 'date-fns';
 
@@ -650,45 +588,44 @@ import the data from another file and send it to the browser together with the
 component to be computed clientside.
 
 Remember: We are using .mdx files directly as pages in this setup, so we don't
-need the usual `[id].js` file with `getStaticRoutes` for parsing vanilla
-markdown files as pages. That's why the `getFeedData.js` file is also a lot
-simpler than in most NextJS tutorials.
+need the usual `[id].js` file with `getStaticRoutes` for parsing vanilla markdown files as
+pages. That's why the `getFeedData.js` file is also a lot simpler than in most NextJS
+tutorials.
 
 ---
+
+
 
 ### <a id="menu" href="#main-building">Menu Component</a>
 
 Instead of using a premade menu component from a library like shadzcn, you can
-build your my own custom one.
+build your my own custom one. 
 
-<Image src={menu} alt="a screenshot of my menu component" />
+<Image src={menu}  alt="a screenshot of my menu component"/>
+
+
 
 The `Menu` component itself is pretty simple, as most of the logic is sitting in
-the `Header` component where the `Menu` is nested and lifting its state to. The
-main "trick" here, is the conditional rendering and passing the right props to
-the right places:
+the `Header` component where the `Menu` is nested and lifting its state to. The main
+"trick" here, is the conditional rendering and passing the right props to the
+right places:
+
 
 ```js title="/src/components/Menu.js"
-import Link from 'next/link';
+import Link from "next/link";
 
-export default function Menu({
-  recievedHandleMenuToggle,
-  menuOpen,
-  handleMenuClose,
-}) {
+export default function Menu({ recievedHandleMenuToggle, menuOpen, handleMenuClose }) {
   return (
-    <>
-      <button onClick={recievedHandleMenuToggle}>
-        {' '}
-        // Menu show/hide handler prop from header, explained a bit lower.
+        <>
+      <button onClick={recievedHandleMenuToggle}> // Menu show/hide handler prop from header, explained a bit lower.
         <div // I used 2 small rounded divs as the menu icon.
           className={`size-6 rounded-full ${
-            menuOpen ? 'bg-neutral-500' : 'bg-orange-500' // menuOpen is a state prop from the header.
+            menuOpen ? "bg-neutral-500" : "bg-orange-500" // menuOpen is a state prop from the header.
           }`}
         />
         <div
           className={`size-6 rounded-full ${
-            menuOpen ? 'bg-neutral-500' : 'bg-red-500' // Greyed out while open.
+            menuOpen ? "bg-neutral-500" : "bg-red-500" // Greyed out while open.
           }`}
         />
       </button>
@@ -696,21 +633,20 @@ export default function Menu({
       {menuOpen && ( // Conditional rendering.
         <div aria-label="Mobile Menu">
           <ul>
-            <li>
+           <li>
               <Link
                 onClick={handleMenuClose} // The menu closes so you can see the About page.
                 href="/about"
               >
                 About
               </Link>
-            </li>{' '}
-            <li className="relative">
-              <form onSubmit={handleSubscribe}>
-                {' '}
-                // Subscribe mailchimp api logic explained in article mentioned
-                earlier.
-                <input />
-                <button type="submit">Subscribe</button>
+            </li>{" "}
+            <li className="relative ">
+              <form onSubmit={handleSubscribe}> // Subscribe mailchimp api logic explained in article mentioned earlier.
+                <input/>
+                <button type="submit">
+                  Subscribe
+                </button>
               </form>
             </li>
           </ul>
@@ -720,90 +656,86 @@ export default function Menu({
   );
 }
 ```
+Now take a look at the `Header` component again. In the "Header and Footer" section earlier I left out the `Menu` logic to keep it focused.
+Here you can see all of it included and explained:
 
-Now take a look at the `Header` component again. In the "Header and Footer"
-section earlier I left out the `Menu` logic to keep it focused. Here you can see
-all of it included and explained:
 
 ```js title="/src/components/Header.js"
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import Menu from './Menu';
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import Menu from "./Menu";
 
-export default function Header({}) {
-  const [menuOpen, setMenuOpen] = useState(false); // The Header main logo button needs to close the menu, but state can only travel downwards. Solution: Menu state is lifted to its parent.
+export default function Header({}){
+  const [menuOpen, setMenuOpen] = useState(false); // The Header main logo button needs to close the menu, but state can only travel downwards. Solution: Menu state is lifted to its parent. 
 
-  useEffect(() => {
-    // The scrollbar of the underlying page shows above the menu, if you don't implement this useEffect to hide it.
-    const bodyElement = document.querySelector('body');
+  useEffect(() => { // The scrollbar of the underlying page shows above the menu, if you don't implement this useEffect to hide it.
+    const bodyElement = document.querySelector("body");
 
     if (menuOpen) {
-      bodyElement.classList.add('scrollbar-hide'); // "scrollbar-hide" is a Tailwind plugin you have to install via npm.
+      bodyElement.classList.add("scrollbar-hide"); // "scrollbar-hide" is a Tailwind plugin you have to install via npm.
     } else {
-      bodyElement.classList.remove('scrollbar-hide');
+      bodyElement.classList.remove("scrollbar-hide");
     }
   }, [menuOpen]);
 
-  const handleMenuClose = () => {
-    // One-directional(false only) state handler.
-    setTimeout(() => {
-      // The menu closes faster than the underlying new page loads, so you can experiment with delaying the close.
+  const handleMenuClose = () => { // One-directional(false only) state handler.
+    setTimeout(() => { // The menu closes faster than the underlying new page loads, so you can experiment with delaying the close.
       setMenuOpen(false);
     }, 0); // In build mode the effect is almost invisible so you can bring it to 0 or leave it out completely.
   };
 
-  const handleMenuToggle = () => {
-    // Bi-directional(boolean toggle) state handler. Its used by the main button in the menu component, and needs to be lifted because it is useState-dependent.
+  const handleMenuToggle = () => { // Bi-directional(boolean toggle) state handler. Its used by the main button in the menu component, and needs to be lifted because it is useState-dependent.
     setMenuOpen(!menuOpen);
   };
 
   return (
     <header>
       <nav>
-        <Link
-          href="/"
-          onClick={handleMenuClose} // Main logo button closing the menu to reveal the homepage.
-        >
-          <h1>LeonWarscheck</h1>
-        </Link>
-        <ul>
-          {' '}
-          // Does not show on smaller screens, Menu component main button shows
-          instead.
-          <li>
-            <Link href="/about">About</Link>
-          </li>
-          <li>
-            <button>Subscribe</button>
-            <SubscribeForm /> // Explained in next section.
-          </li>
-        </ul>
-        <Menu
-          recievedHandleMenuToggle={handleMenuToggle} // *
-          menuOpen={menuOpen} // Passing state downward.
-          handleMenuClose={handleMenuClose} // Passing the shared handler downward.
-        />
+          <Link
+            href="/"
+            onClick={handleMenuClose} // Main logo button closing the menu to reveal the homepage.
+          >
+            <h1>LeonWarscheck</h1>
+          </Link>
+          <ul> // Does not show on smaller screens, Menu component main button shows instead.
+            <li> 
+              <Link href="/about">
+                About
+              </Link>
+            </li>
+            <li>
+              <button>
+                Subscribe
+              </button>
+                <SubscribeForm/> // Explained in next section.
+            </li>
+          </ul>
+          <Menu
+            recievedHandleMenuToggle={handleMenuToggle} // *
+            menuOpen={menuOpen} // Passing state downward.
+            handleMenuClose={handleMenuClose} // Passing the shared handler downward.
+          />
       </nav>
     </header>
   );
-}
+};
 ```
 
 You could also build a `Menu` component that has main logo `h1` at the same spot
 as the `Header` and just overlays it. This way the `Header`(parent) does not
 need to know about the `Menu`(child) state at all, so you could move all of the
-logic down into the child.
+logic down into the child. 
 
-In bigger projects this might makes sense because every state change creates a
-re-render of both the parent and the child. In this case it is ok though,
-because the state only changes when interaction with the menu is happening and
-both components are lightweight anyway.
+In bigger projects this might makes sense because
+every state change creates a re-render of both the parent and the child. In this
+case it is ok though, because the state only changes when interaction
+with the menu is happening and both components are lightweight anyway.
 
-*I called the prop-attribute "recieved" to emphasize that the attribute name can
-be chosen freely. *Props are passed through the value assigned to the attribute,
-not through the attribute name itself.\* Metaphor: The attribute name is like a
-child holding out a named bucket to the parent saying "You can put the prop in
-here."
+
+*I called the prop-attribute "recieved" to emphasize that the attribute name can be chosen
+freely. *Props are passed through the value assigned to the attribute, not
+through the attribute name itself.* Metaphor: The attribute name is like a child
+holding out a named bucket to the parent saying "You can put the prop in here."
 
 ---
 
@@ -812,14 +744,13 @@ here."
 In Tailwind, the breaking points are css mediaqueries pointing in one direction:
 from smaller to bigger screen sizes. This means unprefixed classes like `flex`
 apply to all sizes, but prefixed classes `sm:flex` apply to the specified
-breakpoint _and above_.
+breakpoint *and above*.
 
 Because of this, it makes sense to start the positioning part of the styling
 from the smallest screens (simulate via chrome devtools F12) and work your way
-upward from there.
+upward from there. 
 
-> This way you set the similarities for all sizes first and then only add the
-> differences via breakpoints.
+>This way you set the similarities for all sizes first and then only add the differences via breakpoints.
 
 I made the mistake to only draft the desktop screen design in Photoshop
 beforehand, so I also started with desktop styling. After I was done with that,
@@ -830,12 +761,12 @@ size.
 
 So you better draft out the mobile design beforehand aswell, so you can start
 from there. Tipp: Check how the websites you chose to model behave in mobile
-screens, to get a feel for the styling.
+screens, to get a feel for the styling. 
 
 **Wax on Wax off:** Each time you make styling changes, check for any wierd
-misalignments _in all of the dev tools screen sizes_ over and over again. I
-often stumbled upon meaningful styling problems, by testing the edgecases this
-way. The sooner you find them the better.
+misalignments *in all of the dev tools screen sizes* over and over again. I often
+stumbled upon meaningful styling problems, by testing the edgecases this way.
+The sooner you find them the better. 
 
 Positioning is one of the major parts of responsive design, so if you are having
 problems with that, also make sure to check out [my article]() on positioning in
@@ -845,14 +776,14 @@ general.
 Tailwind. At first I tried to force myself to only use the default breaking
 points, but sometimes there are misalignments, that can only be fixed this way.
 Make use of the tools at your fingertips.
-
+ 
 ---
 
 ### <a id="font" href="#main-building">Font</a>
 
 If you always have internet in your dev environment, you can use the non-local
 `import` (commented out). If you sometimes code where there is no wifi, I
-recommend using `localFont`:
+recommend using `localFont`: 
 
 Sometimes, if your browser temporarily uses the fallback font, it can
 significantly change the positioning of some elements and the overall vibe of
@@ -861,29 +792,27 @@ your font and install it before starting with the CSS styling part of your
 project.
 
 To use `localFont`, download the fontfile (preferrably a variable font) and save
-it into `/src/styles/fonts`. Then just copy the structure and import from below
-and use `${myFont.className}` to insert the font into the CSS of the
-`Main Layout <div>`.
+it into `/src/styles/fonts`. Then just copy the structure and import from below and use
+`${myFont.className}` to insert the font into the CSS of the `Main Layout <div>`.
 
 `_document.js` and `_app.js` have some NextJS specific rules, that prohibit
 importing `next/font`, so the highest parent file possible to set the font in is
 `Layout.js`.
 
 ```js title="/src/components/Layout.js"
-import Footer from './Footer';
-import Header from './Header';
-import localFont from 'next/font/local';
+import Footer from "./Footer";
+import Header from "./Header";
+import localFont from "next/font/local";
 
-const myFont = localFont({
-  // The localFont function processes the font files and creates a unique classname.
+const myFont = localFont({ // The localFont function processes the font files and creates a unique classname.
   src: [
     {
-      path: '../styles/fonts/OpenSans-VariableFont.ttf',
-      style: 'normal',
+      path: "../styles/fonts/OpenSans-VariableFont.ttf",
+      style: "normal",
     },
     {
-      path: '../styles/fonts/OpenSans-Italic-VariableFont.ttf',
-      style: 'italic',
+      path: "../styles/fonts/OpenSans-Italic-VariableFont.ttf",
+      style: "italic",
     },
   ],
 });
@@ -895,7 +824,7 @@ const myFont = localFont({
 //
 // (use myFont.classname the same way as below)
 
-export default function Layout({ children }) {
+export default function Layout ({ children }){
   return (
     <div
       // Write other css as tailwind-utilities inside of the string template literal (backticks).
@@ -908,16 +837,15 @@ export default function Layout({ children }) {
       <Footer />
     </div>
   );
-}
+};
 ```
-
 **Size matters!** For most of the process, I had all text one or two (Tailwind-)
 sizes bigger. After a while I noticed a feeling as if I was working on a device
-for elders or toddlers. You know these phones with giant buttons?
+for elders or toddlers. You know these phones with giant buttons? 
 
 I compared fontsizes with my reference websites, and I realized, that I had
 taken readability one step too far. So I sized down. It made a GIANT difference:
-Finally, I feel sleek as Apple.
+Finally, I feel sleek as Apple. 
 
 ---
 
@@ -925,41 +853,38 @@ Finally, I feel sleek as Apple.
 
 To mix in some fun, I designed a fancy 404 page. I've always wanted to use ASCII
 art and go ham with synth wave colors and gradients. This could be your chance
-for experiments too!
+for experiments too! 
 
-<Image src={design404} alt="a screenshot of my 404 page" />
+<Image src={design404} alt="a screenshot of my 404 page"/>
 
 The ASCII art needed some extra formatting to get rendered properly:
-
 - disable prettier
 - linebreaks after each line
-- a character at the start of each line (to keep the whitespaces before the
-  first ascii characters)
-- To make it look good with these extra charachters, I added characters all
-  around the ascii content, which now serves as a border/ frame.
+- a character at the start of each line (to keep the whitespaces before the first ascii characters)
+- To make it look good with these extra charachters, I added characters all around the ascii content, which now serves as a border/ frame.
 
-Tipp: Check out the 404 pages of your reference websites, to get a feel for a
-good 404.
+Tipp: Check out the 404 pages of your reference websites, to get a feel for a good 404.
 
 **404 redirect:** Some tutorials build an automatic redirect from the 404 back
-to home. I tried that aswell, but it comes with problems:
+to home. I tried that aswell, but it comes with problems: 
 
-1. If you click to another page in the meantime, you will get redirected to home
-   shortly afterwards.
+1. If you click to another page in the meantime, you will get redirected to
+home shortly afterwards. 
 2. You might confuse the user, about what happened, if he did not notice the 404
-   sign in between the redirect.
+sign in between the redirect. 
 3. The user will not have the chance to sufficiently marvel at your beautiful
-   404 page.
+404 page. 
 
 Just do it like google: Present a link that the user can manually click for
 redirection.
 
 ---
 
+
 ### <a id="favicon" href="#main-building">Favicon</a>
 
-A small but important detail is to set your favicon - the icon of your blog that
-gets shown in the browser tab and in search engine results.
+A small but important detail is to set your favicon - the icon of
+your blog that gets shown in the browser tab and in search engine results. 
 
 If you don't set it, you let the browser show a default icon. This looks like
 your website is broken, offline, or out of date. You don't need much to look
@@ -968,7 +893,7 @@ professional.
 Store the favicon in `/public` and insert is like this:
 
 ```js title="/src/pages/_document.js"
-import { Html, Head, Main, NextScript } from 'next/document';
+import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
   return (
@@ -984,27 +909,16 @@ export default function Document() {
   );
 }
 ```
-
 ---
+**Congratulations,** you now know how to build all the foundational components. Make
+sure to check out the articles about the rest of this project:
+- <Link href="/posts/mdx-tailwind-rehype-nextjs" className="underline"> MDX & Tailwind in Next 14 PAGES-routing (incl. Syntax Highlighting)</Link>
+- <Link href="/posts/mailchimp-nextjs-api" className="underline">Mailchimp Newsletter Management & Custom SubscribeForm | Next API</Link>
+- <Link href="/posts/css-height-sticky-footer" className="underline">How to build a "sticky footer" for your WebApp | CSS Height & Positioning</Link>
 
-**Congratulations,** you now know how to build all the foundational components.
-Make sure to check out the articles about the rest of this project:
 
-- <Link href="/posts/mdx-tailwind-rehype-nextjs" className="underline">
-    {' '}
-    MDX & Tailwind in Next 14 PAGES-routing (incl. Syntax Highlighting)
-  </Link>
-- <Link href="/posts/mailchimp-nextjs-api" className="underline">
-    Mailchimp Newsletter Management & Custom SubscribeForm | Next API
-  </Link>
-- <Link href="/posts/css-height-sticky-footer" className="underline">
-    How to build a "sticky footer" for your WebApp | CSS Height & Positioning
-  </Link>
-
-<br />
-## <a id="references" href="#toc">
-  3. References
-</a>
+<br/>
+## <a id="references" href="#toc">3. References</a>
 
 Here is a list of all the references mentioned throughout the article:
 
@@ -1012,7 +926,7 @@ Here is a list of all the references mentioned throughout the article:
 - [TailwindCSS Crash Course by Code with Guillaume](https://youtu.be/ft30zcMlFao?si=U1WJGAnrofYRtGtk)
 - [TailwindCSS Docs](https://www.tailwindcss.com)
 - [LeonWarscheck.com Source Code on Github](https://github.com/leonWarscheck/blog)
-- [Github Crashcourse by Academind](https://youtu.be/ulQA5tjJark?si=ZhyJQfluX-rneEbr)
+- [Github Crashcourse by Academind](https://youtu.be/ulQA5tjJark?si=ZhyJQfluX-rneEbr) 
 - [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 - [Accessibility in React - MDN Article](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks/React_accessibility)
 - [Gimp for drafting your Blog design](https://www.gimp.org)
@@ -1021,21 +935,18 @@ Here is a list of all the references mentioned throughout the article:
 - [NextJS Docs: Pages Routing Tutorial](https://nextjs.org/learn-pages-router/basics/create-nextjs-app)
 - [NextJS Docs: Font (make sure to select Pages Routing Mode)](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts)
 
-And once again my additional articles about this blog project:
 
-- <Link href="/posts/mdx-tailwind-rehype-nextjs" className="underline">
-    {' '}
-    MDX & Tailwind in Next 14 PAGES-routing (incl. Syntax Highlighting)
-  </Link>
-- <Link href="/posts/mailchimp-nextjs-api" className="underline">
-    Mailchimp Newsletter Management & Custom SubscribeForm | Next API
-  </Link>
-- <Link href="/posts/css-height-sticky-footer" className="underline">
-    How to build a "sticky footer" for your WebApp | CSS Height & Positioning
-  </Link>
+
+
+
+And once again my additional articles about this blog project:
+- <Link href="/posts/mdx-tailwind-rehype-nextjs" className="underline"> MDX & Tailwind in Next 14 PAGES-routing (incl. Syntax Highlighting)</Link>
+- <Link href="/posts/mailchimp-nextjs-api" className="underline">Mailchimp Newsletter Management & Custom SubscribeForm | Next API</Link>
+- <Link href="/posts/css-height-sticky-footer" className="underline">How to build a "sticky footer" for your WebApp | CSS Height & Positioning</Link>
+
+
+
 
 ---
-
 Finally, here is an important message to you - by Yoda:
-
 > If this far you read, subscribe you shall.

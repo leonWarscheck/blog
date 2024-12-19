@@ -44,8 +44,7 @@ export default function MenuTrainer({ setSection, section, levelId, scores }) {
             {score?.toString().length === 1
               ? score?.toString().padStart(2, '0')
               : score
-                ? score
-                : '00'}
+                || '00'}
           </button>
         </li>
         <li className="mr-4 mt-px font-medium hover:text-neutral-200">

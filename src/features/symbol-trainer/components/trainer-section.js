@@ -74,7 +74,7 @@ export default function TrainerSection({
             ref={inputRef}
             type="text"
             value={inputString}
-            onChange={e => setInputString(e.target.value)}
+            onChange={event => setInputString(event.target.value)}
             className={`absolute z-10 my-auto w-full bg-transparent tracking-widerer focus:outline-none ${trainerColorClasses} `}
           />
           <p

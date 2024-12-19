@@ -1,8 +1,8 @@
-import { useContext} from 'react';
+import { useContext } from 'react';
 
 import {
-  importBackupClicked,
   backupDownloadClicked,
+  importBackupClicked,
   selectBackupDate,
   selectBackupDifference,
   selectImportMessage,

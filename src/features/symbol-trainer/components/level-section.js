@@ -67,11 +67,10 @@ export default function LevelSection({
                     </span>{' '}
                     <span className="ml-8">WPM</span>
                     <span className="ml-4 font-semibold">
-                      {score?.toString().length === 1
-                        ? score?.toString().padStart(2, '0')
-                        : score
-                          ? score
-                          : '00'}
+                      {score?.toString().length === 1 ?
+                        score?.toString().padStart(3, '0') :
+                        score ||
+                        '00'}
                     </span>
                   </h4>
                 </button>

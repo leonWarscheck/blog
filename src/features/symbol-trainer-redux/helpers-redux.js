@@ -24,9 +24,9 @@ export function downloadHighScoresJSON() {
     link.href = URL.createObjectURL(blob);
     link.download = 'symbol-trainer-highScores.json';
 
-    document.body.appendChild(link);
+    document.body.append(link);
     link.click();
-    document.body.removeChild(link);
+    link.remove();
     URL.revokeObjectURL(link.href);
   } else {
     console.error('No highScores found in localStorage.');
@@ -52,7 +52,7 @@ export function importBackup(file) {
 
     const reader = new FileReader();
 
-    reader.onload = event => {
+    reader.addEventListener('load', event => {
       try {
         const data = JSON.parse(event.target.result);
         localStorage.setItem('highScores', JSON.stringify(data));
@@ -61,7 +61,7 @@ export function importBackup(file) {
         console.error('Invalid JSON file', error);
         reject('Import Error: Invalid JSON file.');
       }
-    };
+    });
 
     reader.onerror = () => {
       reject('Error reading the file.');

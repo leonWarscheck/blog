@@ -28,9 +28,13 @@ export default async function postHandler(request, serverResponseObject) {
       serverResponseObject.status(200).json({ success: true });
     } catch (error) {
       console.error(error);
-      serverResponseObject.status(500).json({ success: false, error: 'Internal Server Error' });
+      serverResponseObject
+        .status(500)
+        .json({ success: false, error: 'Internal Server Error' });
     }
   } else {
-    serverResponseObject.status(405).json({ success: false, error: 'Method Not Allowed' });
+    serverResponseObject
+      .status(405)
+      .json({ success: false, error: 'Method Not Allowed' });
   }
 }

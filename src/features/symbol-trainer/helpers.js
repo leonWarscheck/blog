@@ -33,20 +33,21 @@ export function checkUserTyping(
     }, 2000);
   }
 
-  // on fail
-  for (let i = 0; i < inputString.length; i++) {
-    if (i > levelString.length || inputString[i] !== levelString[i]) {
-      // flag for conditional rendering of ui elements
-      setTrainerState('fail');
+ // on fail
+for (const [index, character] of inputString.split('').entries()) {
+  if (character !== levelString[index]) {
+    // flag for conditional rendering of UI elements
+    setTrainerState('fail');
 
-      // reset trainer
-      setTimeout(() => {
-        setInputString('');
-        setTrainerState('');
-        setStartTime(null);
-      }, 1000);
-    }
+    // reset trainer
+    setTimeout(() => {
+      setInputString('');
+      setTrainerState('');
+      setStartTime(null);
+    }, 1000);
   }
+}
+
 }
 
 export const saveScore = (wpm, levelId, scores, setScores) => {
@@ -77,9 +78,9 @@ export function downloadScoresJSON(setBackupDate, setMessage) {
     link.href = URL.createObjectURL(blob);
     link.download = 'symbol-trainer-scores.json';
 
-    document.body.appendChild(link);
+    document.body.append(link);
     link.click();
-    document.body.removeChild(link);
+    link.remove();
     URL.revokeObjectURL(link.href);
   } else {
     console.error('No scores found in localStorage.');
@@ -93,7 +94,7 @@ export function importBackup(event, setMessage) {
   const file = event.target.files[0];
   const reader = new FileReader();
 
-  reader.onload = e => {
+  reader.addEventListener('load', e => {
     try {
       const data = JSON.parse(e.target.result);
       localStorage.setItem('highScores', JSON.stringify(data));
@@ -102,7 +103,7 @@ export function importBackup(event, setMessage) {
       console.error('Invalid JSON file', error);
       setMessage('Import Error:', error);
     }
-  };
+  });
 
   if (file) {
     reader.readAsText(file);

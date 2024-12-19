@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function useRotatingColors(colors, interval = 1000) {
   const [color, setColor] = useState(colors[0] || '');

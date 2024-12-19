@@ -102,41 +102,53 @@ export function symbolTrainerReducer(
   { type, payload } = {},
 ) {
   switch (type) {
-    case sectionClicked().type:
+    case sectionClicked().type: {
       return { ...state, section: payload };
+    }
 
-    case levelClicked().type:
+    case levelClicked().type: {
       return changeCurrentLevel(state, payload);
+    }
 
-    case levelChosenByShortcut().type:
+    case levelChosenByShortcut().type: {
       return changeCurrentLevel(state, payload);
+    }
 
-    case levelAndBackupDateSyncedFromLocalStorage().type:
+    case levelAndBackupDateSyncedFromLocalStorage().type: {
       return handleLevelAndBackupSync(state, payload);
+    }
 
-    case userTypedInTrainerInput().type:
+    case userTypedInTrainerInput().type: {
       return { ...state, inputString: payload };
+    }
 
-    case userWon().type:
+    case userWon().type: {
       return resetLevelOnWinOrFail(state);
+    }
 
-    case userFailed().type:
+    case userFailed().type: {
       return resetLevelOnWinOrFail(state);
+    }
 
-    case typingStarted().type:
+    case typingStarted().type: {
       return { ...state, startTime: payload };
+    }
 
-    case typingEndedByWinning().type:
+    case typingEndedByWinning().type: {
       return { ...state, endTime: payload };
+    }
 
-    case backupDownloadClicked().type:
+    case backupDownloadClicked().type: {
       return changeBackupDate(state, payload);
+    }
 
-    case importStatusMessageRecieved().type:
+    case importStatusMessageRecieved().type: {
       return { ...state, importMessage: payload };
+    }
 
-    default:
+    default: {
       return state;
+    }
   }
 }
 
@@ -168,10 +180,11 @@ export const selectIsWin = state =>
   selectLevelString(state) === selectInputString(state);
 
 export const selectIsFail = state => {
-  for (let index = 0; index < selectInputString(state).length; index++) {
+  for (const [index, character] of selectInputString(state)
+    .split('')
+    .entries()) {
     if (
-      index >= selectLevelString(state).length ||
-      selectInputString(state)[index] !== selectLevelString(state)[index]
+      character !== selectLevelString(state)[index]
     ) {
       return true;
     }
@@ -190,22 +203,21 @@ export const selectTrainerColorClasses = state => {
     selectCurrentLevelHighScore(state) >= 60
       ? 'neutral-200'
       : selectCurrentLevelHighScore(state) >= 50
-      ? 'emerald-la'
-      : selectCurrentLevelHighScore(state) >= 40
-      ? 'yellow-la'
-      : selectCurrentLevelHighScore(state) >= 30
-      ? 'violet-500'
-      : selectCurrentLevelHighScore(state) >= 20
-      ? 'red-500 '
-      : 'neutral-200';
+        ? 'emerald-la'
+        : selectCurrentLevelHighScore(state) >= 40
+          ? 'yellow-la'
+          : selectCurrentLevelHighScore(state) >= 30
+            ? 'violet-500'
+            : selectCurrentLevelHighScore(state) >= 20
+              ? 'red-500 '
+              : 'neutral-200';
 
   return selectIsFail(state)
     ? 'text-neutral-400'
     : selectIsWin(state)
-    ? 'text-' + trainerColor
-    : 'text-' + trainerColor + ' caret-' + trainerColor;
+      ? 'text-' + trainerColor
+      : 'text-' + trainerColor + ' caret-' + trainerColor;
 };
-
 
 export const selectStartTime = state => state.startTime;
 
