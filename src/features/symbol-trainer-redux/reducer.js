@@ -180,12 +180,8 @@ export const selectIsWin = state =>
   selectLevelString(state) === selectInputString(state);
 
 export const selectIsFail = state => {
-  for (const [index, character] of selectInputString(state)
-    .split('')
-    .entries()) {
-    if (
-      character !== selectLevelString(state)[index]
-    ) {
+  for (const [index, character] of [...selectInputString(state)].entries()) {
+    if (character !== selectLevelString(state)[index]) {
       return true;
     }
   }

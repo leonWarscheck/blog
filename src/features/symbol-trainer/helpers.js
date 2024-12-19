@@ -33,21 +33,20 @@ export function checkUserTyping(
     }, 2000);
   }
 
- // on fail
-for (const [index, character] of inputString.split('').entries()) {
-  if (character !== levelString[index]) {
-    // flag for conditional rendering of UI elements
-    setTrainerState('fail');
+  // on fail
+  for (const [index, character] of [...inputString].entries()) {
+    if (character !== levelString[index]) {
+      // flag for conditional rendering of UI elements
+      setTrainerState('fail');
 
-    // reset trainer
-    setTimeout(() => {
-      setInputString('');
-      setTrainerState('');
-      setStartTime(null);
-    }, 1000);
+      // reset trainer
+      setTimeout(() => {
+        setInputString('');
+        setTrainerState('');
+        setStartTime(null);
+      }, 1000);
+    }
   }
-}
-
 }
 
 export const saveScore = (wpm, levelId, scores, setScores) => {
@@ -90,13 +89,13 @@ export function downloadScoresJSON(setBackupDate, setMessage) {
   }
 }
 
-export function importBackup(event, setMessage) {
-  const file = event.target.files[0];
+export function importBackup(importEvent, setMessage) {
+  const file = importEvent.target.files[0];
   const reader = new FileReader();
 
-  reader.addEventListener('load', e => {
+  reader.addEventListener('load', event => {
     try {
-      const data = JSON.parse(e.target.result);
+      const data = JSON.parse(event.target.result);
       localStorage.setItem('highScores', JSON.stringify(data));
       setMessage('Import Successful.');
     } catch (error) {
@@ -106,6 +105,7 @@ export function importBackup(event, setMessage) {
   });
 
   if (file) {
+    // eslint-disable-next-line unicorn/prefer-blob-reading-methods
     reader.readAsText(file);
   }
 }

@@ -50,23 +50,20 @@ export function importBackup(file) {
       return;
     }
 
-    const reader = new FileReader();
-
-    reader.addEventListener('load', event => {
-      try {
-        const data = JSON.parse(event.target.result);
-        localStorage.setItem('highScores', JSON.stringify(data));
-        resolve('Import Successful.');
-      } catch (error) {
-        console.error('Invalid JSON file', error);
-        reject('Import Error: Invalid JSON file.');
-      }
-    });
-
-    reader.onerror = () => {
-      reject('Error reading the file.');
-    };
-
-    reader.readAsText(file);
+    file
+      .text()
+      .then(text => {
+        try {
+          const data = JSON.parse(text);
+          localStorage.setItem('highScores', JSON.stringify(data));
+          resolve('Import Successful.');
+        } catch (error) {
+          console.error('Invalid JSON file', error);
+          reject('Import Error: Invalid JSON file.');
+        }
+      })
+      .catch(() => {
+        reject('Error reading the file.');
+      });
   });
 }
