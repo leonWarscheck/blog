@@ -1,3 +1,16 @@
+// handleUserTypedInTrainerInput
+export const getTime = () => new Date();
+
+export const syncToLocalHighScores = (currentLevelHighScore, currentWpm, levelId) => {
+  if (currentWpm > currentLevelHighScore) {
+    const highScores = JSON.parse(localStorage.getItem('highScores')) || {};
+    highScores[levelId] = currentWpm;
+    
+    localStorage.setItem('highScores', JSON.stringify(highScores));
+  }
+};
+
+// handleBackupDownload
 export function downloadHighScoresJSON() {
   const scoresJSON = localStorage.getItem('highScores');
 
@@ -16,22 +29,41 @@ export function downloadHighScoresJSON() {
   }
 }
 
-export function importBackup(event, setMessage) {
-  const file = event.target.files[0];
-  const reader = new FileReader();
+export const syncToLocalBackupDate = backupDate => {
+  localStorage.setItem('backupDate', backupDate);
+};
 
-  reader.onload = e => {
-    try {
-      const data = JSON.parse(e.target.result);
-      localStorage.setItem('highScores', JSON.stringify(data));
-      setMessage('Import Successful.');
-    } catch (error) {
-      console.error('Invalid JSON file', error);
-      setMessage('Import Error:', error);
+
+// handleSyncLevelId
+export const syncToLocalLevelId = levelId => {
+  localStorage.setItem('levelId', levelId);
+};
+
+// handleImportBackup
+export function importBackup(file) {
+  return new Promise((resolve, reject) => {
+    if (!file) {
+      reject('No file provided.');
+      return;
     }
-  };
 
-  if (file) {
+    const reader = new FileReader();
+
+    reader.onload = e => {
+      try {
+        const data = JSON.parse(e.target.result);
+        localStorage.setItem('highScores', JSON.stringify(data));
+        resolve('Import Successful.');
+      } catch (error) {
+        console.error('Invalid JSON file', error);
+        reject('Import Error: Invalid JSON file.');
+      }
+    };
+
+    reader.onerror = () => {
+      reject('Error reading the file.');
+    };
+
     reader.readAsText(file);
-  }
+  });
 }

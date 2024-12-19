@@ -1,33 +1,25 @@
 import { useContext, useEffect, useState } from 'react';
 
 import {
-  calcBackupDifference,
   downloadHighScoresJSON,
-  importBackup,
 } from '../helpers-redux';
 import {
+  importBackupClicked,
   backupDownloadClicked,
   selectBackupDate,
   selectBackupDifference,
+  selectImportMessage,
 } from '../reducer';
 import { SymbolTrainerContext } from '../symbol-trainer-redux-page';
 
 export default function SaveSection() {
-  const [message, setMessage] = useState();
+  // const [message, setMessage] = useState();
   const { state, dispatch } = useContext(SymbolTrainerContext);
 
   const backupDate = selectBackupDate(state);
   const backupDifference = selectBackupDifference(state, new Date());
+  const message = selectImportMessage(state)
 
-  useEffect(() => {
-    if (message) {
-      const timeoutId = setTimeout(() => {
-        setMessage('');
-      }, 4000);
-
-      return () => clearTimeout(timeoutId);
-    }
-  }, [message]);
 
   return (
     <section id="save" className={`flex grow`}>
@@ -43,10 +35,7 @@ export default function SaveSection() {
         <div className="flex justify-center gap-4">
           <button
             className="flex rounded-sm underline hover:text-neutral-500"
-            onClick={() => {
-              downloadHighScoresJSON();
-              dispatch(backupDownloadClicked(new Date().toString()));
-            }}
+            onClick={() => dispatch(backupDownloadClicked(new Date().toString()))}
           >
             Download Backup File
           </button>
@@ -55,7 +44,7 @@ export default function SaveSection() {
             <input
               type="file"
               accept=".json"
-              onChange={event => importBackup(event, setMessage)} // !
+              onChange={event => dispatch(importBackupClicked(event.target.files[0]))}
               id="file-upload"
               className="hidden"
             />

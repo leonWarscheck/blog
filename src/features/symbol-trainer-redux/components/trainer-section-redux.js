@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useRef} from 'react';
 
 import levels from '../levels-redux.json';
 import {
@@ -19,7 +19,7 @@ import { useLevelNavigationShortcut } from '../use-level-navigation-shortcut-red
 export default function TrainerSection() {
   const { state, dispatch } = useContext(SymbolTrainerContext);
   const inputRef = useRef(null);
-
+  
   const levelString = selectLevelString(state);
   const inputString = selectInputString(state);
   const isWin = selectIsWin(state);

@@ -1,28 +1,19 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 
 import { sectionClicked } from '../reducer';
 import { SymbolTrainerContext } from '../symbol-trainer-redux-page';
+import useRotatingColors from '../use-rotating-colors';
 
 export default function IntroSection() {
   const { state, dispatch } = useContext(SymbolTrainerContext);
-  const [color, setColor] = useState('emerald-la');
 
-  useEffect(() => {
-    const colors = ['emerald-la', 'violet-500', 'red-500', 'yellow-la'];
-    let colorIndex = 0;
+ const color = useRotatingColors(['emerald-la', 'violet-500', 'red-500', 'yellow-la'], 1111)
 
-    const colorInterval = setInterval(() => {
-      colorIndex = (colorIndex + 1) % colors.length;
-      setColor(colors[colorIndex]);
-    }, 1111);
-
-    return () => clearInterval(colorInterval);
-  }, []);
 
   return (
     <section id="intro" className={`mx-auto flex w-full max-w-2xl grow px-4`}>
       <div className="mx-auto my-auto flex flex-col text-center">
-        <h2 className={`mb-2 mt-6 text-2xl font-semibold ${'text-' + color} `}>
+        <h2 className={`mb-2 mt-6 text-2xl font-semibold pointer-events-none ${'text-' + color} `}>
           Symbol<span className="text-neutral-400">Trainer</span>
         </h2>
         <p className="space-x-2 text-neutral-400">

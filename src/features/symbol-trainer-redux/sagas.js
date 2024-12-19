@@ -10,6 +10,7 @@ import {
 
 import {
   backupDownloadClicked,
+  importBackupClicked,
   levelAndBackupDateSyncedFromLocalStorage,
   levelChosenByShortcut,
   levelClicked,
@@ -22,6 +23,7 @@ import {
   selectIsWin,
   selectLevelId,
   selectStartTime,
+  importStatusMessageRecieved,
   typingEndedByWinning,
   typingStarted,
   userFailed,
@@ -29,20 +31,18 @@ import {
   userWon,
 } from './reducer';
 
+import { 
+  getTime, 
+  syncToLocalHighScores, 
+  syncToLocalBackupDate, 
+  syncToLocalLevelId, 
+  importBackup, 
+  downloadHighScoresJSON
+} from './helpers-redux';
+
 // =====================
 // trainerSection logic
 // =====================
-// helperfunctions:
-const getTime = () => new Date();
-const syncToLocalHighScores = (currentLevelHighScore, currentWpm, levelId) => {
-  if (currentWpm > currentLevelHighScore) {
-    const highScores = JSON.parse(localStorage.getItem('highScores')) || {};
-    highScores[levelId] = currentWpm;
-
-    localStorage.setItem('highScores', JSON.stringify(highScores));
-  }
-};
-// hander & watcher sagas:
 function* handleUserTypedInTrainerInput() {
   const inputString = yield select(selectInputString);
   const startTime = yield select(selectStartTime);
@@ -61,12 +61,12 @@ function* handleUserTypedInTrainerInput() {
     const currentLevelHighScore = yield select(selectCurrentLevelHighScore);
     syncToLocalHighScores(currentLevelHighScore, currentWpm, levelId);
 
-    yield delay(2000);
+    yield delay(2_000);
     yield put(userWon());
   }
 
   if (yield select(selectIsFail)) {
-    yield delay(1000);
+    yield delay(1_000);
     yield put(userFailed());
   }
 }
@@ -82,7 +82,6 @@ function* watchUserTypedInTrainerInput() {
 // initial data sync FROM localStorage
 // (on first mount of symbol-trainer page)
 // ========================================
-// handler & watcher sagas:
 function* handleLoadSymbolTrainer() {
   const levelId = Number(localStorage.getItem('levelId'));
   const backupDate = localStorage.getItem('backupDate');
@@ -92,41 +91,51 @@ function* watchLoadSymbolTrainer() {
   yield takeLatest(loadSymbolTrainer().type, handleLoadSymbolTrainer);
 }
 
-// ==========================================
-// sync backupdate & levelId TO localStorage
-// ==========================================
-// helperfunctions:
-const syncToLocalBackupDate = backupDate => {
-  localStorage.setItem('backupDate', backupDate);
-};
-const syncToLocalLevelId = levelId => {
-  localStorage.setItem('levelId', levelId);
-};
-
-// handler & watcher sagas:
-function* handleSyncToLocalStorage(action) {
-  if (action.type === backupDownloadClicked().type) {
-    const backupDateFromReducer = yield select(selectBackupDate);
-    syncToLocalBackupDate(backupDateFromReducer);
-  }
-  if (
-    action.type === levelClicked().type ||
-    action.type === levelChosenByShortcut().type
-  ) {
-    const levelIdFromReducer = yield select(selectLevelId);
-    syncToLocalLevelId(levelIdFromReducer);
-  }
+// ==============================
+// sync levelId TO local storage
+// ==============================
+function* handleSyncLevelId() {
+  const levelIdFromReducer = yield select(selectLevelId);
+  yield call(syncToLocalLevelId, levelIdFromReducer);
 }
 
-function* watchSyncLocalStorage() {
+function* watchSyncLevelId() {
   yield takeEvery(
     action =>
-      action.type === backupDownloadClicked().type ||
-      action.type === levelClicked().type ||
-      action.type === levelChosenByShortcut().type,
-    handleSyncToLocalStorage,
+      action.type === levelClicked().type || action.type === levelChosenByShortcut().type,
+    handleSyncLevelId,
   );
 }
+
+// ==================================================
+// download backup & sync backupdate TO localStorage 
+// ==================================================
+function* handleBackupDownload() {
+  yield call(downloadHighScoresJSON);
+  const backupDateFromReducer = yield select(selectBackupDate);
+  yield call(syncToLocalBackupDate, backupDateFromReducer);
+}
+
+function* watchBackupDownload() {
+  yield takeEvery(backupDownloadClicked().type, handleBackupDownload);
+}
+
+// ===============================================================
+// importing backup file and setting import success/error message
+// ===============================================================
+function*handleImportBackup(action){
+const file = action.payload
+const importMessage = yield call(importBackup, file);
+yield put(importStatusMessageRecieved(importMessage));
+yield delay(4_000);
+yield put(importStatusMessageRecieved(''))
+
+}
+
+function* watchImportBackup(){
+  yield takeEvery(importBackupClicked().type, handleImportBackup)
+};
+
 
 // ==========
 // root saga
@@ -135,6 +144,8 @@ export function* rootSaga() {
   yield all([
     watchLoadSymbolTrainer(),
     watchUserTypedInTrainerInput(),
-    watchSyncLocalStorage(),
+    watchBackupDownload(),
+    watchSyncLevelId(),
+    watchImportBackup(),
   ]);
 }

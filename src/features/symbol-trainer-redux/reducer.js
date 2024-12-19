@@ -69,20 +69,21 @@ export const backupDownloadClicked = payload => ({
   payload,
 });
 
-export const backupDateSyncedFromLocalStorage = payload => ({
-  type: 'backupDateSyncedFromLocalStorage',
-  payload,
-});
 
 const changeBackupDate = (state, backupDate) => ({
   ...state,
   backupDate: backupDate,
 });
 
-export const backupImportClicked = payload => ({
-  type: 'backupImportClicked',
+export const importBackupClicked = payload => ({
+  type: 'importBackupClicked',
   payload,
 });
+
+export const importStatusMessageRecieved= payload =>({
+  type: 'importStatusMessageRecieved',
+  payload
+})
 
 // =====================
 // reducer + saga mount
@@ -94,7 +95,7 @@ export const initialState = {
   startTime: null,
   endTime: null,
   backupDate: null,
-  importMessage: null,
+  importMessage: '',
 };
 
 export function symbolTrainerReducer(
@@ -102,30 +103,40 @@ export function symbolTrainerReducer(
   { type, payload } = {},
 ) {
   switch (type) {
+    
     case sectionClicked().type:
       return { ...state, section: payload };
+
     case levelClicked().type:
       return changeCurrentLevel(state, payload);
+
     case levelChosenByShortcut().type:
       return changeCurrentLevel(state, payload);
+
     case levelAndBackupDateSyncedFromLocalStorage().type:
       return handleLevelAndBackupSync(state, payload);
+
     case userTypedInTrainerInput().type:
       return { ...state, inputString: payload };
+
     case userWon().type:
       return resetLevelOnWinOrFail(state);
+
     case userFailed().type:
       return resetLevelOnWinOrFail(state);
+
     case typingStarted().type:
       return { ...state, startTime: payload };
+
     case typingEndedByWinning().type:
       return { ...state, endTime: payload };
+
     case backupDownloadClicked().type:
       return changeBackupDate(state, payload);
-    case backupDateSyncedFromLocalStorage().type:
-      return changeBackupDate(state, payload);
-    case backupImportClicked().type:
-      return { ...state, event: payload }; // !
+    
+    case importStatusMessageRecieved().type:
+      return {...state, importMessage: payload}
+
     default:
       return state;
   }
@@ -149,7 +160,9 @@ export const selectSection = state => state.section;
 
 export const selectLevelId = state => state.levelId;
 
-export const selectLevelString = state => levels[selectLevelId(state)]?.string;
+const selectLevel = state => levels[selectLevelId(state)]
+
+export const selectLevelString = state => selectLevel(state)?.string;
 
 export const selectInputString = state => state.inputString;
 
