@@ -54,7 +54,7 @@ export const userFailed = () => ({ type: 'userFailed' });
 const resetLevelOnWinOrFail = state => ({
   ...state,
   inputString: '',
-  startTime: null,
+  startTime: '',
 });
 
 export const typingStarted = payload => ({ type: 'typingStarted', payload });
@@ -91,9 +91,9 @@ export const initialState = {
   section: 'introSection',
   levelId: 1,
   inputString: '',
-  startTime: null,
-  endTime: null,
-  backupDate: null,
+  startTime: '',
+  endTime: '',
+  backupDate: '',
   importMessage: '',
 };
 

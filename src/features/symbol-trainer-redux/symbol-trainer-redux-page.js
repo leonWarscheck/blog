@@ -25,7 +25,7 @@ const TrainerSection = dynamic(
   },
 );
 
-export const SymbolTrainerContext = createContext(null);
+export const SymbolTrainerContext = createContext('');
 
 export default function TrainerPage() {
   const { state, dispatch } = useSagaReducer(

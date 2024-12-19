@@ -46,7 +46,7 @@ function* handleUserTypedInTrainerInput() {
   const inputString = yield select(selectInputString);
   const startTime = yield select(selectStartTime);
 
-  if (inputString.length === 1 && startTime === null) {
+  if (inputString.length === 1 && startTime === '') {
     const now = yield call(getTime);
     yield put(typingStarted(now));
   }

@@ -13,10 +13,10 @@ export default function TrainerSection({
   setScores,
 }) {
   const [inputString, setInputString] = useState('');
-  const [levelString, setLevelString] = useState(null);
+  const [levelString, setLevelString] = useState('');
   const [trainerState, setTrainerState] = useState('');
-  const [startTime, setStartTime] = useState(null);
-  const [wpm, setWpm] = useState(null);
+  const [startTime, setStartTime] = useState('');
+  const [wpm, setWpm] = useState('');
   const [trainerColorClasses, setTrainerColorClasses] = useState(
     'caret-neutral-200 text-neutral-200',
   );

@@ -8,7 +8,7 @@ export function checkUserTyping(
   setTrainerState,
 ) {
   // on start of user typing
-  if (inputString.length === 1 && startTime === null) {
+  if (inputString.length === 1 && startTime === '') {
     setStartTime(new Date());
   }
 
@@ -29,7 +29,7 @@ export function checkUserTyping(
     setTimeout(() => {
       setInputString('');
       setTrainerState('');
-      setStartTime(null);
+      setStartTime('');
     }, 2000);
   }
 
@@ -43,7 +43,7 @@ export function checkUserTyping(
       setTimeout(() => {
         setInputString('');
         setTrainerState('');
-        setStartTime(null);
+        setStartTime('');
       }, 1000);
     }
   }
