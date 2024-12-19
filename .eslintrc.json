@@ -9,6 +9,8 @@
   "rules": {
     "simple-import-sort/exports": "error",
     "simple-import-sort/imports": "error",
+    "react/no-unescaped-entities": "off",
+    "react-hooks/exhaustive-deps": "off",
     "unicorn/no-array-callback-reference": "off",
     "unicorn/no-array-for-each": "off",
     "unicorn/no-array-reduce": "off",

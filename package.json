@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint:fix": "next lint --fix",
+    "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint --ext .js,.jsx,.ts,.tsx .",
     "format": "prettier --write ."
   },
   "dependencies": {
@@ -18,6 +19,11 @@
     "@types/mdx": "^2.0.10",
     "axios": "^1.6.4",
     "date-fns": "^3.0.6",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-unicorn": "^56.0.1",
     "gray-matter": "^4.0.3",
     "next": "14.0.4",
     "react": "^18",

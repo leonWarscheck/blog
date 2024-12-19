@@ -52,9 +52,9 @@ export function importBackup(file) {
 
     const reader = new FileReader();
 
-    reader.onload = e => {
+    reader.onload = event => {
       try {
-        const data = JSON.parse(e.target.result);
+        const data = JSON.parse(event.target.result);
         localStorage.setItem('highScores', JSON.stringify(data));
         resolve('Import Successful.');
       } catch (error) {

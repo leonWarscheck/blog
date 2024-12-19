@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export default async function postHandler(request, res) {
+export default async function postHandler(request, serverResponseObject) {
   if (request.method === 'POST') {
     try {
       const API_KEY = process.env.MAILCHIMP_API_KEY;
@@ -25,12 +25,12 @@ export default async function postHandler(request, res) {
 
       console.log('mailchimp api response:', response.data);
 
-      res.status(200).json({ success: true });
+      serverResponseObject.status(200).json({ success: true });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ success: false, error: 'Internal Server Error' });
+      serverResponseObject.status(500).json({ success: false, error: 'Internal Server Error' });
     }
   } else {
-    res.status(405).json({ success: false, error: 'Method Not Allowed' });
+    serverResponseObject.status(405).json({ success: false, error: 'Method Not Allowed' });
   }
 }

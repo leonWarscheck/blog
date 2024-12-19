@@ -46,7 +46,7 @@ export default function TrainerSection() {
             ref={inputRef}
             type="text"
             value={inputString}
-            onChange={e => dispatch(userTypedInTrainerInput(e.target.value))}
+            onChange={event => dispatch(userTypedInTrainerInput(event.target.value))}
             className={`absolute z-10 my-auto w-full bg-transparent tracking-widerer focus:outline-none ${trainerColorClasses} `}
           />
           <p

@@ -1,6 +1,5 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext} from 'react';
 
-import { downloadHighScoresJSON } from '../helpers-redux';
 import {
   importBackupClicked,
   backupDownloadClicked,
@@ -11,7 +10,6 @@ import {
 import { SymbolTrainerContext } from '../symbol-trainer-redux-page';
 
 export default function SaveSection() {
-  // const [message, setMessage] = useState();
   const { state, dispatch } = useContext(SymbolTrainerContext);
 
   const backupDate = selectBackupDate(state);
@@ -68,7 +66,7 @@ export default function SaveSection() {
               : 'text-red-500'
           } `}
         >
-          {message ? message : ''}
+          {message || ''}
         </p>
       </div>
     </section>

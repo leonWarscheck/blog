@@ -1,3 +1,4 @@
+/*eslint-disable*/
 if (typeof window !== 'undefined') {
   document.addEventListener('DOMContentLoaded', event => {
     const inputIds = ['navSubInput', 'pageSubInput', 'footSubInput'];

@@ -128,7 +128,7 @@ function* handleImportBackup(action) {
   const file = action.payload;
   const importMessage = yield call(importBackup, file);
   yield put(importStatusMessageRecieved(importMessage));
-  yield delay(4_000);
+  yield delay(4000);
   yield put(importStatusMessageRecieved(''));
 }
 

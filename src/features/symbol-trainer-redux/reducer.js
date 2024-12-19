@@ -186,31 +186,26 @@ export const selectCurrentLevelHighScore = state =>
   selectHighScores(state)?.[selectLevelId(state)] || 0;
 
 export const selectTrainerColorClasses = state => {
-  if (selectIsFail(state)) {
-    // fail
-    return 'text-neutral-400';
-  } else {
-    const trainerColor =
-      selectCurrentLevelHighScore(state) >= 60
-        ? 'neutral-200'
-        : selectCurrentLevelHighScore(state) >= 50
-          ? 'emerald-la'
-          : selectCurrentLevelHighScore(state) >= 40
-            ? 'yellow-la'
-            : selectCurrentLevelHighScore(state) >= 30
-              ? 'violet-500'
-              : selectCurrentLevelHighScore(state) >= 20
-                ? 'red-500 '
-                : 'neutral-200';
-    if (selectIsWin(state)) {
-      // win
-      return 'text-' + trainerColor;
-    } else {
-      // neither fail or win (inputString is reset to "", or user is typing without mistakes)
-      return 'text-' + trainerColor + ' caret-' + trainerColor;
-    }
-  }
+  const trainerColor =
+    selectCurrentLevelHighScore(state) >= 60
+      ? 'neutral-200'
+      : selectCurrentLevelHighScore(state) >= 50
+      ? 'emerald-la'
+      : selectCurrentLevelHighScore(state) >= 40
+      ? 'yellow-la'
+      : selectCurrentLevelHighScore(state) >= 30
+      ? 'violet-500'
+      : selectCurrentLevelHighScore(state) >= 20
+      ? 'red-500 '
+      : 'neutral-200';
+
+  return selectIsFail(state)
+    ? 'text-neutral-400'
+    : selectIsWin(state)
+    ? 'text-' + trainerColor
+    : 'text-' + trainerColor + ' caret-' + trainerColor;
 };
+
 
 export const selectStartTime = state => state.startTime;
 
