@@ -1,4 +1,3 @@
-import '../features/blog/vim-scroll';
 
 import localFont from 'next/font/local';
 
