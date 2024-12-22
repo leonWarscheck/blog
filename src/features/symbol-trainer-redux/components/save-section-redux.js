@@ -13,6 +13,7 @@ export default function SaveSection() {
   const { state, dispatch } = useContext(SymbolTrainerContext);
 
   const backupDate = selectBackupDate(state);
+  // Calculates how much time has passed since the last backup.
   const backupDifference = selectBackupDifference(state, new Date());
   const message = selectImportMessage(state);
 
@@ -30,6 +31,9 @@ export default function SaveSection() {
         <div className="flex justify-center gap-4">
           <button
             className="flex rounded-sm underline hover:text-neutral-500"
+            // Downloads a backup of the JSON object from localStorage and sets
+            // the latest backupDate to now, so the user can later see in the ui
+            // how long it has been since the last backup.
             onClick={() =>
               dispatch(backupDownloadClicked(new Date().toString()))
             }
@@ -41,6 +45,8 @@ export default function SaveSection() {
             <input
               type="file"
               accept=".json"
+              // Imports JSON backup files TO localStorage and sets a success of
+              // fail message, which gets rendered below.
               onChange={event =>
                 dispatch(importBackupClicked(event.target.files[0]))
               }

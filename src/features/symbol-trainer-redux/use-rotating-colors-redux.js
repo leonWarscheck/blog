@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+// Returns color classNames in rotation at a set interval, as a visual animation
+// effect in the SymbolTrainer intro section title.
 export default function useRotatingColors(colors, interval = 1000) {
   const [color, setColor] = useState(colors[0] || '');
 

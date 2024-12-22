@@ -7,7 +7,7 @@ export default function ResponsiveNote() {
       <h3 className="text-xl font-bold">SymbolTrainer is Desktop Only</h3>{' '}
       <br />
       <p className="mx-auto max-w-xl">
-        If you practice on a smartphone with a bluetooth keyboard, just go
+        In case you practice on a smartphone with a bluetooth keyboard, just go
         horizontal.
       </p>
     </div>

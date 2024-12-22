@@ -1,3 +1,8 @@
+// ! There is extensive comment-based documentation in the symbol-trainer-redux
+// ! feature but not in the symbol-trainer feature. The symbol-trainer feature is
+// ! just left in the project for demonstration purposes in comparison to the
+// ! redux pattern approach.
+
 export default function InfoSection() {
   return (
     <section

@@ -28,7 +28,14 @@ export default function TrainerSection() {
   const currentWpm = selectCurrentWpm(state);
   const levelId = selectLevelId(state);
 
+  // The following hooks are not managed via sagas, because they are handling
+  // DOM-events.
+
+  // Refocusses input after it got reset from win or fail. The returned
+  // handleBlur function makes sure the input cannot be blurred, except for via
+  // the disabled prop on win and fail. 
   const [handleBlur] = useCustomInputFocusBehaviour(inputRef, isWin, isFail);
+  // Enables switching between levels via `cmd + j/k` or `ctrl + down/up`.
   useLevelNavigationShortcut(levelId, levels, levelChosenByShortcut, dispatch);
 
   return (

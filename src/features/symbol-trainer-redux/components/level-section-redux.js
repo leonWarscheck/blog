@@ -16,7 +16,7 @@ export default function LevelSection() {
 
   const levelReferences = useRef([]);
 
-  // auto scroll to (current) levelId
+  // Auto scrolls to (current) levelId.
   useEffect(() => {
     if (levelId && levelReferences.current[levelId]) {
       levelReferences.current[levelId].scrollIntoView({
@@ -29,7 +29,13 @@ export default function LevelSection() {
   return (
     <section id="level" className={`flex grow flex-col`}>
       <div className="mx-auto my-auto max-h-[50dvh] w-full max-w-2xl overflow-scroll px-4">
-        <ul className="my-auto w-full">
+        <ul 
+        // Lists all levels and their properties from predefined levels object,
+        // so the user can browse and choose the level they want to train. The
+        // list also includes the highscores of each level, fetched from
+        // localStorage via sagas.
+        className="my-auto w-full"
+        >
           {levels.map((level, index) => {
             const score = highScores?.[level.id];
             return (
@@ -39,6 +45,7 @@ export default function LevelSection() {
                 className={`flex w-full`}
               >
                 <button
+                // Displays each level button in the "trainer-color" of the highscore reached in that level.
                   className={`group flex w-full py-2 hover:text-neutral-400 ${
                     score >= 60
                       ? 'text-neutral-400'
@@ -52,6 +59,7 @@ export default function LevelSection() {
                               ? 'text-red-500'
                               : 'text-neutral-500'
                   }`}
+                  // Sets the selected level and changes to the trainer section.
                   onClick={() => {
                     dispatch(sectionClicked('trainerSection'));
                     dispatch(levelClicked(index + 1));
@@ -67,9 +75,8 @@ export default function LevelSection() {
                       {level.reverse && ', r'} )
                     </span>
                     <span className="ml-auto tracking-wide">
-                      {' '}
                       {level.string}
-                    </span>{' '}
+                    </span>
                     <span className="ml-8">WPM</span>
                     <span className="ml-4 font-semibold">
                       {score?.toString().length === 1
