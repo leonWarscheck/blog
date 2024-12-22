@@ -18,11 +18,14 @@ if (typeof window !== 'undefined') {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           preElementsInView.add(entry.target);
+          console.log('Added to view:', entry.target);
         } else {
           preElementsInView.delete(entry.target);
+          console.log('Removed from view:', entry.target);
         }
       });
     }
+    
     
 
     const observer = new IntersectionObserver(handleIntersect, {
