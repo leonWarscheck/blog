@@ -42,7 +42,7 @@ export default function MDXPage({ children }) {
 
 Every Website needs an Email Newsletter. MailChimp is a popular service for
 that. Here is how you can connect it to NextJS with a custom SubscribeForm - and
-learn the Next API routes in the process!
+learn API routes in the process!
 
 <br />
 <a id="toc"></a>
@@ -147,14 +147,12 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
   }, []);
 
   const handleSubscribe = async event => {
-    // subscribe api logic sitting here gets explained in separate article as mentioned
+    // see next chapter "2. SubscribeForm Handler Setup"
     onSubscribe(); // triggers closing of form in Header.js after successful subscription (same as onCancel)
   };
 
   return (
-    <form onSubmit={handleSubscribe}>
-      {' '}
-      // see next section
+    <form onSubmit={handleSubscribe}> // see next section
       <input
         type="email"
         name="email"
@@ -165,9 +163,7 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
         ref={inputRef} // useRef api
       />
       <button type="submit">Subscribe</button>
-      <button onClick={onCancel}>
-        {' '}
-        // triggers conditional (un-)rendering of subForm component in Header.js
+      <button onClick={onCancel}> // triggers conditional (un-)rendering of subForm component in Header.js
         Cancel
       </button>
     </form>
@@ -278,7 +274,7 @@ variables.
 ### <a id="next-api-setup" href="#toc">5. Next API Setup</a>
 
 In section 1, your submithandler in `SubscribeForm.js` has sent a post request
-to your Next API. Now your `postHandler` in `subscribeApi.js` structures the
+to your API route. Now your `postHandler` in `subscribeApi.js` structures the
 email- and auth-data from .env.local in a mailchimp-specific format and sends
 the final HTTP package via `axios.post`.
 
@@ -352,7 +348,7 @@ import axios from 'axios';
 import { useState, useEffect, useRef } from 'react'; // Import useState.
 
 export default function SubscribeForm({ onCancel, onSubscribe }) {
-  const [feedbackState, setFeedbackState] = useState(''); // Capture the different API responses to use them for conditional rendering below.
+  const [responseStatus, setResponseStatus] = useState(''); // Capture the different API responses to use them for conditional rendering below.
   const [isSubmitting, setIsSubmitting] = useState(false); // Capture boolean, if a submission is already in process.
   const inputRef = useRef(null);
 
@@ -378,14 +374,14 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
       const response = await axios.post('/api/subscribeApi', { email });
 
       console.log(response.data);
-      setFeedbackState('success'); // FeedbackState to trigger success-message.
+      setResponseStatus('success'); // FeedbackState to trigger success-message.
     } catch (error) {
       console.error(error);
-      setFeedbackState('failure'); // FeedbackState to trigger failure-message (ignorant of specific Error).
+      setResponseStatus('failure'); // FeedbackState to trigger failure-message (ignorant of specific Error).
     } finally {
       setIsSubmitting(false); // Set submission cycle to be finished, re-enabling sumbit button for new submission attempts.
       setTimeout(() => onSubscribe(), 2500); // Trigger closing of SubscribeForm in Header.js (see section 1.). Set duration of message being displayed.
-      setTimeout(() => setFeedbackState(''), 3000); // Hides message. Make sure to trigger after closing of form, as it is part of the form.
+      setTimeout(() => setResponseStatus(''), 3000); // Hides message. Make sure to trigger after closing of form, as it is part of the form.
     }
   };
 
@@ -393,7 +389,7 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
     <>
       // Conditional rendering via strict equality with state-string. // Enables
       infinite state conditions vs boolean.
-      {feedbackState === '' && ( // Condition 1. (Default, pre submit)
+      {responseStatus === '' && ( // Condition 1. (Default, pre submit)
         <form onSubmit={handleSubscribe}>
           <input
             type="email"
@@ -415,12 +411,12 @@ export default function SubscribeForm({ onCancel, onSubscribe }) {
       )}
       // In this example you would render the messages overlaying the header
       buttons.
-      {feedbackState === 'success' && ( // Condition 2.
+      {responseStatus === 'success' && ( // Condition 2.
         <p>
           Success.&nbsp;<span>Thank&nbsp;you.</span>
         </p> // You can get creative. I used a span to render 2 colors to match my header button design with the messages.
       )}
-      {feedbackState === 'failure' && ( // Condition 3.
+      {responseStatus === 'failure' && ( // Condition 3.
         <p>
           Failure.&nbsp;<span>Please&nbsp;try&nbsp;again.</span>
         </p>

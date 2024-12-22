@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 export default function Header({}) {
   const router = useRouter();
-  
+
   return (
     <header
       className={`fixed flex h-20 w-full items-center bg-neutral-700 ${router.route.startsWith('/posts') && 'text-neutral-200'} ${
@@ -16,7 +16,6 @@ export default function Header({}) {
         <Link
           className="absolute text-2xl font-semibold hover:text-neutral-200"
           href="/"
-          onClick={handleMenuClose}
         >
           <h1 className="">LeonWarscheck</h1>
         </Link>

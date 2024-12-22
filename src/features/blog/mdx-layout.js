@@ -1,5 +1,5 @@
 import SubscribeFormOnPage from './subscribeform-blogpage';
-
+// rendered in all .mdx pages (pages/posts, imprint)
 export default function MdxLayout({ children }) {
   return (
     <main

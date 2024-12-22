@@ -2,10 +2,11 @@ import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 
 export default function SubscribeFormFooter({ onCancel, onSubscribe }) {
-  const [feedbackState, setFeedbackState] = useState('');
+  const [responseStatus, setResponseStatus] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const inputRef = useRef(null);
 
+  // Focus input as soon as it renders ("opens up in the footer").
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
@@ -15,35 +16,35 @@ export default function SubscribeFormFooter({ onCancel, onSubscribe }) {
   const handleSubscribe = async event => {
     event.preventDefault();
 
-    if (isSubmitting) return;
+    if (isSubmitting) return; // Exit handler in case of already submitting.
 
-    setIsSubmitting(true);
+    setIsSubmitting(true); // Set submission state on first call. 
 
-    inputRef.current.blur();
+    inputRef.current.blur(); // Blur during submission.
 
     try {
       const formData = new FormData(event.target);
       const email = formData.get('email');
 
-      const response = await axios.post('/api/subscribeApi', { email });
+      // Send `POST` request to api route, and capture response.
+      const response = await axios.post('/api/subscribe-api', { email });
 
       console.log(response.data);
-      setFeedbackState('success');
-      setTimeout(() => onSubscribe(), 3000);
+      setResponseStatus('success');
     } catch (error) {
       console.error(error);
-      setFeedbackState('failure');
-      setTimeout(() => setFeedbackState(''), 2000);
+      setResponseStatus('failure');
     } finally {
+      // Reset all submission related states.
       setIsSubmitting(false);
       setTimeout(() => onSubscribe(), 2000);
-      setTimeout(() => setFeedbackState(''), 2500);
+      setTimeout(() => setResponseStatus(''), 2500);
     }
   };
 
   return (
     <>
-      {feedbackState === '' && (
+      {responseStatus === '' && (
         <form
           className="absolute -right-[83.5px] flex bg-neutral-700"
           onSubmit={handleSubscribe}
@@ -58,6 +59,7 @@ export default function SubscribeFormFooter({ onCancel, onSubscribe }) {
             autoCapitalize="off"
             autoCorrect="off"
             ref={inputRef}
+            disabled={isSubmitting}
           />
           <button
             className="pl-4 text-sm text-red-500"
@@ -71,7 +73,7 @@ export default function SubscribeFormFooter({ onCancel, onSubscribe }) {
           </button>
         </form>
       )}
-      {feedbackState === 'success' && (
+      {responseStatus === 'success' && (
         <div className="absolute right-0 flex bg-neutral-700 pl-32">
           <p className="text-sm text-neutral-200">
             Success.&nbsp;
@@ -79,7 +81,7 @@ export default function SubscribeFormFooter({ onCancel, onSubscribe }) {
           </p>
         </div>
       )}
-      {feedbackState === 'failure' && (
+      {responseStatus === 'failure' && (
         <div className="absolute right-0 flex bg-neutral-700 pl-32">
           <p className="text-sm text-neutral-200">
             Failure.&nbsp;

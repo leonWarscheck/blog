@@ -5,7 +5,7 @@ import { useState } from 'react';
 import SubscribeFormFooter from '../features/blog/subscribeform-footer';
 
 export default function Footer() {
-  // used to trigger hidden on the SymbolTrainer pages
+  // gets the condition to render hidden on the SymbolTrainer pages
   const router = useRouter();
   // handles the SubscribeForm opening and closing directly in the footer
   const [showSubscription, setShowSubscription] = useState(false);

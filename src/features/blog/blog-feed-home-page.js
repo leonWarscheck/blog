@@ -3,12 +3,19 @@ import Link from 'next/link';
 
 import Date from '../../components/date';
 
-export default function HomeFeed({ feedData }) {
-  const colorClasses = [
-    'c1: text-neutral-200 c1: group-hover:text-red-500',
-    'c1: text-neutral-200 c1: group-hover:text-violet-500',
-    'c1: text-neutral-200 c1: group-hover:text-yellow-la',
-    'c1: text-neutral-200 c1: group-hover:text-emerald-la',
+/* 
+Like all ...page components, this one is exported via
+its corresponding route file, in this case: `index.js`.
+The `feedData` prop is getting passed from there, because 
+it comes from `getStaticProps`, which needs to run 
+serverside in the route file.
+*/
+export default function HomeFeedPage({ feedData }) {
+  const colors = [
+    'text-red-500',
+    'text-violet-500',
+    'text-yellow-la',
+    'text-emerald-la',
   ];
 
   return (
@@ -21,8 +28,8 @@ export default function HomeFeed({ feedData }) {
           <li className="group mb-16" key={slug}>
             <Link href={`/posts/${slug}`}>
               <h2
-                className={`text-xl font-semibold ${
-                  colorClasses[index % colorClasses.length]
+                className={`text-xl font-semibold text-neutral-200 ${
+                  'group-hover:' + colors[index % colors.length]
                 } `}
               >
                 {title}

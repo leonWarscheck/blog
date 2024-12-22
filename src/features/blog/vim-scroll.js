@@ -1,7 +1,17 @@
 /*eslint-disable*/
+
+// Enables Vim-style scrolling ('j' and 'k') for vertical navigation and ('h'
+// and 'l') for horizontal scrolling within 'pre' elements. Disables scrolling
+// when focus is on input fields specified by their IDs. 
+
 if (typeof window !== 'undefined') {
   document.addEventListener('DOMContentLoaded', event => {
+    // Ids for conditional disabling the vim scroll behaviour, when
+    // subscribeForm inputs are focused.
     const inputIds = ['navSubInput', 'pageSubInput', 'footSubInput'];
+
+    // Collects `pre` elements that come into view via `observer` and
+    // `handleIntersect`.
     const preElementsInView = new Set();
 
     function handleIntersect(entries) {
@@ -13,12 +23,14 @@ if (typeof window !== 'undefined') {
         }
       });
     }
+    
 
     const observer = new IntersectionObserver(handleIntersect, {
       root: null,
       threshold: 0.1,
     });
 
+    // Activates `observer` for all `pre` elements.
     const preElements = document.querySelectorAll('pre');
     preElements.forEach(pre => observer.observe(pre));
 
@@ -30,7 +42,7 @@ if (typeof window !== 'undefined') {
           window.scrollBy(0, 50);
         } else if (event.key === 'k') {
           window.scrollBy(0, -50);
-          // TODO: fix or delete sideways scroll
+          // Enables horizontal scrolling for 'pre' elements using 'h' and 'l'.
         } else if (event.key === 'l' || event.key === 'h') {
           const scrollStep = 50;
           preElementsInView.forEach(pre => {

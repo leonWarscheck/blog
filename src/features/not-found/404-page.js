@@ -1,17 +1,8 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 
 export default function Page404() {
-  // const router = useRouter();
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     router.push("/");
-  //   }, 2100);
-  // }, [router]);
-
-  return (
+   return (
     <main className="mx-auto flex max-w-2xl grow flex-col pt-20 text-neutral-200">
       {/* prettier-ignore */}
       <pre className=" pt-16 text-xs c2:text-la1 px-4  xl:text-la1 w-full font-bold hover:text-yellow-l hover:bg-gradient-to -b from-red-500 to-violet-500 to-yellow- la hover:bg-clip- text hover:text- transparent">
