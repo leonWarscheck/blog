@@ -1,51 +1,9 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-
-import SubscribeForm from '../features/blog/subscribeform-header';
-import Menu from './menu';
 
 export default function Header({}) {
   const router = useRouter();
-  const [showSubscription, setShowSubscription] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const bodyElement = document.querySelector('body');
-
-    if (menuOpen) {
-      bodyElement.classList.add('scrollbar-hide');
-      bodyElement.style.overflow = 'hidden';
-    } else {
-      bodyElement.classList.remove('scrollbar-hide');
-      bodyElement.style.overflow = '';
-    }
-
-    return () => {
-      bodyElement.style.overflow = '';
-    };
-  }, [menuOpen]);
-
-  const handleSubscribeClick = () => {
-    setShowSubscription(true);
-  };
-
-  const handleCancel = () => {
-    setShowSubscription(false);
-  };
-
-  const handleMenuClose = () => {
-    setTimeout(() => {
-      setMenuOpen(false);
-    }, 42);
-  };
-
-  const handleMenuToggle = () => {
-    // setTimeout(() => {
-    setMenuOpen(!menuOpen);
-    // }, 42);
-  };
-
+  
   return (
     <header
       className={`fixed flex h-20 w-full items-center bg-neutral-700 ${router.route.startsWith('/posts') && 'text-neutral-200'} ${
@@ -76,26 +34,7 @@ export default function Header({}) {
               Tools
             </Link>
           </li>
-          {/* <li className=" flex items-center relative">
-            <button
-            className="hover:text-neutral-200 "
-              onClick={handleSubscribeClick}
-            >
-              Subscribe
-            </button>
-            {showSubscription && (
-              <SubscribeForm
-                onCancel={handleCancel}
-                onSubscribe={handleCancel}
-              />
-            )}
-          </li> */}
         </ul>
-        {/* <Menu
-          handleMenuToggle2={handleMenuToggle}
-          menuOpen={menuOpen}
-          handleMenuClose={handleMenuClose}
-        /> */}
       </nav>
     </header>
   );

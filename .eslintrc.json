@@ -7,12 +7,12 @@
   ],
   "plugins": ["simple-import-sort"],
   "rules": {
-    "simple-import-sort/exports": "error",
-    "simple-import-sort/imports": "error",
     "react/no-unescaped-entities": "off",
     "react-hooks/exhaustive-deps": "off",
-    "unicorn/no-array-callback-reference": "off",
     "unicorn/no-abusive-eslint-disable": "off",
+    "simple-import-sort/exports": "error",
+    "simple-import-sort/imports": "error",
+    "unicorn/no-array-callback-reference": "off",
     "unicorn/no-array-for-each": "off",
     "unicorn/no-array-reduce": "off",
     "unicorn/prevent-abbreviations": [
@@ -23,6 +23,7 @@
         },
         "replacements": {
           "props": false,
+          "prop": false,
           "ref": false,
           "params": false
         }
