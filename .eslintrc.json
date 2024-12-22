@@ -8,6 +8,7 @@
   "plugins": ["simple-import-sort"],
   "rules": {
     "react/no-unescaped-entities": "off",
+    "prettier/prettier": "warn",
     "react-hooks/exhaustive-deps": "off",
     "unicorn/no-abusive-eslint-disable": "off",
     "simple-import-sort/exports": "error",
