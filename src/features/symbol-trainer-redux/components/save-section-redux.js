@@ -32,8 +32,8 @@ export default function SaveSection() {
           <button
             className="flex rounded-sm underline hover:text-neutral-500"
             // Downloads a backup of the JSON object from localStorage and sets
-            // the latest backupDate to now, so the user can later see in the ui
-            // how long it has been since the last backup.
+            // the latest backupDate to now, so the user can later see how long
+            // it has been since the last backup.
             onClick={() =>
               dispatch(backupDownloadClicked(new Date().toString()))
             }

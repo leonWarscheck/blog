@@ -29,9 +29,7 @@ const tailwindConfig = {
         xxs: '6.5px',
         la1: ['26.5px', '31px'],
       },
-      fontFamily: {
-        'font-overpass-mono': ['"Overpass Mono"', 'monospace'],
-      },
+      
       letterSpacing: {
         widerer: '0.25em',
       },

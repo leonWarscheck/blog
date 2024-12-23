@@ -7,7 +7,6 @@ import {
   takeEvery,
   takeLatest,
 } from 'redux-saga/effects';
-
 import {
   downloadHighScoresJSON,
   getTime,
@@ -38,6 +37,20 @@ import {
   userTypedInTrainerInput,
   userWon,
 } from './reducer';
+
+// The main purpose of Sagas here is to isolate side effects, to make them more
+// testable and to keep the core logic in the reducer and selectors pure. 
+//
+// Here the main side effects are: 
+// - calling `getTime`, because given the same input, it creates different outputs
+// - writing TO localStorage, because this is manipulation of an external
+//   variable 
+// - `yield delay()` and the dispatches dependent on it, because time-dependency
+//   can lead to unexpected behaviour
+// - importing a file, because file reading is asynchronous and thereby
+//   time-dependent, importing also includes writing TO an external variable
+// - triggering a download, because this is directly influencing system
+//   behaviour external of the function
 
 // =====================
 // trainerSection logic

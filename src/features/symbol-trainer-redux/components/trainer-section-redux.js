@@ -12,6 +12,7 @@ import {
   selectTrainerColorClasses,
   userTypedInTrainerInput,
 } from '../reducer';
+import { fontMono } from '../../../styles/fonts/fonts';
 import { SymbolTrainerContext } from '../symbol-trainer-redux-page';
 import { useCustomInputFocusBehaviour } from '../use-custom-input-focus-behaviour-redux';
 import { useLevelNavigationShortcut } from '../use-level-navigation-shortcut-redux';
@@ -29,21 +30,20 @@ export default function TrainerSection() {
   const levelId = selectLevelId(state);
 
   // The following hooks are not managed via sagas, because they are handling
-  // DOM-events.
+  // DOM-events:
 
-  // Refocusses input after it got reset from win or fail. The returned
-  // handleBlur function makes sure the input cannot be blurred, except for via
-  // the disabled prop on win and fail. 
+  // Handles input refocusing after win or fail.
   const [handleBlur] = useCustomInputFocusBehaviour(inputRef, isWin, isFail);
+
   // Enables switching between levels via `cmd + j/k` or `ctrl + down/up`.
   useLevelNavigationShortcut(levelId, levels, levelChosenByShortcut, dispatch);
 
   return (
     <section
       id="trainer"
-      className={`mx-auto flex w-full max-w-2xl grow flex-col px-4`}
+      className={`${fontMono} mx-auto flex w-full max-w-2xl grow flex-col px-4`}
     >
-      <div className="relative mx-auto my-auto flex overflow-hidden text-left font-mono text-lg">
+      <div className="relative mx-auto my-auto flex overflow-hidden text-left text-lg">
         <div className="">
           <input
             id="trainerInput"

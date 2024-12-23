@@ -19,7 +19,7 @@ export default function HomeFeedPage({ feedData }) {
   ];
 
   return (
-    <main className="mx-auto mt-0.5 min-h-dvh max-w-2xl grow px-4 pt-32">
+    <main className="mx-auto mt-0.5 max-w-2xl grow px-4 pt-32">
       <Head>
         <title>A Blog by LeonWarscheck</title>
       </Head>

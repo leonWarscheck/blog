@@ -17,7 +17,6 @@ const withMDX = nextMDX({
         },
       ],
     ],
-    // rehypePlugins: [[rehypePrettyCode,{theme:'one-dark-pro'}]],
   },
 });
 
