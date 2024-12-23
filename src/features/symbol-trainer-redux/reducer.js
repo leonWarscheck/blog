@@ -116,7 +116,7 @@ export const importStatusMessageRecieved = payload => ({
 
 // `initialState` sets default values of your store and defines its data shape.
 export const initialState = {
-  section: 'trainerSection',
+  section: 'introSection',
   levelId: 1,
   inputString: '',
   startTime: '',

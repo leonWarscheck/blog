@@ -13,7 +13,7 @@ export function checkUserTyping(
   }
 
   // on win
-  if (inputString === levelString) {
+  if (inputString === levelString && levelString != '') {
     // flag for conditional rendering of ui elements
     setTrainerState('win');
 
