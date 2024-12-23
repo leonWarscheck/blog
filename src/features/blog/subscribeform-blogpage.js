@@ -7,7 +7,6 @@ export default function SubscribeFormOnPage({}) {
   const formRef = useRef(null);
   const inputRef = useRef(null);
 
-  // Focus input on clicking its form container.
   useEffect(() => {
     const handleClick = () => {
       if (inputRef.current) {

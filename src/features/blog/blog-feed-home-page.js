@@ -3,13 +3,10 @@ import Link from 'next/link';
 
 import Date from '../../components/date';
 
-/* 
-Like all page components, this one is exported via
-its corresponding route file, in this case: `index.js`.
-The `feedData` prop is getting passed from there, because 
-it comes from `getStaticProps`, which needs to run 
-serverside in the route file.
-*/
+// Like all page components, this one is exported via its corresponding route
+// file, in this case: `index.js`. The `feedData` prop is getting passed from
+// there, because it comes from `getStaticProps`, which needs to run serverside
+// in the route file.
 export default function HomeFeedPage({ feedData }) {
   const hoverColors = [
     'group-hover:text-red-500',

@@ -5,7 +5,7 @@ import matter from 'gray-matter';
 
 const postsDirectory = path.join(process.cwd(), '/src/pages/posts');
 
-// gets called in `getStaticProps` in `index.js`
+// Gets called in `getStaticProps` in `index.js`.
 export function getFeedData() {
   const fileNames = fs.readdirSync(postsDirectory);
 

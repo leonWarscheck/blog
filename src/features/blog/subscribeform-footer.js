@@ -6,7 +6,6 @@ export default function SubscribeFormFooter({ onCancel, onSubscribe }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const inputRef = useRef(null);
 
-  // Focus input as soon as it renders ("opens up in the footer").
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
