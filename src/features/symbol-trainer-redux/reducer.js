@@ -125,7 +125,7 @@ export const initialState = {
   importMessage: '',
 };
 
-// Action handlers in the switch cases return new store objects created from the
+// Thw action handlers in the switch cases return new store objects created from the
 // previous store state and new values, usually coming from the payload.
 //
 // `type` and `payload` get destructured so we can avoid repeatedly writing out
@@ -267,7 +267,10 @@ export const selectCurrentWpm = state => {
   return Math.round(wordsPerString * winTimesPerMinuteRatio);
 };
 
-// primary
+// primary 
+// This is not pure, but behaves consistent enough. With a full Redux
+// setup, you would auto sync localStore to redux store via `redux-persist` so
+// there would be no need to sync manually like this. 
 const selectSerializedHighscores = () => localStorage.getItem('highScores');
 
 // secondary
