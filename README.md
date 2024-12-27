@@ -1,6 +1,6 @@
 # LeonWarscheck.com
 
-A dev blog by me, Leon Warscheck. 
+A colorful blog about webdevelopment. 
 
 ![blog walkthrough](/public/blog.gif)
 
