@@ -29,12 +29,12 @@ export default function LevelSection() {
   return (
     <section id="level" className={`flex grow flex-col`}>
       <div className="mx-auto my-auto max-h-[50dvh] w-full max-w-2xl overflow-scroll px-4">
-        <ul 
-        // Lists all levels and their properties from predefined levels object,
-        // so the user can browse and choose the level they want to train. The
-        // list also includes the highscores of each level, fetched from
-        // localStorage via sagas.
-        className="my-auto w-full"
+        <ul
+          // Lists all levels and their properties from predefined levels object,
+          // so the user can browse and choose the level they want to train. The
+          // list also includes the highscores of each level, fetched from
+          // localStorage via sagas.
+          className="my-auto w-full"
         >
           {levels.map((level, index) => {
             const score = highScores?.[level.id];
@@ -45,7 +45,7 @@ export default function LevelSection() {
                 className={`flex w-full`}
               >
                 <button
-                // Displays each level button in the "trainer-color" of the highscore reached in that level.
+                  // Displays each level button in the "trainer-color" of the highscore reached in that level.
                   className={`group flex w-full py-2 hover:text-neutral-400 ${
                     score >= 60
                       ? 'text-neutral-400'

@@ -7,6 +7,7 @@ import {
   takeEvery,
   takeLatest,
 } from 'redux-saga/effects';
+
 import {
   downloadHighScoresJSON,
   getTime,
@@ -39,13 +40,13 @@ import {
 } from './reducer';
 
 // The main purpose of Sagas here is to isolate side effects, to make them more
-// testable and to keep the core logic in the reducer and selectors pure. 
+// testable and to keep the core logic in the reducer and selectors pure.
 //
-// Here the main side effects are: 
+// Here the main side effects are:
 // - calling `getTime`, because given the same input, it creates different
 //   outputs
 // - writing TO localStorage, because this is manipulation of an external
-//   variable 
+//   variable
 // - reading FROM localStorage, because with `localStorage.getItem()` we are
 //   calling a method on an external object, which is different than plain
 //   property access on the store object

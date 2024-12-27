@@ -17,7 +17,7 @@ export default function SubscribeFormFooter({ onCancel, onSubscribe }) {
 
     if (isSubmitting) return; // Exit handler in case of already submitting.
 
-    setIsSubmitting(true); // Set submission state on first call. 
+    setIsSubmitting(true); // Set submission state on first call.
 
     inputRef.current.blur(); // Blur during submission.
 

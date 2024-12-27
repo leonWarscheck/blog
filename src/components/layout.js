@@ -1,8 +1,6 @@
-import {openSans} from "../styles/fonts/fonts"
-
+import { openSans } from '../styles/fonts/fonts';
 import Footer from './footer';
 import Header from './header';
-
 
 export default function Layout({ children }) {
   return (

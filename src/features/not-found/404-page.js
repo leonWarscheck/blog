@@ -1,8 +1,7 @@
 import Link from 'next/link';
 
 export default function Page404() {
-
-   return (
+  return (
     <main className="mx-auto flex max-w-2xl grow flex-col pt-20 text-neutral-200">
       {/* prettier-ignore */}
       <pre className=" pt-16 text-xs c2:text-la1 px-4  xl:text-la1 w-full font-bold hover:text-yellow-l hover:bg-gradient-to -b from-red-500 to-violet-500 to-yellow- la hover:bg-clip- text hover:text- transparent">

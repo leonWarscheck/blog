@@ -223,7 +223,7 @@ export const selectSection = state => state.section;
 export const selectLevelId = state => state.levelId;
 
 // secondary value selectors
-const selectLevel = state => levels[selectLevelId(state)-1];
+const selectLevel = state => levels[selectLevelId(state) - 1];
 
 export const selectLevelString = state => selectLevel(state)?.string;
 
@@ -267,10 +267,10 @@ export const selectCurrentWpm = state => {
   return Math.round(wordsPerString * winTimesPerMinuteRatio);
 };
 
-// primary 
+// primary
 // This is not pure, but behaves consistent enough. With a full Redux
 // setup, you would auto sync localStore to redux store via `redux-persist` so
-// there would be no need to sync manually like this. 
+// there would be no need to sync manually like this.
 const selectSerializedHighscores = () => localStorage.getItem('highScores');
 
 // secondary

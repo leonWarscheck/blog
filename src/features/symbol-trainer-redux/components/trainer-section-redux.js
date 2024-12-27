@@ -1,5 +1,6 @@
 import { useContext, useRef } from 'react';
 
+import { fontMono } from '../../../styles/fonts/fonts';
 import levels from '../levels-redux.json';
 import {
   levelChosenByShortcut,
@@ -12,7 +13,6 @@ import {
   selectTrainerColorClasses,
   userTypedInTrainerInput,
 } from '../reducer';
-import { fontMono } from '../../../styles/fonts/fonts';
 import { SymbolTrainerContext } from '../symbol-trainer-redux-page';
 import { useCustomInputFocusBehaviour } from '../use-custom-input-focus-behaviour-redux';
 import { useLevelNavigationShortcut } from '../use-level-navigation-shortcut-redux';
