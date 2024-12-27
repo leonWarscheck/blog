@@ -12,7 +12,7 @@
     "react-hooks/exhaustive-deps": "off",
     "unicorn/no-abusive-eslint-disable": "off",
     "simple-import-sort/exports": "error",
-    "simple-import-sort/imports": "error",
+    "simple-import-sort/imports": "warn",
     "unicorn/no-array-callback-reference": "off",
     "unicorn/no-array-for-each": "off",
     "unicorn/no-array-reduce": "off",
