@@ -12,6 +12,7 @@ import {
   downloadHighScoresJSON,
   getTime,
   importBackup,
+  updateHighScoresIfNewHighScore,
   syncBackupDateFromLocalStorage,
   syncBackupDateToLocalStorage,
   syncHighScoresFromLocalStorage,
@@ -27,6 +28,7 @@ import {
   stateSyncedFromLocalStorage,
   levelChosenByShortcut,
   levelClicked,
+  newHighScoreAchieved,
   loadSymbolTrainer,
   selectBackupDate,
   selectCurrentLevelHighScore,
@@ -36,6 +38,7 @@ import {
   selectIsWin,
   selectLevelId,
   selectStartTime,
+  selectHighScores,
   typingEndedByWinning,
   typingStarted,
   userFailed,
@@ -59,13 +62,13 @@ function* handleUserTypedInTrainerInput() {
   if (yield select(selectIsWin)) {
     const now = yield call(getTime);
     yield put(typingEndedByWinning(now));
-
+    console.log('running');
     const levelId = yield select(selectLevelId);
     const currentWpm = yield select(selectCurrentWpm);
     const currentLevelHighScore = yield select(selectCurrentLevelHighScore);
-    const highScores = yield select(selectHighscores);
+    const highScores = yield select(selectHighScores);
     const updatedHighScores = yield call(
-      checkAndUpdateIfNewHighScore,
+      updateHighScoresIfNewHighScore,
       levelId,
       currentWpm,
       currentLevelHighScore,

@@ -278,6 +278,7 @@ export const selectCurrentLevelHighScore = state =>
   selectHighScores(state)?.[selectLevelId(state)] || 0;
 
 export const selectTrainerColorClasses = state => {
+  console.log("clh",selectHighScores(state))
   const trainerColor =
     selectCurrentLevelHighScore(state) >= 60
       ? 'neutral-200'

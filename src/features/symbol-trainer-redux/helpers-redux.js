@@ -23,17 +23,18 @@ handleUserTypedInTrainerInput saga
 
 export const getTime = () => new Date();
 
-export const checkAndUpdateIfNewHighScore = (
+export const updateHighScoresIfNewHighScore = (
   levelId,
   currentWpm,
   currentLevelHighScore,
   highScores,
 ) => {
   if (currentWpm > currentLevelHighScore) {
-    const updatedHighScores = ([...highScores][levelId] = currentWpm);
+    const updatedHighScores = {...highScores}
+    updatedHighScores[levelId] = currentWpm;
     return updatedHighScores;
   }
-  return false;
+  return '';
 };
 
 export const syncHighScoresToLocalStorage = updatedHighScores => {
