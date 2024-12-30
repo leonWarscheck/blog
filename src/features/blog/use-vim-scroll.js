@@ -1,10 +1,10 @@
 /*eslint-disable*/
 import { useEffect } from 'react';
 
-// Enables Vim-style scrolling ('j' and 'k') for vertical navigation and ('h'
-// and 'l') for horizontal scrolling within 'pre' elements. Disables scrolling
-// when focus is on input fields specified by their IDs.
-
+/**
+ * Enables Vim-style scrolling (`j` and `k`) for vertical navigation on blog post pages and (`h`
+ * and `l`) for horizontal scrolling within `pre` elements.
+ */
 export const useVimScroll = () => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -41,12 +41,13 @@ export const useVimScroll = () => {
       function handleKeydown(event) {
         const focusedElement = document.activeElement;
 
+        // Disables scrolling when focus is on input fields specified by their IDs.
         if (!inputIds.includes(focusedElement.id)) {
           if (event.key === 'j') {
             window.scrollBy(0, 50);
           } else if (event.key === 'k') {
             window.scrollBy(0, -50);
-            // Enables horizontal scrolling for 'pre' elements using 'h' and 'l'.
+            // Enables horizontal scrolling for `pre` elements using 'h' and 'l'.
           } else if (event.key === 'l' || event.key === 'h') {
             const scrollStep = 50;
             preElementsInView.forEach(pre => {

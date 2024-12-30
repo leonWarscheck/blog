@@ -1,21 +1,43 @@
 /*
+handleLoadSymbolTrainer
+*/
+
+export const syncLevelIdFromLocalStorage = () => {
+  const levelId = Number(localStorage.getItem('levelId'));
+  return levelId;
+};
+
+export const syncBackupDateFromLocalStorage = () => {
+  const backupDate = localStorage.getItem('backupDate');
+  return backupDate;
+};
+
+export const syncHighScoresFromLocalStorage = () => {
+  const highScores = JSON.parse(localStorage.getItem('highScores'));
+  return highScores;
+};
+
+/*
 handleUserTypedInTrainerInput saga
 */
 
 export const getTime = () => new Date();
 
-export const syncToLocalHighScores = (
-  currentLevelHighScore,
-  currentWpm,
+export const checkAndUpdateIfNewHighScore = (
   levelId,
+  currentWpm,
+  currentLevelHighScore,
+  highScores,
 ) => {
-  // Syncs only scores that are higher than the previous highscore.
   if (currentWpm > currentLevelHighScore) {
-    const highScores = JSON.parse(localStorage.getItem('highScores')) || {};
-    highScores[levelId] = currentWpm;
-
-    localStorage.setItem('highScores', JSON.stringify(highScores));
+    const updatedHighScores = ([...highScores][levelId] = currentWpm);
+    return updatedHighScores;
   }
+  return false;
+};
+
+export const syncHighScoresToLocalStorage = updatedHighScores => {
+  localStorage.setItem('highScores', JSON.stringify(updatedHighScores));
 };
 
 /*
@@ -49,7 +71,7 @@ export function downloadHighScoresJSON() {
   }
 }
 
-export const syncToLocalBackupDate = backupDate => {
+export const syncBackupDateToLocalStorage = backupDate => {
   localStorage.setItem('backupDate', backupDate);
 };
 
@@ -57,7 +79,7 @@ export const syncToLocalBackupDate = backupDate => {
 handleSyncLevelId saga
 */
 
-export const syncToLocalLevelId = levelId => {
+export const syncLevelIdToLocalStorage = levelId => {
   localStorage.setItem('levelId', levelId);
 };
 

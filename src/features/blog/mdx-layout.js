@@ -3,7 +3,6 @@ import { useVimScroll } from './use-vim-scroll';
 
 // Gets rendered in all .mdx pages (pages/posts, imprint).
 export default function MdxLayout({ children }) {
-  // Enables Vim-Style Scrolling in Blog Posts.
   useVimScroll();
 
   return (

@@ -49,10 +49,10 @@ export default function TrainerPage() {
           <title>SymbolTrainer</title>
         </Head>
         {section === 'trainerSection' && <TrainerSection />}
-        {state.section === 'levelSection' && <LevelSection />}
+        {section === 'levelSection' && <LevelSection />}
         {section === 'helpSection' && <HelpSection />}
         {section === 'introSection' && <IntroSection />}
-        {state.section === 'saveSection' && <SaveSection />}
+        {section === 'saveSection' && <SaveSection />}
         <MenuTrainer />
         <ResponsiveNote />
       </main>

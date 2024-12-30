@@ -13,7 +13,6 @@ export default function SaveSection() {
   const { state, dispatch } = useContext(SymbolTrainerContext);
 
   const backupDate = selectBackupDate(state);
-  // Calculates how much time has passed since the last backup.
   const backupDifference = selectBackupDifference(state, new Date());
   const message = selectImportMessage(state);
 
@@ -33,7 +32,7 @@ export default function SaveSection() {
             className="flex rounded-sm underline hover:text-neutral-500"
             // Downloads a backup of the JSON object from localStorage and sets
             // the latest backupDate to now, so the user can later see how long
-            // it has been since the last backup.
+            // it has been since the last backup. (see `sagas.js`)
             onClick={() =>
               dispatch(backupDownloadClicked(new Date().toString()))
             }

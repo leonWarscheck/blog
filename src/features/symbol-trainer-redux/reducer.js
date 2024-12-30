@@ -45,6 +45,11 @@ export const typingEndedByWinning = payload => ({
   payload,
 });
 
+export const newHighScoreAchieved = payload => ({
+  type: 'newHighScoreAchieved',
+  payload,
+});
+
 export const userWon = () => ({ type: 'userWon' });
 
 export const userFailed = () => ({ type: 'userFailed' });
@@ -57,12 +62,13 @@ action creators: loading and init related
 export const loadSymbolTrainer = () => ({ type: 'loadSymbolTrainer' });
 
 // dispatched by saga
-export const levelAndBackupDateSyncedFromLocalStorage = ({
+export const stateSyncedFromLocalStorage = ({
   levelId,
   backupDate,
+  highScores,
 } = {}) => ({
-  type: 'levelAndBackupDateSyncedFromLocalStorage',
-  payload: { levelId, backupDate },
+  type: 'stateSyncedFromLocalStorage',
+  payload: { levelId, backupDate, highScores },
 });
 
 /*
@@ -87,7 +93,7 @@ export const importStatusMessageRecieved = payload => ({
 });
 
 /*
-reducer case helper functions
+case handler helper functions
 */
 
 const changeCurrentLevel = (state, levelId) => ({
@@ -102,10 +108,14 @@ const resetLevelOnWinOrFail = state => ({
   endTime: '',
 });
 
-const handleLevelAndBackupSync = (state, { levelId, backupDate }) => ({
+const handleStateSyncFromLocalStorage = (
+  state,
+  { levelId, backupDate, highScores },
+) => ({
   ...state,
   levelId: levelId || 1,
   backupDate: backupDate || '',
+  highScores: highScores || {},
 });
 
 /*
@@ -118,6 +128,7 @@ export const initialState = {
   inputString: '',
   startTime: '',
   endTime: '',
+  highScores: {},
   backupDate: '',
   importMessage: '',
 };
@@ -139,12 +150,16 @@ export function symbolTrainerReducer(
       return changeCurrentLevel(state, payload);
     }
 
-    case levelAndBackupDateSyncedFromLocalStorage().type: {
-      return handleLevelAndBackupSync(state, payload);
+    case stateSyncedFromLocalStorage().type: {
+      return handleStateSyncFromLocalStorage(state, payload);
     }
 
     case userTypedInTrainerInput().type: {
       return { ...state, inputString: payload };
+    }
+
+    case newHighScoreAchieved().type: {
+      return { ...state, highScores: payload };
     }
 
     case userWon().type: {
@@ -183,7 +198,7 @@ export function symbolTrainerReducer(
  *
  * @remarks
  * - `createReducer` uses `useReducer` under the hood.
- * - Mounted in `symbol-trainer-redux-page`. 
+ * - Mounted in `symbol-trainer-redux-page`.
  *
  * @param saga - The root saga containing the sagas you want to chain with the
  * reducer.
@@ -257,11 +272,7 @@ export const selectCurrentWpm = state => {
   return Math.round(wordsPerString * winTimesPerMinuteRatio);
 };
 
-// This is not pure, but behaves consistent enough. With a full Redux
-// setup, you would auto sync localStore to redux store via `redux-persist` so
-// there would be no need to sync manually like this.
-export const selectHighScores = () =>
-  JSON.parse(localStorage.getItem('highScores'));
+export const selectHighScores = state => state.highScores;
 
 export const selectCurrentLevelHighScore = state =>
   selectHighScores(state)?.[selectLevelId(state)] || 0;

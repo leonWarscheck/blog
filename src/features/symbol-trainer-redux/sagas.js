@@ -12,15 +12,19 @@ import {
   downloadHighScoresJSON,
   getTime,
   importBackup,
-  syncToLocalBackupDate,
-  syncToLocalHighScores,
-  syncToLocalLevelId,
+  syncBackupDateFromLocalStorage,
+  syncBackupDateToLocalStorage,
+  syncHighScoresFromLocalStorage,
+  syncHighScoresToLocalStorage,
+  syncLevelIdFromLocalStorage,
+  syncLevelIdToLocalStorage,
 } from './helpers-redux';
+
 import {
   backupDownloadClicked,
   importBackupClicked,
   importStatusMessageRecieved,
-  levelAndBackupDateSyncedFromLocalStorage,
+  stateSyncedFromLocalStorage,
   levelChosenByShortcut,
   levelClicked,
   loadSymbolTrainer,
@@ -56,10 +60,22 @@ function* handleUserTypedInTrainerInput() {
     const now = yield call(getTime);
     yield put(typingEndedByWinning(now));
 
-    const currentWpm = yield select(selectCurrentWpm);
     const levelId = yield select(selectLevelId);
+    const currentWpm = yield select(selectCurrentWpm);
     const currentLevelHighScore = yield select(selectCurrentLevelHighScore);
-    syncToLocalHighScores(currentLevelHighScore, currentWpm, levelId);
+    const highScores = yield select(selectHighscores);
+    const updatedHighScores = yield call(
+      checkAndUpdateIfNewHighScore,
+      levelId,
+      currentWpm,
+      currentLevelHighScore,
+      highScores,
+    );
+
+    if (updatedHighScores) {
+      yield put(newHighScoreAchieved(updatedHighScores));
+      yield call(syncHighScoresToLocalStorage, updatedHighScores);
+    }
 
     yield delay(2000);
     yield put(userWon());
@@ -84,9 +100,10 @@ initial data sync FROM localStorage
 */
 
 function* handleLoadSymbolTrainer() {
-  const levelId = Number(localStorage.getItem('levelId'));
-  const backupDate = localStorage.getItem('backupDate');
-  yield put(levelAndBackupDateSyncedFromLocalStorage({ levelId, backupDate }));
+  const levelId = yield call(syncLevelIdFromLocalStorage);
+  const backupDate = yield call(syncBackupDateFromLocalStorage);
+  const highScores = yield call(syncHighScoresFromLocalStorage);
+  yield put(stateSyncedFromLocalStorage({ levelId, backupDate, highScores }));
 }
 function* watchLoadSymbolTrainer() {
   yield takeLatest(loadSymbolTrainer().type, handleLoadSymbolTrainer);
@@ -98,7 +115,7 @@ sync levelId TO local storage
 
 function* handleSyncLevelId() {
   const levelIdFromReducer = yield select(selectLevelId);
-  yield call(syncToLocalLevelId, levelIdFromReducer);
+  yield call(syncLevelIdToLocalStorage, levelIdFromReducer);
 }
 
 function* watchSyncLevelId() {
@@ -117,7 +134,7 @@ download backup & sync backupdate TO localStorage
 function* handleBackupDownload() {
   yield call(downloadHighScoresJSON);
   const backupDateFromReducer = yield select(selectBackupDate);
-  yield call(syncToLocalBackupDate, backupDateFromReducer);
+  yield call(syncBackupDateToLocalStorage, backupDateFromReducer);
 }
 
 function* watchBackupDownload() {

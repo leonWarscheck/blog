@@ -32,10 +32,8 @@ export default function TrainerSection() {
   // The following hooks are not managed via sagas, because they are handling
   // DOM-events:
 
-  // Handles input refocusing after win or fail.
   const [handleBlur] = useCustomInputFocusBehaviour(inputRef, isWin, isFail);
 
-  // Enables switching between levels via `cmd + j/k` or `ctrl + down/up`.
   useLevelNavigationShortcut(levelId, levels, levelChosenByShortcut, dispatch);
 
   return (
@@ -44,7 +42,14 @@ export default function TrainerSection() {
       className={`${fontMono} mx-auto flex w-full max-w-2xl grow flex-col px-4`}
     >
       <div className="relative mx-auto my-auto flex overflow-hidden text-left text-lg">
-        <div className="">
+        <div
+        // The main concept here is the `inputString` of the user typing and a
+        // same sized background `curtain` overlaying the `levelString`. The
+        // font is a monospaced font (all characters have the same width), to
+        // ensure a mismatching character correctly covers the underlying
+        // `levelstring` character. This also makes the typing motion more
+        // consistent. 
+        >
           <input
             id="trainerInput"
             autoFocus={true}
