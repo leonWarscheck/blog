@@ -3,25 +3,14 @@ import createSagaMiddleware from 'redux-saga';
 
 import levels from './levels-redux.json';
 
-// ================
-// action creators
-// ================
+/*
+action creators
+*/
 
-// Action creators create action objects that can be dispatched from anywhere in
-// the app. On dispatch an action can trigger switch cases in the reducer (which
-// acts as a store) or effects in sagas. For pure operations they target the
-// reducer and for operations with side-effects they target sagas, which are
-// middleware of the reducer.
-//
-// The naming of action creators is descriptive of the user interaction that
-// triggers them to be dispatched. If an action creator is not named like a user
-// interaction it might be an action that only gets dispatched from a saga.
-//
-// In between you can find helper function that are mounted in the reducer to
-// either handle multiple actions that require the same handler behaviour, or to
-// keep the switch cases clean from complex logic.
+/*
+action creators: navigation related 
+*/
 
-// ===== navigation related =====
 // dispatched by user interaction
 export const sectionClicked = payload => ({
   type: 'sectionClicked',
@@ -38,12 +27,9 @@ export const levelChosenByShortcut = payload => ({
   payload,
 });
 
-const changeCurrentLevel = (state, levelId) => ({
-  ...state,
-  levelId: levelId,
-});
-
-// ===== trainer typing related =====
+/*
+action creators: trainer typing related
+*/
 
 // dispatched by user interaction
 export const userTypedInTrainerInput = payload => ({
@@ -63,15 +49,9 @@ export const userWon = () => ({ type: 'userWon' });
 
 export const userFailed = () => ({ type: 'userFailed' });
 
-// handles reset by multiple actions
-const resetLevelOnWinOrFail = state => ({
-  ...state,
-  inputString: '',
-  startTime: '',
-  endTime: '',
-});
-
-// ===== loading and init related =====
+/*
+action creators: loading and init related 
+*/
 
 // dispatched by useEffect on initial symbol-trainer page load
 export const loadSymbolTrainer = () => ({ type: 'loadSymbolTrainer' });
@@ -84,14 +64,10 @@ export const levelAndBackupDateSyncedFromLocalStorage = ({
   type: 'levelAndBackupDateSyncedFromLocalStorage',
   payload: { levelId, backupDate },
 });
-// helper function to keep reducer clean
-const handleLevelAndBackupSync = (state, { levelId, backupDate }) => ({
-  ...state,
-  levelId: levelId || 1,
-  backupDate: backupDate || '',
-});
 
-// ===== backup related =====
+/*
+action creators: backup related
+*/
 
 // dispatched by save-section user interaction
 export const backupDownloadClicked = payload => ({
@@ -110,11 +86,32 @@ export const importStatusMessageRecieved = payload => ({
   payload,
 });
 
-// =====================
-// reducer + saga mount
-// =====================
+/*
+reducer case helper functions
+*/
 
-// `initialState` sets default values of your store and defines its data shape.
+const changeCurrentLevel = (state, levelId) => ({
+  ...state,
+  levelId: levelId,
+});
+
+const resetLevelOnWinOrFail = state => ({
+  ...state,
+  inputString: '',
+  startTime: '',
+  endTime: '',
+});
+
+const handleLevelAndBackupSync = (state, { levelId, backupDate }) => ({
+  ...state,
+  levelId: levelId || 1,
+  backupDate: backupDate || '',
+});
+
+/*
+initialState + reducer + saga mount
+*/
+
 export const initialState = {
   section: 'introSection',
   levelId: 1,
@@ -125,13 +122,6 @@ export const initialState = {
   importMessage: '',
 };
 
-// Thw action handlers in the switch cases return new store objects created from the
-// previous store state and new values, usually coming from the payload.
-//
-// `type` and `payload` get destructured so we can avoid repeatedly writing out
-// `action.payload`. To enable destructuring even if only one of the keys is
-// available, we set an empty object as the default for the action object. This
-// way JS won't throw an error when a key or the whole action object is missing.
 export function symbolTrainerReducer(
   state = initialState,
   { type, payload } = {},
@@ -187,52 +177,54 @@ export function symbolTrainerReducer(
   }
 }
 
-// Mounts the reducer including saga middleware.
-export const useSagaReducer = (saga, reducer, initial) => {
+/**
+ * Custom setup function to mount the reducer with an initial state and (saga)
+ * middleware.
+ *
+ * @remarks
+ * - `createReducer` uses `useReducer` under the hood.
+ * - Mounted in `symbol-trainer-redux-page`. 
+ *
+ * @param saga - The root saga containing the sagas you want to chain with the
+ * reducer.
+ * @param reducer - The reducer you want to use.
+ * @param initialState - The initial state for the reducer.
+ * @returns An object with access to the state returned by the reducer and the
+ * dispatch function that dispatches actions to the middleware and the reducer.
+ */
+export const useSagaReducer = (saga, reducer, initialState) => {
   const sagaMiddleware = createSagaMiddleware();
   const middleware = [sagaMiddleware];
 
   const middlewareReducer = createReducer(...middleware);
-  const [state, dispatch] = middlewareReducer(reducer, initial);
+  const [state, dispatch] = middlewareReducer(reducer, initialState);
   sagaMiddleware.run(saga);
 
   return { state, dispatch };
 };
 
-// ==========
-// selectors
-// ==========
+/*
+selectors
+*/
 
-// Selectors are pure functions that access values from the store and
-// localStorage.
-//
-// They always only handle one step of property access at a time, building on
-// top of each others access logic by composing them together. This way, if the
-// data shape changes, you only have to modify the selector corresponding to the
-// changed part and not the whole access chain.
-//
-// Selectors can also calculate secondary values from the values returned by other
-// selectors. This way we can directly access the final values we want to inject
-// into components.
+/*
+selectors: navigation and init related
+*/
 
-// ===== navigation and init related =====
-
-// primary value selectors
 export const selectSection = state => state.section;
 
 export const selectLevelId = state => state.levelId;
 
-// secondary value selectors
 const selectLevel = state => levels[selectLevelId(state) - 1];
 
 export const selectLevelString = state => selectLevel(state)?.string;
 
-// ===== trainer related =====
+/*
+selectors: trainer related
+*/
 
-// primary
 export const selectInputString = state => state.inputString;
 
-// secondary
 export const selectIsWin = state =>
   selectLevelString(state) === selectInputString(state);
 
@@ -245,12 +237,10 @@ export const selectIsFail = state => {
   return false;
 };
 
-// primary
 export const selectStartTime = state => state.startTime;
 
 const selectEndTime = state => state.endTime;
 
-// secondary
 export const selectCurrentWpm = state => {
   const endTime = selectEndTime(state);
   const startTime = selectStartTime(state);
@@ -267,14 +257,11 @@ export const selectCurrentWpm = state => {
   return Math.round(wordsPerString * winTimesPerMinuteRatio);
 };
 
-// primary
 // This is not pure, but behaves consistent enough. With a full Redux
 // setup, you would auto sync localStore to redux store via `redux-persist` so
 // there would be no need to sync manually like this.
-const selectSerializedHighscores = () => localStorage.getItem('highScores');
-
-// secondary
-export const selectHighScores = () => JSON.parse(selectSerializedHighscores());
+export const selectHighScores = () =>
+  JSON.parse(localStorage.getItem('highScores'));
 
 export const selectCurrentLevelHighScore = state =>
   selectHighScores(state)?.[selectLevelId(state)] || 0;
@@ -300,12 +287,12 @@ export const selectTrainerColorClasses = state => {
       : 'text-' + trainerColor + ' caret-' + trainerColor;
 };
 
-// ===== backup related =====
+/*
+selectors: backup related
+*/
 
-// primary
 export const selectBackupDate = state => state.backupDate;
 
-// secondary
 export const selectBackupDifference = (state, now) => {
   const differenceInHours = Math.round(
     (now - new Date(selectBackupDate(state))) / (1000 * 60 * 60),
@@ -313,5 +300,4 @@ export const selectBackupDifference = (state, now) => {
   return differenceInHours;
 };
 
-// primary
 export const selectImportMessage = state => state.importMessage;

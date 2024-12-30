@@ -39,27 +39,10 @@ import {
   userWon,
 } from './reducer';
 
-// The main purpose of Sagas here is to isolate side effects, to make them more
-// testable and to keep the core logic in the reducer and selectors pure.
-//
-// Here the main side effects are:
-// - calling `getTime`, because given the same input, it creates different
-//   outputs
-// - writing TO localStorage, because this is manipulation of an external
-//   variable
-// - reading FROM localStorage, because with `localStorage.getItem()` we are
-//   calling a method on an external object, which is different than plain
-//   property access on the store object
-// - `yield delay()` and the dispatches dependent on it, because time-dependency
-//   can lead to unexpected behaviour
-// - importing a file, because file reading is asynchronous and thereby
-//   time-dependent, importing also includes writing TO an external variable
-// - triggering a download, because this is directly influencing system
-//   behaviour external of the function
+/*
+trainerSection logic
+*/
 
-// =====================
-// trainerSection logic
-// =====================
 function* handleUserTypedInTrainerInput() {
   const inputString = yield select(selectInputString);
   const startTime = yield select(selectStartTime);
@@ -95,10 +78,11 @@ function* watchUserTypedInTrainerInput() {
   );
 }
 
-// ========================================
-// initial data sync FROM localStorage
-// (on first mount of symbol-trainer page)
-// ========================================
+/*
+initial data sync FROM localStorage
+(on first mount of symbol-trainer page)
+*/
+
 function* handleLoadSymbolTrainer() {
   const levelId = Number(localStorage.getItem('levelId'));
   const backupDate = localStorage.getItem('backupDate');
@@ -108,9 +92,10 @@ function* watchLoadSymbolTrainer() {
   yield takeLatest(loadSymbolTrainer().type, handleLoadSymbolTrainer);
 }
 
-// ==============================
-// sync levelId TO local storage
-// ==============================
+/*
+sync levelId TO local storage
+*/
+
 function* handleSyncLevelId() {
   const levelIdFromReducer = yield select(selectLevelId);
   yield call(syncToLocalLevelId, levelIdFromReducer);
@@ -125,9 +110,10 @@ function* watchSyncLevelId() {
   );
 }
 
-// ==================================================
-// download backup & sync backupdate TO localStorage
-// ==================================================
+/*
+download backup & sync backupdate TO localStorage
+*/
+
 function* handleBackupDownload() {
   yield call(downloadHighScoresJSON);
   const backupDateFromReducer = yield select(selectBackupDate);
@@ -138,9 +124,10 @@ function* watchBackupDownload() {
   yield takeEvery(backupDownloadClicked().type, handleBackupDownload);
 }
 
-// ===============================================================
-// importing backup file and setting import success/error message
-// ===============================================================
+/*
+importing backup file and setting import success/error message
+*/
+
 function* handleImportBackup(action) {
   const file = action.payload;
   const importMessage = yield call(importBackup, file);
@@ -153,9 +140,10 @@ function* watchImportBackup() {
   yield takeEvery(importBackupClicked().type, handleImportBackup);
 }
 
-// ==========
-// root saga
-// ==========
+/*
+root saga
+*/
+
 export function* rootSaga() {
   yield all([
     watchLoadSymbolTrainer(),

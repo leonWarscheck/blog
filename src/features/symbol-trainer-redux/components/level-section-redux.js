@@ -46,7 +46,7 @@ export default function LevelSection() {
               >
                 <button
                   // Displays each level button in the "trainer-color" of the highscore reached in that level.
-                  className={`group flex w-full my-2 hover:text-neutral-400 cursor-pointer ${
+                  className={`group my-2 flex w-full cursor-pointer hover:text-neutral-400 ${
                     score >= 60
                       ? 'text-neutral-400'
                       : score >= 50

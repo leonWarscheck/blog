@@ -1,4 +1,7 @@
-// handleUserTypedInTrainerInput saga
+/*
+handleUserTypedInTrainerInput saga
+*/
+
 export const getTime = () => new Date();
 
 export const syncToLocalHighScores = (
@@ -15,7 +18,10 @@ export const syncToLocalHighScores = (
   }
 };
 
-// handleBackupDownload saga
+/*
+handleBackupDownload saga
+*/
+
 export function downloadHighScoresJSON() {
   const scoresJSON = localStorage.getItem('highScores');
 
@@ -47,12 +53,18 @@ export const syncToLocalBackupDate = backupDate => {
   localStorage.setItem('backupDate', backupDate);
 };
 
-// handleSyncLevelId saga
+/*
+handleSyncLevelId saga
+*/
+
 export const syncToLocalLevelId = levelId => {
   localStorage.setItem('levelId', levelId);
 };
 
-// handleImportBackup saga
+/*
+handleImportBackup saga
+*/
+
 export function importBackup(file) {
   // This promise wraps file.text() and subsequent steps (parse, setItem),
   // because they depend on successful file reading by file.text(), which is
