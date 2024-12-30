@@ -32,7 +32,8 @@ clean from complex logic.
 
 ### Initial State + Reducer + Saga Mount
 
-`initialState` sets the default values of your store and defines its data shape.
+**initialState:**`initialState` sets the default values of your store and
+defines its data shape.
 
 **Reducer:** The action handlers in the switch cases return new store objects
 created from the previous store state and new values, usually coming from the
@@ -44,7 +45,7 @@ keys is available, we set an empty object as the default for the action object.
 This way JS won't throw an error when a key or the whole action object is
 missing.
 
-**Saga Mount**
+**Saga Mount:**
 ```js
 /**
  * Custom setup function to mount the reducer with an initial state and (saga)
@@ -129,8 +130,18 @@ main side effects are:
 - `yield delay()` and the dispatches dependent on it, because time-dependency
   can lead to unexpected behaviour
 - importing a file, because file reading is asynchronous and thereby
-  time-dependent, importing also includes writing TO an external variable
+  time-dependent + importing also includes writing TO an external variable
 - triggering a download, because this is directly influencing system behaviour
   external of the function
 
-// ! explain call and helpers
+To isolate the side effects, we wrap all of them into their own helper functions
+(at `helpers-redux`) and then place these into `call` effects in the sagas. 
+
+Saga `call` effects are pure. They don't actually call the side effect
+functions, but they create a description of an effect (eg. of calling a function
+with arguments). `call(function, argument)` is a plain object, a representation
+of what the Saga Middleware should to later when it processes the saga.
+
+This way we can **unit test** the saga generator functions and thereby the logic
+flow within them - safely, without mocking. End-to-End tests, which you can't
+skip either way, then cover the side effects later.
