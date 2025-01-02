@@ -1,11 +1,11 @@
 # Reducer & Saga - Pattern Summary
 
 Descriptions/ explanations of the different elements that are part of the "Redux
-Pattern" used in the symbol-trainer-redux feature.
+Pattern" used in the symbol-trainer feature.
 
 _Note: A full Redux setup would be overkill for this app, so I replicated the
 pattern with `createReducer` (see `useSagaReducer` in `reducer.js`) and
-`createContext` (see `SymbolTrainerContext` in `symbol-trainer-redux-page`)_
+`createContext` (see `SymbolTrainerContext` in `symbol-trainer-page`)_
 
 ---
 
@@ -37,15 +37,15 @@ defines its data shape.
 
 **Reducer:** The action handlers in the switch cases return new store objects
 created from the previous store state and new values, usually coming from the
-payload. 
+payload.
 
-`type` and `payload` get destructured so we can avoid repeatedly
-writing out `action.payload`. To enable destructuring even if only one of the
-keys is available, we set an empty object as the default for the action object.
-This way JS won't throw an error when a key or the whole action object is
-missing.
+`type` and `payload` get destructured so we can avoid repeatedly writing out
+`action.payload`. To enable destructuring even if only one of the keys is
+available, we set an empty object as the default for the action object. This way
+JS won't throw an error when a key or the whole action object is missing.
 
 **Saga Mount:**
+
 ```js
 /**
  * Custom setup function to mount the reducer with an initial state and (saga)
@@ -53,7 +53,7 @@ missing.
  *
  * @remarks
  * - `createReducer` uses `useReducer` under the hood.
- * - Mounted in `symbol-trainer-redux-page`. 
+ * - Mounted in `symbol-trainer-page`.
  *
  * @param saga - The root saga containing the sagas you want to chain with the
  * reducer.
@@ -74,21 +74,19 @@ export const useSagaReducer = (saga, reducer, initialState) => {
 };
 ```
 
-
 ### Selectors
 
 Selectors are pure functions that access values from the store and localStorage
 (in this case provided via `useContext`). They always only handle one step of
 property access at a time, building on top of each others access logic by
-composing them together. 
+composing them together.
 
 This way, if the data shape changes, you only have to modify the selector
-corresponding to the changed step and not the whole access chain. 
+corresponding to the changed step and not the whole access chain.
 
 Selectors can also **calculate** "secondary values" from the values returned by
 other selectors. This way we can directly access the final values we want to
 inject in the components.
-
 
 ```js
 // direct accessing values from the reducer state
@@ -96,7 +94,7 @@ export const selectStartTime = state => state.startTime;
 
 const selectEndTime = state => state.endTime;
 
-// composing "direct accessing" selectors and calculating new values 
+// composing "direct accessing" selectors and calculating new values
 // from them, which don't neccessarily have to be stored in state
 export const selectCurrentWpm = state => {
   const endTime = selectEndTime(state);
@@ -135,7 +133,7 @@ main side effects are:
   external of the function
 
 To isolate the side effects, we wrap all of them into their own helper functions
-(at `helpers-redux`) and then place these into `call` effects in the sagas. 
+(at `helpers`) and then place these into `call` effects in the sagas.
 
 Saga `call` effects are pure. They don't actually call the side effect
 functions, but they create a description of an effect (eg. of calling a function

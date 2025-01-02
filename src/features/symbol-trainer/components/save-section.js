@@ -7,7 +7,7 @@ import {
   selectBackupDifference,
   selectImportMessage,
 } from '../reducer';
-import { SymbolTrainerContext } from '../symbol-trainer-redux-page';
+import { SymbolTrainerContext } from '../symbol-trainer-page';
 
 export default function SaveSection() {
   const { state, dispatch } = useContext(SymbolTrainerContext);

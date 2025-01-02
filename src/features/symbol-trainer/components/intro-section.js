@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 
 import { sectionClicked } from '../reducer';
-import { SymbolTrainerContext } from '../symbol-trainer-redux-page';
-import useRotatingColors from '../use-rotating-colors-redux';
+import { SymbolTrainerContext } from '../symbol-trainer-page';
+import useRotatingColors from '../use-rotating-colors';
 
 export default function IntroSection() {
   const { state, dispatch } = useContext(SymbolTrainerContext);

@@ -1,13 +1,13 @@
 import { useContext, useEffect, useRef } from 'react';
 
-import levels from '../levels-redux.json';
+import levels from '../levels.json';
 import {
   levelClicked,
   sectionClicked,
   selectHighScores,
   selectLevelId,
 } from '../reducer';
-import { SymbolTrainerContext } from '../symbol-trainer-redux-page';
+import { SymbolTrainerContext } from '../symbol-trainer-page';
 
 export default function LevelSection() {
   const { state, dispatch } = useContext(SymbolTrainerContext);

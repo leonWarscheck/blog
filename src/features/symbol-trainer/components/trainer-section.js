@@ -1,7 +1,7 @@
 import { useContext, useRef } from 'react';
 
 import { fontMono } from '../../../styles/fonts/fonts';
-import levels from '../levels-redux.json';
+import levels from '../levels.json';
 import {
   levelChosenByShortcut,
   selectCurrentWpm,
@@ -13,9 +13,9 @@ import {
   selectTrainerColorClasses,
   userTypedInTrainerInput,
 } from '../reducer';
-import { SymbolTrainerContext } from '../symbol-trainer-redux-page';
-import { useCustomInputFocusBehaviour } from '../use-custom-input-focus-behaviour-redux';
-import { useLevelNavigationShortcut } from '../use-level-navigation-shortcut-redux';
+import { SymbolTrainerContext } from '../symbol-trainer-page';
+import { useCustomInputFocusBehaviour } from '../use-custom-input-focus-behaviour';
+import { useLevelNavigationShortcut } from '../use-level-navigation-shortcut';
 
 export default function TrainerSection() {
   const { state, dispatch } = useContext(SymbolTrainerContext);
@@ -48,7 +48,7 @@ export default function TrainerSection() {
         // font is a monospaced font (all characters have the same width), to
         // ensure a mismatching character correctly covers the underlying
         // `levelstring` character. This also makes the typing motion more
-        // consistent. 
+        // consistent.
         >
           <input
             id="trainerInput"

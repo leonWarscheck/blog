@@ -19,7 +19,7 @@ import {
   syncHighScoresToLocalStorage,
   syncLevelIdFromLocalStorage,
   syncLevelIdToLocalStorage,
-} from './helpers-redux';
+} from './helpers';
 
 import {
   backupDownloadClicked,
@@ -62,7 +62,7 @@ function* handleUserTypedInTrainerInput() {
   if (yield select(selectIsWin)) {
     const now = yield call(getTime);
     yield put(typingEndedByWinning(now));
-    console.log('running');
+
     const levelId = yield select(selectLevelId);
     const currentWpm = yield select(selectCurrentWpm);
     const currentLevelHighScore = yield select(selectCurrentLevelHighScore);

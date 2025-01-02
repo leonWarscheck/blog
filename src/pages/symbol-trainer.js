@@ -1,1 +1,1 @@
-export { default } from '../features/symbol-trainer-redux/symbol-trainer-redux-page';
+export { default } from '../features/symbol-trainer/symbol-trainer-page';

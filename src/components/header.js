@@ -8,7 +8,7 @@ export default function Header({}) {
     <header
       className={`fixed flex h-20 w-full items-center bg-neutral-700 ${router.route.startsWith('/posts') && 'text-neutral-200'} ${
         (router.asPath === '/symbol-trainer' ||
-          router.asPath === '/symbol-trainer-redux') &&
+          router.asPath === '/symbol-trainer') &&
         'text-neutral-500'
       } `}
     >

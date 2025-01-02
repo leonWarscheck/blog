@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 /**
- * Enables switching between levels via `cmd + j/k` or `ctrl + down/up` (only when on `trainer-section-redux`). 
+ * Enables switching between levels via `cmd + j/k` or `ctrl + down/up` (only when on `trainer-section`).
  */
 export const useLevelNavigationShortcut = (
   levelId,

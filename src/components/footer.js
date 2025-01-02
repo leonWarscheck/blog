@@ -20,7 +20,7 @@ export default function Footer() {
     <footer
       className={`h-8 bg-neutral-700 text-neutral-300 ${
         (router.asPath === '/symbol-trainer' ||
-          router.asPath === '/symbol-trainer-redux') &&
+          router.asPath === '/symbol-trainer') &&
         'hidden'
       } `}
     >

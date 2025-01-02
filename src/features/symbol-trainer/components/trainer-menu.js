@@ -6,7 +6,7 @@ import {
   selectLevelId,
   selectSection,
 } from '../reducer';
-import { SymbolTrainerContext } from '../symbol-trainer-redux-page';
+import { SymbolTrainerContext } from '../symbol-trainer-page';
 
 export default function MenuTrainer() {
   const { state, dispatch } = useContext(SymbolTrainerContext);

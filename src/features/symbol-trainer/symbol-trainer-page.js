@@ -2,11 +2,11 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { createContext, useEffect } from 'react';
 
-import HelpSection from './components/help-section-redux';
-import IntroSection from './components/intro-section-redux';
-import LevelSection from './components/level-section-redux';
-import ResponsiveNote from './components/responsive-note-redux';
-import SaveSection from './components/save-section-redux';
+import HelpSection from './components/help-section';
+import IntroSection from './components/intro-section';
+import LevelSection from './components/level-section';
+import ResponsiveNote from './components/responsive-note';
+import SaveSection from './components/save-section';
 
 import {
   initialState,
@@ -17,11 +17,11 @@ import {
 } from './reducer';
 import { rootSaga } from './sagas';
 
-const MenuTrainer = dynamic(() => import('./components/trainer-menu-redux'), {
+const MenuTrainer = dynamic(() => import('./components/trainer-menu'), {
   ssr: false,
 });
 const TrainerSection = dynamic(
-  () => import('./components/trainer-section-redux'),
+  () => import('./components/trainer-section'),
   {
     ssr: false,
   },

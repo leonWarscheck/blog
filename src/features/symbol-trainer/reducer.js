@@ -1,7 +1,7 @@
 import { createReducer } from 'react-use';
 import createSagaMiddleware from 'redux-saga';
 
-import levels from './levels-redux.json';
+import levels from './levels.json';
 
 /*
 action creators
@@ -198,7 +198,7 @@ export function symbolTrainerReducer(
  *
  * @remarks
  * - `createReducer` uses `useReducer` under the hood.
- * - Mounted in `symbol-trainer-redux-page`.
+ * - Mounted in `symbol-trainer-page`.
  *
  * @param saga - The root saga containing the sagas you want to chain with the
  * reducer.
@@ -278,7 +278,7 @@ export const selectCurrentLevelHighScore = state =>
   selectHighScores(state)?.[selectLevelId(state)] || 0;
 
 export const selectTrainerColorClasses = state => {
-  console.log("clh",selectHighScores(state))
+  console.log('clh', selectHighScores(state));
   const trainerColor =
     selectCurrentLevelHighScore(state) >= 60
       ? 'neutral-200'
