@@ -1,7 +1,7 @@
 # [LeonWarscheck.com](https://leonwarscheck.com)
 
-> _Explore the repository in a fully functional one-click IDE:
-> https://stackblitz.com/~/github.com/leonWarscheck/blog_
+> *Explore the repository in a fully functional one-click IDE:
+> https://stackblitz.com/~/github.com/leonWarscheck/blog*
 
 Welcome to my blog about webdevelopment.
 
