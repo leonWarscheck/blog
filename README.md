@@ -14,7 +14,6 @@ symbols.
 
 Have fun, and make sure to subscribe for new posts!
 
----
 
 ## SymbolTrainer Core Logic
 
@@ -32,3 +31,17 @@ You can find the core logic and "in-game" state management in:
 ├── sagas.js
 └── symbol-trainer-page.js
 ```
+</br >
+
+## Explore the Codebase
+
+As mentioned above, the most fluent way to explore the codebase is at:
+
+https://stackblitz.com/~/github.com/leonWarscheck/blog
+
+Here you have **an instant, full IDE in your browser**, including:
+
+- `cmd + click` navigation to function definitions etc.
+- TSDoc comments on hovering
+- Type Information on hovering
+- full search functionality
