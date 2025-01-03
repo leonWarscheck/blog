@@ -30,15 +30,15 @@ export const updateHighScoresIfNewHighScore = (
   highScores,
 ) => {
   if (currentWpm > currentLevelHighScore) {
-    const updatedHighScores = {...highScores}
+    const updatedHighScores = { ...highScores };
     updatedHighScores[levelId] = currentWpm;
     return updatedHighScores;
   }
   return '';
 };
 
-export const syncHighScoresToLocalStorage = updatedHighScores => {
-  localStorage.setItem('highScores', JSON.stringify(updatedHighScores));
+export const syncHighScoresToLocalStorage = highScores => {
+  localStorage.setItem('highScores', JSON.stringify(highScores));
 };
 
 /*
@@ -88,31 +88,26 @@ export const syncLevelIdToLocalStorage = levelId => {
 handleImportBackup saga
 */
 
-export function importBackup(file) {
-  // This promise wraps file.text() and subsequent steps (parse, setItem),
-  // because they depend on successful file reading by file.text(), which is
-  // asynchronous. Errors can occur in any of the steps, so we have to handle them
-  // within an outer promise.
-  return new Promise((resolve, reject) => {
-    if (!file) {
-      reject('No file provided.');
-      return;
-    }
+export async function getHighScoresFromImportFile(file) {
+  if (!file) {
+    throw { importMessage: 'No file provided.' };
+  }
 
-    file
-      .text()
-      .then(text => {
-        try {
-          const data = JSON.parse(text);
-          localStorage.setItem('highScores', JSON.stringify(data));
-          resolve('Import Successful.');
-        } catch (error) {
-          console.error('Invalid JSON file', error);
-          reject('Import Error: Invalid JSON file.');
-        }
-      })
-      .catch(() => {
-        reject('Error reading the file.');
-      });
-  });
+  try {
+    // .text() always returns a promise
+    const text = await file.text();
+    const data = JSON.parse(text);
+    return {
+      highScoresFromImportFile: data,
+      importMessage: 'Import Successful.',
+    };
+  } catch (error) {
+    console.error('Error parsing or reading the file', error);
+    throw {
+      importMessage:
+        error instanceof SyntaxError
+          ? 'Import Error: Invalid JSON file.'
+          : 'Error reading the file.',
+    };
+  }
 }

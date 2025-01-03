@@ -11,7 +11,7 @@ import {
 import {
   downloadHighScoresJSON,
   getTime,
-  importBackup,
+  getHighScoresFromImportFile,
   updateHighScoresIfNewHighScore,
   syncBackupDateFromLocalStorage,
   syncBackupDateToLocalStorage,
@@ -44,6 +44,7 @@ import {
   userFailed,
   userTypedInTrainerInput,
   userWon,
+  highScoresImported,
 } from './reducer';
 
 /*
@@ -150,8 +151,17 @@ importing backup file and setting import success/error message
 
 function* handleImportBackup(action) {
   const file = action.payload;
-  const importMessage = yield call(importBackup, file);
+  const { highScoresFromImportFile, importMessage } = yield call(
+    getHighScoresFromImportFile,
+    file,
+  );
+  
   yield put(importStatusMessageRecieved(importMessage));
+  if (highScoresFromImportFile) {
+    yield put(highScoresImported(highScoresFromImportFile));
+    yield call(syncHighScoresToLocalStorage, highScoresFromImportFile);
+  }
+
   yield delay(4000);
   yield put(importStatusMessageRecieved(''));
 }

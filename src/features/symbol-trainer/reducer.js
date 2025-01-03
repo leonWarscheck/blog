@@ -86,6 +86,11 @@ export const importBackupClicked = payload => ({
   payload,
 });
 
+export const highScoresImported = payload => ({
+  type: 'highScoresImported',
+  payload,
+});
+
 // dispatched by saga
 export const importStatusMessageRecieved = payload => ({
   type: 'importStatusMessageRecieved',
@@ -116,6 +121,11 @@ const handleStateSyncFromLocalStorage = (
   levelId: levelId || 1,
   backupDate: backupDate || '',
   highScores: highScores || {},
+});
+
+const changeHighScores = (state, highScores) => ({
+  ...state,
+  highScores: highScores,
 });
 
 /*
@@ -159,7 +169,7 @@ export function symbolTrainerReducer(
     }
 
     case newHighScoreAchieved().type: {
-      return { ...state, highScores: payload };
+      return changeHighScores(state, payload);
     }
 
     case userWon().type: {
@@ -184,6 +194,10 @@ export function symbolTrainerReducer(
 
     case importStatusMessageRecieved().type: {
       return { ...state, importMessage: payload };
+    }
+
+    case highScoresImported().type: {
+      return changeHighScores(state, payload);
     }
 
     default: {
@@ -278,7 +292,6 @@ export const selectCurrentLevelHighScore = state =>
   selectHighScores(state)?.[selectLevelId(state)] || 0;
 
 export const selectTrainerColorClasses = state => {
-  console.log('clh', selectHighScores(state));
   const trainerColor =
     selectCurrentLevelHighScore(state) >= 60
       ? 'neutral-200'
