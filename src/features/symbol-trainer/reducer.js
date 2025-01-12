@@ -274,7 +274,7 @@ export const selectCurrentWpm = state => {
   const endTime = selectEndTime(state);
   
   // prevent Infinity
-  if (!endTime || endTime <= startTime) {
+  if (!endTime) {
     return '';
   }
 

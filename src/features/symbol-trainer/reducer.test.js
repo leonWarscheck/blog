@@ -21,6 +21,10 @@ import {
   userFailed,
   userWon,
   selectCurrentLevelHighScore,
+  stateSyncedFromLocalStorage,
+  selectTrainerColorClasses,
+  selectBackupDate,
+  backupDownloadClicked,
 } from './reducer';
 
 describe('symbolTrainerReducer', () => {
@@ -34,7 +38,7 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: sectionClicked dispatched with a section, should: return the section from the payload', () => {
+    test('given: sectionClicked() with a section, should: return the section', () => {
       const state = symbolTrainerReducer(
         undefined,
         sectionClicked('trainerSection'),
@@ -57,7 +61,7 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: levelClicked dispatched with a level, should: return the level from the payload', () => {
+    test('given: levelClicked() with a level, should: return the level', () => {
       const state = symbolTrainerReducer(undefined, levelClicked(2));
 
       const actual = selectLevelId(state);
@@ -66,7 +70,7 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: levelChosenByShortcut dispatched with a level, should: return the level from the payload', () => {
+    test('given: levelChosenByShortcut() with a level, should: return the level', () => {
       const state = symbolTrainerReducer(undefined, levelChosenByShortcut(2));
 
       const actual = selectLevelId(state);
@@ -86,7 +90,7 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: levelClicked dispatched with a level, should: return levelString of the level', () => {
+    test('given: levelClicked() with a level, should: return levelString of the level', () => {
       const state = symbolTrainerReducer(undefined, levelClicked(2));
 
       const actual = selectLevelString(state);
@@ -95,7 +99,7 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: levelChosenByShortcut dispatched with a level, should: return levelString of the level', () => {
+    test('given: levelChosenByShortcut() with a level, should: return levelString of the level', () => {
       const state = symbolTrainerReducer(undefined, levelChosenByShortcut(2));
 
       const actual = selectLevelString(state);
@@ -115,7 +119,7 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: userTypedInTrainerInput dispatched with a string, should: return the string', () => {
+    test('given: userTypedInTrainerInput() with a string, should: return the string', () => {
       const state = symbolTrainerReducer(
         undefined,
         userTypedInTrainerInput('7'),
@@ -127,25 +131,31 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: userWon dispatched, should: return ""', () => {
-        const actions = [userTypedInTrainerInput("78637"), userWon()]
-        const state = actions.reduce(symbolTrainerReducer, symbolTrainerReducer());
-  
-        const actual = selectInputString(state);
-        const expected = '';
-  
-        expect(actual).toEqual(expected);
-      });
-  
-      test('given: userFailed dispatched, should: return ""', () => {
-        const actions = [userTypedInTrainerInput("8"), userFailed()]
-        const state = actions.reduce(symbolTrainerReducer, symbolTrainerReducer())
-  
-        const actual = selectInputString(state);
-        const expected = '';
-  
-        expect(actual).toEqual(expected);
-      });
+    test('given: userWon(), should: return ""', () => {
+      const actions = [userTypedInTrainerInput('78637'), userWon()];
+      const state = actions.reduce(
+        symbolTrainerReducer,
+        symbolTrainerReducer(),
+      );
+
+      const actual = selectInputString(state);
+      const expected = '';
+
+      expect(actual).toEqual(expected);
+    });
+
+    test('given: userFailed(), should: return ""', () => {
+      const actions = [userTypedInTrainerInput('8'), userFailed()];
+      const state = actions.reduce(
+        symbolTrainerReducer,
+        symbolTrainerReducer(),
+      );
+
+      const actual = selectInputString(state);
+      const expected = '';
+
+      expect(actual).toEqual(expected);
+    });
   });
 
   describe('selectIsWin()', () => {
@@ -158,7 +168,7 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: userTypedInTrainerInput dispatched with the correct string, should: return true ', () => {
+    test('given: userTypedInTrainerInput() with the correct string, should: return true', () => {
       const state = symbolTrainerReducer(
         undefined,
         userTypedInTrainerInput('78637'),
@@ -170,7 +180,7 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: userTypedInTrainerInput dispatched with the wrong string, should: return false ', () => {
+    test('given: userTypedInTrainerInput() with the wrong string, should: return false', () => {
       const state = symbolTrainerReducer(
         undefined,
         userTypedInTrainerInput('w'),
@@ -193,7 +203,7 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: userTypedInTrainerInput dispatched with the correct string, should: return false ', () => {
+    test('given: userTypedInTrainerInput() with the correct string, should: return false', () => {
       const state = symbolTrainerReducer(
         undefined,
         userTypedInTrainerInput('78637'),
@@ -205,7 +215,7 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: userTypedInTrainerInput dispatched with part of the correct string, should: return false ', () => {
+    test('given: userTypedInTrainerInput() with part of the correct string, should: return false', () => {
       const state = symbolTrainerReducer(
         undefined,
         userTypedInTrainerInput('7863'),
@@ -217,7 +227,7 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: userTypedInTrainerInput dispatched with the wrong string, should: return true', () => {
+    test('given: userTypedInTrainerInput() with the wrong string, should: return true', () => {
       const state = symbolTrainerReducer(
         undefined,
         userTypedInTrainerInput('w'),
@@ -240,7 +250,7 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: typingStarted dispatched with timestamp, should: return the timeStamp', () => {
+    test('given: typingStarted() with timestamp, should: return the timeStamp', () => {
       const state = symbolTrainerReducer(undefined, typingStarted('new Date'));
 
       const actual = selectStartTime(state);
@@ -249,8 +259,16 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: userWon dispatched, should: return ""', () => {
-      const state = symbolTrainerReducer(undefined, userWon());
+    test('given: typingStarted(), userTypedInTrainerInput() and userWon(), should: return ""', () => {
+      const actions = [
+        typingStarted(Date.parse('2025-01-11T18:26:07.429Z')),
+        userTypedInTrainerInput('78637'),
+        userWon(),
+      ];
+      const state = actions.reduce(
+        symbolTrainerReducer,
+        symbolTrainerReducer(),
+      );
 
       const actual = selectStartTime(state);
       const expected = '';
@@ -258,8 +276,16 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: userFailed dispatched, should: return ""', () => {
-      const state = symbolTrainerReducer(undefined, userFailed());
+    test('given: typingStarted(), userTypedInTrainerInput() and userFailed(), should: return ""', () => {
+      const actions = [
+        typingStarted(Date.parse('2025-01-11T18:26:07.429Z')),
+        userTypedInTrainerInput('783'),
+        userFailed(),
+      ];
+      const state = actions.reduce(
+        symbolTrainerReducer,
+        symbolTrainerReducer(),
+      );
 
       const actual = selectStartTime(state);
       const expected = '';
@@ -278,7 +304,7 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: typingStarted and typingEnded dispatched with valid dates, should: return a number', () => {
+    test('given: typingStarted() and typingEnded() with valid dates, should: return a number', () => {
       const actions = [
         typingStarted(Date.parse('2025-01-11T18:26:07.429Z')),
         typingEndedByWinning(Date.parse('2025-01-11T18:26:09.529Z')),
@@ -295,9 +321,9 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    // we don't test "only typingEnded dispatched", because this cannot & should
+    // we don't test "only typingEnded", because this cannot & should
     // not happen if saga is setup correctly
-    test('given: typingStarted but NOT typingEnded dispatched, should: return ""', () => {
+    test('given: typingStarted() but NOT typingEnded(), should: return ""', () => {
       const state = symbolTrainerReducer(
         undefined,
         typingStarted(Date.parse('2025-01-11T18:26:07.429Z')),
@@ -320,7 +346,7 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: highScoresImported() dispatched, should: return the payload highScores object', () => {
+    test('given: highScoresImported() with highScores object, should: return the highScores object', () => {
       const state = symbolTrainerReducer(
         undefined,
         highScoresImported({ 1: 1 }),
@@ -332,7 +358,7 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: newHighScoreAchieved() dispatched, should: return the payload highScores object', () => {
+    test('given: newHighScoreAchieved() with highScores object, should: return the highScores object', () => {
       const state = symbolTrainerReducer(
         undefined,
         newHighScoreAchieved({ 1: 1 }),
@@ -345,34 +371,196 @@ describe('symbolTrainerReducer', () => {
     });
   });
 
-  describe('selectCurrentLevelHighScore()', ()=>{
-    test('given: initial state, should: return 0', ()=>{
-        const state= symbolTrainerReducer();
+  describe('selectCurrentLevelHighScore()', () => {
+    test('given: initial state, should: return 0', () => {
+      const state = symbolTrainerReducer();
 
-        const actual = selectCurrentLevelHighScore(state);
-        const expected = 0;
+      const actual = selectCurrentLevelHighScore(state);
+      const expected = 0;
 
-        expect(actual).toEqual(expected);
-    })
+      expect(actual).toEqual(expected);
+    });
 
-    test('given: highScoresImported and levelClicked dispatched, should: return the corresponding score of level', ()=>{
-        const actions = [highScoresImported({1:3, 2:4}), levelClicked(2)];
-        const state = actions.reduce(symbolTrainerReducer, symbolTrainerReducer());
+    test('given: only levelClicked(), should: return 0', () => {
+      const actions = [levelClicked(2)];
+      const state = actions.reduce(
+        symbolTrainerReducer,
+        symbolTrainerReducer(),
+      );
 
-        const actual = selectCurrentLevelHighScore(state);
-        const expected = 4;
+      const actual = selectCurrentLevelHighScore(state);
+      const expected = 0;
 
-        expect(actual).toEqual(expected);
-    })
+      expect(actual).toEqual(expected);
+    });
 
-    test('given: only levelClicked dispatched, should: return 0', ()=>{
-        const actions = [levelClicked(2)];
-        const state = actions.reduce(symbolTrainerReducer, symbolTrainerReducer());
+    test('given: highScoresImported() and levelClicked(), should: return the corresponding score of level', () => {
+      const actions = [highScoresImported({ 1: 3, 2: 4 }), levelClicked(2)];
+      const state = actions.reduce(
+        symbolTrainerReducer,
+        symbolTrainerReducer(),
+      );
 
-        const actual = selectCurrentLevelHighScore(state);
-        const expected = 0;
+      const actual = selectCurrentLevelHighScore(state);
+      const expected = 4;
 
-        expect(actual).toEqual(expected);
-    })
-  })
+      expect(actual).toEqual(expected);
+    });
+
+    test('given: levelClicked() and newHighScoreAchieved(), should: return the new high score', () => {
+      const actions = [levelClicked(2), newHighScoreAchieved({ 2: 10 })];
+      const state = actions.reduce(
+        symbolTrainerReducer,
+        symbolTrainerReducer(),
+      );
+
+      const actual = selectCurrentLevelHighScore(state);
+      const expected = 10;
+
+      expect(actual).toEqual(expected);
+    });
+
+    test('given: highScoresImported() and levelChosenByShortcut(), should: return the corresponding score of level', () => {
+      const actions = [
+        highScoresImported({ 1: 3, 2: 4 }),
+        levelChosenByShortcut(2),
+      ];
+      const state = actions.reduce(
+        symbolTrainerReducer,
+        symbolTrainerReducer(),
+      );
+
+      const actual = selectCurrentLevelHighScore(state);
+      const expected = 4;
+
+      expect(actual).toEqual(expected);
+    });
+
+    test('given: levelChosenByShortcut() and newHighScoreAchieved(), should: return the new high score', () => {
+      const actions = [
+        levelChosenByShortcut(2),
+        newHighScoreAchieved({ 2: 10 }),
+      ];
+      const state = actions.reduce(
+        symbolTrainerReducer,
+        symbolTrainerReducer(),
+      );
+
+      const actual = selectCurrentLevelHighScore(state);
+      const expected = 10;
+
+      expect(actual).toEqual(expected);
+    });
+
+    test('given: stateSyncedFromLocalStorage() with highScores, should: return the corresponding score', () => {
+      const state = symbolTrainerReducer(
+        undefined,
+        stateSyncedFromLocalStorage({
+          levelId: 2,
+          highScores: { 1: 3, 2: 4 },
+        }),
+      );
+
+      const actual = selectCurrentLevelHighScore(state);
+      const expected = 4;
+
+      expect(actual).toEqual(expected);
+    });
+  });
+
+  describe('selectTrainerColorClasses()', () => {
+    test('given: the initial state, should: return "text-neutral-200 caret-neutral-200"', () => {
+      const state = symbolTrainerReducer();
+
+      const actual = selectTrainerColorClasses(state);
+      const expected = 'text-neutral-200 caret-neutral-200';
+
+      expect(actual).toEqual(expected);
+    });
+
+    // on win
+    test('given: userTypedInTrainerInput() with the correct string and newHighScoreAchieved(), should: return "text-emerald-la"', () => {
+      const actions = [
+        userTypedInTrainerInput('78637'),
+        newHighScoreAchieved({ 1: 50 }),
+      ];
+      const state = actions.reduce(
+        symbolTrainerReducer,
+        symbolTrainerReducer(),
+      );
+
+      const actual = selectTrainerColorClasses(state);
+      const expected = 'text-emerald-la';
+
+      expect(actual).toEqual(expected);
+    });
+
+    // while typing at some point after a new high score above 50 was achieved
+    test('given: userTypedInTrainerInput() with part of the correct string after newHighScoreAchieved(), should: return "text-emerald-la caret-emerald-la"', () => {
+      const actions = [
+        newHighScoreAchieved({ 1: 50 }),
+        userTypedInTrainerInput('7863'),
+      ];
+      const state = actions.reduce(
+        symbolTrainerReducer,
+        symbolTrainerReducer(),
+      );
+
+      const actual = selectTrainerColorClasses(state);
+      const expected = 'text-emerald-la caret-emerald-la';
+
+      expect(actual).toEqual(expected);
+    });
+
+    // on fail through typing a wrong character
+    test('given: userTypedInTrainerInput() with at least one wrong character, should: return "text-neutral-400"', () => {
+      const state = symbolTrainerReducer(
+        undefined,
+        userTypedInTrainerInput('786f'),
+      );
+
+      const actual = selectTrainerColorClasses(state);
+      const expected = 'text-neutral-400';
+
+      expect(actual).toEqual(expected);
+    });
+  });
+
+
+  describe('selectBackupDate()', () => {
+    test('given: the initial state, should: return ""', () => {
+      const state = symbolTrainerReducer();
+
+      const actual = selectBackupDate(state);
+      const expected = '';
+
+      expect(actual).toEqual(expected);
+    });
+
+    test('given: backupDownloadClicked() with a date, should: return the date', () => {
+      const state = symbolTrainerReducer(
+        undefined,
+        backupDownloadClicked(Date.parse('2025-01-11T18:26:07.429Z')),
+      );
+
+      const actual = selectBackupDate(state);
+      const expected = Date.parse('2025-01-11T18:26:07.429Z');
+
+      expect(actual).toEqual(expected);
+    });
+
+    test('given: stateSyncedFromLocalStorage() with a backupDate, should: return the backupDate', () => {
+      const state = symbolTrainerReducer(
+        undefined,
+        stateSyncedFromLocalStorage({
+          backupDate: Date.parse('2025-01-11T18:26:07.429Z'),
+        }),
+      );
+
+      const actual = selectBackupDate(state);
+      const expected = Date.parse('2025-01-11T18:26:07.429Z');
+
+      expect(actual).toEqual(expected);
+    });
+  });
 });
