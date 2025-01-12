@@ -16,7 +16,7 @@ import {
 import { SymbolTrainerContext } from '../symbol-trainer-page';
 import { useCustomInputFocusBehaviour } from '../use-custom-input-focus-behaviour';
 import { useLevelNavigationShortcut } from '../use-level-navigation-shortcut';
-
+// ! e2e all react components
 export default function TrainerSection() {
   const { state, dispatch } = useContext(SymbolTrainerContext);
   const inputRef = useRef(null);

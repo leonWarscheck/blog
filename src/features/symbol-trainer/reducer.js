@@ -57,7 +57,6 @@ export const userFailed = () => ({ type: 'userFailed' });
 /*
 action creators: loading and init related 
 */
-
 // dispatched by useEffect on initial symbol-trainer page load
 export const loadSymbolTrainer = () => ({ type: 'loadSymbolTrainer' });
 
@@ -271,12 +270,12 @@ export const selectStartTime = state => state.startTime;
 const selectEndTime = state => state.endTime;
 
 export const selectCurrentWpm = state => {
-  const endTime = selectEndTime(state);
   const startTime = selectStartTime(state);
-
+  const endTime = selectEndTime(state);
+  
   // prevent Infinity
   if (!endTime || endTime <= startTime) {
-    return '00';
+    return '';
   }
 
   const winTime = endTime - startTime;

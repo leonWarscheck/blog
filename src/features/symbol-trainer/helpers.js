@@ -3,18 +3,15 @@ handleLoadSymbolTrainer
 */
 
 export const syncLevelIdFromLocalStorage = () => {
-  const levelId = Number(localStorage.getItem('levelId'));
-  return levelId;
+  return Number(localStorage.getItem('levelId'));
 };
 
 export const syncBackupDateFromLocalStorage = () => {
-  const backupDate = localStorage.getItem('backupDate');
-  return backupDate;
+  return localStorage.getItem('backupDate');
 };
 
 export const syncHighScoresFromLocalStorage = () => {
-  const highScores = JSON.parse(localStorage.getItem('highScores'));
-  return highScores;
+  return JSON.parse(localStorage.getItem('highScores'));
 };
 
 /*
@@ -103,6 +100,7 @@ export async function getHighScoresFromImportFile(file) {
     };
   } catch (error) {
     console.error('Error parsing or reading the file', error);
+
     throw {
       importMessage:
         error instanceof SyntaxError
