@@ -364,5 +364,15 @@ describe('symbolTrainerReducer', () => {
 
         expect(actual).toEqual(expected);
     })
+
+    test('given: only levelClicked dispatched, should: return 0', ()=>{
+        const actions = [levelClicked(2)];
+        const state = actions.reduce(symbolTrainerReducer, symbolTrainerReducer());
+
+        const actual = selectCurrentLevelHighScore(state);
+        const expected = 0;
+
+        expect(actual).toEqual(expected);
+    })
   })
 });
