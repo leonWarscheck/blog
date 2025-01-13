@@ -25,6 +25,10 @@ import {
   selectTrainerColorClasses,
   selectBackupDate,
   backupDownloadClicked,
+  selectBackupDifference,
+  selectFormattedBackupDate,
+  selectImportMessage,
+  importStatusMessageRecieved,
 } from './reducer';
 
 describe('symbolTrainerReducer', () => {
@@ -72,6 +76,20 @@ describe('symbolTrainerReducer', () => {
 
     test('given: levelChosenByShortcut() with a level, should: return the level', () => {
       const state = symbolTrainerReducer(undefined, levelChosenByShortcut(2));
+
+      const actual = selectLevelId(state);
+      const expected = 2;
+
+      expect(actual).toEqual(expected);
+    });
+
+    test('given: stateSyncedFromLocalStorage() with a levelId, should: return the levelId', () => {
+      const state = symbolTrainerReducer(
+        undefined,
+        stateSyncedFromLocalStorage({
+          levelId: 2,
+        }),
+      );
 
       const actual = selectLevelId(state);
       const expected = 2;
@@ -131,7 +149,7 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: userWon(), should: return ""', () => {
+    test('given: userTypedInTrainerInput() and userWon(), should: return ""', () => {
       const actions = [userTypedInTrainerInput('78637'), userWon()];
       const state = actions.reduce(
         symbolTrainerReducer,
@@ -144,7 +162,7 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: userFailed(), should: return ""', () => {
+    test('given: userTypedInTrainerInput() and userFailed(), should: return ""', () => {
       const actions = [userTypedInTrainerInput('8'), userFailed()];
       const state = actions.reduce(
         symbolTrainerReducer,
@@ -304,7 +322,7 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: typingStarted() and typingEnded() with valid dates, should: return a number', () => {
+    test('given: typingStarted() and typingEnded() with valid dates, should: return a wpm score', () => {
       const actions = [
         typingStarted(Date.parse('2025-01-11T18:26:07.429Z')),
         typingEndedByWinning(Date.parse('2025-01-11T18:26:09.529Z')),
@@ -327,6 +345,41 @@ describe('symbolTrainerReducer', () => {
       const state = symbolTrainerReducer(
         undefined,
         typingStarted(Date.parse('2025-01-11T18:26:07.429Z')),
+      );
+
+      const actual = selectCurrentWpm(state);
+      const expected = '';
+
+      expect(actual).toEqual(expected);
+    });
+
+    //! needed?
+    test('given: typingStarted(), userTypedInTrainerInput(), and userWon(), should: return ""', () => {
+      const actions = [
+        typingStarted(Date.parse('2025-01-11T18:26:07.429Z')),
+        userTypedInTrainerInput('78637'),
+        userWon(),
+      ];
+      const state = actions.reduce(
+        symbolTrainerReducer,
+        symbolTrainerReducer(),
+      );
+
+      const actual = selectCurrentWpm(state);
+      const expected = '';
+
+      expect(actual).toEqual(expected);
+    });
+
+    test('given: typingStarted(), userTypedInTrainerInput(), and userFailed(), should: return ""', () => {
+      const actions = [
+        typingStarted(Date.parse('2025-01-11T18:26:07.429Z')),
+        userTypedInTrainerInput('783'),
+        userFailed(),
+      ];
+      const state = actions.reduce(
+        symbolTrainerReducer,
+        symbolTrainerReducer(),
       );
 
       const actual = selectCurrentWpm(state);
@@ -452,7 +505,7 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: stateSyncedFromLocalStorage() with highScores, should: return the corresponding score', () => {
+    test('given: stateSyncedFromLocalStorage() with highScores and levelId, should: return the corresponding score', () => {
       const state = symbolTrainerReducer(
         undefined,
         stateSyncedFromLocalStorage({
@@ -526,41 +579,109 @@ describe('symbolTrainerReducer', () => {
     });
   });
 
+  describe('selectFormattedBackupDate()', () => {
+    test('given: the initial state, should: return "never"', () => {
+      const state = symbolTrainerReducer();
 
-  describe('selectBackupDate()', () => {
+      const actual = selectFormattedBackupDate(state);
+      const expected = 'never';
+
+      expect(actual).toEqual(expected);
+    });
+
+    test('given: backupDownloadClicked() with a date, should: return the formatted date', () => {
+      const state = symbolTrainerReducer(
+        undefined,
+        backupDownloadClicked('2025-01-11T18:26:07.429Z'),
+      );
+
+      const actual = selectFormattedBackupDate(state);
+      const expected = '2025-01-11';
+
+      expect(actual).toEqual(expected);
+    });
+
+    test('given: stateSyncedFromLocalStorage() with a backupDate, should: return the formatted date', () => {
+      const state = symbolTrainerReducer(
+        undefined,
+        stateSyncedFromLocalStorage({
+          backupDate: '2025-01-11T18:26:07.429Z',
+        }),
+      );
+
+      const actual = selectFormattedBackupDate(state);
+      const expected = '2025-01-11';
+
+      expect(actual).toEqual(expected);
+    });
+  });
+
+  describe('selectBackupDifference()', () => {
+    test('given: the initial state, should: return 0', () => {
+      const state = symbolTrainerReducer();
+
+      const actual = selectBackupDifference(
+        state,
+        Date.parse('2025-01-11T18:26:07.429Z'),
+      );
+      const expected = 0;
+
+      expect(actual).toEqual(expected);
+    });
+
+    test('given: backupDownloadClicked() with a date, should: return the difference in hours', () => {
+      const state = symbolTrainerReducer(
+        undefined,
+        backupDownloadClicked('2025-01-11T17:26:07.429Z'),
+      );
+
+      const actual = selectBackupDifference(
+        state,
+        Date.parse('2025-01-11T18:26:07.429Z'),
+      );
+      const expected = 1;
+
+      expect(actual).toEqual(expected);
+    });
+
+    test('given: stateSyncedFromLocalStorage() with a backupDate, should: return the difference in hours', () => {
+      const state = symbolTrainerReducer(
+        undefined,
+        stateSyncedFromLocalStorage({
+          backupDate: '2025-01-11T16:26:07.429Z',
+        }),
+      );
+
+      const actual = selectBackupDifference(
+        state,
+        Date.parse('2025-01-11T18:26:07.429Z'),
+      );
+      const expected = 2;
+
+      expect(actual).toEqual(expected);
+    });
+  });
+
+  describe('selectImportMessage()', () => {
     test('given: the initial state, should: return ""', () => {
       const state = symbolTrainerReducer();
 
-      const actual = selectBackupDate(state);
+      const actual = selectImportMessage(state);
       const expected = '';
 
       expect(actual).toEqual(expected);
     });
+  });
 
-    test('given: backupDownloadClicked() with a date, should: return the date', () => {
-      const state = symbolTrainerReducer(
-        undefined,
-        backupDownloadClicked(Date.parse('2025-01-11T18:26:07.429Z')),
-      );
+  test('given: importMessageRecieved() with a message, should: return the message', () => {
+    const state = symbolTrainerReducer(
+      undefined,
+      importStatusMessageRecieved('Import Successful.'),
+    );
 
-      const actual = selectBackupDate(state);
-      const expected = Date.parse('2025-01-11T18:26:07.429Z');
+    const actual = selectImportMessage(state);
+    const expected = 'Import Successful.';
 
-      expect(actual).toEqual(expected);
-    });
-
-    test('given: stateSyncedFromLocalStorage() with a backupDate, should: return the backupDate', () => {
-      const state = symbolTrainerReducer(
-        undefined,
-        stateSyncedFromLocalStorage({
-          backupDate: Date.parse('2025-01-11T18:26:07.429Z'),
-        }),
-      );
-
-      const actual = selectBackupDate(state);
-      const expected = Date.parse('2025-01-11T18:26:07.429Z');
-
-      expect(actual).toEqual(expected);
-    });
+    expect(actual).toEqual(expected);
   });
 });

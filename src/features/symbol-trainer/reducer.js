@@ -117,9 +117,9 @@ const handleStateSyncFromLocalStorage = (
   { levelId, backupDate, highScores },
 ) => ({
   ...state,
-  levelId: levelId || 1,
-  backupDate: backupDate || '',
-  highScores: highScores || {},
+  ...(levelId && { levelId }),
+  ...(backupDate && { backupDate }),
+  ...(highScores && { highScores }),
 });
 
 const changeHighScores = (state, highScores) => ({
@@ -272,7 +272,7 @@ const selectEndTime = state => state.endTime;
 export const selectCurrentWpm = state => {
   const startTime = selectStartTime(state);
   const endTime = selectEndTime(state);
-  
+
   // prevent Infinity
   if (!endTime) {
     return '';
@@ -315,11 +315,20 @@ export const selectTrainerColorClasses = state => {
 selectors: backup related
 */
 
-export const selectBackupDate = state => state.backupDate;
+const selectBackupDate = state => state.backupDate;
+
+export const selectFormattedBackupDate = state => {
+  const backupDate = selectBackupDate(state);
+  if (!backupDate) return 'never';
+  return new Date(backupDate).toISOString().slice(0, 10);
+};
 
 export const selectBackupDifference = (state, now) => {
+  const backupDate = selectBackupDate(state);
+  if (!backupDate) return 0;
+
   const differenceInHours = Math.round(
-    (now - new Date(selectBackupDate(state))) / (1000 * 60 * 60),
+    (now - new Date(backupDate)) / (1000 * 60 * 60),
   );
   return differenceInHours;
 };
