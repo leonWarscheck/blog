@@ -315,7 +315,7 @@ export const selectTrainerColorClasses = state => {
 selectors: backup related
 */
 
-const selectBackupDate = state => state.backupDate;
+export const selectBackupDate = state => state.backupDate;
 
 export const selectFormattedBackupDate = state => {
   const backupDate = selectBackupDate(state);

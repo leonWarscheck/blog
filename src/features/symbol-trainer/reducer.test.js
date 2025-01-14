@@ -579,6 +579,43 @@ describe('symbolTrainerReducer', () => {
     });
   });
 
+  describe('selectBackupDate()', () => {
+    test('given: the initial state, should: return undefined', () => {
+      const state = symbolTrainerReducer();
+
+      const actual = selectBackupDate(state);
+      const expected = '';
+
+      expect(actual).toEqual(expected);
+    });
+
+    test('given: backupDownloadClicked() with a date, should: return the date', () => {
+      const state = symbolTrainerReducer(
+        undefined,
+        backupDownloadClicked('2025-01-11T18:26:07.429Z'),
+      );
+
+      const actual = selectBackupDate(state);
+      const expected = '2025-01-11T18:26:07.429Z';
+
+      expect(actual).toEqual(expected);
+    });
+
+    test('given: stateSyncedFromLocalStorage() with a backupDate, should: return the date', () => {
+      const state = symbolTrainerReducer(
+        undefined,
+        stateSyncedFromLocalStorage({
+          backupDate: '2025-01-11T18:26:07.429Z',
+        }),
+      );
+
+      const actual = selectBackupDate(state);
+      const expected = '2025-01-11T18:26:07.429Z';
+
+      expect(actual).toEqual(expected);
+    });
+  });
+
   describe('selectFormattedBackupDate()', () => {
     test('given: the initial state, should: return "never"', () => {
       const state = symbolTrainerReducer();

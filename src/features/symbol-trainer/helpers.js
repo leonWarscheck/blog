@@ -1,17 +1,14 @@
+import { levelClicked, levelChosenByShortcut } from './reducer';
+
 /*
 handleLoadSymbolTrainer
 */
-
-export const syncLevelIdFromLocalStorage = () => {
-  return Number(localStorage.getItem('levelId'));
-};
-
-export const syncBackupDateFromLocalStorage = () => {
-  return localStorage.getItem('backupDate');
-};
-
-export const syncHighScoresFromLocalStorage = () => {
-  return JSON.parse(localStorage.getItem('highScores'));
+export const syncFromLocalStorage = () => {
+  return {
+    levelId: Number(localStorage.getItem('levelId')),
+    backupDate: localStorage.getItem('backupDate'),
+    highScores: JSON.parse(localStorage.getItem('highScores')),
+  };
 };
 
 /*
@@ -82,6 +79,14 @@ export const syncLevelIdToLocalStorage = levelId => {
 };
 
 /*
+watchSyncLevelId saga
+*/
+
+export const checkLevelChangeActions = action =>
+  action.type === levelClicked().type ||
+  action.type === levelChosenByShortcut().type;
+
+/*
 handleImportBackup saga
 */
 
@@ -109,3 +114,4 @@ export async function getHighScoresFromImportFile(file) {
     };
   }
 }
+

@@ -13,12 +13,11 @@ import {
   getTime,
   getHighScoresFromImportFile,
   updateHighScoresIfNewHighScore,
-  syncBackupDateFromLocalStorage,
   syncBackupDateToLocalStorage,
-  syncHighScoresFromLocalStorage,
   syncHighScoresToLocalStorage,
-  syncLevelIdFromLocalStorage,
   syncLevelIdToLocalStorage,
+  syncFromLocalStorage,
+  checkLevelChangeActions,
 } from './helpers';
 
 import {
@@ -105,9 +104,7 @@ initial data sync FROM localStorage
 */
 
 export function* handleLoadSymbolTrainer() {
-  const levelId = yield call(syncLevelIdFromLocalStorage);
-  const backupDate = yield call(syncBackupDateFromLocalStorage);
-  const highScores = yield call(syncHighScoresFromLocalStorage);
+  const { levelId, backupDate, highScores } = yield call(syncFromLocalStorage);
   yield put(stateSyncedFromLocalStorage({ levelId, backupDate, highScores }));
 }
 export function* watchLoadSymbolTrainer() {
@@ -124,12 +121,7 @@ export function* handleSyncLevelId() {
 }
 
 export function* watchSyncLevelId() {
-  yield takeEvery(
-    action =>
-      action.type === levelClicked().type ||
-      action.type === levelChosenByShortcut().type,
-    handleSyncLevelId,
-  );
+  yield takeEvery(checkLevelChangeActions, handleSyncLevelId);
 }
 
 /*

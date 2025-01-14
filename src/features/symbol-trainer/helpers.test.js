@@ -2,7 +2,9 @@ import { describe, expect, test } from 'vitest';
 import {
   updateHighScoresIfNewHighScore,
   getHighScoresFromImportFile,
+  checkLevelChangeActions,
 } from './helpers';
+import { levelChosenByShortcut, levelClicked } from './reducer';
 
 describe('updateHighScoresIfNewHighScore()', () => {
   const levelId = 1;
@@ -47,6 +49,26 @@ describe('updateHighScoresIfNewHighScore()', () => {
       highScores,
     );
     const expected = '';
+
+    expect(actual).toEqual(expected);
+  });
+});
+
+describe('checkLevelChangeActions()', () => {
+  test('given: levelClicked() action, should: return true', () => {
+    const action = levelClicked();
+
+    const actual = checkLevelChangeActions(action);
+    const expected = true;
+
+    expect(actual).toEqual(expected);
+  });
+
+  test('given: levelChosenByShortcut() action, should: return true', () => {
+    const action = levelChosenByShortcut();
+
+    const actual = checkLevelChangeActions(action);
+    const expected = true;
 
     expect(actual).toEqual(expected);
   });
