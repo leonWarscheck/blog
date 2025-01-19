@@ -33,6 +33,7 @@ You can find the core logic and "in-game" state management in:
 ├── sagas.js
 └── symbol-trainer-page.js
 ```
+The related testfiles are co-located, aswell as in `/end-to-end`.
 </br >
 
 ## Explore the Codebase
