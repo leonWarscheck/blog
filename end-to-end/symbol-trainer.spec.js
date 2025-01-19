@@ -145,6 +145,19 @@ test.describe('symbol-trainer desktop', () => {
   }) => {
     await page.goto('/symbol-trainer');
 
+    /*
+    Download Backup
+    */
+
+    // Helper function to create download path
+    const createDownloadPath = download => {
+      return path.join(
+        __dirname,
+        'downloads',
+        `${download.suggestedFilename()}`,
+      );
+    };
+
     // Set highscores in localStorage
     const highScores = JSON.stringify({
       1: 55,
@@ -184,6 +197,10 @@ test.describe('symbol-trainer desktop', () => {
       console.error('Download failed:', error);
       throw error;
     }
+
+    /*
+    Import Backup
+    */
 
     // Click the label to open the file chooser
     await page.click('label[for="file-upload"]');
@@ -260,6 +277,7 @@ test.describe('symbol-trainer mobile', () => {
 
     // Title
     await expect(page).toHaveTitle(/SymbolTrainer/);
+
     // Header links
     await expect(
       page.getByRole('link', { name: /LeonWarscheck/i }),
@@ -274,8 +292,3 @@ test.describe('symbol-trainer mobile', () => {
     );
   });
 });
-
-// Helper function to create download path
-const createDownloadPath = download => {
-  return path.join(__dirname, 'downloads', `${download.suggestedFilename()}`);
-};
