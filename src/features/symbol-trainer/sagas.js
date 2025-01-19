@@ -13,12 +13,11 @@ import {
   getTime,
   getHighScoresFromImportFile,
   updateHighScoresIfNewHighScore,
-  syncBackupDateFromLocalStorage,
   syncBackupDateToLocalStorage,
-  syncHighScoresFromLocalStorage,
   syncHighScoresToLocalStorage,
-  syncLevelIdFromLocalStorage,
   syncLevelIdToLocalStorage,
+  syncFromLocalStorage,
+  checkLevelChangeActions,
 } from './helpers';
 
 import {
@@ -26,8 +25,6 @@ import {
   importBackupClicked,
   importStatusMessageRecieved,
   stateSyncedFromLocalStorage,
-  levelChosenByShortcut,
-  levelClicked,
   newHighScoreAchieved,
   loadSymbolTrainer,
   selectBackupDate,
@@ -51,7 +48,13 @@ import {
 trainerSection logic
 */
 
-function* handleUserTypedInTrainerInput() {
+export function* handleUserTypedInTrainerInput() {
+  if (yield select(selectIsFail)) {
+    yield delay(1000);
+    yield put(userFailed());
+    return;
+  }
+
   const inputString = yield select(selectInputString);
   const startTime = yield select(selectStartTime);
 
@@ -84,14 +87,9 @@ function* handleUserTypedInTrainerInput() {
     yield delay(2000);
     yield put(userWon());
   }
-
-  if (yield select(selectIsFail)) {
-    yield delay(1000);
-    yield put(userFailed());
-  }
 }
 
-function* watchUserTypedInTrainerInput() {
+export function* watchUserTypedInTrainerInput() {
   yield takeEvery(
     userTypedInTrainerInput().type,
     handleUserTypedInTrainerInput,
@@ -103,13 +101,11 @@ initial data sync FROM localStorage
 (on first mount of symbol-trainer page)
 */
 
-function* handleLoadSymbolTrainer() {
-  const levelId = yield call(syncLevelIdFromLocalStorage);
-  const backupDate = yield call(syncBackupDateFromLocalStorage);
-  const highScores = yield call(syncHighScoresFromLocalStorage);
+export function* handleLoadSymbolTrainer() {
+  const { levelId, backupDate, highScores } = yield call(syncFromLocalStorage);
   yield put(stateSyncedFromLocalStorage({ levelId, backupDate, highScores }));
 }
-function* watchLoadSymbolTrainer() {
+export function* watchLoadSymbolTrainer() {
   yield takeLatest(loadSymbolTrainer().type, handleLoadSymbolTrainer);
 }
 
@@ -117,31 +113,26 @@ function* watchLoadSymbolTrainer() {
 sync levelId TO local storage
 */
 
-function* handleSyncLevelId() {
+export function* handleSyncLevelId() {
   const levelIdFromReducer = yield select(selectLevelId);
   yield call(syncLevelIdToLocalStorage, levelIdFromReducer);
 }
 
-function* watchSyncLevelId() {
-  yield takeEvery(
-    action =>
-      action.type === levelClicked().type ||
-      action.type === levelChosenByShortcut().type,
-    handleSyncLevelId,
-  );
+export function* watchSyncLevelId() {
+  yield takeEvery(checkLevelChangeActions, handleSyncLevelId);
 }
 
 /*
 download backup & sync backupdate TO localStorage
 */
 
-function* handleBackupDownload() {
+export function* handleBackupDownload() {
   yield call(downloadHighScoresJSON);
   const backupDateFromReducer = yield select(selectBackupDate);
   yield call(syncBackupDateToLocalStorage, backupDateFromReducer);
 }
 
-function* watchBackupDownload() {
+export function* watchBackupDownload() {
   yield takeEvery(backupDownloadClicked().type, handleBackupDownload);
 }
 
@@ -149,13 +140,13 @@ function* watchBackupDownload() {
 importing backup file and setting import success/error message
 */
 
-function* handleImportBackup(action) {
+export function* handleImportBackup(action) {
   const file = action.payload;
   const { highScoresFromImportFile, importMessage } = yield call(
     getHighScoresFromImportFile,
     file,
   );
-  
+
   yield put(importStatusMessageRecieved(importMessage));
   if (highScoresFromImportFile) {
     yield put(highScoresImported(highScoresFromImportFile));
@@ -166,7 +157,7 @@ function* handleImportBackup(action) {
   yield put(importStatusMessageRecieved(''));
 }
 
-function* watchImportBackup() {
+export function* watchImportBackup() {
   yield takeEvery(importBackupClicked().type, handleImportBackup);
 }
 

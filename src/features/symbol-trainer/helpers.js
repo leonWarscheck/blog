@@ -1,20 +1,14 @@
+import { levelClicked, levelChosenByShortcut } from './reducer';
+
 /*
 handleLoadSymbolTrainer
 */
-
-export const syncLevelIdFromLocalStorage = () => {
-  const levelId = Number(localStorage.getItem('levelId'));
-  return levelId;
-};
-
-export const syncBackupDateFromLocalStorage = () => {
-  const backupDate = localStorage.getItem('backupDate');
-  return backupDate;
-};
-
-export const syncHighScoresFromLocalStorage = () => {
-  const highScores = JSON.parse(localStorage.getItem('highScores'));
-  return highScores;
+export const syncFromLocalStorage = () => {
+  return {
+    levelId: Number(localStorage.getItem('levelId')),
+    backupDate: localStorage.getItem('backupDate'),
+    highScores: JSON.parse(localStorage.getItem('highScores')),
+  };
 };
 
 /*
@@ -85,6 +79,14 @@ export const syncLevelIdToLocalStorage = levelId => {
 };
 
 /*
+watchSyncLevelId saga
+*/
+
+export const checkLevelChangeActions = action =>
+  action.type === levelClicked().type ||
+  action.type === levelChosenByShortcut().type;
+
+/*
 handleImportBackup saga
 */
 
@@ -103,6 +105,7 @@ export async function getHighScoresFromImportFile(file) {
     };
   } catch (error) {
     console.error('Error parsing or reading the file', error);
+
     throw {
       importMessage:
         error instanceof SyntaxError
@@ -111,3 +114,4 @@ export async function getHighScoresFromImportFile(file) {
     };
   }
 }
+

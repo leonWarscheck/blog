@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
-
+// ! vi usefaketimers, mocking
+// ! add colorsArray + datashape @example
 /**
  * Returns color classNames in rotation at a set interval, as a visual animation
  * effect in the SymbolTrainer title in the intro section. 

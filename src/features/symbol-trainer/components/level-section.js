@@ -27,7 +27,7 @@ export default function LevelSection() {
   }, [levelId]);
 
   return (
-    <section id="level" className={`flex grow flex-col`}>
+    <section aria-label="level-section" className={`flex grow flex-col`}>
       <div className="mx-auto my-auto max-h-[50dvh] w-full max-w-2xl overflow-scroll px-4">
         <ul
           // Lists all levels and their properties from predefined levels object,
@@ -78,9 +78,9 @@ export default function LevelSection() {
                       {level.string}
                     </span>
                     <span className="ml-8">WPM</span>
-                    <span className="ml-4 font-semibold">
+                    <span className="ml-4 font-semibold min-w-8 text-right">
                       {score?.toString().length === 1
-                        ? score?.toString().padStart(3, '0')
+                        ? score?.toString().padStart(2, '0')
                         : score || '00'}
                     </span>
                   </h4>

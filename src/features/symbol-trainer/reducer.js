@@ -57,7 +57,6 @@ export const userFailed = () => ({ type: 'userFailed' });
 /*
 action creators: loading and init related 
 */
-
 // dispatched by useEffect on initial symbol-trainer page load
 export const loadSymbolTrainer = () => ({ type: 'loadSymbolTrainer' });
 
@@ -118,9 +117,9 @@ const handleStateSyncFromLocalStorage = (
   { levelId, backupDate, highScores },
 ) => ({
   ...state,
-  levelId: levelId || 1,
-  backupDate: backupDate || '',
-  highScores: highScores || {},
+  ...(levelId && { levelId }),
+  ...(backupDate && { backupDate }),
+  ...(highScores && { highScores }),
 });
 
 const changeHighScores = (state, highScores) => ({
@@ -271,12 +270,12 @@ export const selectStartTime = state => state.startTime;
 const selectEndTime = state => state.endTime;
 
 export const selectCurrentWpm = state => {
-  const endTime = selectEndTime(state);
   const startTime = selectStartTime(state);
+  const endTime = selectEndTime(state);
 
   // prevent Infinity
-  if (!endTime || endTime <= startTime) {
-    return '00';
+  if (!endTime) {
+    return '';
   }
 
   const winTime = endTime - startTime;
@@ -318,9 +317,18 @@ selectors: backup related
 
 export const selectBackupDate = state => state.backupDate;
 
+export const selectFormattedBackupDate = state => {
+  const backupDate = selectBackupDate(state);
+  if (!backupDate) return 'never';
+  return new Date(backupDate).toISOString().slice(0, 10);
+};
+
 export const selectBackupDifference = (state, now) => {
+  const backupDate = selectBackupDate(state);
+  if (!backupDate) return 0;
+
   const differenceInHours = Math.round(
-    (now - new Date(selectBackupDate(state))) / (1000 * 60 * 60),
+    (now - new Date(backupDate)) / (1000 * 60 * 60),
   );
   return differenceInHours;
 };

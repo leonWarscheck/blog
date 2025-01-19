@@ -3,8 +3,8 @@ import { useContext } from 'react';
 import {
   backupDownloadClicked,
   importBackupClicked,
-  selectBackupDate,
   selectBackupDifference,
+  selectFormattedBackupDate,
   selectImportMessage,
 } from '../reducer';
 import { SymbolTrainerContext } from '../symbol-trainer-page';
@@ -12,12 +12,12 @@ import { SymbolTrainerContext } from '../symbol-trainer-page';
 export default function SaveSection() {
   const { state, dispatch } = useContext(SymbolTrainerContext);
 
-  const backupDate = selectBackupDate(state);
+  const backupDate = selectFormattedBackupDate(state);
   const backupDifference = selectBackupDifference(state, new Date());
   const message = selectImportMessage(state);
 
   return (
-    <section id="save" className={`flex grow`}>
+    <section aria-label="save-section" className={`flex grow`}>
       <div className="mx-auto my-auto flex max-h-[30dvh] w-full max-w-2xl flex-col px-4 pt-12 text-neutral-400">
         <h2 className="mb-4 text-center text-2xl font-bold">
           Additional Saving Options
@@ -61,8 +61,8 @@ export default function SaveSection() {
           </div>
         </div>
         <p className={`mb-4 flex justify-center text-neutral-500`}>
-          Last backup download was on {backupDate?.slice(0, 10) || 'never'},
-          about {backupDifference || 0}h ago.
+          Last backup download was on {backupDate},
+          about {backupDifference}h ago.
         </p>
         <p
           className={`flex min-h-4 justify-center ${
@@ -71,7 +71,7 @@ export default function SaveSection() {
               : 'text-red-500'
           } `}
         >
-          {message || ''}
+          {message}
         </p>
       </div>
     </section>
