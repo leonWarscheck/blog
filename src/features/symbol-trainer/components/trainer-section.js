@@ -37,6 +37,7 @@ export default function TrainerSection() {
   return (
     <section
       id="trainer"
+      aria-label="trainer-section"
       className={`${fontMono} mx-auto flex w-full max-w-2xl grow flex-col px-4`}
     >
       <div className="relative mx-auto my-auto flex overflow-hidden text-left text-lg">
@@ -49,7 +50,6 @@ export default function TrainerSection() {
         // consistent.
         >
           <input
-            id="trainerInput"
             autoFocus={true}
             onBlur={handleBlur}
             disabled={isWin || isFail}
@@ -62,16 +62,16 @@ export default function TrainerSection() {
             className={`absolute z-10 my-auto w-full bg-transparent tracking-widerer focus:outline-none ${trainerColorClasses} `}
           />
           <p
-            id="'curtain' between levelString and inputString"
             className="pointer-events-none absolute bg-neutral-700 tracking-widerer text-neutral-700"
           >
             {inputString}
           </p>
         </div>
-        <p id="space/placeholder" className="tracking-widerer text-neutral-400">
+        <p className="tracking-widerer text-neutral-400">
           {levelString}
         </p>
         <p
+          aria-label="current-wpm-score"
           className={`ml-4 min-w-6 ${(isWin ? 'block' : 'invisible') + ' ' + trainerColorClasses} `}
         >
           {currentWpm}

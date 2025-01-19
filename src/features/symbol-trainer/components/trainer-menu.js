@@ -25,7 +25,7 @@ export default function MenuTrainer() {
 
   return (
     <nav
-      id="trainer-menu"
+      aria-label="trainer-menu"
       className="mx-auto mb-2 flex w-full max-w-2xl px-4 text-neutral-500"
     >
       <ul className="flex w-full">
@@ -35,7 +35,8 @@ export default function MenuTrainer() {
           </button>
         </li>{' '}
         <li className="ml-auto mr-4 mt-px font-medium hover:text-neutral-200">
-          <button onClick={() => handleToggle('levelSection')}>
+          {/* ! unique button grab */}
+          <button onClick={() => handleToggle('levelSection')}> 
             Level&nbsp;
             {levelId.toString().length === 1
               ? levelId.toString().padStart(2, '0')

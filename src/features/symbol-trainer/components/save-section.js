@@ -17,7 +17,7 @@ export default function SaveSection() {
   const message = selectImportMessage(state);
 
   return (
-    <section id="save" className={`flex grow`}>
+    <section aria-label="save-section" className={`flex grow`}>
       <div className="mx-auto my-auto flex max-h-[30dvh] w-full max-w-2xl flex-col px-4 pt-12 text-neutral-400">
         <h2 className="mb-4 text-center text-2xl font-bold">
           Additional Saving Options

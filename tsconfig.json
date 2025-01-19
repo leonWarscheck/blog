@@ -26,6 +26,6 @@
     "src/pages/index.js",
     "../_notes/[id].js",
     "tailwind.config.js"
-, "playwright.config.js"  ],
+, "playwright.config.js", "end-to-end/jan.js"  ],
   "exclude": ["node_modules"]
 }

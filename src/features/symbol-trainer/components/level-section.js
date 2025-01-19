@@ -27,7 +27,7 @@ export default function LevelSection() {
   }, [levelId]);
 
   return (
-    <section id="level" className={`flex grow flex-col`}>
+    <section aria-label="level-section" className={`flex grow flex-col`}>
       <div className="mx-auto my-auto max-h-[50dvh] w-full max-w-2xl overflow-scroll px-4">
         <ul
           // Lists all levels and their properties from predefined levels object,
