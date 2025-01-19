@@ -16,7 +16,7 @@ import {
 import { SymbolTrainerContext } from '../symbol-trainer-page';
 import { useCustomInputFocusBehaviour } from '../use-custom-input-focus-behaviour';
 import { useLevelNavigationShortcut } from '../use-level-navigation-shortcut';
-// ! e2e all react components
+
 export default function TrainerSection() {
   const { state, dispatch } = useContext(SymbolTrainerContext);
   const inputRef = useRef(null);
@@ -31,9 +31,7 @@ export default function TrainerSection() {
 
   // The following hooks are not managed via sagas, because they are handling
   // DOM-events:
-
   const [handleBlur] = useCustomInputFocusBehaviour(inputRef, isWin, isFail);
-
   useLevelNavigationShortcut(levelId, levels, levelChosenByShortcut, dispatch);
 
   return (

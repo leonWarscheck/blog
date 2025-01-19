@@ -25,8 +25,6 @@ import {
   importBackupClicked,
   importStatusMessageRecieved,
   stateSyncedFromLocalStorage,
-  levelChosenByShortcut,
-  levelClicked,
   newHighScoreAchieved,
   loadSymbolTrainer,
   selectBackupDate,

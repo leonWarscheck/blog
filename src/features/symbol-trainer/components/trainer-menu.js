@@ -25,7 +25,7 @@ export default function MenuTrainer() {
 
   return (
     <nav
-      id="menu"
+      id="trainer-menu"
       className="mx-auto mb-2 flex w-full max-w-2xl px-4 text-neutral-500"
     >
       <ul className="flex w-full">

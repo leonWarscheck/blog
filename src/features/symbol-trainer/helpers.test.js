@@ -110,6 +110,8 @@ describe('getHighScoresFromImportFile()', () => {
       type: 'application/json',
     });
 
+    // Ensures the catch block has to be reached, so the try block has to
+    // produce an error.
     expect.assertions(1);
 
     try {
@@ -120,6 +122,7 @@ describe('getHighScoresFromImportFile()', () => {
       expect(actual).toEqual(expected);
     }
   });
+
   test('given: corrupted JSON file, should: throw Reading Error', async () => {
     const brokenFile = {
       text: () => {
@@ -127,6 +130,8 @@ describe('getHighScoresFromImportFile()', () => {
       },
     };
 
+    // Ensures the catch block has to be reached, so the try block has to
+    // produce an error.
     expect.assertions(1)
     
     try {
