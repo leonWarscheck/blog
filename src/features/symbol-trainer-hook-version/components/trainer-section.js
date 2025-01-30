@@ -24,8 +24,7 @@ export default function TrainerSection({
 
   // loading levelString and saving re-entrypoint (lastLevel)
   useEffect(() => {
-    setLevelString(levels[levelId]?.string);
-    saveLastLevel(levelId);
+    setLevelString(levels[levelId - 1]?.string);
   }, [levelId]);
 
   // main typing trainer logic
@@ -62,6 +61,7 @@ export default function TrainerSection({
   return (
     <section
       id="trainer"
+      aria-label="trainer-section"
       className={`mx-auto flex w-full max-w-2xl grow flex-col px-4`}
     >
       <div className="relative mx-auto my-auto flex overflow-hidden text-left font-mono text-lg">
@@ -88,6 +88,7 @@ export default function TrainerSection({
           {levelString}
         </p>
         <p
+          aria-label="current-wpm-score"
           className={`ml-4 min-w-6 ${
             (trainerState === 'win' ? 'block' : 'invisible') +
             ' ' +

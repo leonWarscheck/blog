@@ -5,6 +5,13 @@ export default function IntroSection({ setSection }) {
     ['emerald-la', 'violet-500', 'red-500', 'yellow-la'],
     1111,
   );
+  const handleHelpSectionClicked = () => {
+    setSection('helpSection');
+  };
+
+  const handleTrainerSectionClicked = () => {
+    setSection('trainerSection');
+  };
 
   return (
     <section id="info" className={`mx-auto flex w-full max-w-2xl grow px-4`}>
@@ -16,13 +23,13 @@ export default function IntroSection({ setSection }) {
         </h2>
         <p className="space-x-2 text-neutral-400">
           <button
-            onClick={() => setSection('infoSection')}
+            onClick={handleHelpSectionClicked}
             className="underline hover:text-neutral-300"
           >
             Instructions / Help
           </button>{' '}
           <button
-            onClick={() => setSection('trainerSection')}
+            onClick={handleTrainerSectionClicked}
             className="underline hover:text-neutral-300"
           >
             SymbolTrainer

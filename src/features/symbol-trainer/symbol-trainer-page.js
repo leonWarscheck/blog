@@ -36,6 +36,7 @@ export default function TrainerPage() {
     initialState,
   );
 
+  // todo: maybe switch to url based approach in the future
   const section = selectSection(state);
 
   useEffect(() => {

@@ -1,13 +1,14 @@
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 
-import InfoSection from './components/info-section';
+import HelpSection from './components/help-section';
 import IntroSection from './components/intro-section';
 import LevelSection from './components/level-section';
 import ResponsiveNote from './components/responsive-note';
 import SaveSection from './components/save-section';
 import MenuTrainer from './components/trainer-menu';
 import TrainerSection from './components/trainer-section';
+import { saveLastLevel } from './helpers';
 
 export default function SymbolTrainerPage() {
   const [section, setSection] = useState('introSection');
@@ -24,6 +25,10 @@ export default function SymbolTrainerPage() {
     setScores(scores);
   }, []);
 
+  useEffect(() => {
+    saveLastLevel(levelId);
+  }, [levelId]);
+
   return (
     <main className="flex grow flex-col bg-neutral-700">
       <Head>
@@ -37,7 +42,7 @@ export default function SymbolTrainerPage() {
           {...{ setSection, setLevelId, scores, setScores, levelId }}
         />
       )}
-      {section === 'infoSection' && <InfoSection />}
+      {section === 'helpSection' && <HelpSection />}
       {section === 'introSection' && <IntroSection {...{ setSection }} />}
 
       {section === 'saveSection' && <SaveSection {...{ scores, setScores }} />}

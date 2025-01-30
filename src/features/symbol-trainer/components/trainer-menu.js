@@ -8,12 +8,11 @@ import {
 } from '../reducer';
 import { SymbolTrainerContext } from '../symbol-trainer-page';
 
-export default function MenuTrainer() {
+export default function MenuTrainer({ onSectionChange, section }) {
   const { state, dispatch } = useContext(SymbolTrainerContext);
 
   const highScore = selectCurrentLevelHighScore(state);
   const levelId = selectLevelId(state);
-  const section = selectSection(state);
 
   const handleToggle = sectionToToggle => {
     if (section === sectionToToggle) {

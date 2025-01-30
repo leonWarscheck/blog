@@ -3,7 +3,7 @@
 // ! just left in the project for demonstration purposes in comparison to the
 // ! redux pattern approach.
 
-export default function InfoSection() {
+export default function HelpSection() {
   return (
     <section
       id="info"
