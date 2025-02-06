@@ -38,9 +38,9 @@ import {
   selectHighScores,
   typingEndedByWinning,
   typingStarted,
-  userFailed,
+  resetOnUserFailed,
+  resetOnUserWon,
   userTypedInTrainerInput,
-  userWon,
   highScoresImported,
 } from './reducer';
 
@@ -51,7 +51,7 @@ trainerSection logic
 export function* handleUserTypedInTrainerInput() {
   if (yield select(selectIsFail)) {
     yield delay(1000);
-    yield put(userFailed());
+    yield put(resetOnUserFailed());
     return;
   }
 
@@ -85,7 +85,7 @@ export function* handleUserTypedInTrainerInput() {
     }
 
     yield delay(2000);
-    yield put(userWon());
+    yield put(resetOnUserWon());
   }
 }
 

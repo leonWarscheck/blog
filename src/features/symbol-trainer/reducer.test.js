@@ -18,8 +18,8 @@ import {
   selectHighScores,
   highScoresImported,
   newHighScoreAchieved,
-  userFailed,
-  userWon,
+  resetOnUserFailed,
+  resetOnUserWon,
   selectCurrentLevelHighScore,
   stateSyncedFromLocalStorage,
   selectTrainerColorClasses,
@@ -149,8 +149,8 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: userTypedInTrainerInput() and userWon(), should: return ""', () => {
-      const actions = [userTypedInTrainerInput('78637'), userWon()];
+    test('given: userTypedInTrainerInput() and resetOnUserWon(), should: return ""', () => {
+      const actions = [userTypedInTrainerInput('78637'), resetOnUserWon()];
       const state = actions.reduce(
         symbolTrainerReducer,
         symbolTrainerReducer(),
@@ -162,8 +162,8 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: userTypedInTrainerInput() and userFailed(), should: return ""', () => {
-      const actions = [userTypedInTrainerInput('8'), userFailed()];
+    test('given: userTypedInTrainerInput() and resetOnUserFailed(), should: return ""', () => {
+      const actions = [userTypedInTrainerInput('8'), resetOnUserFailed()];
       const state = actions.reduce(
         symbolTrainerReducer,
         symbolTrainerReducer(),
@@ -277,11 +277,11 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: typingStarted(), userTypedInTrainerInput() and userWon(), should: return ""', () => {
+    test('given: typingStarted(), userTypedInTrainerInput() and resetOnUserWon(), should: return ""', () => {
       const actions = [
         typingStarted(Date.parse('2025-01-11T18:26:07.429Z')),
         userTypedInTrainerInput('78637'),
-        userWon(),
+        resetOnUserWon(),
       ];
       const state = actions.reduce(
         symbolTrainerReducer,
@@ -294,11 +294,11 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: typingStarted(), userTypedInTrainerInput() and userFailed(), should: return ""', () => {
+    test('given: typingStarted(), userTypedInTrainerInput() and resetOnUserFailed(), should: return ""', () => {
       const actions = [
         typingStarted(Date.parse('2025-01-11T18:26:07.429Z')),
         userTypedInTrainerInput('783'),
-        userFailed(),
+        resetOnUserFailed(),
       ];
       const state = actions.reduce(
         symbolTrainerReducer,
@@ -354,11 +354,11 @@ describe('symbolTrainerReducer', () => {
     });
 
     //! needed?
-    test('given: typingStarted(), userTypedInTrainerInput(), and userWon(), should: return ""', () => {
+    test('given: typingStarted(), userTypedInTrainerInput(), and resetOnUserWon(), should: return ""', () => {
       const actions = [
         typingStarted(Date.parse('2025-01-11T18:26:07.429Z')),
         userTypedInTrainerInput('78637'),
-        userWon(),
+        resetOnUserWon(),
       ];
       const state = actions.reduce(
         symbolTrainerReducer,
@@ -371,11 +371,11 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: typingStarted(), userTypedInTrainerInput(), and userFailed(), should: return ""', () => {
+    test('given: typingStarted(), userTypedInTrainerInput(), and resetOnUserFailed(), should: return ""', () => {
       const actions = [
         typingStarted(Date.parse('2025-01-11T18:26:07.429Z')),
         userTypedInTrainerInput('783'),
-        userFailed(),
+        resetOnUserFailed(),
       ];
       const state = actions.reduce(
         symbolTrainerReducer,

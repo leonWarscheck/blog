@@ -43,9 +43,9 @@ import {
   selectHighScores,
   typingEndedByWinning,
   typingStarted,
-  userFailed,
+  resetOnUserFailed,
   userTypedInTrainerInput,
-  userWon,
+  resetOnUserWon,
   highScoresImported,
 } from './reducer';
 
@@ -129,8 +129,8 @@ describe('handleUserTypedInTrainerInput()', () => {
 
       // given: nothing, should: delay 2000ms
       expect(clone.next().value).toEqual(delay(2000));
-      // given: nothing, should: dispatch userWon()
-      expect(clone.next().value).toEqual(put(userWon()));
+      // given: nothing, should: dispatch resetOnUserWon()
+      expect(clone.next().value).toEqual(put(resetOnUserWon()));
     }
 
     {
@@ -176,8 +176,8 @@ describe('handleUserTypedInTrainerInput()', () => {
 
       // given: nothing, should: delay 2000ms
       expect(clone.next().value).toEqual(delay(2000));
-      // given: nothing, should: dispatch userWon()
-      expect(clone.next().value).toEqual(put(userWon()));
+      // given: nothing, should: dispatch resetOnUserWon()
+      expect(clone.next().value).toEqual(put(resetOnUserWon()));
     }
 
     {
@@ -253,8 +253,8 @@ describe('handleUserTypedInTrainerInput()', () => {
       expect(clone.next().value).toEqual(select(selectIsFail));
       // given: true (isFail), should: delay 1000ms
       expect(clone.next(true).value).toEqual(delay(1000));
-      // given: nothing, should: dispatch userFailed()
-      expect(clone.next().value).toEqual(put(userFailed()));
+      // given: nothing, should: dispatch resetOnUserFailed()
+      expect(clone.next().value).toEqual(put(resetOnUserFailed()));
 
       // RETURN;
       // given: nothing, should: be done
@@ -470,4 +470,3 @@ describe('rootSaga()', () => {
     expect(saga.next().done).toBe(true);
   });
 });
-
