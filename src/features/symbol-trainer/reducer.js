@@ -1,8 +1,9 @@
+import { pipeline } from 'node:stream';
+
 import { createReducer } from 'react-use';
 import createSagaMiddleware from 'redux-saga';
 
 import levels from './levels.json';
-import { pipeline } from 'stream';
 
 /*
 action creators
@@ -311,7 +312,6 @@ export const selectTrainerStateColor = state => {
       : 'text-' + scoreColor + ' caret-' + scoreColor;
 };
 
-
 /*
 selectors: backup related
 */
@@ -323,7 +323,6 @@ export const selectFormattedBackupDate = state => {
   if (!backupDate) return 'never';
   return new Date(backupDate).toISOString().slice(0, 10);
 };
-
 
 export const selectBackupDifference = (state, now) => {
   const backupDate = selectBackupDate(state);

@@ -2,10 +2,10 @@ import { useContext, useEffect, useRef } from 'react';
 
 import levels from '../levels.json';
 import {
+  levelClicked,
+  sectionClicked,
   selectHighScores,
   selectLevelId,
-  sectionClicked,
-  levelClicked,
 } from '../reducer';
 import { SymbolTrainerContext } from '../symbol-trainer-page';
 import LevelSectionListItem from './level-section-list-item';

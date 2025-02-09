@@ -114,3 +114,16 @@ export async function getHighScoresFromImportFile(file) {
     };
   }
 }
+
+/*
+LevelSectionListItem
+*/
+
+export function getListItemScoreColor(score) {
+  if (score >= 60) return 'text-neutral-400';
+  if (score >= 50) return 'text-emerald-la';
+  if (score >= 40) return 'text-yellow-la';
+  if (score >= 30) return 'text-violet-500';
+  if (score >= 20) return 'text-red-500';
+  return 'text-neutral-500';
+}

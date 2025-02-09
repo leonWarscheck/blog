@@ -10,11 +10,11 @@ export default function IntroSection() {
   const handleHelpSectionClick = () => {
     dispatch(sectionClicked('helpSection'));
   };
-  
+
   const handleTrainerSectionClick = () => {
     dispatch(sectionClicked('trainerSection'));
   };
-  
+
   const textColor = useRotatingColors(
     ['text-emerald-la', 'text-violet-500', 'text-red-500', 'text-yellow-la'],
     1111,

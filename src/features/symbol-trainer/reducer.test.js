@@ -14,7 +14,6 @@ import {
   selectBackupDifference,
   selectCurrentLevelHighScore,
   selectCurrentWpm,
-  selectDefaultColor,
   selectFormattedBackupDate,
   selectHighScores,
   selectImportMessage,
@@ -27,10 +26,6 @@ import {
   selectSection,
   selectStartTime,
   selectTrainerStateColor,
-  selectWinColor,
-  selectWinTime,
-  selectWinTimesPerMinute,
-  selectWordsPerString,
   stateSyncedFromLocalStorage,
   symbolTrainerReducer,
   typingEndedByWinning,
@@ -319,8 +314,6 @@ describe('symbolTrainerReducer', () => {
     });
   });
 
-
-
   describe('selectCurrentWpm', () => {
     test('given: the initial state, should: return ""', () => {
       const state = symbolTrainerReducer();
@@ -563,8 +556,6 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
   });
-
-
 
   describe('selectTrainerStateColor()', () => {
     test('given: the initial state, should: return "text-neutral-200 caret-neutral-200"', () => {
