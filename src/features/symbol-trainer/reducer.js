@@ -1,27 +1,8 @@
 import { createReducer } from 'react-use';
-import {
-  prop,
-  propOr,
-  pipe,
-  subtract,
-  equals,
-  converge,
-  __,
-  nth,
-  when,
-  multiply,
-  divide,
-  isEmpty,
-  cond,
-  always,
-  isNil,
-  T,
-  useWith,
-  identity,
-} from 'ramda';
 import createSagaMiddleware from 'redux-saga';
 
 import levels from './levels.json';
+import { pipeline } from 'stream';
 
 /*
 action creators
@@ -259,36 +240,22 @@ selectors
 selectors: navigation and init related
 */
 
-const trace = message => value => {
-  console.log(message, value);
-  return value;
-};
+export const selectSection = state => state.section;
 
-// export const selectSection = state => state.section;
-export const selectSection = prop('section');
+export const selectLevelId = state => state.levelId;
 
-// export const selectLevelId = state => state.levelId;
-export const selectLevelId = prop('levelId');
+const selectLevel = state => levels[selectLevelId(state) - 1];
 
-// const selectLevel = state => levels[selectLevelId(state) - 1];
-const selectLevel = pipe(selectLevelId, subtract(__, 1), nth(__, levels));
-
-// export const selectLevelString = state => selectLevel(state)?.string;
-export const selectLevelString = pipe(selectLevel, propOr('', 'string'));
+export const selectLevelString = state => selectLevel(state)?.string;
 
 /*
 selectors: trainer related
 */
 
-// export const selectInputString = state => state.inputString;
-export const selectInputString = prop('inputString');
+export const selectInputString = state => state.inputString;
 
-// export const selectIsWin = state =>
-//   selectLevelString(state) === selectInputString(state);
-export const selectIsWin = converge(equals, [
-  selectLevelString,
-  selectInputString,
-]);
+export const selectIsWin = state =>
+  selectLevelString(state) === selectInputString(state);
 
 export const selectIsFail = state => {
   for (const [index, character] of [...selectInputString(state)].entries()) {
@@ -299,146 +266,73 @@ export const selectIsFail = state => {
   return false;
 };
 
-// export const selectStartTime = state => state.startTime;
-export const selectStartTime = prop('startTime');
+export const selectStartTime = state => state.startTime;
 
-// const selectEndTime = state => state.endTime;
-export const selectEndTime = prop('endTime');
+export const selectEndTime = state => state.endTime;
 
-// export const selectCurrentWpm = state => {
-//   const startTime = selectStartTime(state);
-//   const endTime = selectEndTime(state);
+export const selectCurrentWpm = state => {
+  const startTime = selectStartTime(state);
+  const endTime = selectEndTime(state);
 
-//   // prevent Infinity
-//   if (!endTime) {
-//     return '';
-//   }
+  // prevent Infinity
+  if (!endTime) {
+    return '';
+  }
 
-//   const winTime = endTime - startTime;
-//   const wordsPerString = selectLevelString(state).length / 5;
-//   const winTimesPerMinute = 60_000 / winTime;
+  const winTime = endTime - startTime;
+  const wordsPerString = selectLevelString(state).length / 5;
+  const winTimesPerMinute = 60_000 / winTime;
 
-//   return Math.round(wordsPerString * winTimesPerMinute);
-// };
-// export const selectCurrentWpm = converge(
-//   (endTime, startTime, levelString) =>
-//     when(
-//       () => isEmpty(endTime),
-//       () => '',
-//     )(
-//       Math.round(
-//         multiply(
-//           divide(levelString.length, 5),
-//           divide(60_000, endTime - startTime),
-//         ),
-//       ),
-//     ),
-//   [selectEndTime, selectStartTime, selectLevelString],
-// );
+  return Math.round(wordsPerString * winTimesPerMinute);
+};
 
-export const selectCurrentWpm = converge(
-  (endTime, startTime, levelString) =>
-    when(
-      () => isEmpty(endTime),
-      () => '',
-    )(() => {
-      // Named calculations for clarity
-      const winTimeMs = endTime - startTime;
-      const wordsPerString = divide(levelString.length, 5);
-      const winTimesPerMinute = divide(60_000, winTimeMs);
-      
-      return Math.round(multiply(wordsPerString, winTimesPerMinute));
-    })(),
-  [selectEndTime, selectStartTime, selectLevelString],
-);
+export const selectHighScores = state => state.highScores;
 
-// export const selectHighScores = state => state.highScores;
-export const selectHighScores = prop('highScores');
+export const selectCurrentLevelHighScore = state =>
+  selectHighScores(state)?.[selectLevelId(state)] || 0;
 
-// export const selectCurrentLevelHighScore = state =>
-//   selectHighScores(state)?.[selectLevelId(state)] || 0;
-//
-// export const selectCurrentLevelHighScore = converge(
-//   (levelId, highScores) => highScores?.[levelId] || 0,
-//   [selectLevelId, selectHighScores]
-// );
-export const selectCurrentLevelHighScore = converge(
-  (levelId, highScores) => propOr(0, levelId, highScores),
-  [selectLevelId, selectHighScores],
-);
+export const selectScoreColor = state => {
+  const score = selectCurrentLevelHighScore(state);
+  if (score >= 60) return 'neutral-200';
+  if (score >= 50) return 'emerald-la';
+  if (score >= 40) return 'yellow-la';
+  if (score >= 30) return 'violet-500';
+  if (score >= 20) return 'red-500';
+  return 'neutral-200';
+};
 
-export const selectTrainerColorClasses = state => {
-  const trainerColor =
-    selectCurrentLevelHighScore(state) >= 60
-      ? 'neutral-200'
-      : selectCurrentLevelHighScore(state) >= 50
-        ? 'emerald-la'
-        : selectCurrentLevelHighScore(state) >= 40
-          ? 'yellow-la'
-          : selectCurrentLevelHighScore(state) >= 30
-            ? 'violet-500'
-            : selectCurrentLevelHighScore(state) >= 20
-              ? 'red-500 '
-              : 'neutral-200';
+export const selectTrainerStateColor = state => {
+  const scoreColor = selectScoreColor(state);
 
   return selectIsFail(state)
     ? 'text-neutral-400'
     : selectIsWin(state)
-      ? 'text-' + trainerColor
-      : 'text-' + trainerColor + ' caret-' + trainerColor;
+      ? 'text-' + scoreColor
+      : 'text-' + scoreColor + ' caret-' + scoreColor;
 };
 
-// ! split in selectScoreColor and selectTrainerStateColor
-// ! + check if levelSection li component can share same color selectors
-// ! + try to tdd that
-export const selectTrainerColorClasses2 = converge(
-  (currentLevelHighScore, isFail, isWin) => {
-    cond([
-      [isFail, always('text-neutral-400')],
-      [isWin, always('text-' + trainerColor)],
-      [T, always('text-' + trainerColor + ' caret-' + trainerColor)],
-    ]);
-  },
-  [selectCurrentLevelHighScore, selectIsFail, selectIsWin],
-);
 
 /*
 selectors: backup related
 */
 
-// export const selectBackupDate = state => state.backupDate;
-export const selectBackupDate = prop('backupDate');
+export const selectBackupDate = state => state.backupDate;
 
-// export const selectFormattedBackupDate = state => {
-//   const backupDate = selectBackupDate(state);
-//   if (!backupDate) return 'never';
-//   return new Date(backupDate).toISOString().slice(0, 10);
-// };
-export const selectFormattedBackupDate = pipe(
-  selectBackupDate,
-  cond([
-    [isEmpty, always('never')],
-    [T, date => new Date(date).toISOString().slice(0, 10)],
-  ]),
-);
+export const selectFormattedBackupDate = state => {
+  const backupDate = selectBackupDate(state);
+  if (!backupDate) return 'never';
+  return new Date(backupDate).toISOString().slice(0, 10);
+};
 
-// export const selectBackupDifference = (state, now) => {
-//   const backupDate = selectBackupDate(state);
-//   if (!backupDate) return 0;
-//
-//   const differenceInHours = Math.round(
-//     (now - new Date(backupDate)) / (1000 * 60 * 60),
-//   );
-//   return differenceInHours;
-// };
-export const selectBackupDifference = useWith(
-  (backupDate, now) =>
-    cond([
-      [isEmpty, always(0)],
-      [T, date => Math.round((now - new Date(date)) / (1000 * 60 * 60))],
-    ])(backupDate),
-  [selectBackupDate, identity],
-);
 
-// export const selectImportMessage = state => state.importMessage;
-export const selectImportMessage = prop('importMessage');
+export const selectBackupDifference = (state, now) => {
+  const backupDate = selectBackupDate(state);
+  if (!backupDate) return 0;
+
+  const differenceInHours = Math.round(
+    (now - new Date(backupDate)) / (1000 * 60 * 60),
+  );
+  return differenceInHours;
+};
+
+export const selectImportMessage = state => state.importMessage;

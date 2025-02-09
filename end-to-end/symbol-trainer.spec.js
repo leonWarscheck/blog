@@ -1,6 +1,7 @@
+import fs from 'node:fs';
+import path from 'node:path';
+
 import { expect, test } from '@playwright/test';
-import fs from 'fs';
-import path from 'path';
 
 test.describe('symbol-trainer desktop', () => {
   test.use({ viewport: { width: 1900, height: 1080 } });
@@ -120,6 +121,42 @@ test.describe('symbol-trainer desktop', () => {
 
     // Check if the chosen levelstring is rendered in the trainer-section
     await expect(page.getByLabel('trainer-section')).toContainText('7-/,/');
+  });
+
+  test('given: click on level-section button, then on li Level 42, then back on level-section button, should: render li Level 42 visible, scrolled into view', async ({
+    page,
+  }) => {
+    await page.goto('/symbol-trainer');
+
+    await page.getByRole('button', { name: /Level/i }).click();
+    await page
+      .getByRole('button', { name: /Level 42 \(lowerCase, 5 \)/i })
+      .click();
+    await page.getByRole('button', { name: /Level/i }).click();
+
+    await page.evaluate(() => {
+      return new Promise(resolve => {
+        const element = document.querySelector(
+          '[aria-label="level-section"] > div',
+        );
+
+        let scrollTimeout;
+        element.addEventListener(
+          'scroll',
+          () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(resolve, 100);
+          },
+          { once: true },
+        );
+      });
+    });
+
+    await expect(
+      page.getByRole('button', {
+        name: /Level 42 \(lowerCase, 5 \)/i,
+      }),
+    ).toBeInViewport();
   });
 
   test('given: typed and won in trainer-section, should: render new highscore in trainer-menu next to level-section button', async ({

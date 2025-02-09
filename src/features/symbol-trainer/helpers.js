@@ -1,4 +1,4 @@
-import { levelClicked, levelChosenByShortcut } from './reducer';
+import { levelChosenByShortcut, levelClicked } from './reducer';
 
 /*
 handleLoadSymbolTrainer
@@ -114,4 +114,3 @@ export async function getHighScoresFromImportFile(file) {
     };
   }
 }
-

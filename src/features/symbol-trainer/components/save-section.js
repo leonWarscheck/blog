@@ -16,6 +16,17 @@ export default function SaveSection() {
   const backupDifference = selectBackupDifference(state, new Date());
   const message = selectImportMessage(state);
 
+  const handleBackupDownloadClicked = () => {
+    dispatch(backupDownloadClicked(new Date().toString()));
+  };
+
+  const handleImportBackupClicked = event => {
+    dispatch(importBackupClicked(event.target.files[0]));
+  };
+
+  const messageColor =
+    message === 'Import Successful.' ? 'text-emerald-la' : 'text-red-500';
+
   return (
     <section aria-label="save-section" className={`flex grow`}>
       <div className="mx-auto my-auto flex max-h-[30dvh] w-full max-w-2xl flex-col px-4 pt-12 text-neutral-400">
@@ -33,9 +44,7 @@ export default function SaveSection() {
             // Downloads a backup of the JSON object from localStorage and sets
             // the latest backupDate to now, so the user can later see how long
             // it has been since the last backup. (see `sagas.js`)
-            onClick={() =>
-              dispatch(backupDownloadClicked(new Date().toString()))
-            }
+            onClick={handleBackupDownloadClicked}
           >
             Download Backup File
           </button>
@@ -46,9 +55,7 @@ export default function SaveSection() {
               accept=".json"
               // Imports JSON backup files TO localStorage and sets a success of
               // fail message, which gets rendered below.
-              onChange={event =>
-                dispatch(importBackupClicked(event.target.files[0]))
-              }
+              onChange={handleImportBackupClicked}
               id="file-upload"
               className="hidden"
             />
@@ -61,16 +68,10 @@ export default function SaveSection() {
           </div>
         </div>
         <p className={`mb-4 flex justify-center text-neutral-500`}>
-          Last backup download was on {backupDate},
-          about {backupDifference}h ago.
+          Last backup download was on {backupDate}, about {backupDifference}h
+          ago.
         </p>
-        <p
-          className={`flex min-h-4 justify-center ${
-            message === 'Import Successful.'
-              ? 'text-emerald-la'
-              : 'text-red-500'
-          } `}
-        >
+        <p className={`flex min-h-4 justify-center ${messageColor}`}>
           {message}
         </p>
       </div>

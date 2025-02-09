@@ -1,34 +1,41 @@
 import { describe, expect, test } from 'vitest';
+
 import {
-  sectionClicked,
-  selectSection,
-  selectLevelId,
+  backupDownloadClicked,
+  highScoresImported,
+  importStatusMessageRecieved,
   levelChosenByShortcut,
   levelClicked,
-  symbolTrainerReducer,
-  selectLevelString,
-  userTypedInTrainerInput,
-  selectInputString,
-  selectIsWin,
-  selectIsFail,
-  selectStartTime,
-  typingStarted,
-  selectCurrentWpm,
-  typingEndedByWinning,
-  selectHighScores,
-  highScoresImported,
   newHighScoreAchieved,
   resetOnUserFailed,
   resetOnUserWon,
-  selectCurrentLevelHighScore,
-  stateSyncedFromLocalStorage,
-  selectTrainerColorClasses,
+  sectionClicked,
   selectBackupDate,
-  backupDownloadClicked,
   selectBackupDifference,
+  selectCurrentLevelHighScore,
+  selectCurrentWpm,
+  selectDefaultColor,
   selectFormattedBackupDate,
+  selectHighScores,
   selectImportMessage,
-  importStatusMessageRecieved,
+  selectInputString,
+  selectIsFail,
+  selectIsWin,
+  selectLevelId,
+  selectLevelString,
+  selectScoreColor,
+  selectSection,
+  selectStartTime,
+  selectTrainerStateColor,
+  selectWinColor,
+  selectWinTime,
+  selectWinTimesPerMinute,
+  selectWordsPerString,
+  stateSyncedFromLocalStorage,
+  symbolTrainerReducer,
+  typingEndedByWinning,
+  typingStarted,
+  userTypedInTrainerInput,
 } from './reducer';
 
 describe('symbolTrainerReducer', () => {
@@ -312,6 +319,8 @@ describe('symbolTrainerReducer', () => {
     });
   });
 
+
+
   describe('selectCurrentWpm', () => {
     test('given: the initial state, should: return ""', () => {
       const state = symbolTrainerReducer();
@@ -353,7 +362,6 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    //! needed?
     test('given: typingStarted(), userTypedInTrainerInput(), and resetOnUserWon(), should: return ""', () => {
       const actions = [
         typingStarted(Date.parse('2025-01-11T18:26:07.429Z')),
@@ -521,11 +529,48 @@ describe('symbolTrainerReducer', () => {
     });
   });
 
-  describe('selectTrainerColorClasses()', () => {
+  describe('selectScoreColor()', () => {
+    test('given: the initial state, should: return "neutral-200"', () => {
+      const state = symbolTrainerReducer();
+
+      const actual = selectScoreColor(state);
+      const expected = 'neutral-200';
+
+      expect(actual).toEqual(expected);
+    });
+
+    test('given: currentLevelHighScore of 42, should: return "yellow-la"', () => {
+      const state = symbolTrainerReducer(
+        undefined,
+        newHighScoreAchieved({ 1: 42 }),
+      );
+
+      const actual = selectScoreColor(state);
+      const expected = 'yellow-la';
+
+      expect(actual).toEqual(expected);
+    });
+
+    test('given: currentLevelHighScore of 21, should: return "red-500"', () => {
+      const state = symbolTrainerReducer(
+        undefined,
+        newHighScoreAchieved({ 1: 21 }),
+      );
+
+      const actual = selectScoreColor(state);
+      const expected = 'red-500';
+
+      expect(actual).toEqual(expected);
+    });
+  });
+
+
+
+  describe('selectTrainerStateColor()', () => {
     test('given: the initial state, should: return "text-neutral-200 caret-neutral-200"', () => {
       const state = symbolTrainerReducer();
 
-      const actual = selectTrainerColorClasses(state);
+      const actual = selectTrainerStateColor(state);
       const expected = 'text-neutral-200 caret-neutral-200';
 
       expect(actual).toEqual(expected);
@@ -542,7 +587,7 @@ describe('symbolTrainerReducer', () => {
         symbolTrainerReducer(),
       );
 
-      const actual = selectTrainerColorClasses(state);
+      const actual = selectTrainerStateColor(state);
       const expected = 'text-emerald-la';
 
       expect(actual).toEqual(expected);
@@ -559,7 +604,7 @@ describe('symbolTrainerReducer', () => {
         symbolTrainerReducer(),
       );
 
-      const actual = selectTrainerColorClasses(state);
+      const actual = selectTrainerStateColor(state);
       const expected = 'text-emerald-la caret-emerald-la';
 
       expect(actual).toEqual(expected);
@@ -572,7 +617,7 @@ describe('symbolTrainerReducer', () => {
         userTypedInTrainerInput('786f'),
       );
 
-      const actual = selectTrainerColorClasses(state);
+      const actual = selectTrainerStateColor(state);
       const expected = 'text-neutral-400';
 
       expect(actual).toEqual(expected);
@@ -681,7 +726,7 @@ describe('symbolTrainerReducer', () => {
       expect(actual).toEqual(expected);
     });
 
-    test('given: stateSyncedFromLocalStorage() with a backupDate, should: return the difference in hours', () => {
+    test('given: stateSyncedFromLocalStorage() with difference of 1,51h, should: return 2h', () => {
       const state = symbolTrainerReducer(
         undefined,
         stateSyncedFromLocalStorage({
@@ -691,9 +736,26 @@ describe('symbolTrainerReducer', () => {
 
       const actual = selectBackupDifference(
         state,
-        Date.parse('2025-01-11T18:26:07.429Z'),
+        Date.parse('2025-01-11T17:56:07.429Z'),
       );
       const expected = 2;
+
+      expect(actual).toEqual(expected);
+    });
+
+    test('given: stateSyncedFromLocalStorage() with difference of 1,49h, should: return 1h', () => {
+      const state = symbolTrainerReducer(
+        undefined,
+        stateSyncedFromLocalStorage({
+          backupDate: '2025-01-11T16:26:07.429Z',
+        }),
+      );
+
+      const actual = selectBackupDifference(
+        state,
+        Date.parse('2025-01-11T17:55:07.429Z'),
+      );
+      const expected = 1;
 
       expect(actual).toEqual(expected);
     });

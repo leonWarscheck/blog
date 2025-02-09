@@ -1,11 +1,11 @@
-import { defineConfig, devices } from '@playwright/test';
+import path from 'node:path';
 
+import { defineConfig, devices } from '@playwright/test';
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
 import dotenv from 'dotenv';
-import path from 'path';
 dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 /**
@@ -36,7 +36,7 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'], isMobile: false, },
+      use: { ...devices['Desktop Chrome'], isMobile: false },
     },
 
     // {

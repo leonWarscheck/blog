@@ -9,39 +9,38 @@ import {
 } from 'redux-saga/effects';
 
 import {
+  checkLevelChangeActions,
   downloadHighScoresJSON,
-  getTime,
   getHighScoresFromImportFile,
-  updateHighScoresIfNewHighScore,
+  getTime,
   syncBackupDateToLocalStorage,
+  syncFromLocalStorage,
   syncHighScoresToLocalStorage,
   syncLevelIdToLocalStorage,
-  syncFromLocalStorage,
-  checkLevelChangeActions,
+  updateHighScoresIfNewHighScore,
 } from './helpers';
-
 import {
   backupDownloadClicked,
+  highScoresImported,
   importBackupClicked,
   importStatusMessageRecieved,
-  stateSyncedFromLocalStorage,
-  newHighScoreAchieved,
   loadSymbolTrainer,
+  newHighScoreAchieved,
+  resetOnUserFailed,
+  resetOnUserWon,
   selectBackupDate,
   selectCurrentLevelHighScore,
   selectCurrentWpm,
+  selectHighScores,
   selectInputString,
   selectIsFail,
   selectIsWin,
   selectLevelId,
   selectStartTime,
-  selectHighScores,
+  stateSyncedFromLocalStorage,
   typingEndedByWinning,
   typingStarted,
-  resetOnUserFailed,
-  resetOnUserWon,
   userTypedInTrainerInput,
-  highScoresImported,
 } from './reducer';
 
 /*

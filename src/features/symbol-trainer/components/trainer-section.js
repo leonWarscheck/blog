@@ -10,7 +10,7 @@ import {
   selectIsWin,
   selectLevelId,
   selectLevelString,
-  selectTrainerColorClasses,
+  selectTrainerStateColor,
   userTypedInTrainerInput,
 } from '../reducer';
 import { SymbolTrainerContext } from '../symbol-trainer-page';
@@ -25,14 +25,20 @@ export default function TrainerSection() {
   const inputString = selectInputString(state);
   const isWin = selectIsWin(state);
   const isFail = selectIsFail(state);
-  const trainerColorClasses = selectTrainerColorClasses(state);
+  const trainerColorClasses = selectTrainerStateColor(state);
   const currentWpm = selectCurrentWpm(state);
   const levelId = selectLevelId(state);
+
+  const handleInputChange = event => {
+    dispatch(userTypedInTrainerInput(event.target.value));
+  };
 
   // The following hooks are not managed via sagas, because they are handling
   // DOM-events:
   const [handleBlur] = useCustomInputFocusBehaviour(inputRef, isWin, isFail);
   useLevelNavigationShortcut(levelId, levels, levelChosenByShortcut, dispatch);
+
+  const dynamicCurrentWpmScoreClasses = isWin ? 'block' : 'invisible';
 
   return (
     <section
@@ -56,23 +62,17 @@ export default function TrainerSection() {
             ref={inputRef}
             type="text"
             value={inputString}
-            onChange={event =>
-              dispatch(userTypedInTrainerInput(event.target.value))
-            }
+            onChange={handleInputChange}
             className={`absolute z-10 my-auto w-full bg-transparent tracking-widerer focus:outline-none ${trainerColorClasses} `}
           />
-          <p
-            className="pointer-events-none absolute bg-neutral-700 tracking-widerer text-neutral-700"
-          >
+          <p className="pointer-events-none absolute bg-neutral-700 tracking-widerer text-neutral-700">
             {inputString}
           </p>
         </div>
-        <p className="tracking-widerer text-neutral-400">
-          {levelString}
-        </p>
+        <p className="tracking-widerer text-neutral-400">{levelString}</p>
         <p
           aria-label="current-wpm-score"
-          className={`ml-4 min-w-6 ${(isWin ? 'block' : 'invisible') + ' ' + trainerColorClasses} `}
+          className={`ml-4 min-w-6 ${dynamicCurrentWpmScoreClasses} ${trainerColorClasses}`}
         >
           {currentWpm}
         </p>

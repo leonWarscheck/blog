@@ -76,10 +76,10 @@ export const useSagaReducer = (saga, reducer, initialState) => {
 
 ### Selectors
 
-Selectors are pure functions that access values from the store and localStorage
-(in this case provided via `useContext`). They always only handle one step of
-property access at a time, building on top of each others access logic by
-composing them together.
+Selectors are pure functions that access values from the store (in this case
+provided via `useContext`). They always only handle one step of property access
+at a time, building on top of each others access logic by composing them
+together.
 
 This way, if the data shape changes, you only have to modify the selector
 corresponding to the changed step and not the whole access chain.
@@ -94,7 +94,7 @@ export const selectStartTime = state => state.startTime;
 
 const selectEndTime = state => state.endTime;
 
-// composing "direct accessing" selectors and calculating new values
+// composing selectors to calculate new values
 // from them, which don't neccessarily have to be stored in state
 export const selectCurrentWpm = state => {
   const endTime = selectEndTime(state);
@@ -138,7 +138,7 @@ To isolate the side effects, we wrap all of them into their own helper functions
 Saga `call` effects are pure. They don't actually call the side effect
 functions, but they create a description of an effect (eg. of calling a function
 with arguments). `call(function, argument)` is a plain object, a representation
-of what the Saga Middleware should to later when it processes the saga.
+of what the Saga Middleware should do later when it processes the saga.
 
 This way we can **unit test** the saga generator functions and thereby the logic
 flow within them - safely, without mocking. End-to-End tests, which you can't

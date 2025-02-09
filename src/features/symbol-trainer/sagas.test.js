@@ -1,6 +1,4 @@
-import { describe, expect, test, it } from 'vitest';
 import { cloneableGenerator } from '@redux-saga/testing-utils';
-
 import {
   all,
   call,
@@ -10,56 +8,55 @@ import {
   takeEvery,
   takeLatest,
 } from 'redux-saga/effects';
+import { describe, expect, it, test } from 'vitest';
 
 import {
-  handleUserTypedInTrainerInput,
-  watchUserTypedInTrainerInput,
-  handleLoadSymbolTrainer,
-  watchLoadSymbolTrainer,
-  handleSyncLevelId,
-  watchSyncLevelId,
-  handleBackupDownload,
-  watchBackupDownload,
-  handleImportBackup,
-  rootSaga,
-  watchImportBackup,
-} from './sagas';
-
+  checkLevelChangeActions,
+  downloadHighScoresJSON,
+  getHighScoresFromImportFile,
+  getTime,
+  syncBackupDateToLocalStorage,
+  syncFromLocalStorage,
+  syncHighScoresToLocalStorage,
+  syncLevelIdToLocalStorage,
+  updateHighScoresIfNewHighScore,
+} from './helpers';
 import {
   backupDownloadClicked,
+  highScoresImported,
   importBackupClicked,
   importStatusMessageRecieved,
-  stateSyncedFromLocalStorage,
-  newHighScoreAchieved,
   loadSymbolTrainer,
+  newHighScoreAchieved,
+  resetOnUserFailed,
+  resetOnUserWon,
   selectBackupDate,
   selectCurrentLevelHighScore,
   selectCurrentWpm,
+  selectHighScores,
   selectInputString,
   selectIsFail,
   selectIsWin,
   selectLevelId,
   selectStartTime,
-  selectHighScores,
+  stateSyncedFromLocalStorage,
   typingEndedByWinning,
   typingStarted,
-  resetOnUserFailed,
   userTypedInTrainerInput,
-  resetOnUserWon,
-  highScoresImported,
 } from './reducer';
-
 import {
-  downloadHighScoresJSON,
-  getTime,
-  getHighScoresFromImportFile,
-  updateHighScoresIfNewHighScore,
-  syncBackupDateToLocalStorage,
-  syncHighScoresToLocalStorage,
-  syncLevelIdToLocalStorage,
-  syncFromLocalStorage,
-  checkLevelChangeActions,
-} from './helpers';
+  handleBackupDownload,
+  handleImportBackup,
+  handleLoadSymbolTrainer,
+  handleSyncLevelId,
+  handleUserTypedInTrainerInput,
+  rootSaga,
+  watchBackupDownload,
+  watchImportBackup,
+  watchLoadSymbolTrainer,
+  watchSyncLevelId,
+  watchUserTypedInTrainerInput,
+} from './sagas';
 
 describe('watchUserTypedInTrainerInput()', () => {
   it('listens for userTypedInTrainerInput() and calls handleUserTypedInTrainerInput()', () => {

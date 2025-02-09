@@ -7,7 +7,6 @@ import IntroSection from './components/intro-section';
 import LevelSection from './components/level-section';
 import ResponsiveNote from './components/responsive-note';
 import SaveSection from './components/save-section';
-
 import {
   initialState,
   loadSymbolTrainer,
@@ -20,12 +19,9 @@ import { rootSaga } from './sagas';
 const MenuTrainer = dynamic(() => import('./components/trainer-menu'), {
   ssr: false,
 });
-const TrainerSection = dynamic(
-  () => import('./components/trainer-section'),
-  {
-    ssr: false,
-  },
-);
+const TrainerSection = dynamic(() => import('./components/trainer-section'), {
+  ssr: false,
+});
 
 export const SymbolTrainerContext = createContext('');
 

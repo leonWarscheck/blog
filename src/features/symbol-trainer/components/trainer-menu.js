@@ -15,6 +15,12 @@ export default function MenuTrainer() {
   const levelId = selectLevelId(state);
   const section = selectSection(state);
 
+  const formattedLevelAndScore = `${levelId.toString().padStart(2, '0')} / ${highScore.toString().padStart(2, '0')}`;
+
+  const handleTrainerSectionClick = () => {
+    dispatch(sectionClicked('trainerSection'));
+  };
+
   const handleToggle = sectionToToggle => {
     if (section === sectionToToggle) {
       dispatch(sectionClicked('trainerSection'));
@@ -30,21 +36,11 @@ export default function MenuTrainer() {
     >
       <ul className="flex w-full">
         <li className="font-semibold hover:text-neutral-200">
-          <button onClick={() => dispatch(sectionClicked('trainerSection'))}>
-            SymbolTrainer
-          </button>
+          <button onClick={handleTrainerSectionClick}>SymbolTrainer</button>
         </li>{' '}
         <li className="ml-auto mr-4 mt-px font-medium hover:text-neutral-200">
-          {/* ! unique button grab */}
-          <button onClick={() => handleToggle('levelSection')}> 
-            Level&nbsp;
-            {levelId.toString().length === 1
-              ? levelId.toString().padStart(2, '0')
-              : levelId}
-            &nbsp;/&nbsp;
-            {highScore.toString().length === 1
-              ? highScore.toString().padStart(2, '0')
-              : highScore}
+          <button onClick={() => handleToggle('levelSection')}>
+            Level {formattedLevelAndScore}
           </button>
         </li>
         <li className="mr-4 mt-px font-medium hover:text-neutral-200">

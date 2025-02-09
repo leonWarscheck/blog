@@ -1,8 +1,9 @@
 import { describe, expect, test } from 'vitest';
+
 import {
-  updateHighScoresIfNewHighScore,
-  getHighScoresFromImportFile,
   checkLevelChangeActions,
+  getHighScoresFromImportFile,
+  updateHighScoresIfNewHighScore,
 } from './helpers';
 import { levelChosenByShortcut, levelClicked } from './reducer';
 
@@ -132,8 +133,8 @@ describe('getHighScoresFromImportFile()', () => {
 
     // Ensures the catch block has to be reached, so the try block has to
     // produce an error.
-    expect.assertions(1)
-    
+    expect.assertions(1);
+
     try {
       await getHighScoresFromImportFile(brokenFile);
     } catch (error) {
