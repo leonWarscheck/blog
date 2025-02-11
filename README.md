@@ -2,8 +2,8 @@
 
 > _deployed at: [LeonWarscheck.com](https://leonwarscheck.com)_
 
-> _Explore the repository in a fully functional one-click IDE:
-> https://stackblitz.com/~/github.com/leonWarscheck/blog_
+> _Explore the repository in a fully functional one-click IDE:_
+> https://stackblitz.com/~/github.com/leonWarscheck/blog
 
 Welcome to my blog about webdevelopment.
 
