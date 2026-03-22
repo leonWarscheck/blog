@@ -10,12 +10,12 @@ export default function AboutPage() {
       <section>
         <p>
           <span>Leon Warscheck</span> is a Fullstack JavaScript Developer at
-          ReactSquad. <br />
+          Compelling.ai. <br />
           <br />
           After studying audio engineering he discovered his passion for
           programming and became a webdeveloper. <br />
           <br />
-          He is specialized in React and Node and is currently exploring Remix.
+          He is specialized in React, Node, functional programming and TDD.
           <br />
           <br />
         </p>
